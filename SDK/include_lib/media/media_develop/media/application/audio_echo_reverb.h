@@ -1,0 +1,15 @@
+﻿#ifndef reverb_echo_h__
+#define reverb_echo_h__
+
+#include "asm/reverb_api.h"
+
+REVERBN_API_STRUCT *open_reverb(REVERBN_PARM_SET *reverb_seting, u16 sample_rate);
+void run_reverb(REVERBN_API_STRUCT *reverb_api_obj, short *in, short *out, int len);
+void  close_reverb(REVERBN_API_STRUCT *reverb_api_obj);
+void pause_reverb(REVERBN_API_STRUCT *reverb_api_obj, u8 run_mark);
+
+ECHO_API_STRUCT *open_echo(ECHO_PARM_SET *echo_seting, u16 sample_rate);
+void run_echo(ECHO_API_STRUCT *p_echo_obj, short *in, short *out, int len);
+void  close_echo(ECHO_API_STRUCT *echo_api_obj);
+void  pause_echo(ECHO_API_STRUCT *echo_api_obj, u8 run_mark);
+#endif // reverb_echo_h__
