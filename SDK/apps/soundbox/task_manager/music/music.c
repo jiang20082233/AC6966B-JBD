@@ -36,12 +36,13 @@
 #define LOG_ERROR_ENABLE
 #define LOG_DEBUG_ENABLE
 #define LOG_INFO_ENABLE
-/* #define LOG_DUMP_ENABLE */
+#define LOG_DUMP_ENABLE
 #define LOG_CLI_ENABLE
 #include "debug.h"
 
 #if TCFG_APP_MUSIC_EN
-
+#undef log_i
+#define log_i printf
 ///模式参数结构体
 struct __music_task_parm {
     u8 type;
@@ -139,6 +140,7 @@ static int music_player_scandisk_break(void)
                 ///设备上下线底层推出的设备逻辑盘符是跟跟音乐设备一致的（音乐/录音设备, 详细看接口注释）
                 int str_len   = 0;
                 logo = music_player_get_phy_dev(&str_len);
+                printf("........00000\n");
                 ///响应设备插拔打断
                 if (event->u.dev.event == DEVICE_EVENT_OUT) {
                     log_i("__func__ = %s logo=%s evt_logo=%s %d\n", __FUNCTION__, logo, evt_logo, str_len);
@@ -240,7 +242,7 @@ void music_player_err_deal(int err)
     case MUSIC_PLAYER_ERR_NULL:
         break;
     case MUSIC_PLAYER_ERR_POINT:
-    case MUSIC_PLAYER_ERR_NO_RAM:
+    case MUSIC_PLAYER_ERR_NO_RAM:  
         msg = KEY_MUSIC_PLAYER_QUIT;//退出音乐模式
         break;
     case MUSIC_PLAYER_ERR_DECODE_FAIL:
@@ -289,6 +291,11 @@ void music_player_err_deal(int err)
             dev_manager_set_valid_by_logo(logo, 0);///将设备设置为无效设备
         }
         if (dev_manager_get_total(1) == 0) {
+            #if USER_MUSIC_TO_BT
+                puts(">>> user goto bt mode\n");
+                msg = USER_MSG_TO_BT_MODE;
+                break;
+            #endif
             msg = KEY_MUSIC_PLAYER_QUIT;///没有设备在线， 退出音乐模式
         } else {
             msg = KEY_MUSIC_CHANGE_DEV;///切换设备
@@ -358,8 +365,10 @@ static int music_key_event_opr(struct sys_event *event)
             }
         }
         if (true == breakpoint_vm_read(breakpoint, logo)) {
+        puts(">>> play ccccccc 0\n");
             err = music_player_play_by_breakpoint(logo, breakpoint);
         } else {
+        puts(">>> play ccccccc 1\n");
             err = music_player_play_first_file(logo);
         }
         break;
@@ -473,7 +482,25 @@ static int music_key_event_opr(struct sys_event *event)
         log_i("KEY_MUSIC_DELETE_FILE\n");
         err = music_player_delete_playing_file();
         break;
-
+    #ifdef USER_USB_OR_SD    
+    case KEY_CHANGE_MODE:
+        if(dev_manager_get_total(1)>1){
+            if (music_player_get_dev_cur() && USER_USB_OR_SD) {
+                ///播放的设备与优先级高设备是同一个设备
+                if (0 == strcmp(USER_USB_OR_SD, music_player_get_dev_cur())) {
+                    app_task_put_key_msg(KEY_MUSIC_CHANGE_DEV, 0);
+                    break;
+                }
+            }                    
+        }
+        ret = false;
+        break;
+    #endif
+    case USER_MSG_TO_BT_MODE:
+        puts(">>>> user go to bt mode\n");
+        // extern int user_app_goto_bt(void);
+        user_app_goto_bt();
+        break;
     default:
         ret = false;
         break;
@@ -673,7 +700,22 @@ void app_music_task()
     int msg[32];
     music_task_start();
 
-    int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_MUSIC], 1, music_tone_play_end_callback, (void *)IDEX_TONE_MUSIC);
+    int user_dev_tone_number = IDEX_TONE_MUSIC;
+    
+    #ifdef USER_USB_OR_SD
+    if(dev_manager_get_total(1)>1){
+        if((USER_USB_OR_SD == USER_DEV_USB) || (USER_USB_OR_SD == USER_DEV_SD0) || (USER_USB_OR_SD == USER_DEV_SD1)){
+            if(USER_USB_OR_SD == USER_DEV_USB){
+                user_dev_tone_number = IDEX_TONE_USB;
+            }else{
+                user_dev_tone_number = IDEX_TONE_SD;
+            }
+            dev_manager_set_active_by_logo(/*dev_logo[0]*/USER_USB_OR_SD);
+        }        
+    }
+    #endif
+
+    int err =  tone_play_with_callback_by_name(tone_table[user_dev_tone_number], 1, music_tone_play_end_callback, (void *)IDEX_TONE_MUSIC);
     if (err) {
         music_player_play_start();
     }

@@ -1,5 +1,6 @@
 
 
+
   local_irq_enable = ABSOLUTE(0x117d40);
   local_irq_disable = ABSOLUTE(0x117d44);
   p33_buf = ABSOLUTE(0x117d48);
@@ -208,39 +209,6 @@ pcm_decoder
 
 
 mp3_decoder
-
-
-
-
-
-
-wma_decoder
-
-
-
-
-
-
-flac_decoder
-
-
-
-ape_decoder
-
-
-
-m4a_decoder
-
-
-
-amr_decoder
-
-
-
-dts_decoder
-
-
-
 g729_decoder
 wav_decoder
 );

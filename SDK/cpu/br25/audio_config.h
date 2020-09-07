@@ -42,9 +42,9 @@
 
 #if (TCFG_AUDIO_DAC_CONNECT_MODE == DAC_OUTPUT_MONO_LR_DIFF || \
      TCFG_AUDIO_DAC_CONNECT_MODE == DAC_OUTPUT_DUAL_LR_DIFF)
-#define MAX_ANA_VOL             (21)
+#define MAX_ANA_VOL             (30)
 #else
-#define MAX_ANA_VOL             (25)
+#define MAX_ANA_VOL             (30)
 #endif/*TCFG_AUDIO_DAC_CONNECT_MODE*/
 
 #define MAX_COM_VOL             (22)    // 具体数值应小于联合音量等级的数组大小 (combined_vol_list)
@@ -62,7 +62,7 @@
 
 
 #define SYS_DEFAULT_VOL         	0  //(SYS_MAX_VOL/2)
-#define SYS_DEFAULT_TONE_VOL    	18 //(SYS_MAX_VOL)
+// #define SYS_DEFAULT_TONE_VOL    	28 //(SYS_MAX_VOL)
 #define SYS_DEFAULT_SIN_VOL     	17
 
 #define APP_AUDIO_STATE_IDLE        0

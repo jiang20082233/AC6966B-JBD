@@ -43,7 +43,19 @@ static void  lcd_ui_power_on()
 
 #endif
 }
-
+#if USER_POWER_ON_INIT
+#include "timer.h"
+#include "dev_manager.h"
+void user_power_on_init(void){
+    if(dev_manager_get_total(1)){
+        app_task_switch_to(APP_MUSIC_TASK);
+    }else if(timer_get_ms()>1300){
+        app_task_switch_to(APP_BT_TASK);
+    }else{
+        sys_hi_timeout_add(NULL,user_power_on_init,100);
+    }
+}
+#endif
 static int power_on_init(void)
 {
     ///有些需要在开机提示完成之后再初始化的东西， 可以在这里初始化
@@ -53,7 +65,12 @@ static int power_on_init(void)
 #endif
 
     printf("----->%s, %d\n", __FUNCTION__, __LINE__);
+#if (defined(USER_POWER_ON_INIT) && USER_POWER_ON_INIT)
+    sys_hi_timeout_add(NULL,user_power_on_init,100);
+    return 0;
+#endif
 #if TCFG_APP_BT_EN
+    puts(">>>>>>>>>>>>>>>> power on to btbtbt mode\n");
     app_task_switch_to(APP_BT_TASK);
 #else
     app_task_switch_to(APP_MUSIC_TASK);

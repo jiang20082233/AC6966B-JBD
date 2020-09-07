@@ -283,6 +283,10 @@ void bt_function_select_init()
     }
 #endif // TCFG_USER_BLE_ENABLE
 
+#if USER_BT_VBAT_DISPLAY
+    __set_disable_sco_flag(1);
+#endif
+
 }
 
 
@@ -730,6 +734,9 @@ int bt_key_event_handler(struct sys_event *event)
     case KEY_LOW_LANTECY:
         log_info("    KEY_LOW_LANTECY \n");
         bt_key_low_lantecy();
+        break;
+    case KEY_USER_TWS:
+        puts("KEY_USER_TWS\n");
         break;
     case  KEY_NULL:
         log_info("    KEY_NULL \n");

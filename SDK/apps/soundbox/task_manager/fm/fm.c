@@ -18,6 +18,8 @@
 #include "fm/fm_manage.h"
 #include "fm/fm_rw.h"
 
+#include "user_fun_cfg.h"
+
 #define LOG_TAG_CONST       APP_FM
 #define LOG_TAG             "[APP_FM]"
 #define LOG_ERROR_ENABLE
@@ -171,10 +173,14 @@ static void fm_app_init(void)
 static void fm_app_start(void)
 {
     fm_manage_start();//收音出声
+
+    user_fm_vol_set(1);
 }
 
 static void fm_app_uninit(void)
 {
+    user_fm_vol_set(0);
+
     fm_api_release();
     fm_manage_close();
     /* tone_play_stop(); */
@@ -210,6 +216,8 @@ static void  fm_tone_play_end_callback(void *priv, int flag)
 /*----------------------------------------------------------------------------*/
 void app_fm_task()
 {
+    pa_ex_fun.strl(PA_CLASS_AB);
+
     int msg[32];
     fm_app_init();
     int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_FM], 1, fm_tone_play_end_callback, (void *)IDEX_TONE_FM);
@@ -232,6 +240,7 @@ void app_fm_task()
         }
 
         if (app_task_exitting()) {
+            pa_ex_fun.strl(PA_CLASS_D);
             fm_app_uninit();
             return;
         }

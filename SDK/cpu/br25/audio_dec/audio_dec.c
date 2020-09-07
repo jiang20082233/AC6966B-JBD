@@ -730,10 +730,11 @@ void mix_out_high_bass_dis(u32 cmd, u8 dis)
 }
 
 #if AUDIO_OUTPUT_AUTOMUTE
-
+#include "user_fun_cfg.h"
 void audio_mix_out_automute_mute(u8 mute)
 {
     printf(">>>>>>>>>>>>>>>>>>>> %s\n", mute ? ("MUTE") : ("UNMUTE"));
+    user_pa_ex_automute(mute);
 }
 
 /* #define AUDIO_E_DET_UNMUTE      (0x00) */

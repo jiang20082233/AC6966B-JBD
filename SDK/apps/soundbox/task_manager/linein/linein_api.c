@@ -306,7 +306,7 @@ void linein_key_vol_up()
         if (tone_get_status() == 0) {
             /* tone_play(TONE_MAX_VOL); */
 #if TCFG_MAX_VOL_PROMPT
-            tone_play_by_path(tone_table[IDEX_TONE_MAX_VOL], 0);
+            tone_play_by_path(tone_table[IDEX_TONE_MAX_VOL], USER_TONE_PLAY_MODE?1:0);
 #endif
         }
     }

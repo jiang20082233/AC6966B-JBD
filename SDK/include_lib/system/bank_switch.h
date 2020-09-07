@@ -162,7 +162,7 @@
 
 
 
-
+int user_app_goto_bt(void);
 
 #endif
 

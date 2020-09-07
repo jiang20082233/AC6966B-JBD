@@ -49,8 +49,11 @@ enum {
     IDEX_TONE_POWER_ON,
     IDEX_TONE_RING,
     IDEX_TONE_MAX_VOL,
+    IDEX_TONE_MIN_VOL,
     IDEX_TONE_NORMAL,
     IDEX_TONE_MUSIC,
+    IDEX_TONE_USB,
+    IDEX_TONE_SD,
     IDEX_TONE_LINEIN,
     IDEX_TONE_FM,
     IDEX_TONE_PC,
@@ -79,8 +82,11 @@ enum {
 #define TONE_POWER_OFF			TONE_RES_ROOT_PATH"tone/power_off.*"
 #define TONE_POWER_ON			TONE_RES_ROOT_PATH"tone/power_on.*"
 #define TONE_RING				TONE_RES_ROOT_PATH"tone/ring.*"
-#define TONE_MAX_VOL			TONE_RES_ROOT_PATH"tone/vol_max.*"
+#define TONE_MAX_VOL			TONE_RES_ROOT_PATH"tone/max.*"
+#define TONE_MIX_VOL			TONE_RES_ROOT_PATH"tone/mix.*"
 #define TONE_MUSIC				TONE_RES_ROOT_PATH"tone/music.*"
+#define TONE_USB				TONE_RES_ROOT_PATH"tone/usb.*"
+#define TONE_SD				TONE_RES_ROOT_PATH"tone/sd.*"
 #define TONE_LINEIN				TONE_RES_ROOT_PATH"tone/linein.*"
 #define TONE_PC 				TONE_RES_ROOT_PATH"tone/pc.*"
 #define TONE_FM 				TONE_RES_ROOT_PATH"tone/fm.*"
@@ -125,8 +131,8 @@ enum {
 #undef TONE_TWS_DISCONN
 #define TONE_TWS_DISCONN        DEFAULT_SINE_TONE(SINE_WTONE_TWS_DISCONNECT)
 
-#undef TONE_MAX_VOL
-#define TONE_MAX_VOL            DEFAULT_SINE_TONE(SINE_WTONE_MAX_VOLUME)
+// #undef TONE_MAX_VOL
+// #define TONE_MAX_VOL            DEFAULT_SINE_TONE(SINE_WTONE_MAX_VOLUME)
 
 #undef TONE_NORMAL
 #define TONE_NORMAL            DEFAULT_SINE_TONE(SINE_WTONE_NORAML)

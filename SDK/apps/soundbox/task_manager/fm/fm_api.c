@@ -448,7 +448,13 @@ void fm_volume_up()
 
     app_audio_volume_up(1);
     log_info("fm vol+: %d", app_audio_get_volume(APP_AUDIO_CURRENT_STATE));
-
+    if (app_audio_get_volume(APP_AUDIO_CURRENT_STATE) == app_audio_get_max_volume()) {
+        if (tone_get_status() == 0) {
+#if TCFG_MAX_VOL_PROMPT
+            tone_play_by_path(tone_table[IDEX_TONE_MAX_VOL], USER_TONE_PLAY_MODE?1:0);
+#endif
+        }
+    }
 #if (TCFG_DEC2TWS_ENABLE)
     bt_tws_sync_volume();
 #endif

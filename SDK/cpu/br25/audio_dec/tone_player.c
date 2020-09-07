@@ -32,7 +32,8 @@ static const char *const tone_index[] = {
     [IDEX_TONE_POWER_OFF] 		= SDFILE_RES_ROOT_PATH"tone/power_off.*",
     [IDEX_TONE_POWER_ON] 		= SDFILE_RES_ROOT_PATH"tone/power_on.*",
     [IDEX_TONE_RING] 			= SDFILE_RES_ROOT_PATH"tone/ring.*",
-    [IDEX_TONE_MAX_VOL] 		= SDFILE_RES_ROOT_PATH"tone/vol_max.*",
+    [IDEX_TONE_MAX_VOL] 		= SDFILE_RES_ROOT_PATH"tone/max.*",
+    [IDEX_TONE_MIN_VOL] 		= SDFILE_RES_ROOT_PATH"tone/min.*",
     [IDEX_TONE_NORMAL] 			= TONE_NORMAL,
 #if (TCFG_APP_MUSIC_EN)
     [IDEX_TONE_MUSIC] 			= SDFILE_RES_ROOT_PATH"tone/music.*",

@@ -37,6 +37,7 @@
 #include "tone_player.h"
 #include "ui_manage.h"
 #include "soundbox.h"
+#include "user_fun_cfg.h"
 
 #define LOG_TAG_CONST       APP_ACTION
 #define LOG_TAG             "[APP_ACTION]"
@@ -230,6 +231,35 @@ int app_common_key_msg_deal(struct sys_event *event)
         }
         break;
 #endif
+
+    case KEY_LED_IO_CTL:
+        puts("KEY_LED_IO_CTL\n");
+        user_led_io_fun(USER_IO_LED,LED_IO_FLIP);
+        break;
+
+    case KEY_IR_PPOWER:
+        puts("KEY_IR_PPOWER\n");
+        power_off_deal(event, 2);
+        break;
+
+    case KEY_IR_MUTE:
+        puts("KEY_IR_MUTE\n");
+        user_pa_ex_manual(0xff);
+        //printf("ir mute %d\n",pa_fun.pa_io->pa_manual_mute);
+        break;
+
+    case USER_MSG_SYS_SPK_STATUS:
+        printf("USER_MSG_SYS_SPK_STATUS get user msg_val_count = %d\n",key_value);
+
+        #if TCFG_MIC_EFFECT_ENABLE
+        if(!key_value){
+            mic_effect_stop();
+        } else {
+            mic_effect_start();
+        }
+        user_pa_ex_mic(key_value);
+        #endif
+        break;
     default:
         ui_key_msg_post(key_event);
 #ifdef CONFIG_BOARD_AC695X_SOUNDCARD
@@ -331,6 +361,8 @@ static void app_common_device_event_handler(struct sys_event *event)
                     app = APP_MUSIC_TASK;
                 }
             }
+        }else if(DEVICE_EVENT_OUT == event->arg){
+            printf("DEVICE_EVENT_OUT 10\n");
         }
 #endif
         break;

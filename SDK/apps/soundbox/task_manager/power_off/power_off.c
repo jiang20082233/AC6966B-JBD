@@ -54,7 +54,14 @@ static u8 goto_poweroff_flag = 0;
 /*----------------------------------------------------------------------------*/
 void power_off_deal(struct sys_event *event, u8 step)
 {
-    switch (step) {
+    switch (step) {    
+    case 2:
+        goto_poweroff_flag = 1;
+        #if CONFIG_TWS_POWEROFF_SAME_TIME
+        goto_poweroff_cnt = POWER_OFF_CNT-1;
+        #else
+        goto_poweroff_cnt = POWER_OFF_CNT;
+        #endif        
     case 0:
     case 1:
         if (goto_poweroff_first_flag == 0) {

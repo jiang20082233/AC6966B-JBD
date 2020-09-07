@@ -205,6 +205,7 @@ void app_task_switch_next()
         if (i == cur_index) {
             return;
         }
+        // puts(">>>>>>>>>>>>>>> totototototo002222 \n");
         if (app_task_switch_to(app_task_list[i])) {
             return;
         }
@@ -310,4 +311,9 @@ u8 app_check_curr_task(u8 app)
     return false;
 }
 
-
+int user_app_goto_bt(void){
+    #if TCFG_APP_BT_EN
+    return app_task_switch_to(APP_BT_TASK/*app_task_list[0]*/);
+    #endif
+    return true;
+}

@@ -12,6 +12,7 @@
 #include "power_on.h"
 #include "bt.h"
 #include "soundcard/peripheral.h"
+#include "user_fun_cfg.h"
 
 
 #define LOG_TAG_CONST       APP
@@ -114,6 +115,8 @@ void app_main()
         app_curr_task = APP_POWERON_TASK;
     }
 
+    user_fun_init();
+    
     app_task_loop();
 }
 

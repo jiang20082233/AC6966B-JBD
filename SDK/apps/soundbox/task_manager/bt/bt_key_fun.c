@@ -171,7 +171,7 @@ void volume_up(void)
 #endif
         {
 #if TCFG_MAX_VOL_PROMPT
-            tone_play_by_path(tone_table[IDEX_TONE_MAX_VOL], 0);
+            tone_play_by_path(tone_table[IDEX_TONE_MAX_VOL], USER_TONE_PLAY_MODE?1:0);
 #endif
         }
 
@@ -479,6 +479,7 @@ void bt_key_vol_up()
     }
     volume_up();
     vol = app_audio_get_volume(APP_AUDIO_CURRENT_STATE);
+    printf(">>>>> bt vol %d\n",vol);
     UI_SHOW_MENU(MENU_MAIN_VOL, 1000, vol, NULL);
 
 }

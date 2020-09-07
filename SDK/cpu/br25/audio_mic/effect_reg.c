@@ -72,8 +72,8 @@ const EF_REVERB_FIX_PARM effect_echo_fix_parm_default = {
 };
 
 const ECHO_PARM_SET effect_echo_parm_default = {
-    .delay = 200,				//回声的延时时间 0-300ms
-    .decayval = 50,				// 0-70%
+    .delay = 120,				//回声的延时时间 0-300ms
+    .decayval = 27,				// 0-70%
     .direct_sound_enable = 1,	//直达声使能  0/1
     .filt_enable = 1,			//发散滤波器使能
 };

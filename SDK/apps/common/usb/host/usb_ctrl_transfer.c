@@ -5,7 +5,7 @@
  * @version 1.00
  * @date 2017-02-09
  */
-
+#include "gpio.h"
 #include "usb/host/usb_host.h"
 #include "usb_ctrl_transfer.h"
 #include "app_config.h"

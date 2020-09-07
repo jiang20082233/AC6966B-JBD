@@ -52,6 +52,8 @@
 #include "bt.h"
 #include "bt_tws.h"
 
+#include "user_fun_cfg.h"
+
 
 #if TCFG_APP_LINEIN_EN
 
@@ -149,6 +151,7 @@ static int linein_key_msg_deal(struct sys_event *event)
         linein_last_onoff = linein_volume_pp();
         linein_last_onoff ? ui_update_status(STATUS_LINEIN_PLAY)\
         : ui_update_status(STATUS_LINEIN_PAUSE);
+        user_pa_ex_linein(!linein_last_onoff);
         break;
     case  KEY_VOL_UP:
         log_info(" KEY_VOL_UP\n");
@@ -230,6 +233,7 @@ static void linein_task_close(void)
     linein_stop();
     /* tone_play_stop(); */
     tone_play_stop_by_path(tone_table[IDEX_TONE_LINEIN]);
+    user_pa_ex_linein(0);
 }
 
 

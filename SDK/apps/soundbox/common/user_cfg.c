@@ -39,7 +39,7 @@ BT_CONFIG bt_cfg = {
 AUDIO_CONFIG audio_cfg = {
     .max_sys_vol    = SYS_MAX_VOL,
     .default_vol    = SYS_DEFAULT_VOL,
-    .tone_vol       = SYS_DEFAULT_TONE_VOL,
+    .tone_vol       = TONE_MODE_DEFAULE_VOLUME,
 };
 
 //======================================================================================//
@@ -316,7 +316,14 @@ void cfg_file_parse(u8 idx)
         }
         if (default_volume <= 0) {
             default_volume = audio_cfg.max_sys_vol / 2;
+			#if (defined(USER_FIRST_BOOT_VOL) && USER_FIRST_BOOT_VOL)
+			default_volume = USER_FIRST_BOOT_VOL;
+			#endif            
         }
+
+        #if (defined(USER_POWER_ON_VOL) && USER_POWER_ON_VOL)
+        music_volume = default_volume = USER_POWER_ON_VOL;
+        #endif
 
 #if (SMART_BOX_EN)
         app_var.music_volume = music_volume < 0 ? default_volume : music_volume;

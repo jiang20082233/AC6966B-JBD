@@ -178,8 +178,10 @@ u8 io_get_key_value(void)
         connect_way = __this->port[i].connect_way;
 
         if (connect_way == ONE_PORT_TO_HIGH) {
+            key_io_pull_down_input(__this->port[i].key_type.one_io.port);
             press_value = 1;
         } else if (connect_way == ONE_PORT_TO_LOW) {
+            key_io_pull_up_input(__this->port[i].key_type.one_io.port);
             press_value = 0;
         } else {
             continue;

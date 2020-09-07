@@ -148,6 +148,14 @@ enum {
     //不会出现在按键主流程，用于不重要得其他操作
     KEY_MINOR_OPT,
 
+    //user
+    KEY_LED_IO_CTL,
+    KEY_USER_TWS,
+    KEY_IR_PPOWER,
+    KEY_IR_MUTE,
+    USER_MSG_SYS_SPK_STATUS,
+    USER_MSG_TO_BT_MODE,
+
     KEY_NULL = 0xFFFF,
 
     KEY_MSG_MAX = 0xFFFF,

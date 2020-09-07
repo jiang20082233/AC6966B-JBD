@@ -190,9 +190,13 @@ int dev_status_event_filter(struct sys_event *event)
         dev_manager_add_after(event, err);
     }
     if (del) {
+        puts(">>>>> iiiiii0\n");
         dev_manager_del_prepare(event);
+        puts(">>>>> iiiiii1\n");
         dev_manager_del(del);
+        puts(">>>>> iiiiii2\n");
         dev_manager_del_after(event, 0);
+        puts(">>>>> iiiiii3\n");
     }
     SMARTBOX_UPDATE(COMMON_FUNCTION, BIT(COMMON_FUNCTION_ATTR_TYPE_DEV_INFO));
     return ret;
