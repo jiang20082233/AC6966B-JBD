@@ -28,6 +28,8 @@
 #include "ui_manage.h"
 #include "spi/nor_fs.h"
 
+#include "user_fun_cfg.h"
+
 #define LOG_TAG_CONST       BOARD
 #define LOG_TAG             "[BOARD]"
 #define LOG_ERROR_ENABLE
@@ -205,7 +207,7 @@ struct adc_platform_data adc_data = {
     0:2.3v  1:2.5v  2:2.7v  3:3.0v */
 	.mic_ldo_vsel  = 2,
 /*MIC电容隔直模式使用内部mic偏置(PA2)*/
-	.mic_bias_inside = 1,
+	.mic_bias_inside = 0,
 /*保持内部mic偏置输出*/
 	.mic_bias_keep = 0,
 
@@ -284,16 +286,16 @@ const struct adkey_platform_data adkey_data = {
     .ad_channel = TCFG_ADKEY_AD_CHANNEL,                      //AD通道值
     .extern_up_en = TCFG_ADKEY_EXTERN_UP_ENABLE,              //是否使用外接上拉电阻
     .ad_value = {                                             //根据电阻算出来的电压值
-        TCFG_ADKEY_VOLTAGE0,
-        TCFG_ADKEY_VOLTAGE1,
-        TCFG_ADKEY_VOLTAGE2,
-        TCFG_ADKEY_VOLTAGE3,
-        TCFG_ADKEY_VOLTAGE4,
-        TCFG_ADKEY_VOLTAGE5,
-        TCFG_ADKEY_VOLTAGE6,
-        TCFG_ADKEY_VOLTAGE7,
-        TCFG_ADKEY_VOLTAGE8,
-        TCFG_ADKEY_VOLTAGE9,
+        TCFG_ADKEY_VOLTAGE0(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE1(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE2(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE3(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE4(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE5(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE6(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE7(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE8(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE9(TCFG_ADKEY_VDDIO),
     },
     .key_value = {                                             //AD按键各个按键的键值
         TCFG_ADKEY_VALUE0,
@@ -451,13 +453,13 @@ LED_PLATFORM_DATA_END()
 #if TCFG_UI_LED7_ENABLE
 LED7_PLATFORM_DATA_BEGIN(led7_data)
 	.pin_type = LED7_PIN7,
-    .pin_cfg.pin7.pin[0] = IO_PORTC_01,
-    .pin_cfg.pin7.pin[1] = IO_PORTC_02,
-    .pin_cfg.pin7.pin[2] = IO_PORTC_03,
-    .pin_cfg.pin7.pin[3] = IO_PORTC_04,
-    .pin_cfg.pin7.pin[4] = IO_PORTC_05,
-    .pin_cfg.pin7.pin[5] = IO_PORTB_06,
-    .pin_cfg.pin7.pin[6] = IO_PORTB_07,
+    .pin_cfg.pin7.pin[6] = IO_PORTB_01,
+    .pin_cfg.pin7.pin[5] = IO_PORTB_02,
+    .pin_cfg.pin7.pin[4] = IO_PORTB_03,
+    .pin_cfg.pin7.pin[3] = IO_PORTB_05,
+    .pin_cfg.pin7.pin[2] = IO_PORTB_04,
+    .pin_cfg.pin7.pin[1] = IO_PORTB_06,
+    .pin_cfg.pin7.pin[0] = IO_PORTB_07,
 LED7_PLATFORM_DATA_END()
 
 const struct ui_devices_cfg ui_cfg_data = {
@@ -721,10 +723,10 @@ const struct low_power_param power_param = {
 
 /************************** PWR config ****************************/
 struct port_wakeup port0 = {
-    .pullup_down_enable = ENABLE,                            //配置I/O 内部上下拉是否使能
+    .pullup_down_enable = 0,//ENABLE,                            //配置I/O 内部上下拉是否使能
     .edge       = FALLING_EDGE,                            //唤醒方式选择,可选：上升沿\下降沿
     .attribute  = BLUETOOTH_RESUME,                        //保留参数
-    .iomap      = IO_PORTA_06,                             //唤醒口选择
+    .iomap      = IO_PORTB_01,                             //唤醒口选择
 };
 
 const struct sub_wakeup sub_wkup = {
@@ -885,6 +887,7 @@ void board_init()
     adc_init();
     cfg_file_parse(0);
 
+    user_fun_io_init();
 #if TCFG_FM_ENABLE
 	fm_dev_init(&fm_dev_data);
 #endif

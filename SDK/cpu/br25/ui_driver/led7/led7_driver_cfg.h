@@ -6,8 +6,8 @@
 //LED7真值表选择
 //7脚LED7
 // #define UI_LED7_PIN7_TRUE_TABLE1
-//#define UI_LED7_PIN7_TRUE_TABLE2
-#define UI_LED7_PIN7_TRUE_TABLE3
+#define UI_LED7_PIN7_TRUE_TABLE2
+//#define UI_LED7_PIN7_TRUE_TABLE3
 
 //12脚LED7
 //#define UI_LED7_PIN12_TRUE_TABLE1
@@ -92,14 +92,6 @@ static const struct icon_seg2pin led7_icon_seg2pin[] = {
 // 7断数码管通用数字类转换表
 static const struct seg2pin led7_digit_seg2pin[28] = {
 //pinH, pinL
-    {1, 0}, //1A
-    {2, 0}, //1B
-    {3, 0}, //1C
-    {4, 0}, //1D
-    {5, 0}, //1E
-    {6, 0}, //1F
-    {2, 1}, //1G
-
     {0, 1}, //2A
     {0, 2}, //2B
     {0, 3}, //2C
@@ -108,13 +100,13 @@ static const struct seg2pin led7_digit_seg2pin[28] = {
     {0, 6}, //2F
     {1, 2}, //2G
 
-    {3, 2}, //3A
-    {4, 2}, //3B
-    {5, 2}, //3C
-    {6, 2}, //3D
-    {4, 3}, //3E
-    {5, 3}, //3F
-    {6, 3}, //3G
+    {1, 0}, //1A
+    {2, 0}, //1B
+    {3, 0}, //1C
+    {4, 0}, //1D
+    {5, 0}, //1E
+    {6, 0}, //1F
+    {2, 1}, //1G
 
     {2, 3}, //4A
     {2, 4}, //4B
@@ -123,19 +115,35 @@ static const struct seg2pin led7_digit_seg2pin[28] = {
     {3, 4}, //4E
     {3, 5}, //4F
     {3, 6}, //4G
+
+    {3, 2}, //3A
+    {4, 2}, //3B
+    {5, 2}, //3C
+    {6, 2}, //3D
+    {4, 3}, //3E
+    {5, 3}, //3F
+    {6, 3}, //3G    
 };
 
 // 数码管字母类转换表
 static const struct icon_seg2pin led7_icon_seg2pin[] = {
     //icon       	pinH, pinL
-    {LED7_PLAY, 	{3, 1}},
-    {LED7_PAUSE, 	{4, 1}},
-    {LED7_USB, 		{5, 1}},
-    {LED7_SD, 		{6, 1}},
-    {LED7_2POINT, 	{1, 3}},
-    {LED7_DOT, 	    {1, 4}},
-    {LED7_FM, 		{1, 5}},
-    {LED7_MP3, 		{1, 6}},
+    {LED7_PLAY, 	{1, 3}},
+    {LED7_PAUSE, 	{1, 4}},
+    {LED7_USB, 		{1, 5}},
+    {LED7_SD, 		{1, 6}},
+    {LED7_2POINT, 	{3, 1}},
+    {LED7_DOT, 	    {4, 1}},
+    {LED7_FM, 		{6, 1}},
+    {LED7_CHARGE,   {5, 1}},
+    // {LED7_PLAY, 	{3, 1}},
+    // {LED7_PAUSE, 	{4, 1}},
+    // {LED7_USB, 		{5, 1}},
+    // {LED7_SD, 		{6, 1}},
+    // {LED7_2POINT, 	{1, 3}},
+    // {LED7_DOT, 	    {1, 4}},
+    // {LED7_FM, 		{1, 5}},
+    // {LED7_MP3, 		{1, 6}},
 };
 
 #endif /* #ifdef  UI_LED7_PIN7_TRUE_TABLE2 */

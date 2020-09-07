@@ -152,17 +152,17 @@ static void ex_dev_detect(void *arg)
     int res;
     struct ex_dev_opr *dev = arg;
 
-    extern s32 sd_io_suspend(u8 sd_io);
-    extern s32 sd_io_resume(u8 sd_io);
+    extern u8 sd_io_suspend(u8 sdx, u8 sd_io);
+    extern u8 sd_io_resume(u8 sdx, u8 sd_io);
 
 // #ifdef TCFG_IO_DET_MULTIPLEX_WITH_SD
     if(dev->multiplex_sd){
-        if (sd_io_suspend(0) == 0) {
-            res = ex_dev_io_sample_detect(arg);
-            sd_io_resume(0);
+        if (sd_io_suspend(TCFG_LINEIN_SD_PORT, 0) == 0) {//判断sd 看是否空闲
+            res = ex_dev_io_sample_detect(arg);//linein_sample_mult_sd
+            sd_io_resume(TCFG_LINEIN_SD_PORT, 0);//使用完，回复sd
         } else {
             return;
-        }
+        }        
     }else{
 // #else
         if (dev->step == 0) {
@@ -182,9 +182,11 @@ static void ex_dev_detect(void *arg)
 // #endif
 
     if(dev->msg != 0) {
-        if (res == DET_ON) {            
+        if (res == DET_ON) { 
+            // printf(">>>> user dev %s 1\n",dev->dev_name);
             app_task_put_key_msg(dev->msg,1);
         } else if (res == DET_OFF) {
+            // printf(">>>> user dev %s 0\n",dev->dev_name);
             app_task_put_key_msg(dev->msg,0);
         }
     }

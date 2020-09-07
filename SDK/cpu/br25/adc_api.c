@@ -57,7 +57,7 @@ u32 adc_add_sample_ch(u32 ch)
             adc_queue[i].value = 1;
             adc_queue[i].jiffies = 0;
             adc_queue[i].sample_period = msecs_to_jiffies(0);
-            printf("add sample ch %x\n", ch);
+            // printf("add sample ch %x\n", ch);
             break;
         }
     }

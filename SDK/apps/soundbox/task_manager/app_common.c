@@ -180,7 +180,8 @@ int app_common_key_msg_deal(struct sys_event *event)
 #if (TCFG_DEC2TWS_ENABLE)
         bt_tws_sync_volume();
 #endif
-        UI_SHOW_MENU(MENU_MAIN_VOL, 1000, app_audio_get_volume(APP_AUDIO_CURRENT_STATE), NULL);
+        // UI_SHOW_MENU(MENU_MAIN_VOL, 1000, app_audio_get_volume(APP_AUDIO_CURRENT_STATE), NULL);
+        UI_SHOW_MENU(MENU_MAIN_VOL, 1000, app_audio_get_volume(APP_AUDIO_STATE_MUSIC), NULL);
         break;
 
     case KEY_VOL_DOWN:

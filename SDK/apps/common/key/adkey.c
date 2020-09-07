@@ -21,6 +21,32 @@ struct key_driver_para adkey_scan_para = {
     .key_type		  = KEY_DRIVER_TYPE_AD,
     .get_value 		  = ad_get_key_value,
 };
+u8 user_adkey_mapping(u8 key){
+    u8 tp = key;    
+#if (defined(USER_ADKEY_MAPPING_EN) && USER_ADKEY_MAPPING_EN)    
+
+    u8 ad_key_table[][2]={
+        {0,4},
+        {1,3},
+        {2,2},
+        {3,1},
+    };
+    
+    if(NO_KEY == tp)return tp;
+
+    for(int i = 0;i<(sizeof(ad_key_table)/sizeof(ad_key_table[0]));i++){
+        tp = key;
+        if(ad_key_table[i][1] == tp){
+            tp = ad_key_table[i][0];
+            // printf(">>>>>> %d\n",tp);tp = NO_KEY;
+            break;
+        }else{
+            tp = NO_KEY;
+        }
+    }
+#endif
+    return tp;
+}
 u8 ad_get_key_value(void)
 {
     u8 i;
@@ -35,7 +61,11 @@ u8 ad_get_key_value(void)
     /* printf("ad_value = %d \n", ad_data); */
     for (i = 0; i < ADKEY_MAX_NUM; i++) {
         if ((ad_data <= __this->ad_value[i]) && (__this->ad_value[i] < 0x3ffL)) {
+            #if (defined(USER_ADKEY_MAPPING_EN) && USER_ADKEY_MAPPING_EN)
+            return user_adkey_mapping(__this->key_value[i]);
+            #else
             return __this->key_value[i];
+            #endif
         }
     }
     return NO_KEY;

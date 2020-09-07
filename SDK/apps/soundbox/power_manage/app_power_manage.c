@@ -11,6 +11,7 @@
 #include "user_cfg.h"
 #include "bt.h"
 #include "asm/charge.h"
+#include "user_fun_cfg.h"
 
 #if TCFG_USER_TWS_ENABLE
 #include "bt_tws.h"
@@ -194,8 +195,37 @@ int app_power_event_handler(struct device_event *dev)
 
 u16 get_vbat_level(void)
 {
+    #if (defined(USER_VBAT_CHECK_EN) && USER_VBAT_CHECK_EN)
+    return user_fun_get_vbat();
+    #endif    
+
     //return 370;     //debug
     return (adc_get_voltage(AD_CH_VBAT) * 4 / 10);
+}
+
+u16 user_get_vbat_level(void){
+    #define USER_VBAT_TABLE_SIZE    20
+
+    static u16 save_table_old[USER_VBAT_TABLE_SIZE] = {0};
+    static u8 i=0;
+    u16 max = 0;
+    u16 mix = 0;
+
+    save_table_old[i++]=get_vbat_level();
+    if(i >= USER_VBAT_TABLE_SIZE)i = 0;
+
+    for(int j = 0;j<USER_VBAT_TABLE_SIZE;j++){
+        if(save_table_old[j]>max){
+            max = save_table_old[j];
+        }
+
+        if(save_table_old[j] < mix){
+            mix = save_table_old[j];
+        }
+    }
+
+    // printf(">>>>>>>> vbat %d\n",max);
+    return max;
 }
 
 __attribute__((weak)) u8 remap_calculate_vbat_percent(u16 bat_val)
@@ -328,6 +358,7 @@ void vbat_check(void *priv)
     static u8 charge_ccvol_v_cnt = 0;
     static u8 charge_online_flag = 0;
     static u8 low_voice_first_flag = 1;//进入低电后先提醒一次
+    static u8 tp_low_war_cnt = 0;
 
     u8 detect_cnt = 6;
 
@@ -338,9 +369,9 @@ void vbat_check(void *priv)
     }
 
     if (!bat_val) {
-        bat_val = get_vbat_level();
+        bat_val = user_get_vbat_level();//get_vbat_level();
     } else {
-        bat_val = (get_vbat_level() + bat_val) / 2;
+        bat_val = (/*get_vbat_level()*/user_get_vbat_level() + bat_val) / 2;
     }
 
     cur_battery_level = battery_value_to_phone_level(bat_val);
@@ -393,11 +424,29 @@ void vbat_check(void *priv)
                     low_voice_first_flag = 0;
                     low_voice_cnt = 0;
                     if (!lowpower_timer) {
-                        log_info("\n**Low Power,Please Charge Soon!!!**\n");
-                        power_event_to_user(POWER_EVENT_POWER_WARNING);
-                        lowpower_timer = sys_timer_add((void *)POWER_EVENT_POWER_WARNING, (void (*)(void *))power_event_to_user, LOW_POWER_WARN_TIME);
+                        // log_info("\n**Low Power,Please Charge Soon!!!**\n");
+                        // power_event_to_user(POWER_EVENT_POWER_WARNING);
+                        // lowpower_timer = sys_timer_add((void *)POWER_EVENT_POWER_WARNING, (void (*)(void *))power_event_to_user, LOW_POWER_WARN_TIME);
                     }
                 }
+                
+                //20s 播一次 5次之后关机
+                extern u32 timer_get_ms(void);
+                static u32 tp_time = 0;
+                if((timer_get_ms()-tp_time)>20000){
+
+                    tp_time = timer_get_ms();
+                    tp_low_war_cnt++;
+
+                    if(tp_low_war_cnt>=5){
+                        tp_low_war_cnt = 0;
+
+                        sys_timer_del(vbat_timer);
+                        power_event_to_user(POWER_EVENT_POWER_LOW);
+                    }else{
+                        power_event_to_user(POWER_EVENT_POWER_WARNING);
+                    }
+                }                
             } else {
                 power_normal_cnt++;
                 low_voice_cnt = 0;
@@ -428,11 +477,13 @@ void vbat_check(void *priv)
         charge_ccvol_v_cnt = 0;
 
         if ((cur_bat_st != VBAT_LOWPOWER) && (cur_timer_period == VBAT_TIMER_2_MS)) {
-            if (get_charge_online_flag()) {
-                vbat_timer_update(60 * 1000);
-            } else {
-                vbat_timer_update(10 * 1000);
-            }
+            // if (get_charge_online_flag()) {
+            //     vbat_timer_update(60 * 1000);
+            // } else {
+            //     vbat_timer_update(10 * 1000);
+            // }
+            vbat_timer_update(200);
+
             cur_timer_period = VBAT_TIMER_10_S;
             vbat_check_idle = 1;
             cur_battery_level = battery_value_to_phone_level(bat_val);

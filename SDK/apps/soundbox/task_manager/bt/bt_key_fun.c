@@ -478,7 +478,8 @@ void bt_key_vol_up()
         return;
     }
     volume_up();
-    vol = app_audio_get_volume(APP_AUDIO_CURRENT_STATE);
+    // vol = app_audio_get_volume(APP_AUDIO_CURRENT_STATE);    
+    vol = app_audio_get_volume(APP_AUDIO_STATE_MUSIC);
     printf(">>>>> bt vol %d\n",vol);
     UI_SHOW_MENU(MENU_MAIN_VOL, 1000, vol, NULL);
 

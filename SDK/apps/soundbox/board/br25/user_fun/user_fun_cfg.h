@@ -41,8 +41,16 @@
 
 #define user_print printf
 
+
+
+typedef struct user_power_io_info {
+    u8 pro;
+    u8  ch;
+    u32 vol;
+}USER_POWER_INFO;
+
 void user_fm_vol_set(bool cmd);
 void user_fun_io_init(void);
 void user_fun_init(void);
-
+u16 user_fun_get_vbat(void);
 #endif

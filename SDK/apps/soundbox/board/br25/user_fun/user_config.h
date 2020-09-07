@@ -26,4 +26,7 @@
 #define USER_MUSIC_TO_BT        1//music 下只有一个设备时 拔出设备 跳到bt模式
 #define USER_USB_OR_SD	        USER_DEV_USB//进music模式优先设备
 #define USER_POWER_ON_INIT      1//等开机提示音播放完之后再切到上线设备
+
+
+#define USER_ADKEY_MAPPING_EN   1//AD KEY 按鍵值映射
 #endif

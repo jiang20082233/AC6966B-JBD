@@ -27,9 +27,9 @@
 #define TCFG_APP_MUSIC_EN			        1
 #define TCFG_APP_LINEIN_EN					1
 #define TCFG_APP_FM_EN					    1
-#define TCFG_APP_PC_EN					    1
+#define TCFG_APP_PC_EN					    0//1
 #define TCFG_APP_RTC_EN					    0
-#define TCFG_APP_RECORD_EN				    1
+#define TCFG_APP_RECORD_EN				    0//1
 #define TCFG_APP_SPDIF_EN                   0
 //*********************************************************************************//
 //                               PCM_DEBUG调试配置                                 //
@@ -71,7 +71,7 @@
 //*********************************************************************************//
 //                                 硬件SPI 配置                                        //
 //*********************************************************************************//
-#define	TCFG_HW_SPI1_ENABLE		ENABLE_THIS_MOUDLE
+#define	TCFG_HW_SPI1_ENABLE		DISABLE_THIS_MOUDLE//ENABLE_THIS_MOUDLE
 //A组IO:    DI: PB2     DO: PB1     CLK: PB0
 //B组IO:    DI: PC3     DO: PC5     CLK: PC4
 #define TCFG_HW_SPI1_PORT		'A'
@@ -99,11 +99,11 @@
 //                                  充电参数配置                                   //
 //*********************************************************************************//
 //是否支持芯片内置充电
-#define TCFG_CHARGE_ENABLE					ENABLE_THIS_MOUDLE
+#define TCFG_CHARGE_ENABLE					0//ENABLE_THIS_MOUDLE
 //是否支持开机充电
-#define TCFG_CHARGE_POWERON_ENABLE			ENABLE
+#define TCFG_CHARGE_POWERON_ENABLE			0//ENABLE
 //是否支持拔出充电自动开机功能
-#define TCFG_CHARGE_OFF_POWERON_NE			ENABLE
+#define TCFG_CHARGE_OFF_POWERON_NE			0//ENABLE
 
 #define TCFG_CHARGE_FULL_V					CHARGE_FULL_V_4202
 
@@ -119,7 +119,7 @@
 //B组IO: CMD:PB6    CLK:PB7    DAT0:PB5             //E组IO: CMD:PA4    CLK:PC5    DAT0:DM
 //C组IO: CMD:PA4    CLK:PA2    DAT0:PA3             //F组IO: CMD:PB6    CLK:PB7    DAT0:PB4
 #define TCFG_SD0_ENABLE						ENABLE_THIS_MOUDLE
-#define TCFG_SD0_PORTS						'D'
+#define TCFG_SD0_PORTS						'A'
 #define TCFG_SD0_DAT_MODE					1//AC696x不支持4线模式
 #define TCFG_SD0_DET_MODE					SD_CMD_DECT
 #define TCFG_SD0_DET_IO 					IO_PORT_DM//当SD_DET_MODE为2时有效
@@ -142,12 +142,16 @@
 //*********************************************************************************//
 //                                 USB 配置                                        //
 //*********************************************************************************//
-#define TCFG_PC_ENABLE						TCFG_APP_PC_EN//PC模块使能
+#define TCFG_PC_ENABLE						0//TCFG_APP_PC_EN//PC模块使能
 #define TCFG_UDISK_ENABLE					ENABLE_THIS_MOUDLE//U盘模块使能
 #define TCFG_OTG_USB_DEV_EN                 BIT(0)//USB0 = BIT(0)  USB1 = BIT(1)
 
 #include "usb_std_class_def.h"
 
+#if (defined(CONFIG_DEBUG_ENABLE) && (TCFG_UART0_TX_PORT == IO_PORT_DP))
+#undef TCFG_UDISK_ENABLE
+#define TCFG_UDISK_ENABLE 0
+#endif
 
 #define TCFG_USB_PORT_CHARGE            DISABLE
 
@@ -225,39 +229,56 @@
 //*********************************************************************************//
 #define TCFG_ADKEY_ENABLE                   ENABLE_THIS_MOUDLE//是否使能AD按键
 #define TCFG_ADKEY_LED_IO_REUSE				DISABLE_THIS_MOUDLE	//ADKEY 和 LED IO复用，led只能设置蓝灯显示
-#define TCFG_ADKEY_PORT                     IO_PORTA_06         //AD按键端口(需要注意选择的IO口是否支持AD功能)
-#define TCFG_ADKEY_AD_CHANNEL               AD_CH_PA6
+#define TCFG_ADKEY_PORT                     IO_PORTA_00         //AD按键端口(需要注意选择的IO口是否支持AD功能)
+#define TCFG_ADKEY_AD_CHANNEL               AD_CH_PA0
 #define TCFG_ADKEY_EXTERN_UP_ENABLE         ENABLE_THIS_MOUDLE //是否使用外部上拉
 
 #if TCFG_ADKEY_EXTERN_UP_ENABLE
-#define R_UP    220                 //22K，外部上拉阻值在此自行设置
+// #define R_UP    220                 //22K，外部上拉阻值在此自行设置
+#define R_UP    91                 //9.1K，外部上拉阻值在此自行设置
 #else
 #define R_UP    100                 //10K，内部上拉默认10K
 #endif
 
 //必须从小到大填电阻，没有则同VDDIO,填0x3ffL
-#define TCFG_ADKEY_AD0      (0)                                 //0R
-#define TCFG_ADKEY_AD1      (0x3ffL * 30   / (30   + R_UP))     //3k
-#define TCFG_ADKEY_AD2      (0x3ffL * 62   / (62   + R_UP))     //6.2k
-#define TCFG_ADKEY_AD3      (0x3ffL * 91   / (91   + R_UP))     //9.1k
-#define TCFG_ADKEY_AD4      (0x3ffL * 150  / (150  + R_UP))     //15k
-#define TCFG_ADKEY_AD5      (0x3ffL * 240  / (240  + R_UP))     //24k
-#define TCFG_ADKEY_AD6      (0x3ffL * 330  / (330  + R_UP))     //33k
-#define TCFG_ADKEY_AD7      (0x3ffL * 510  / (510  + R_UP))     //51k
-#define TCFG_ADKEY_AD8      (0x3ffL * 1000 / (1000 + R_UP))     //100k
-#define TCFG_ADKEY_AD9      (0x3ffL * 2200 / (2200 + R_UP))     //220k
-#define TCFG_ADKEY_VDDIO    (0x3ffL)
+#define USER_003K    (30)//3k
+#define USER_005K    (51)//5.1k
+#define USER_011K    (110)//11K
+#define USER_014K    (140)//14K
+#define USER_015K    (150)
+#define USER_033K    (330)
+#define USER_100K    (1000)
+#define USER_NULLK   (2200)
 
-#define TCFG_ADKEY_VOLTAGE0 ((TCFG_ADKEY_AD0 + TCFG_ADKEY_AD1) / 2)
-#define TCFG_ADKEY_VOLTAGE1 ((TCFG_ADKEY_AD1 + TCFG_ADKEY_AD2) / 2)
-#define TCFG_ADKEY_VOLTAGE2 ((TCFG_ADKEY_AD2 + TCFG_ADKEY_AD3) / 2)
-#define TCFG_ADKEY_VOLTAGE3 ((TCFG_ADKEY_AD3 + TCFG_ADKEY_AD4) / 2)
-#define TCFG_ADKEY_VOLTAGE4 ((TCFG_ADKEY_AD4 + TCFG_ADKEY_AD5) / 2)
-#define TCFG_ADKEY_VOLTAGE5 ((TCFG_ADKEY_AD5 + TCFG_ADKEY_AD6) / 2)
-#define TCFG_ADKEY_VOLTAGE6 ((TCFG_ADKEY_AD6 + TCFG_ADKEY_AD7) / 2)
-#define TCFG_ADKEY_VOLTAGE7 ((TCFG_ADKEY_AD7 + TCFG_ADKEY_AD8) / 2)
-#define TCFG_ADKEY_VOLTAGE8 ((TCFG_ADKEY_AD8 + TCFG_ADKEY_AD9) / 2)
-#define TCFG_ADKEY_VOLTAGE9 ((TCFG_ADKEY_AD9 + TCFG_ADKEY_VDDIO) / 2)
+#define USER_R_KEY_01 USER_003K
+#define USER_R_KEY_02 USER_005K
+#define USER_R_KEY_03 USER_011K
+#define USER_R_KEY_04 USER_014K
+#define USER_R_KEY_05 USER_NULLK
+#define USER_R_KEY_06 USER_NULLK
+
+#define TCFG_ADKEY_AD0(x)      (0)                                 //0R
+#define TCFG_ADKEY_AD1(x)      (((x) * USER_R_KEY_01)  / (USER_R_KEY_01   + R_UP))//(0x3ffL * 30   / (30   + R_UP))     //3k
+#define TCFG_ADKEY_AD2(x)      (((x) * USER_R_KEY_02)  / (USER_R_KEY_02   + R_UP))     //6.2k
+#define TCFG_ADKEY_AD3(x)      (((x) * USER_R_KEY_03)  / (USER_R_KEY_03   + R_UP))     //9.1k
+#define TCFG_ADKEY_AD4(x)      (((x) * USER_R_KEY_04)  / (USER_R_KEY_04  + R_UP))     //15k
+#define TCFG_ADKEY_AD5(x)      (((x) * USER_R_KEY_05)  / (USER_R_KEY_05  + R_UP))//(((x) * 240)  / (240  + R_UP))     //24k
+#define TCFG_ADKEY_AD6(x)      (((x) * USER_R_KEY_06)  / (USER_R_KEY_06  + R_UP))     //33k
+#define TCFG_ADKEY_AD7(x)      (((x) * 510)  / (510  + R_UP))     //51k
+#define TCFG_ADKEY_AD8(x)      (((x) * 1000) / (1000 + R_UP))     //100k
+#define TCFG_ADKEY_AD9(x)      (((x) * 2200) / (2200 + R_UP))     //220k
+#define TCFG_ADKEY_VDDIO       (0x3ffL)
+
+#define TCFG_ADKEY_VOLTAGE0(x) ((TCFG_ADKEY_AD0(x) + TCFG_ADKEY_AD1(x)) / 2)
+#define TCFG_ADKEY_VOLTAGE1(x) ((TCFG_ADKEY_AD1(x) + TCFG_ADKEY_AD2(x)) / 2)
+#define TCFG_ADKEY_VOLTAGE2(x) ((TCFG_ADKEY_AD2(x) + TCFG_ADKEY_AD3(x)) / 2)
+#define TCFG_ADKEY_VOLTAGE3(x) ((TCFG_ADKEY_AD3(x) + TCFG_ADKEY_AD4(x)) / 2)
+#define TCFG_ADKEY_VOLTAGE4(x) ((TCFG_ADKEY_AD4(x) + TCFG_ADKEY_AD5(x)) / 2)
+#define TCFG_ADKEY_VOLTAGE5(x) ((TCFG_ADKEY_AD5(x) + TCFG_ADKEY_AD6(x)) / 2)
+#define TCFG_ADKEY_VOLTAGE6(x) ((TCFG_ADKEY_AD6(x) + TCFG_ADKEY_AD7(x)) / 2)
+#define TCFG_ADKEY_VOLTAGE7(x) ((TCFG_ADKEY_AD7(x) + TCFG_ADKEY_AD8(x)) / 2)
+#define TCFG_ADKEY_VOLTAGE8(x) ((TCFG_ADKEY_AD8(x) + TCFG_ADKEY_AD9(x)) / 2)
+#define TCFG_ADKEY_VOLTAGE9(x) ((TCFG_ADKEY_AD9(x) + TCFG_ADKEY_VDDIO) / 2)
 
 #define TCFG_ADKEY_VALUE0                   0
 #define TCFG_ADKEY_VALUE1                   1
@@ -273,8 +294,8 @@
 //*********************************************************************************//
 //                                 irkey 配置                                      //
 //*********************************************************************************//
-#define TCFG_IRKEY_ENABLE                   DISABLE_THIS_MOUDLE//是否使能ir按键
-#define TCFG_IRKEY_PORT                     IO_PORTA_02        //IR按键端口
+#define TCFG_IRKEY_ENABLE                   ENABLE_THIS_MOUDLE//DISABLE_THIS_MOUDLE//是否使能ir按键
+#define TCFG_IRKEY_PORT                     AD_CH_PA0        //IR按键端口
 
 //*********************************************************************************//
 //                             tocuh key 配置 (不支持)                                      //
@@ -367,7 +388,7 @@ DAC硬件上的连接方式,可选的配置：
     DAC_OUTPUT_LR                   立体声
     DAC_OUTPUT_MONO_LR_DIFF         单声道差分输出
 */
-#define TCFG_AUDIO_DAC_CONNECT_MODE    DAC_OUTPUT_LR
+#define TCFG_AUDIO_DAC_CONNECT_MODE    DAC_OUTPUT_MONO_R
 
 /*
 解码后音频的输出方式:
@@ -389,7 +410,7 @@ DAC硬件上的连接方式,可选的配置：
 #define AUDIO_OUTPUT_WAY            AUDIO_OUTPUT_WAY_DAC
 #define LINEIN_INPUT_WAY            LINEIN_INPUT_WAY_ANALOG
 
-#define AUDIO_OUTPUT_AUTOMUTE       0//ENABLE
+#define AUDIO_OUTPUT_AUTOMUTE       ENABLE
 /*
  *系统音量类型选择
  *软件数字音量是指纯软件对声音进行运算后得到的
@@ -408,9 +429,9 @@ DAC硬件上的连接方式,可选的配置：
 #define TCFG_CALL_USE_DIGITAL_VOLUME		0
 
 // 使能改宏，提示音音量使用music音量
-#define APP_AUDIO_STATE_WTONE_BY_MUSIC      (1)
+#define APP_AUDIO_STATE_WTONE_BY_MUSIC      (1)//TONE_MODE_DEFAULE_VOLUME 不为0 此宏失效
 // 0:提示音不使用默认音量； 1:默认提示音音量值
-#define TONE_MODE_DEFAULE_VOLUME            (0)
+#define TONE_MODE_DEFAULE_VOLUME            (28)
 //*********************************************************************************//
 //                                  充电仓配置  (不支持)                                   //
 //*********************************************************************************//
@@ -437,9 +458,9 @@ DAC硬件上的连接方式,可选的配置：
 
 #else
 
-#define TCFG_PWMLED_ENABLE					ENABLE_THIS_MOUDLE			//是否支持PMW LED推灯模块
+#define TCFG_PWMLED_ENABLE					0//1               			//是否支持PMW LED推灯模块
 #define TCFG_PWMLED_IOMODE					LED_ONE_IO_MODE				//LED模式，单IO还是两个IO推灯
-#define TCFG_PWMLED_PIN						IO_PORTB_06					//LED使用的IO口
+#define TCFG_PWMLED_PIN						IO_PORTB_00					//LED使用的IO口
 
 #endif
 //*********************************************************************************//
@@ -524,7 +545,7 @@ DAC硬件上的连接方式,可选的配置：
 //*********************************************************************************//
 //                                  mic effect 配置                                //
 //*********************************************************************************//
-#define TCFG_MIC_EFFECT_ENABLE       DISABLE
+#define TCFG_MIC_EFFECT_ENABLE       1//DISABLE
 #define TCFG_MIC_EFFECT_DEBUG        0//调试打印
 #define TCFG_MIC_EFFECT_ONLINE_ENABLE  0//混响音效在线调试使能
 #if ((TCFG_ONLINE_ENABLE == 0) && TCFG_MIC_EFFECT_ONLINE_ENABLE)
@@ -605,8 +626,8 @@ DAC硬件上的连接方式,可选的配置：
 
 #define BT_INBAND_RINGTONE                  0   //是否播放手机自带来电铃声
 #define BT_PHONE_NUMBER                     1   //是否播放来电报号
-#define BT_SUPPORT_DISPLAY_BAT              1   //是否使能电量检测
-#define BT_SUPPORT_MUSIC_VOL_SYNC           1   //是否使能音量同步
+#define BT_SUPPORT_DISPLAY_BAT              1   //是否使能电量显示
+#define BT_SUPPORT_MUSIC_VOL_SYNC           0   //是否使能音量同步
 
 #define TCFG_BLUETOOTH_BACK_MODE			0	//不支持后台模式
 
@@ -629,8 +650,8 @@ DAC硬件上的连接方式,可选的配置：
 //*********************************************************************************//
 #define TCFG_LINEIN_ENABLE					TCFG_APP_LINEIN_EN	// linein使能
 // #define TCFG_LINEIN_LADC_IDX				0					// linein使用的ladc通道，对应ladc_list
-#define TCFG_LINEIN_LR_CH					AUDIO_LIN0_LR
-#define TCFG_LINEIN_CHECK_PORT				IO_PORTB_01			// linein检测IO
+#define TCFG_LINEIN_LR_CH					AUDIO_LIN_DACL_CH
+#define TCFG_LINEIN_CHECK_PORT				NO_CONFIG_PORT//IO_PORTC_04			// linein检测IO 
 #define TCFG_LINEIN_PORT_UP_ENABLE        	1					// 检测IO上拉使能
 #define TCFG_LINEIN_PORT_DOWN_ENABLE       	0					// 检测IO下拉使能
 #define TCFG_LINEIN_AD_CHANNEL             	NO_CONFIG_PORT		// 检测IO是否使用AD检测
@@ -649,13 +670,13 @@ DAC硬件上的连接方式,可选的配置：
 //*********************************************************************************//
 #define TCFG_DEC_G729_ENABLE                ENABLE
 #define TCFG_DEC_MP3_ENABLE					ENABLE
-#define TCFG_DEC_WMA_ENABLE					ENABLE
+#define TCFG_DEC_WMA_ENABLE					DISABLE
 #define TCFG_DEC_WAV_ENABLE					ENABLE
-#define TCFG_DEC_FLAC_ENABLE				ENABLE
-#define TCFG_DEC_APE_ENABLE					ENABLE
-#define TCFG_DEC_M4A_ENABLE					ENABLE
-#define TCFG_DEC_AMR_ENABLE					ENABLE
-#define TCFG_DEC_DTS_ENABLE					ENABLE
+#define TCFG_DEC_FLAC_ENABLE				DISABLE
+#define TCFG_DEC_APE_ENABLE					DISABLE
+#define TCFG_DEC_M4A_ENABLE					DISABLE
+#define TCFG_DEC_AMR_ENABLE					DISABLE
+#define TCFG_DEC_DTS_ENABLE					DISABLE
 #define TCFG_DEC_MIDI_ENABLE                DISABLE
 #define TCFG_DEC_G726_ENABLE                DISABLE
 
@@ -743,8 +764,8 @@ DAC硬件上的连接方式,可选的配置：
 #define TCFG_ENC_CVSD_ENABLE                ENABLE
 #define TCFG_ENC_MSBC_ENABLE                ENABLE
 #define TCFG_ENC_MP3_ENABLE                 ENABLE
-#define TCFG_ENC_ADPCM_ENABLE               ENABLE
-#define TCFG_ENC_SBC_ENABLE                 ENABLE
+#define TCFG_ENC_ADPCM_ENABLE               DISABLE
+#define TCFG_ENC_SBC_ENABLE                 DISABLE
 #define TCFG_ENC_OPUS_ENABLE                DISABLE
 #define TCFG_ENC_SPEEX_ENABLE               DISABLE
 
