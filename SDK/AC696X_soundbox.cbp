@@ -713,6 +713,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="apps/soundbox/board/br25/board_config.h" />
+		<Unit filename="apps/soundbox/board/br25/user_fun/user_ad.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="apps/soundbox/board/br25/user_fun/user_ad.h" />
 		<Unit filename="apps/soundbox/board/br25/user_fun/user_config.h" />
 		<Unit filename="apps/soundbox/board/br25/user_fun/user_dev_check.c">
 			<Option compilerVar="CC" />

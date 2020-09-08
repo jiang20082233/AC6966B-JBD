@@ -64,7 +64,15 @@ static void led7_show_filenumber(void *hd, u16 file_num)
     dis->lock(0);
 }
 
-
+static void user_led7_show_err(void *hd)
+{
+    LCD_API *dis = (LCD_API *)hd;
+    dis->lock(1);
+    dis->clear();
+    dis->setXY(0, 0);
+    dis->show_string((u8 *)" err");
+    dis->lock(0);
+}
 static void led7_show_pause(void *hd)
 {
     LCD_API *dis = (LCD_API *)hd;
@@ -185,7 +193,7 @@ static void ui_music_main(void *hd, void *private) //主界面显示
         int sencond = file_dec_get_cur_time();
         ui_led7_show_music_time(hd, sencond);
         led7_show_music_dev(hd);
-        printf("sec = %d \n", sencond);
+        // printf("sec = %d \n", sencond);
     } else if (file_dec_is_pause()) {
         led7_show_pause(hd);
     } else {
@@ -211,6 +219,9 @@ static int ui_music_user(void *hd, void *private, u8 menu, u32 arg)//子界面�
         break;
     case MENU_MUSIC_REPEATMODE:
         led7_show_repeat_mode(hd, arg);
+        break;
+    case MENU_RECODE_ERR:
+        user_led7_show_err(hd);
         break;
     default:
         ret = false;

@@ -42,3 +42,7 @@ USER_DEV_CHECK user_mic_check ={
     .online = false,
 };
 #endif
+
+bool user_get_mic_status(void){
+  return user_mic_check.stu?true:false;
+}

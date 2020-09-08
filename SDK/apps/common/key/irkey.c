@@ -55,7 +55,7 @@ u8 ir_get_key_value(void)
     
     for(int i = 0;i<sizeof(IRTabFF00);i++){
         if(IRTabFF00[i][1] == tkey){
-            printf(">>> %d\n",IRTabFF00[i][0]);
+            // printf(">>> %d\n",IRTabFF00[i][0]);
             tkey = IRTabFF00[i][0];
             break;
         }

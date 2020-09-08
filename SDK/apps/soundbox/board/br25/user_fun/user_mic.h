@@ -3,5 +3,5 @@
 #include "user_dev_check.h"
 
 extern USER_DEV_CHECK user_mic_check;
-
+bool user_get_mic_status(void);
 #endif

@@ -1,7 +1,7 @@
 #ifndef _USER_PA_H_
 #define _USER_PA_H_
-#include "cpu.h"
-#include "board_config.h"
+// #include "cpu.h"
+// #include "board_config.h"
 
 
 // #define USER_PA_ABD_MUTE_PORT IO_PORTA_02

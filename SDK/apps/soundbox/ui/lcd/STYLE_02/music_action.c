@@ -295,7 +295,7 @@ static void music_check_add(void *ptr)
             __this->total_time = sencond;
         }
         sencond = music_play_get_cur_time();
-        printf("sec = %d \n", sencond);
+        // printf("sec = %d \n", sencond);
         time_r.hour = sencond / 60 / 60;
         time_r.min = sencond / 60 % 60;
         time_r.sec = sencond % 60;

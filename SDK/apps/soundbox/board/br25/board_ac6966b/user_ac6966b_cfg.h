@@ -13,6 +13,7 @@
 #define USER_PA_MUTE_MODE   USER_PA_MUTE_H//mute 为 高、低
 
 #define USER_SD_POWER_SWITCH_EN 0//SD 电源开关
+#define USER_3IO_CHECK_4AD_EN 1//3IO检测4路ad
 
 
 #endif

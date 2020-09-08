@@ -317,6 +317,50 @@ struct eq_seg_info eq_tab_custom[] = {
 
 };
 
+#if USER_EQ_FILE_ADD_EQ_TABLE
+struct eq_seg_info user_eq_tab_custom[] = {
+    {0, EQ_IIR_TYPE_BAND_PASS, 31,    0 << 20, (int)(0.7f * (1 << 24))},
+    {1, EQ_IIR_TYPE_BAND_PASS, 62,    0 << 20, (int)(0.7f * (1 << 24))},
+    {2, EQ_IIR_TYPE_BAND_PASS, 125,   0 << 20, (int)(0.7f * (1 << 24))},
+    {3, EQ_IIR_TYPE_BAND_PASS, 250,   0 << 20, (int)(0.7f * (1 << 24))},
+    {4, EQ_IIR_TYPE_BAND_PASS, 500,   0 << 20, (int)(0.7f * (1 << 24))},
+    {5, EQ_IIR_TYPE_BAND_PASS, 1000,  0 << 20, (int)(0.7f * (1 << 24))},
+    {6, EQ_IIR_TYPE_BAND_PASS, 2000,  0 << 20, (int)(0.7f * (1 << 24))},
+    {7, EQ_IIR_TYPE_BAND_PASS, 4000,  0 << 20, (int)(0.7f * (1 << 24))},
+    {8, EQ_IIR_TYPE_BAND_PASS, 8000,  0 << 20, (int)(0.7f * (1 << 24))},
+    {9, EQ_IIR_TYPE_BAND_PASS, 16000, 0 << 20, (int)(0.7f * (1 << 24))},
+
+#if (EQ_SECTION_MAX > 10)
+    //10段之后频率值设置96k,目的是让10段之后的eq走直通
+    {10, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {11, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {12, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {13, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {14, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {15, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {16, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {17, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {18, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {19, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+#endif
+
+#if (EQ_SECTION_MAX > 20)
+    {20, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {21, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {22, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {23, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {24, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {25, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {26, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {27, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {28, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {29, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {30, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+    {31, EQ_IIR_TYPE_BAND_PASS, 96000, 0 << 20, (int)(0.7f * (1 << 24))},
+#endif
+
+};
+#endif
 
 const EQ_CFG_SEG *eq_type_tab[EQ_MODE_MAX] = {
     eq_tab_normal, eq_tab_rock, eq_tab_pop, eq_tab_classic, eq_tab_jazz, eq_tab_country, eq_tab_custom
@@ -501,8 +545,21 @@ int eq_init(void)
     parm.type_num = EQ_MODE_MAX;
     parm.section_max = EQ_SECTION_MAX;
 
+#if USER_EQ_FILE_ADD_EQ_TABLE
+    parm.file_en = 1;
+#endif
+
     EQ_CFG *eq_cfg = eq_cfg_open(&parm);
     if (eq_cfg) {
+
+        #if USER_EQ_FILE_ADD_EQ_TABLE
+        eq_cfg->eq_type = EQ_TYPE_MODE_TAB;
+        memcpy(user_eq_tab_custom,eq_cfg->cfg_parm[song_eq_mode].song_eq_parm.parm.seg,sizeof(EQ_CFG_SEG)*SECTION_MAX);
+        for(int i = 0;i<SECTION_MAX;i++){
+            printf(">>>>>> eq index %d freq %d gain %d\n",user_eq_tab_custom[i].index,user_eq_tab_custom[i].freq,user_eq_tab_custom[i].gain>>20);
+        }
+        #endif
+
 #if APP_ONLINE_DEBUG
         if (eq_cfg->app) {
             app_online_db_register_handle(DB_PKT_TYPE_EQ, eq_app_online_parse);

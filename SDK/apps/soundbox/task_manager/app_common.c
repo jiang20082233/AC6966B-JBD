@@ -196,7 +196,7 @@ int app_common_key_msg_deal(struct sys_event *event)
 
     case  KEY_EQ_MODE:
 #if(TCFG_EQ_ENABLE == 1)
-        eq_mode_sw();
+        user_eq_mode_sw();
 #endif
         break;
 #if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_BT)

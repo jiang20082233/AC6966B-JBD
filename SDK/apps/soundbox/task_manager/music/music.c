@@ -17,6 +17,9 @@
 #include "audio_dec.h"
 #include "common/dev_status.h"
 
+
+#include "user_fun_cfg.h"
+
 /*************************************************************
    此文件函数主要是music模式按键处理和事件处理
 
@@ -501,6 +504,19 @@ static int music_key_event_opr(struct sys_event *event)
         // extern int user_app_goto_bt(void);
         user_app_goto_bt();
         break;
+    case KEY_IR_NUM_0:
+    case KEY_IR_NUM_1:
+    case KEY_IR_NUM_2:
+    case KEY_IR_NUM_3:
+    case KEY_IR_NUM_4:
+    case KEY_IR_NUM_5:
+    case KEY_IR_NUM_6:
+    case KEY_IR_NUM_7:
+    case KEY_IR_NUM_8:
+    case KEY_IR_NUM_9:
+        printf("ir key num %d\n",msg[0]-KEY_IR_NUM_0);
+        user_music_set_file_number(msg[0]-KEY_IR_NUM_0);
+        break;        
     default:
         ret = false;
         break;

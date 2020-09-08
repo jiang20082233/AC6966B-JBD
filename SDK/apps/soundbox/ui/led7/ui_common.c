@@ -96,7 +96,19 @@ static void led7_fm_set_freq(void *hd, u32 arg)
     dis->lock(0);
 }
 
-
+static void user_led7_eq(void *hd, u32 arg)
+{
+    u8 bcd_number[5] = {0};
+    LCD_API *dis = (LCD_API *)hd;
+    u16 freq = 0;
+    freq = arg;
+    dis->lock(1);
+    dis->clear();
+    dis->setXY(0, 0);
+    sprintf(bcd_number,"Eq%02d",arg);
+    dis->show_string(bcd_number);
+    dis->lock(0);
+}
 
 void ui_common(void *hd, void *private, u8 menu, u32 arg)//公共显示
 {
@@ -131,6 +143,9 @@ void ui_common(void *hd, void *private, u8 menu, u32 arg)//公共显示
         fre = fm_emitter_manage_get_fre();
         led7_fm_set_freq(hd, arg);
 #endif
+        break;
+    case MENU_SET_EQ:
+        user_led7_eq(hd, arg);        
         break;
     default:
         break;

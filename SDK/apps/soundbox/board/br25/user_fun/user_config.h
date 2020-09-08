@@ -26,7 +26,20 @@
 #define USER_MUSIC_TO_BT        1//music 下只有一个设备时 拔出设备 跳到bt模式
 #define USER_USB_OR_SD	        USER_DEV_USB//进music模式优先设备
 #define USER_POWER_ON_INIT      1//等开机提示音播放完之后再切到上线设备
-
+#define USER_IR_PLAY_FILE_NUMBER      1//遙控器播放文件
+#define USER_EQ_FILE_ADD_EQ_TABLE     1//使用外部配置eq的同时还使用软件中的eq效果  注意：可能影响到外部配置通话eq 未与珠海确认
+#define USER_EQ_LIVE_UPDATE         1//EQ 旋钮实时更新
+#define USER_EQ_BASS_INDEX      1//BASS 调节第几个索引 USER_EQ_BASS_INDEX不要超出eq 段
+#define USER_EQ_TERBLE_INDEX    8//TERBLE 调节第几个索引 
 
 #define USER_ADKEY_MAPPING_EN   1//AD KEY 按鍵值映射
+
+
+#if ((EQ_SECTION_MAX<=USER_EQ_BASS_INDEX || EQ_SECTION_MAX<=USER_EQ_TERBLE_INDEX))
+#error "高低音超出总eq段"
+#endif
+#if (USER_EQ_TERBLE_INDEX ==USER_EQ_BASS_INDEX)
+#error "高低音调节段位不能相同"
+#endif
+
 #endif

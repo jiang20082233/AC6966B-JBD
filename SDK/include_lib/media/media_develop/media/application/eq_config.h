@@ -120,7 +120,11 @@ typedef struct {
     u8 *fade_stu;
     u16 *sr/* [eq_mode_num] */;
     // EQ_CFG_SEG seg[MODE_NUM_MAX][SECTION_MAX];
+    #if USER_EQ_FILE_ADD_EQ_TABLE   
+    EQ_CFG_SEG seg[SECTION_MAX];
+    #else
     EQ_CFG_SEG *seg;
+    #endif
 } EQ_FADE_CFG;
 
 typedef struct _eq_tool_cfg {
