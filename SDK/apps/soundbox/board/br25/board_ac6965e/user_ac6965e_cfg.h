@@ -15,5 +15,8 @@
 #define USER_SD_POWER_SWITCH_EN 1//SD pg 引脚为sd供电
 #define USER_SD_POWER_IO IO_PORTA_00//与sd pg引脚绑定的引脚 没有选NO_CONFIG_PORT
 
+
+#define USER_AUXR_IN_DACL_OUT   1//linein 右输入 dac只有左输出
+
 #endif
 #endif

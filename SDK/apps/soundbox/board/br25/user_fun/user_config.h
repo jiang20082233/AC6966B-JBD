@@ -17,6 +17,9 @@
 #define USER_PA_EN  1//功放总开关
 #define USER_LED_EN 1//io led
 
+
+#define USER_SDK_BUG_1  1//使用tone_play_with_callback_by_name该接口播放提示音 有概率出现没有声音出来 之后也没有声音。主要是解码没唤醒导致
+
 #define USER_BT_VBAT_DISPLAY    1//手机电量显示 但不要通话功能  需要打开电量显示宏BT_SUPPORT_DISPLAY_BAT 与通话协议宏USER_SUPPORT_PROFILE_HFP
 #define USER_FM_MODE_SYS_VOL    20//进FM 大于此音量设置为此音量 退出时恢复
 
@@ -31,6 +34,7 @@
 #define USER_EQ_LIVE_UPDATE         1//EQ 旋钮实时更新
 #define USER_EQ_BASS_INDEX      1//BASS 调节第几个索引 USER_EQ_BASS_INDEX不要超出eq 段
 #define USER_EQ_TERBLE_INDEX    8//TERBLE 调节第几个索引 
+#define USER_IR_POWER           1//遥控器假关机
 
 #define USER_ADKEY_MAPPING_EN   1//AD KEY 按鍵值映射
 

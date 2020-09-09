@@ -87,10 +87,13 @@ extern struct eq_seg_info eq_tab_custom[];
 extern struct eq_seg_info user_eq_tab_custom[];
 #endif
 
-void user_fm_vol_set(bool cmd);
 void user_fun_io_init(void);
 void user_fun_init(void);
+void user_power_off(void);
+
+void user_fm_vol_set(bool cmd);
 u16 user_fun_get_vbat(void);
 void user_music_set_file_number(int number);
 void user_eq_mode_sw(void);
+
 #endif

@@ -43,7 +43,7 @@
 //*********************************************************************************//
 #define TCFG_UART0_ENABLE					0//ENABLE_THIS_MOUDLE                     //串口打印模块使能
 #define TCFG_UART0_RX_PORT					NO_CONFIG_PORT                         //串口接收脚配置（用于打印可以选择NO_CONFIG_PORT）
-#define TCFG_UART0_TX_PORT  				IO_PORTA_05//IO_PORT_DP//IO_PORTA_05                            //串口发送脚配置
+#define TCFG_UART0_TX_PORT  				IO_PORT_DP//IO_PORT_DP//IO_PORTA_05                            //串口发送脚配置
 #define TCFG_UART0_BAUDRATE  				1000000                                //串口波特率配置
 
 #ifdef CONFIG_DEBUG_ENABLE
@@ -149,9 +149,11 @@
 
 #include "usb_std_class_def.h"
 
-#if (defined(CONFIG_DEBUG_ENABLE) && (TCFG_UART0_TX_PORT == IO_PORT_DP))
+#ifdef CONFIG_DEBUG_ENABLE
+#if (TCFG_UART0_TX_PORT == IO_PORT_DP)
 #undef TCFG_UDISK_ENABLE
 #define TCFG_UDISK_ENABLE 0
+#endif
 #endif
 
 #define TCFG_USB_PORT_CHARGE            DISABLE

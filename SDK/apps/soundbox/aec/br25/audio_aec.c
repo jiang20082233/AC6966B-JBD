@@ -207,7 +207,7 @@ const int DCCS_8k_Coeff[5] = {
 const int DCCS_16k_Coeff[5] = {
     (1006633 << 2),	-(967542 << 2),	(1048576 << 2),	(2013266 << 2),	-(2097152 << 2)
 };
-int aec_dccs_eq_filter(int sr, struct audio_eq_filter_info *info)
+int aec_dccs_eq_filter(struct audio_eq *eq,int sr, struct audio_eq_filter_info *info)
 {
     //r_printf("dccs_eq sr:%d\n", sr);
     if (sr == 16000) {

@@ -60,6 +60,26 @@ extern void bt_tws_sync_volume();
 #define music_play_usb_host_mount_after(...)
 #endif//(!TCFG_APP_MUSIC_EN)
 
+static void  common_tone_play_end_callback(void *priv, int flag)
+{
+    u32 index = (u32)priv;
+
+    // if (APP_IDLE_TASK != app_get_curr_task()) {
+    //     log_error("tone callback task out \n");
+    //     return;
+    // }
+
+    switch (index) {
+    case IDEX_TONE_POWER_OFF:
+        ///提示音播放结束        
+        printf(" >>>>> tone \n");
+        app_task_switch_to(APP_IDLE_TASK);
+        break;
+    default:
+        break;
+    }
+}
+
 extern void reverb_eq_cal_coef(u8 filtN, int gainN, u8 sw);
 extern u8 app_common_key_event_get(struct key_event *key);
 int app_common_key_msg_deal(struct sys_event *event)
@@ -240,7 +260,16 @@ int app_common_key_msg_deal(struct sys_event *event)
 
     case KEY_IR_PPOWER:
         puts("KEY_IR_PPOWER\n");
-        power_off_deal(event, 2);
+        // power_off_deal(event, 2);
+        // tone_play_with_callback_by_name(tone_table[IDEX_TONE_POWER_OFF], 1, NULL, NULL);
+        #if USER_IR_POWER
+        if(APP_IDLE_TASK != app_get_curr_task()){
+            int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_POWER_OFF], 1, common_tone_play_end_callback, (void *)IDEX_TONE_POWER_OFF);
+            if (err) {
+                app_task_switch_to(APP_IDLE_TASK);
+            }
+        }
+        #endif
         break;
 
     case KEY_IR_MUTE:

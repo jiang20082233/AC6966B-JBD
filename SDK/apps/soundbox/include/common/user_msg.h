@@ -26,6 +26,7 @@ enum {
 
     ///用户自定义消息从以下开始定义
     USER_MSG_TEST = 0x0,
+    USER_MSG_POWER_OFF,
 };
 
 

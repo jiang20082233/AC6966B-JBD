@@ -6,7 +6,19 @@ USER_POWER_INFO user_power_io={
     .vol = 0,
 };
 #endif
+// void user_bt_noconect_power_off(void *p_time){
+//     static u32 user_power_off_time = -1;
 
+//     if(p_time){
+        
+//     }
+
+//     // if(-1 == user_power_off_time){
+//     //     return;
+//     // }
+
+//     if(user_power_off_time)
+// }
 void user_eq_mode_sw(void){
     #if USER_EQ_FILE_ADD_EQ_TABLE
         static int user_eq_mode = 0;

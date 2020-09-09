@@ -28,6 +28,7 @@
 #include "user_cfg.h"
 #include "ui/ui_api.h"
 #include "key_event_deal.h"
+#include "user_fun_cfg.h"
 
 #define LOG_TAG_CONST       APP_IDLE
 #define LOG_TAG             "[APP_IDLE]"
@@ -51,7 +52,7 @@ static void idle_app_open_module();
 
 #define POWER_ON_CNT       10
 /// idle 是否关闭不用的模块，减少功耗
-#define LOW_POWER_IN_IDLE    0
+#define LOW_POWER_IN_IDLE    USER_IR_POWER//0
 
 
 #if LOW_POWER_IN_IDLE
@@ -281,6 +282,9 @@ static int idle_key_event_opr(struct sys_event *event)
     case KEY_POWER_ON_HOLD:
         idle_key_poweron_deal(key_event - KEY_POWER_ON);
         break;
+    case KEY_IR_PPOWER:
+        cpu_reset();
+        break;
     }
     return ret;
 }
@@ -382,7 +386,7 @@ static void idle_app_close_module()
 #if (TCFG_PC_ENABLE || TCFG_UDISK_ENABLE)
     extern void usb_detect_timer_del();
     extern u32 usb_otg_online(const usb_dev usb_id);
-    extern int usb_mount_offline(usb_dev usb_id);
+    extern int mult_usb_mount_offline(usb_dev usb_id);
     extern void usb_pause();
     extern int dev_manager_del(char *logo);
     usb_detect_timer_del();
@@ -409,7 +413,7 @@ static void idle_app_close_module()
         gpio_set_pull_down(IO_PORT_DM, 1);
         gpio_set_direction(IO_PORT_DM, 1);
 
-        usb_mount_offline(0);
+        mult_usb_mount_offline(0);
 #endif
     } else if (usb_otg_online(0) == SLAVE_MODE) {
 #if TCFG_PC_ENABLE
@@ -474,6 +478,7 @@ void app_idle_task()
     int res;
     int msg[32];
 
+    user_power_off();
     idle_app_start();
 
     while (1) {

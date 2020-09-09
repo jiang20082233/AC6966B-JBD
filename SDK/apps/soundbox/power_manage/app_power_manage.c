@@ -195,12 +195,15 @@ int app_power_event_handler(struct device_event *dev)
 
 u16 get_vbat_level(void)
 {
+    u16 vbat_tp = 0;
     #if (defined(USER_VBAT_CHECK_EN) && USER_VBAT_CHECK_EN)
-    return user_fun_get_vbat();
-    #endif    
-
+    vbat_tp = user_fun_get_vbat();
+    #else
+    vbat_tp = (adc_get_voltage(AD_CH_VBAT) * 4 / 10);
+    #endif
+    // printf(">>>>>>>>>> vbat vol %04d\n",vbat_tp);
     //return 370;     //debug
-    return (adc_get_voltage(AD_CH_VBAT) * 4 / 10);
+    return vbat_tp;
 }
 
 u16 user_get_vbat_level(void){
@@ -380,6 +383,7 @@ void vbat_check(void *priv)
 
     unit_cnt++;
 
+    // printf("                    power 0ff %d %d\n",app_var.poweroff_tone_v,app_var.warning_tone_v);
     /* if (bat_val < LOW_POWER_OFF_VAL) { */
     if ((bat_val <= app_var.poweroff_tone_v) || adc_check_vbat_lowpower()) {
         low_off_cnt++;

@@ -15,11 +15,11 @@
 
 #define LOG_TAG_CONST       USER_CFG
 #define LOG_TAG             "[USER_CFG]"
-#define LOG_ERROR_ENABLE
-#define LOG_DEBUG_ENABLE
-#define LOG_INFO_ENABLE
-#define LOG_DUMP_ENABLE
-#define LOG_CLI_ENABLE
+// #define LOG_ERROR_ENABLE
+// #define LOG_DEBUG_ENABLE
+// #define LOG_INFO_ENABLE
+// #define LOG_DUMP_ENABLE
+// #define LOG_CLI_ENABLE
 #include "debug.h"
 
 void lp_winsize_init(struct lp_ws_t *lp);
@@ -156,8 +156,8 @@ u8 get_tone_vol(void)
 #define USE_CONFIG_CHARGE_SETTING            USE_CONFIG_BIN_FILE        //充电设置
 #define USE_CONFIG_KEY_SETTING               USE_CONFIG_BIN_FILE        //按键消息设置
 #define USE_CONFIG_MIC_TYPE_SETTING          USE_CONFIG_BIN_FILE        //MIC类型设置
-#define USE_CONFIG_LOWPOWER_V_SETTING        USE_CONFIG_BIN_FILE        //低电提示设置
-#define USE_CONFIG_AUTO_OFF_SETTING          USE_CONFIG_BIN_FILE        //自动关机时间设置
+#define USE_CONFIG_LOWPOWER_V_SETTING        1//USE_CONFIG_BIN_FILE        //低电提示设置
+#define USE_CONFIG_AUTO_OFF_SETTING          1//USE_CONFIG_BIN_FILE        //自动关机时间设置
 
 
 __BANK_INIT_ENTRY

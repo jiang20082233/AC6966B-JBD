@@ -41,6 +41,10 @@ extern void mix_out_automute_close();
 
 #define AUDIO_DECODE_TASK_WAKEUP_TIME	0	// 解码定时唤醒 // ms
 
+#if (defined(USER_SDK_BUG_1) && USER_SDK_BUG_1)
+#undef AUDIO_DECODE_TASK_WAKEUP_TIME
+#define AUDIO_DECODE_TASK_WAKEUP_TIME   4
+#endif
 //////////////////////////////////////////////////////////////////////////////
 
 struct audio_decoder_task 	decode_task = {0};

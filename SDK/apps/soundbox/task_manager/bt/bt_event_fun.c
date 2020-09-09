@@ -834,7 +834,7 @@ void sys_auto_shut_down_enable(void)
     } else {//在切换到蓝牙任务APP_STA_START中，current_app为空
         app_var.auto_shut_down_timer = sys_timeout_add(NULL, sys_enter_soft_poweroff, (app_var.auto_off_time * 1000));
     }
-}
+
 #endif
 }
 

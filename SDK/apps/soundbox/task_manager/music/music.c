@@ -494,7 +494,7 @@ static int music_key_event_opr(struct sys_event *event)
                     app_task_put_key_msg(KEY_MUSIC_CHANGE_DEV, 0);
                     break;
                 }
-            }                    
+            }
         }
         ret = false;
         break;
@@ -721,11 +721,11 @@ void app_music_task()
     #ifdef USER_USB_OR_SD
     if(dev_manager_get_total(1)>1){
         if((USER_USB_OR_SD == USER_DEV_USB) || (USER_USB_OR_SD == USER_DEV_SD0) || (USER_USB_OR_SD == USER_DEV_SD1)){
-            if(USER_USB_OR_SD == USER_DEV_USB){
-                user_dev_tone_number = IDEX_TONE_USB;
-            }else{
-                user_dev_tone_number = IDEX_TONE_SD;
-            }
+            // if(USER_USB_OR_SD == USER_DEV_USB){
+            //     user_dev_tone_number = IDEX_TONE_USB;
+            // }else{
+            //     user_dev_tone_number = IDEX_TONE_SD;
+            // }
             dev_manager_set_active_by_logo(/*dev_logo[0]*/USER_USB_OR_SD);
         }        
     }

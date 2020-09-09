@@ -309,6 +309,12 @@ void app_linein_task()
 
     linein_app_init();//初始化时钟和开启ui
 
+    // void audio_linein_ch_combine(u8 LR_2_L, u8 LR_2_R);
+    #if (defined(USER_AUXR_IN_DACL_OUT) && USER_AUXR_IN_DACL_OUT)
+    audio_linein_ch_combine(1,0);
+    #endif
+
+    audio_linein_ch_combine(1,1);
     err = tone_play_with_callback_by_name(tone_table[IDEX_TONE_LINEIN], 1,
                                           line_tone_play_end_callback, (void *)IDEX_TONE_LINEIN);
     if (err) { //
