@@ -5940,13 +5940,13 @@
 	"generic/typedef.h"
 	"generic/list.h"
 
-1599653800 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\include\app_config.h
+1599707978 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\include\app_config.h
 	"board_config.h"
 	"usb_common_def.h"
 	"btcontroller_mode.h"
 	"user_cfg_id.h"
 
-1599654371 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_config.h
+1599707971 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_config.h
 	"board_ac6966b/board_ac6966b_cfg.h"
 	"board_ac6965e/board_ac6965e_cfg.h"
 	"board_ac696x_demo/board_ac696x_demo_cfg.h"
@@ -5959,7 +5959,7 @@
 	"board_ac6966b/user_ac6966b_cfg.h"
 	"board_ac6965e/user_ac6965e_cfg.h"
 
-1599652784 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6966b\board_ac6966b_cfg.h
+1599704738 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6966b\board_ac6966b_cfg.h
 	"usb_std_class_def.h"
 
 1598861745 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\common\usb\usb_std_class_def.h
@@ -9180,7 +9180,7 @@
 	"key_driver.h"
 	"key_event_deal.h"
 
-1599207601 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\task_manager\bt\bt.c
+1599705367 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\task_manager\bt\bt.c
 	"system/includes.h"
 	"media/includes.h"
 	"app_config.h"
@@ -9507,7 +9507,7 @@
 	"user_fun_cfg.h"
 	"debug.h"
 
-1599445942 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\task_manager\fm\fm_api.c
+1599708390 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\task_manager\fm\fm_api.c
 	"system/includes.h"
 	"media/includes.h"
 	"app_config.h"
@@ -10094,7 +10094,7 @@
 	"asm/power_interface.h"
 	"jiffies.h"
 
-1598861745 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\cpu\br25\audio_common\app_audio.c
+1599708581 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\cpu\br25\audio_common\app_audio.c
 	"system/includes.h"
 	"media/includes.h"
 	"app_config.h"
@@ -10522,7 +10522,7 @@
 
 1598861745 f:\2020\jbd\jbd[ac696x]\source_code\sdk\include_lib\media\media_develop\media\cpu\br25\asm\resample_api.h
 
-1598861745 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\cpu\br25\audio_mic\mic_stream.c
+1599707223 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\cpu\br25\audio_mic\mic_stream.c
 	"mic_stream.h"
 	"app_config.h"
 	"system/includes.h"
@@ -10774,7 +10774,7 @@
 	"app_config.h"
 	"app_task.h"
 
-1599643886 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6965e\board_ac6965e_cfg.h
+1599704754 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6965e\board_ac6965e_cfg.h
 	"usb_std_class_def.h"
 
 1599190634 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6965e\board_ac6965e.c
@@ -10849,7 +10849,7 @@
 
 1599129028 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_cfg.h
 
-1599642850 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_config.h
+1599706861 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_config.h
 
 1599640783 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_pa.c
 	"user_fun_cfg.h"

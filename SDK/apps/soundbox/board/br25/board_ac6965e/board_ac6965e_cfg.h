@@ -442,9 +442,9 @@ DAC硬件上的连接方式,可选的配置：
 #define TCFG_CALL_USE_DIGITAL_VOLUME		0
 
 // 使能改宏，提示音音量使用music音量
-#define APP_AUDIO_STATE_WTONE_BY_MUSIC      (1)//TONE_MODE_DEFAULE_VOLUME 不为0 此宏失效
+#define APP_AUDIO_STATE_WTONE_BY_MUSIC      (1)//TONE_MODE_DEFAULE_VOLUME 不为0 APP_AUDIO_STATE_WTONE_BY_MUSIC宏失效
 // 0:提示音不使用默认音量； 1:默认提示音音量值
-#define TONE_MODE_DEFAULE_VOLUME            (28)
+#define TONE_MODE_DEFAULE_VOLUME            (20)
 //*********************************************************************************//
 //                                  充电仓配置  (不支持)                                   //
 //*********************************************************************************//

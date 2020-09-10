@@ -447,19 +447,25 @@ void fm_volume_up()
     }
 
     app_audio_volume_up(1);
-    log_info("fm vol+: %d", app_audio_get_volume(APP_AUDIO_CURRENT_STATE));
+    log_info("fm vol+: %d %d", app_audio_get_volume(APP_AUDIO_CURRENT_STATE), app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
     if (app_audio_get_volume(APP_AUDIO_CURRENT_STATE) == app_audio_get_max_volume()) {
+        
+        vol = app_audio_get_volume(APP_AUDIO_CURRENT_STATE);
+        UI_SHOW_MENU(MENU_MAIN_VOL, 1000, vol, NULL);
+
         if (tone_get_status() == 0) {
 #if TCFG_MAX_VOL_PROMPT
             tone_play_by_path(tone_table[IDEX_TONE_MAX_VOL], USER_TONE_PLAY_MODE?1:0);
 #endif
         }
+    }else{
+        vol = app_audio_get_volume(APP_AUDIO_CURRENT_STATE);
     }
 #if (TCFG_DEC2TWS_ENABLE)
     bt_tws_sync_volume();
 #endif
 
-    vol = app_audio_get_volume(APP_AUDIO_CURRENT_STATE);
+    // vol = app_audio_get_volume(APP_AUDIO_CURRENT_STATE);
     UI_SHOW_MENU(MENU_MAIN_VOL, 1000, vol, NULL);
 
 }
@@ -472,7 +478,7 @@ void fm_volume_down()
         return;
     }
     app_audio_volume_down(1);
-    log_info("fm vol-: %d", app_audio_get_volume(APP_AUDIO_CURRENT_STATE));
+    log_info("fm vol-: %d %d", app_audio_get_volume(APP_AUDIO_CURRENT_STATE), app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
 
 #if (TCFG_DEC2TWS_ENABLE)
     bt_tws_sync_volume();

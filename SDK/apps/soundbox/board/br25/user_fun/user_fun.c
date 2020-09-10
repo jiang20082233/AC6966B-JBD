@@ -238,21 +238,15 @@ void user_fm_vol_set(bool cmd){
     u8 tp_vol = 0;
 
     if(cmd){//进fm 保存音量
-        user_fm_sys_vol = app_audio_get_volume(APP_AUDIO_STATE_MUSIC);
-        while (user_fm_sys_vol > app_audio_get_volume(APP_AUDIO_STATE_MUSIC)){
-            app_audio_volume_down(1);
-        }        
-
-    }else{//退出FM
-
-        while (user_fm_sys_vol > app_audio_get_volume(APP_AUDIO_STATE_MUSIC))
-        {
-            app_audio_volume_up(1);
+        tp_vol = user_fm_sys_vol = app_audio_get_volume(APP_AUDIO_STATE_MUSIC);
+        while (tp_vol > USER_FM_MODE_SYS_VOL){
+            app_audio_set_volume(APP_AUDIO_STATE_MUSIC, USER_FM_MODE_SYS_VOL, 1);
+            tp_vol = app_audio_get_volume(APP_AUDIO_STATE_MUSIC);
         }
-        while (user_fm_sys_vol < app_audio_get_volume(APP_AUDIO_STATE_MUSIC))
-        {
-            app_audio_volume_down(1);
-        }        
+    }else{//退出FM
+        while(app_audio_get_volume(APP_AUDIO_STATE_MUSIC)!=user_fm_sys_vol){
+            app_audio_set_volume(APP_AUDIO_STATE_MUSIC, user_fm_sys_vol, 1);
+        }
     }
 
 #endif

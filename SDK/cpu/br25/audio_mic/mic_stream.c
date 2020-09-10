@@ -322,7 +322,7 @@ static void adc_output_to_buf(void *priv, s16 *data, int len)
 bool mic_stream_start(struct __mic_stream  *stream)
 {
     if (stream) {
-        if (audio_mic_open(&stream->mic_ch, stream->parm->sample_rate, 10) == 0) {
+        if (audio_mic_open(&stream->mic_ch, stream->parm->sample_rate, USER_MIC_DEFAULT_GAIN) == 0) {
             stream->adc_output.handler = adc_output_to_buf;
             stream->adc_output.priv = stream;
             audio_mic_add_output(&stream->adc_output);
