@@ -3,14 +3,24 @@
 
 #if USER_LED_EN
 LED_IO user_led_io={
-    .por = IO_PORTB_07,
+    .por = USER_LED_POR,
     .on  = 1,//高亮
 
     .status = 0xff,
     .init_ok = 0,
 };
 #endif
-void user_led_io_fun(LED_IO *io,u8 cmd){
+
+#if (USER_LED_EN && USER_RGB_EN && (USER_LED_POR == IO_PORTB_07))
+#error 请确保 led与rgb 使用的io不为同一个io
+#endif
+
+void user_led_io_fun(void *priv,u8 cmd){
+    LED_IO *io = (LED_IO *)priv;
+    if(!io){
+        return;
+    }
+
 #if USER_LED_EN
     // LED_IO *io_p = io;
 

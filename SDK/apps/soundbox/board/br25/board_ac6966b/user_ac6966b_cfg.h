@@ -15,6 +15,9 @@
 #define USER_SD_POWER_SWITCH_EN 0//SD 电源开关
 #define USER_3IO_CHECK_4AD_EN 1//3IO检测4路ad
 
+#define USER_LED_POR    IO_PORTB_07//LED IO
+#define USER_RGB_NUMBER 30//rgb 颗数
+
 
 #endif
 #endif

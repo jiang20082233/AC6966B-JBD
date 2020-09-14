@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "user_fun_cfg.h": "c"
+        "user_fun_cfg.h": "c",
+        "*.ld": "c"
     }
 }

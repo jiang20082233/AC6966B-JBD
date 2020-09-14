@@ -542,6 +542,7 @@ static int music_key_event_opr(struct sys_event *event)
 /*----------------------------------------------------------------------------*/
 static int music_sys_event_handler(struct sys_event *event)
 {
+    printf(">>>>>>>>>>> music type %d arg %d %d\n",event->type,(u32)event->arg,AUDIO_DEC_EVENT_END);
     int err = 0;
     char *logo = NULL;
     char *evt_logo = NULL;
@@ -587,6 +588,9 @@ static int music_sys_event_handler(struct sys_event *event)
                 log_i("KEY_MUSIC_PLAYER_START AFTER MOUNT\n");
                 //先挂载了设备再执行
             }
+            break;
+        case DEVICE_EVENT_FROM_TONE:
+            printf(">>>>>>>> music tone play eve\n");
             break;
         default://switch((u32)event->arg)
             break;

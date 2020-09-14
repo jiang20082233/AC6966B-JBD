@@ -24,7 +24,7 @@ typedef struct USER_LED_IO{
 extern LED_IO user_led_io;
 #define USER_IO_LED (&user_led_io)
 #else
-#define USER_IO_LED ((LED_IO)NULL)
+#define USER_IO_LED (NULL)
 #endif
-void user_led_io_fun(LED_IO *io,u8 cmd);
+void user_led_io_fun(void *priv,u8 cmd);
 #endif

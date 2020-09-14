@@ -13,7 +13,7 @@ const u16 bt_key_io_table[KEY_IO_NUM_MAX][KEY_EVENT_MAX] = {
     //单击             //长按          //hold         //抬起            //双击                //三击
     [0] = {
         /*SHORT*/ KEY_MUSIC_PP,	
-        /*LONG*/  KEY_LED_IO_CTL/*KEY_CALL_HANG_UP*/,
+        /*LONG*/  KEY_LED_OR_RGB_MODE_CTL/*KEY_CALL_HANG_UP*/,
         /*HOLD*/  KEY_NULL,
         /*UP*/	  KEY_NULL,
         /*DOUBLE*/KEY_CALL_LAST_NO,
@@ -70,7 +70,7 @@ const u16 fm_key_io_table[KEY_IO_NUM_MAX][KEY_EVENT_MAX] = {
     //单击             //长按          //hold         //抬起            //双击                //三击
     [0] = {
         /*SHORT*/ KEY_FM_SCAN_ALL/*KEY_MUSIC_PP*/,
-        /*LONG*/  KEY_LED_IO_CTL,//KEY_POWEROFF,
+        /*LONG*/  KEY_LED_OR_RGB_MODE_CTL,//KEY_POWEROFF,
         /*HOLD*/  KEY_NULL,//KEY_POWEROFF_HOLD,
         /*UP*/	  KEY_NULL,
         /*DOUBLE*/KEY_NULL,//KEY_CALL_LAST_NO,
@@ -127,7 +127,7 @@ const u16 linein_key_io_table[KEY_IO_NUM_MAX][KEY_EVENT_MAX] = {
     //单击             //长按          //hold         //抬起            //双击                //三击
     [0] = {
     /*SHORT*/ KEY_MUSIC_PP,
-    /*LONG*/  KEY_LED_IO_CTL/*KEY_POWEROFF*/,
+    /*LONG*/  KEY_LED_OR_RGB_MODE_CTL/*KEY_POWEROFF*/,
     /*HOLD*/  KEY_NULL/*KEY_POWEROFF_HOLD*/,
     /*UP*/	  KEY_NULL,
     /*DOUBLE*/KEY_NULL,
@@ -184,7 +184,7 @@ const u16 music_key_io_table[KEY_IO_NUM_MAX][KEY_EVENT_MAX] = {
     //单击             //长按          //hold         //抬起            //双击                //三击
     [0] = {
         /*SHORT*/ KEY_MUSIC_PP,
-        /*LONG*/  KEY_LED_IO_CTL,
+        /*LONG*/  KEY_LED_OR_RGB_MODE_CTL,
         /*HOLD*/  KEY_NULL,
         /*UP*/	  KEY_NULL,
         /*DOUBLE*/KEY_NULL,

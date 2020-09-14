@@ -7,7 +7,7 @@
 #include "generic/gpio.h"
 #include "asm/clock.h"
 #include "asm/spi.h"
-
+#include "board_config.h"
 
 #define spi_enable(reg)                     ((reg)->CON |= BIT(0))
 #define spi_disable(reg)                    ((reg)->CON &= ~BIT(0))
@@ -44,8 +44,8 @@
 
 
 #define SPI0_ENABLE   0   //是否使能SPI0，使能后需定义spi0_p_data
-#define SPI1_ENABLE   1   //是否使能SPI1，使能后需定义spi1_p_data
-#define SPI2_ENABLE   1   //是否使能SPI2，使能后需定义spi2_p_data
+#define SPI1_ENABLE   TCFG_HW_SPI1_ENABLE   //是否使能SPI1，使能后需定义spi1_p_data
+#define SPI2_ENABLE   TCFG_HW_SPI2_ENABLE   //是否使能SPI2，使能后需定义spi2_p_data
 
 
 static const struct spi_io_mapping spi_io_map[SPI_MAX_HW_NUM] = {

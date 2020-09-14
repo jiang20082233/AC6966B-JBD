@@ -187,12 +187,15 @@ int app_common_key_msg_deal(struct sys_event *event)
 
     case KEY_VOL_UP:
         log_info("COMMON KEY_VOL_UP\n");
+        if(tone_get_status()){
+            break;
+        }        
         app_audio_volume_up(1);
-        printf("common vol+: %d", app_audio_get_volume(APP_AUDIO_CURRENT_STATE));
-        if (app_audio_get_volume(APP_AUDIO_CURRENT_STATE) == app_audio_get_max_volume()) {
+        printf("common vol+: %d", app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
+        if (app_audio_get_volume(APP_AUDIO_STATE_MUSIC) == app_audio_get_max_volume()) {
             if (tone_get_status() == 0) {
 #if TCFG_MAX_VOL_PROMPT
-                tone_play_by_path(tone_table[IDEX_TONE_MAX_VOL], 0);
+                tone_play_by_path(tone_table[IDEX_TONE_MAX_VOL], USER_TONE_PLAY_MODE?1:0);
 #endif
             }
         }
@@ -206,12 +209,24 @@ int app_common_key_msg_deal(struct sys_event *event)
 
     case KEY_VOL_DOWN:
         log_info("COMMON KEY_VOL_DOWN\n");
+        if(tone_get_status()){
+            break;
+        }        
         app_audio_volume_down(1);
-        printf("common vol-: %d", app_audio_get_volume(APP_AUDIO_CURRENT_STATE));
+        printf("common vol-: %d", app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
+        {
+            RGB_DISPLAY_DATA data;
+            data.display_time = 4;
+            data.sys_vol_max = app_audio_get_max_volume();
+            data.sys_vol = app_audio_get_volume(APP_AUDIO_STATE_MUSIC);
+            
+            user_rgb_mode_set(USER_RGB_SYS_VOL,&data);
+
+        }        
 #if (TCFG_DEC2TWS_ENABLE)
         bt_tws_sync_volume();
 #endif
-        UI_SHOW_MENU(MENU_MAIN_VOL, 1000, app_audio_get_volume(APP_AUDIO_CURRENT_STATE), NULL);
+        UI_SHOW_MENU(MENU_MAIN_VOL, 1000, app_audio_get_volume(APP_AUDIO_STATE_MUSIC), NULL);
         break;
 
     case  KEY_EQ_MODE:
@@ -253,17 +268,17 @@ int app_common_key_msg_deal(struct sys_event *event)
         break;
 #endif
 
-    case KEY_LED_IO_CTL:
-        puts("KEY_LED_IO_CTL\n");
+    case KEY_LED_OR_RGB_MODE_CTL:
+        puts("KEY_LED_OR_RGB_MODE_CTL\n");
         user_led_io_fun(USER_IO_LED,LED_IO_FLIP);
+        user_rgb_mode_set(USER_RGB_AUTO_SW,NULL);
         break;
 
     case KEY_IR_PPOWER:
         puts("KEY_IR_PPOWER\n");
-        // power_off_deal(event, 2);
-        // tone_play_with_callback_by_name(tone_table[IDEX_TONE_POWER_OFF], 1, NULL, NULL);
         #if USER_IR_POWER
         if(APP_IDLE_TASK != app_get_curr_task()){
+            user_power_off();
             int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_POWER_OFF], 1, common_tone_play_end_callback, (void *)IDEX_TONE_POWER_OFF);
             if (err) {
                 app_task_switch_to(APP_IDLE_TASK);
@@ -275,7 +290,6 @@ int app_common_key_msg_deal(struct sys_event *event)
     case KEY_IR_MUTE:
         puts("KEY_IR_MUTE\n");
         user_pa_ex_manual(0xff);
-        //printf("ir mute %d\n",pa_fun.pa_io->pa_manual_mute);
         break;
 
     case USER_MSG_SYS_SPK_STATUS:
@@ -289,6 +303,17 @@ int app_common_key_msg_deal(struct sys_event *event)
         }
         user_pa_ex_mic(key_value);
         #endif
+        break;
+    case USER_KEY_RGB_MODE:
+        user_rgb_mode_set(USER_RGB_AUTO_SW,NULL);
+        break;
+    case USER_KEY_RGB_BASS:
+        {
+            static bool bass_st = 0;
+            bass_st = !bass_st;
+            user_rgb_display_bass(bass_st,4);
+
+        }
         break;
     default:
         ui_key_msg_post(key_event);

@@ -850,6 +850,7 @@ static void  bt_tone_play_end_callback(void *priv, int flag)
     switch (index) {
     case IDEX_TONE_BT_MODE:
         ///提示音播放结束
+        puts(">>>>>>> bt statr\n");
         bt_task_start();
         break;
     default:
@@ -875,9 +876,11 @@ void app_bt_task()
         #if USER_BT_TONE_PLAY_GO_INIT
         int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_BT_MODE], 1, bt_tone_play_end_callback, (void *)IDEX_TONE_BT_MODE);
         if (err) {
+            puts(">>>>>>>>>>>>>>>>>   bt ton play  err\n");
             bt_task_start();
         }
         #else
+        puts(">>>>>> no no  no   USER_BT_TONE_PLAY_GO_INIT\n");
         tone_play_by_path(tone_table[IDEX_TONE_BT_MODE], 1);
         #endif
     }else{

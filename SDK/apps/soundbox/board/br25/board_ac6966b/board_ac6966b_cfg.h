@@ -72,11 +72,11 @@
 //*********************************************************************************//
 //                                 硬件SPI 配置                                        //
 //*********************************************************************************//
-#define	TCFG_HW_SPI1_ENABLE		DISABLE_THIS_MOUDLE//ENABLE_THIS_MOUDLE
+#define	TCFG_HW_SPI1_ENABLE		0//ENABLE_THIS_MOUDLE
 //A组IO:    DI: PB2     DO: PB1     CLK: PB0
 //B组IO:    DI: PC3     DO: PC5     CLK: PC4
 #define TCFG_HW_SPI1_PORT		'A'
-#define TCFG_HW_SPI1_BAUD		4000000L
+#define TCFG_HW_SPI1_BAUD		2000000L//4000000L
 #define TCFG_HW_SPI1_MODE		SPI_MODE_BIDIR_1BIT
 #define TCFG_HW_SPI1_ROLE		SPI_ROLE_MASTER
 
@@ -230,8 +230,8 @@
 //*********************************************************************************//
 #define TCFG_ADKEY_ENABLE                   ENABLE_THIS_MOUDLE//是否使能AD按键
 #define TCFG_ADKEY_LED_IO_REUSE				DISABLE_THIS_MOUDLE	//ADKEY 和 LED IO复用，led只能设置蓝灯显示
-#define TCFG_ADKEY_PORT                     IO_PORTA_00         //AD按键端口(需要注意选择的IO口是否支持AD功能)
-#define TCFG_ADKEY_AD_CHANNEL               AD_CH_PA0
+#define TCFG_ADKEY_PORT                     IO_PORTC_02         //AD按键端口(需要注意选择的IO口是否支持AD功能)
+#define TCFG_ADKEY_AD_CHANNEL               AD_CH_PC2
 #define TCFG_ADKEY_EXTERN_UP_ENABLE         ENABLE_THIS_MOUDLE //是否使用外部上拉
 
 #if TCFG_ADKEY_EXTERN_UP_ENABLE
@@ -296,7 +296,7 @@
 //                                 irkey 配置                                      //
 //*********************************************************************************//
 #define TCFG_IRKEY_ENABLE                   ENABLE_THIS_MOUDLE//DISABLE_THIS_MOUDLE//是否使能ir按键
-#define TCFG_IRKEY_PORT                     AD_CH_PA0        //IR按键端口
+#define TCFG_IRKEY_PORT                     IO_PORTC_02//AD_CH_PC2        //IR按键端口
 
 //*********************************************************************************//
 //                             tocuh key 配置 (不支持)                                      //

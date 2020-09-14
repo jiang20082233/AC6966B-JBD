@@ -1,8 +1,8 @@
 #include "user_fun_cfg.h"
 #if USER_VBAT_CHECK_EN
 USER_POWER_INFO user_power_io={
-    .pro = IO_PORTC_02,
-    .ch  = AD_CH_PC2,
+    .pro = IO_PORTB_06,
+    .ch  = AD_CH_PB6,
     .vol = 0,
 };
 #endif
@@ -272,6 +272,7 @@ void user_power_off(void){
     user_led_io_fun(USER_IO_LED,LED_POWER_OFF);
     pa_ex_fun.strl(PA_POWER_OFF);
     user_sd_power(0);
+    user_rgb_mode_set(USER_RGB_POWER_OFF,NULL);  
 }
 
 //开机 io口初始化
@@ -295,5 +296,5 @@ void user_fun_init(void){
     // #endif
     ex_dev_detect_init(& user_mic_check);
 
-
+    user_rgb_fun_init();
 }

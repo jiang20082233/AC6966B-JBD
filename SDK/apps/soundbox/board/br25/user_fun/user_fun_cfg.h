@@ -26,6 +26,7 @@
 #include "mic_effect.h"
 #include "application/audio_eq.h"
 #include "audio_config.h"
+#include "asm/spi.h"
 
 #include "log.h"
 
@@ -33,6 +34,8 @@
 #include "user_pa.h"
 #include "user_ad.h"
 #include "user_led.h"
+#include "user_rgb_dev.h"
+#include "user_rgb.h"
 #include "user_mic.h"
 #include "user_dev_check.h"
 

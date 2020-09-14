@@ -38,6 +38,7 @@
 #define LOG_CLI_ENABLE
 #include "debug.h"
 
+#include "user_fun_cfg.h"
 
 struct linein_opr {
     void *rec_dev;
@@ -67,6 +68,7 @@ int linein_volume_set(u8 vol)
     }
     log_info("linein vol: %d", __this->volume);
     __this->volume = vol;
+    user_rgb_display_vol(__this->volume,4);
 
 #if (TCFG_DEC2TWS_ENABLE)
     bt_tws_sync_volume();
@@ -79,7 +81,6 @@ int linein_volume_set(u8 vol)
         audio_linein_mute(1);
     }
 #endif
-
     return true;
 }
 
@@ -272,7 +273,15 @@ int linein_volume_pp(void)
 
 
 
-
+void user_linein_dec_star(void){
+    printf(">>>>>>>>>>> linein onff flag 00 %d\n",__this->onoff);
+    if (!__this->onoff) {
+        linein_stop();
+    } else {
+        linein_start();
+    }
+    printf(">>>>>>>>>>> linein onff flag 11 %d\n",__this->onoff);
+}
 
 
 
@@ -288,9 +297,41 @@ u8 linein_get_status(void)
     return __this->onoff;
 }
 
+#include "user_config.h"
+void linein_vol_set(void){
+    #if USER_SDK_BUG_2
+    if (TCFG_LINEIN_LR_CH == AUDIO_LIN_DACL_CH) {
+        app_audio_output_ch_analog_gain_set(BIT(0), 0);
+        app_audio_output_ch_analog_gain_set(BIT(1), __this->volume);
+    } else if (TCFG_LINEIN_LR_CH == AUDIO_LIN_DACR_CH) {
+        app_audio_output_ch_analog_gain_set(BIT(0), __this->volume);
+        app_audio_output_ch_analog_gain_set(BIT(1), 0);
+    }
+    #endif
+}
+static void  linein_api_tone_play_end_callback(void *priv, int flag)
+{
+    u32 index = (u32)priv;
 
+    if (APP_LINEIN_TASK != app_get_curr_task()) {
+        log_error("tone callback task out \n");
+        return;
+    }
 
+    switch (index) {
+    case IDEX_TONE_MAX_VOL:
+        ///提示音播放结束
+        puts(">>>>>>> linein tone play end linein statr\n");
 
+        if (__this->onoff) {
+            linein_stop();
+            linein_start();
+        }
+        break;
+    default:
+        break;
+    }
+}
 /*
    @note    在linein 情况下针对了某些情景进行了处理，设置音量需要使用独立接口
 */
@@ -298,6 +339,9 @@ u8 linein_get_status(void)
 void linein_key_vol_up()
 {
     u8 vol;
+    if(tone_get_status()){
+        return;
+    }  
     if (__this->volume < get_max_sys_vol()) {
         __this->volume ++;
         linein_volume_set(__this->volume);
@@ -306,7 +350,15 @@ void linein_key_vol_up()
         if (tone_get_status() == 0) {
             /* tone_play(TONE_MAX_VOL); */
 #if TCFG_MAX_VOL_PROMPT
+    #if USER_SDK_BUG_3
+        #if ((TCFG_LINEIN_LR_CH == AUDIO_LIN_DACL_CH)||TCFG_LINEIN_LR_CH == AUDIO_LIN_DACR_CH)
+        tone_play_with_callback_by_name(tone_table[IDEX_TONE_MAX_VOL],USER_TONE_PLAY_MODE?1:0,linein_api_tone_play_end_callback,(void *)IDEX_TONE_MAX_VOL);
+        #else
+        one_play_by_path(tone_table[IDEX_TONE_MAX_VOL], USER_TONE_PLAY_MODE?1:0);
+        #endif
+    #else
             tone_play_by_path(tone_table[IDEX_TONE_MAX_VOL], USER_TONE_PLAY_MODE?1:0);
+    #endif
 #endif
         }
     }
@@ -323,6 +375,9 @@ void linein_key_vol_up()
 void linein_key_vol_down()
 {
     u8 vol;
+    if(tone_get_status()){
+        return;
+    }      
     if (__this->volume) {
         __this->volume --;
         linein_volume_set(__this->volume);

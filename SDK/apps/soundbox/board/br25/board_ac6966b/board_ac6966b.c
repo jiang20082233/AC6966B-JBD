@@ -453,13 +453,13 @@ LED_PLATFORM_DATA_END()
 #if TCFG_UI_LED7_ENABLE
 LED7_PLATFORM_DATA_BEGIN(led7_data)
 	.pin_type = LED7_PIN7,
-    .pin_cfg.pin7.pin[6] = IO_PORTB_01,
-    .pin_cfg.pin7.pin[5] = IO_PORTB_02,
-    .pin_cfg.pin7.pin[4] = IO_PORTB_03,
-    .pin_cfg.pin7.pin[3] = IO_PORTB_05,
-    .pin_cfg.pin7.pin[2] = IO_PORTB_04,
-    .pin_cfg.pin7.pin[1] = IO_PORTB_06,
-    .pin_cfg.pin7.pin[0] = IO_PORTB_07,
+    .pin_cfg.pin7.pin[6] = IO_PORTB_00,
+    .pin_cfg.pin7.pin[5] = IO_PORTB_01,
+    .pin_cfg.pin7.pin[4] = IO_PORTB_02,
+    .pin_cfg.pin7.pin[3] = IO_PORTB_03,
+    .pin_cfg.pin7.pin[2] = IO_PORTB_05,
+    .pin_cfg.pin7.pin[1] = IO_PORTB_04,
+    .pin_cfg.pin7.pin[0] = IO_PORTA_00,
 LED7_PLATFORM_DATA_END()
 
 const struct ui_devices_cfg ui_cfg_data = {

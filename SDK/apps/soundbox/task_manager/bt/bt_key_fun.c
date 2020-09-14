@@ -54,6 +54,7 @@
 #include "audio_reverb.h"
 #include "tone_player.h"
 #include "dac.h"
+#include "user_fun_cfg.h"
 
 
 #define __this 	(&app_bt_hdl)
@@ -160,6 +161,8 @@ void volume_up(void)
     }
 
     if (cur_vol >= app_audio_get_max_volume()) {
+              
+        user_rgb_display_vol(cur_vol,4);
 #if TCFG_USER_TWS_ENABLE
         if (get_tws_sibling_connect_state()) {
             if (tws_api_get_role() == TWS_ROLE_MASTER && __this->replay_tone_flag) {
@@ -255,6 +258,7 @@ void volume_down(void)
     }
 
     if (app_audio_get_volume(APP_AUDIO_CURRENT_STATE) <= 0) {
+        user_rgb_display_vol(0,4);
         if (get_call_status() != BT_CALL_HANGUP) {
             /*
              *本地音量最小，如果手机音量还没最小，继续减
@@ -474,6 +478,9 @@ void bt_key_vol_up()
 {
 
     u8 vol;
+    if(tone_get_status()){
+        return;
+    }    
     if (get_call_status() == BT_CALL_ACTIVE && bt_sco_state() == 0) {
         return;
     }
@@ -495,6 +502,10 @@ void bt_key_vol_up()
 void bt_key_vol_down()
 {
     u8 vol;
+    if(tone_get_status()){
+        return;
+    }
+
     if (get_call_status() == BT_CALL_ACTIVE && bt_sco_state() == 0) {
         return;
     }

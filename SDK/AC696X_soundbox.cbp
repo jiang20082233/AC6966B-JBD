@@ -738,6 +738,14 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="apps/soundbox/board/br25/user_fun/user_pa.h" />
+		<Unit filename="apps/soundbox/board/br25/user_fun/user_rgb.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="apps/soundbox/board/br25/user_fun/user_rgb.h" />
+		<Unit filename="apps/soundbox/board/br25/user_fun/user_rgb_dev.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="apps/soundbox/board/br25/user_fun/user_rgb_dev.h" />
 		<Unit filename="apps/soundbox/common/dev_status.c">
 			<Option compilerVar="CC" />
 		</Unit>

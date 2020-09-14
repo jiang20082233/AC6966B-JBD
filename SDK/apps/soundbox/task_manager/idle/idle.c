@@ -478,7 +478,7 @@ void app_idle_task()
     int res;
     int msg[32];
 
-    user_power_off();
+    // user_power_off();
     idle_app_start();
 
     while (1) {

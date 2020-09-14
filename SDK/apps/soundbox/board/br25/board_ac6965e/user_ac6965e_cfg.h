@@ -18,5 +18,8 @@
 
 #define USER_AUXR_IN_DACL_OUT   1//linein 右输入 dac只有左输出
 
+#define USER_LED_POR    IO_PORTB_07//LED IO
+#define USER_RGB_NUMBER 10//rgb 颗数
+
 #endif
 #endif
