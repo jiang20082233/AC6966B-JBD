@@ -116,7 +116,6 @@ void user_rgb_send(void *priv){
     }
 }
 
-#endif
 
 void user_rgb_delay_close_spi(void *priv){
     RGB_INFO *rgb = (RGB_INFO *)priv;
@@ -143,6 +142,10 @@ void user_rgb_power_off(void *priv){
     sys_timeout_add(rgb,user_rgb_delay_close_spi,30);
 
 }
+
+#endif
+
+
 //初始化
 void user_rgb_init(void *priv){
     

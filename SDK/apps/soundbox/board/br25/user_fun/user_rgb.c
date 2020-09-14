@@ -1,10 +1,13 @@
 #include "user_fun_cfg.h"
 
 #if USER_RGB_EN
-#if TCFG_HW_SPI1_ENABLE
+#if (defined(TCFG_HW_SPI0_ENABLE) && TCFG_HW_SPI0_ENABLE)
+#define USER_RGB_DATA   SPI0
+#endif
+#if (defined(TCFG_HW_SPI1_ENABLE) && TCFG_HW_SPI1_ENABLE)
 #define USER_RGB_DATA   SPI1
 #endif
-#if TCFG_HW_SPI2_ENABLE
+#if (defined(TCFG_HW_SPI2_ENABLE) && TCFG_HW_SPI2_ENABLE)
 #define USER_RGB_DATA   SPI2
 #endif
 #ifndef USER_RGB_DATA
@@ -26,13 +29,13 @@ RGB_FUN user_rgb_fun = {
     .interrupt = 0,
     .info = &user_rgb_info,
     .cur_colour = {0xff,0x0,0x0},
-    .cur_mode = USER_RGB_MODE_1,
+    .cur_mode = USER_RGB_MODE_MAX,
     .mode_scan_time = 100,
 };
 #define P_RGB_FUN (&user_rgb_fun)
-#else
-#define P_RGB_FUN &NULL
-#endif
+// #else
+// #define P_RGB_FUN &NULL
+// #endif
 
 //伪随机数
 u32 random_number(u32 start, u32 end){
@@ -243,24 +246,7 @@ void user_rgb_vol_display(void *priv,void *data){
     rgb->interrupt_id = sys_timeout_add(rgb,user_rgb_clean_interrupt,1000*(play_data->display_time));
 }
 
-//vol显示外部调用接口
-void user_rgb_display_vol(u8 vol,u16 display_time){
-    RGB_DISPLAY_DATA data;
-    data.display_time = display_time;
-    data.sys_vol_max = app_audio_get_max_volume();
-    data.sys_vol = vol;//app_audio_get_volume(APP_AUDIO_STATE_MUSIC);
-    printf(">>>>>> max %d vol %d",data.sys_vol_max,data.sys_vol);
-    user_rgb_mode_set(USER_RGB_SYS_VOL,&data);
-}
 
-//bass状态显示外部调用接口
-void user_rgb_display_bass(u8 bass,u16 display_time){
-    RGB_DISPLAY_DATA data;
-    data.display_time = display_time;
-    data.bass = bass;
-    
-    user_rgb_mode_set(USER_RGB_EQ_BASS,&data);
-}
 //淡入淡出 环形灯圈
 void user_rgb_display_mode_1(void *priv){
 
@@ -356,6 +342,19 @@ void user_rgb_display_mode_4(void *priv){
     }
 }
 
+//单色闪烁
+void user_rgb_display_mode_5(void *priv){
+    RGB_FUN *rgb = (RGB_FUN *)priv;
+    if(!rgb || !rgb->info || rgb->info->rend_flag || !rgb->info->number){
+        return;
+    }
+
+    s16 rand  = random_number(7,20);
+    if(rand%2){
+        user_rgb_same_colour(rgb->info,&rgb->cur_colour);
+    }
+}
+
 void user_rgb_mode_scan(void *priv){
     RGB_FUN *rgb = (RGB_FUN *)priv;
     if(!rgb || !rgb->info || rgb->info->rend_flag || rgb->power_off){
@@ -393,6 +392,33 @@ void user_rgb_mode_scan(void *priv){
             }
             user_rgb_display_mode_4(rgb);
             break;
+        case USER_RGB_MODE_5:
+        case USER_RGB_MODE_6:
+        case USER_RGB_MODE_7:
+        case USER_RGB_MODE_8:
+        case USER_RGB_MODE_9:
+            if(20 != rgb->mode_scan_time){
+                rgb->mode_scan_time = 20;
+            }
+            if(USER_RGB_MODE_6 == rgb->cur_mode){
+                rgb->cur_colour.r = 0xff;
+                rgb->cur_colour.g = 0x00;
+                rgb->cur_colour.b = 0x00;
+            }else if(USER_RGB_MODE_7 == rgb->cur_mode){
+                rgb->cur_colour.r = 0x00;
+                rgb->cur_colour.g = 0xff;
+                rgb->cur_colour.b = 0x00;
+            }else if(USER_RGB_MODE_8 == rgb->cur_mode){
+                rgb->cur_colour.r = 0x00;
+                rgb->cur_colour.g = 0x00;
+                rgb->cur_colour.b = 0xff;
+            }else if(USER_RGB_MODE_9 == rgb->cur_mode){
+                rgb->cur_colour.r = 0xff;
+                rgb->cur_colour.g = 0xff;
+                rgb->cur_colour.b = 0xff;
+            }
+            user_rgb_display_mode_5(rgb);
+            break;
         case USER_RGB_MODE_OFF:
             break; 
         default:
@@ -404,7 +430,7 @@ void user_rgb_mode_scan(void *priv){
     sys_timeout_add(rgb,user_rgb_mode_scan,rgb->mode_scan_time);
 }
 
-void user_rgb_fun_power_off(void *priv){
+void user_rgb_fun_power_off(void *priv){ 
     RGB_FUN *rgb = (RGB_FUN *)priv;
     if (!rgb || !rgb->info || rgb->power_off){
         return;
@@ -413,60 +439,107 @@ void user_rgb_fun_power_off(void *priv){
     rgb->cur_mode = USER_RGB_POWER_OFF;
     rgb->power_off = 1;
     user_rgb_power_off(rgb->info);
+  
+}
+#endif
+
+//vol显示外部调用接口
+void user_rgb_display_vol(u8 vol,u16 display_time){
+#if USER_RGB_EN    
+    RGB_DISPLAY_DATA data;
+    data.display_time = display_time;
+    data.sys_vol_max = app_audio_get_max_volume();
+    data.sys_vol = vol;//app_audio_get_volume(APP_AUDIO_STATE_MUSIC);
+    printf(">>>>>> max %d vol %d",data.sys_vol_max,data.sys_vol);
+    user_rgb_mode_set(USER_RGB_SYS_VOL,&data);
+#endif
+}
+
+//bass状态显示外部调用接口
+void user_rgb_display_bass(u8 bass,u16 display_time){
+#if USER_RGB_EN    
+    RGB_DISPLAY_DATA data;
+    data.display_time = display_time;
+    data.bass = bass;
+    
+    user_rgb_mode_set(USER_RGB_EQ_BASS,&data);
+#endif
 }
 
 //模式设置
-void user_rgb_mode_set(USER_GRB_MODE mode,void *priv){
-    if (!P_RGB_FUN || !P_RGB_FUN->info || USER_RGB_POWER_OFF==P_RGB_FUN->cur_mode){
+u8 user_rgb_mode_set(USER_GRB_MODE mode,void *priv){
+    u8 ret = 0;
+#if USER_RGB_EN
+    RGB_FUN *rgb = (RGB_FUN *)P_RGB_FUN;
+
+    if (!rgb || !rgb->info || USER_RGB_POWER_OFF==rgb->cur_mode){
         printf(">>>>> rgb p error\n");
-        return;
+        return rgb->cur_mode;
     }
 
     switch (mode){
     case USER_RGB_AUTO_SW:
-        if(P_RGB_FUN->cur_mode+1>=USER_RGB_MODE_MAX){
-            P_RGB_FUN->cur_mode = USER_RGB_MODE_1;
+        if(rgb->cur_mode+1>=USER_RGB_MODE_MAX){
+            #if (USER_RGB_LOOP_MODE == USER_RGB_LOOP_MODE_1)
+            rgb->cur_mode = USER_RGB_MODE_1;
+            #elif (USER_RGB_LOOP_MODE == USER_RGB_LOOP_MODE_2)
+            rgb->cur_mode = USER_RGB_MODE_1;
+            #elif (USER_RGB_LOOP_MODE == USER_RGB_LOOP_MODE_3)
+            rgb->cur_mode = USER_RGB_MODE_5;
+            #endif
         }else{
-            P_RGB_FUN->cur_mode++;
+            rgb->cur_mode++;
+            #if (USER_RGB_LOOP_MODE == USER_RGB_LOOP_MODE_1)
+            #elif (USER_RGB_LOOP_MODE == USER_RGB_LOOP_MODE_2)
+            if(USER_RGB_MODE_5 == rgb->cur_mode){
+                rgb->cur_mode = USER_RGB_MODE_OFF;
+            }
+            #elif (USER_RGB_LOOP_MODE == USER_RGB_LOOP_MODE_3)
+            #endif
+
         }
-        printf("user rgb mode %d\n",P_RGB_FUN->cur_mode);
+        printf("user rgb mode %d\n",rgb->cur_mode);
         break;
     case USER_RGB_SYS_VOL:
         puts("USER_RGB_SYS_VOL\n");
-        user_rgb_vol_display(P_RGB_FUN,priv);
+        user_rgb_vol_display(rgb,priv);
         break;
     case USER_RGB_EQ_BASS:
         puts("USER_RGB_EQ_BASS\n");
-        user_rgb_bass_display(P_RGB_FUN,priv);
+        user_rgb_bass_display(rgb,priv);
         break;
     case USER_RGB_POWER_OFF:
-        user_rgb_fun_power_off(P_RGB_FUN);
+        user_rgb_fun_power_off(rgb);
         break;
     default:
         break;
     }
-
+    ret = rgb->cur_mode;
+#endif
+    return ret;
 }
 
 
 void user_rgb_fun_init(void){
 #if USER_RGB_EN
-    if (!P_RGB_FUN || !P_RGB_FUN->info){
+    RGB_FUN *rgb = (RGB_FUN *)P_RGB_FUN;
+    if (!rgb || !rgb->info){
         printf(">>>>> rgb p error\n");
         return;
     }
-    
+    user_rgb_mode_set(USER_RGB_AUTO_SW,rgb);
+
     // printf(">>>>>>>>>>>>>> user spi %d\n",user_rgb_fun.info->spi_port);
-    for(int i = 0;i<P_RGB_FUN->info->number;i++){
-        P_RGB_FUN->brightness_table[i]=(i+1)*(RGB_BRIGHTNESS_LEVEL/P_RGB_FUN->info->number);
-        printf("xx %d %d\n",i,P_RGB_FUN->brightness_table[i]);
+    for(int i = 0;i<rgb->info->number;i++){
+        rgb->brightness_table[i]=(i+1)*(RGB_BRIGHTNESS_LEVEL/rgb->info->number);
+        printf("xx %d %d\n",i,rgb->brightness_table[i]);
     }
 
-    user_rgb_same_colour(P_RGB_FUN->info,&user_rgb_fun.cur_colour);
+    user_rgb_same_colour(rgb->info,&user_rgb_fun.cur_colour);
 
-    user_rgb_init(P_RGB_FUN->info);
+    user_rgb_init(rgb->info);
 
-    user_rgb_mode_scan(P_RGB_FUN);
+    user_rgb_mode_scan(rgb);
 #endif
 }
 

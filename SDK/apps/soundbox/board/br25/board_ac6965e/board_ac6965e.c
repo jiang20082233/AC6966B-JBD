@@ -558,6 +558,14 @@ const struct hw_iic_config hw_iic_cfg[] = {
 };
 #endif
 
+#if	TCFG_HW_SPI0_ENABLE
+const struct spi_platform_data spi0_p_data = {
+	.port = TCFG_HW_SPI0_PORT,
+	.mode = TCFG_HW_SPI0_MODE,
+	.clk  = TCFG_HW_SPI0_BAUD,
+	.role = TCFG_HW_SPI0_ROLE,
+};
+#endif
 
 #if	TCFG_HW_SPI1_ENABLE
 const struct spi_platform_data spi1_p_data = {

@@ -72,6 +72,14 @@
 //*********************************************************************************//
 //                                 硬件SPI 配置                                        //
 //*********************************************************************************//
+#define	TCFG_HW_SPI0_ENABLE		0//ENABLE_THIS_MOUDLE//ENABLE_THIS_MOUDLE
+//A组IO:    DI: PB2     DO: PD1     CLK: PD0
+//B组IO:    DI: PC3     DO: PC5     CLK: PC4
+#define TCFG_HW_SPI0_PORT		'A'
+#define TCFG_HW_SPI0_BAUD		4000000L
+#define TCFG_HW_SPI0_MODE		SPI_MODE_BIDIR_1BIT
+#define TCFG_HW_SPI0_ROLE		SPI_ROLE_MASTER
+
 #define	TCFG_HW_SPI1_ENABLE		DISABLE_THIS_MOUDLE//ENABLE_THIS_MOUDLE
 //A组IO:    DI: PB2     DO: PB1     CLK: PB0
 //B组IO:    DI: PC3     DO: PC5     CLK: PC4

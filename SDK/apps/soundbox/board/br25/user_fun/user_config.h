@@ -14,14 +14,14 @@
 #define USER_PA_AB_H    1//高ab类
 #define USER_PA_AB_L    0//低ab类
 
-#define USER_PA_EN  1//功放总开关
-#define USER_LED_EN 0//io led
-#define USER_RGB_EN 1//RGB pb7
+#define USER_RGB_LOOP_MODE_1    1//所有
+#define USER_RGB_LOOP_MODE_2    2//非单色闪烁循环
+#define USER_RGB_LOOP_MODE_3    3//单色闪烁循环
 
+#define USER_PA_EN  1//功放总开关
 
 #define USER_SDK_BUG_1  1//使用tone_play_with_callback_by_name该接口播放提示音 有概率出现没有声音出来 之后也没有声音。主要是解码没唤醒导致
 #define USER_SDK_BUG_2  1//linein 模式下 采用dac L进 dac R出的方式，进linein之后声音小
-#define USER_SDK_BUG_3  1//linein 模式下 采用dac L进 dac R出的方式，播放提示音之后没声音
 
 #define USER_BT_VBAT_DISPLAY    1//手机电量显示 但不要通话功能  需要打开电量显示宏BT_SUPPORT_DISPLAY_BAT 与通话协议宏USER_SUPPORT_PROFILE_HFP
 #define USER_FM_MODE_SYS_VOL    20//进FM 大于此音量设置为此音量 退出时恢复

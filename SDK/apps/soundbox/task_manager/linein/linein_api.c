@@ -132,10 +132,31 @@ static inline void __linein_way_dac_analog_start()
     } else {
         ASSERT(0, "linein ch err\n");
     }
+    printf(">>>> %d music vol\n",app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
     linein_volume_set(app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
 
 }
+/*----------------------------------------------------------------------------*/
+/**@brief    linein 使用dac IO输入方式
+   @param    无
+   @return   无
+   @note
+*/
+/*----------------------------------------------------------------------------*/
+static inline void user_linein_way_dac_analog_start()
+{
 
+    if ((TCFG_LINEIN_LR_CH == AUDIO_LIN_DACL_CH) \
+        || (TCFG_LINEIN_LR_CH == AUDIO_LIN_DACR_CH)) {
+        audio_linein_via_dac_open(TCFG_LINEIN_LR_CH, 1);
+    } else {
+        ASSERT(0, "linein ch err\n");
+    }
+
+    printf(">>>> %d music vol\n",__this->volume);
+    linein_volume_set(__this->volume);
+
+}
 /*----------------------------------------------------------------------------*/
 /**@brief    linein 使用采集adc输入方式
    @param    无
@@ -309,6 +330,29 @@ void linein_vol_set(void){
     }
     #endif
 }
+
+u16 user_linein_umute_id = 0;
+void user_linein_umute(void){
+    //播完提示音之后 声音减小 重新设置一下系统音量
+    // linein_volume_set(__this->volume);
+    
+    user_linein_umute_id = 0;
+
+    if(__this->onoff && __this->volume && !tone_get_status()){
+        #if (defined(USER_SDK_BUG_3) && USER_SDK_BUG_3)
+        if (__this->onoff) { 
+            user_linein_way_dac_analog_start();
+        }        
+        #elif (defined(USER_SDK_BUG_4) && USER_SDK_BUG_4)
+        audio_linein_mute(0);
+        #endif
+
+        user_linein_umute_id = 0;
+    }else{
+        user_linein_umute_id = sys_timeout_add(NULL, user_linein_umute, 600);
+    }
+}
+
 static void  linein_api_tone_play_end_callback(void *priv, int flag)
 {
     u32 index = (u32)priv;
@@ -322,10 +366,11 @@ static void  linein_api_tone_play_end_callback(void *priv, int flag)
     case IDEX_TONE_MAX_VOL:
         ///提示音播放结束
         puts(">>>>>>> linein tone play end linein statr\n");
-
-        if (__this->onoff) {
-            linein_stop();
-            linein_start();
+        if(__this->onoff && __this->volume){
+            if(user_linein_umute_id){
+                sys_timeout_del(user_linein_umute_id);
+            }
+            user_linein_umute_id = sys_timeout_add(NULL, user_linein_umute, 600);
         }
         break;
     default:
@@ -350,14 +395,13 @@ void linein_key_vol_up()
         if (tone_get_status() == 0) {
             /* tone_play(TONE_MAX_VOL); */
 #if TCFG_MAX_VOL_PROMPT
-    #if USER_SDK_BUG_3
-        #if ((TCFG_LINEIN_LR_CH == AUDIO_LIN_DACL_CH)||TCFG_LINEIN_LR_CH == AUDIO_LIN_DACR_CH)
+    #if (defined(USER_SDK_BUG_3) && USER_SDK_BUG_3)
         tone_play_with_callback_by_name(tone_table[IDEX_TONE_MAX_VOL],USER_TONE_PLAY_MODE?1:0,linein_api_tone_play_end_callback,(void *)IDEX_TONE_MAX_VOL);
-        #else
-        one_play_by_path(tone_table[IDEX_TONE_MAX_VOL], USER_TONE_PLAY_MODE?1:0);
-        #endif
+    #elif (defined(USER_SDK_BUG_4) && USER_SDK_BUG_4)
+        audio_linein_mute(1);
+        tone_play_with_callback_by_name(tone_table[IDEX_TONE_MAX_VOL],USER_TONE_PLAY_MODE?1:0,linein_api_tone_play_end_callback,(void *)IDEX_TONE_MAX_VOL);
     #else
-            tone_play_by_path(tone_table[IDEX_TONE_MAX_VOL], USER_TONE_PLAY_MODE?1:0);
+        tone_play_by_path(tone_table[IDEX_TONE_MAX_VOL], USER_TONE_PLAY_MODE?1:0);
     #endif
 #endif
         }

@@ -25,13 +25,18 @@ typedef struct _USER_RGB_DISPLAY_DATA_{
 }RGB_DISPLAY_DATA;
 
 typedef enum{
-    USER_RGB_MODE_1=0,
-    USER_RGB_MODE_2,
-    USER_RGB_MODE_3,
-    USER_RGB_MODE_4,
-    USER_RGB_MODE_OFF,
+    USER_RGB_MODE_1=0,//节奏渐变 旋转
+    USER_RGB_MODE_2,//对称 升降 
+    USER_RGB_MODE_3,//渐变
+    USER_RGB_MODE_4,//三色 旋转
+    USER_RGB_MODE_5,//渐变 闪烁
+    USER_RGB_MODE_6,//红色 闪烁
+    USER_RGB_MODE_7,//绿色 闪烁
+    USER_RGB_MODE_8,//蓝色 闪烁
+    USER_RGB_MODE_9,//白色 闪烁
+    USER_RGB_MODE_OFF,//关灯
     USER_RGB_MODE_MAX,
-    USER_RGB_POWER_OFF,
+    USER_RGB_POWER_OFF,//关机
     USER_RGB_AUTO_SW,//自动切换
     USER_RGB_SYS_VOL,//音量显示
     USER_RGB_EQ_BASS,//BASS状态显示
@@ -53,7 +58,7 @@ typedef struct _USER_RGB_FUN_{
 
 
 void user_rgb_fun_init(void);
-void user_rgb_mode_set(USER_GRB_MODE mode,void *priv);
+u8   user_rgb_mode_set(USER_GRB_MODE mode,void *priv);
 void user_rgb_display_vol(u8 vol,u16 display_time);
 void user_rgb_display_bass(u8 bass,u16 display_time);
 #endif
