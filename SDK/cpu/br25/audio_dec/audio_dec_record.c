@@ -5,6 +5,7 @@
 #include "app_main.h"
 #include "clock_cfg.h"
 #include "audio_dec.h"
+#include "key_event_deal.h"
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -44,6 +45,12 @@ static void record_file_play_evt_handler(void *priv, int argc, int *argv)
 {
     /* printf("fun = %s\n", __FUNCTION__); */
     record_file_close();
+    //播放完 当前录制的音频文件后返回music模式
+
+    puts(">>>>>>>>>>>>>>>>>   record play end\n");
+    app_task_put_key_msg(KEY_CHANGE_MODE,0);
+    puts(">>>>>>>>>>>>>>>>>   record play end 11\n");
+
 }
 
 /*----------------------------------------------------------------------------*/

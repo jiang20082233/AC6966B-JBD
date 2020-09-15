@@ -209,6 +209,13 @@ pcm_decoder
 
 
 mp3_decoder
+
+
+
+
+
+
+wma_decoder
 g729_decoder
 wav_decoder
 );

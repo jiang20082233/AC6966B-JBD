@@ -155,6 +155,13 @@ static void ex_dev_detect(void *arg)
     extern u8 sd_io_suspend(u8 sdx, u8 sd_io);
     extern u8 sd_io_resume(u8 sdx, u8 sd_io);
 
+    if(!dev->enable){
+        dev->stu = 0;
+        dev->step = 0;
+        dev->online = false;
+        return;
+    }
+
 // #ifdef TCFG_IO_DET_MULTIPLEX_WITH_SD
     if(dev->multiplex_sd){
         if (sd_io_suspend(TCFG_LINEIN_SD_PORT, 0) == 0) {//判断sd 看是否空闲

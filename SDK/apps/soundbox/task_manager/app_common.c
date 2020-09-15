@@ -60,7 +60,7 @@ extern void bt_tws_sync_volume();
 #define music_play_usb_host_mount_after(...)
 #endif//(!TCFG_APP_MUSIC_EN)
 
-static void  common_tone_play_end_callback(void *priv, int flag)
+static void  common_power_on_tone_play_end_callback(void *priv, int flag)
 {
     u32 index = (u32)priv;
 
@@ -74,6 +74,27 @@ static void  common_tone_play_end_callback(void *priv, int flag)
         ///提示音播放结束        
         printf(" >>>>> tone \n");
         app_task_switch_to(APP_IDLE_TASK);
+        break;
+    default:
+        break;
+    }
+}
+static void  common_record_tone_play_end_callback(void *priv, int flag)
+{
+    u32 index = (u32)priv;
+
+    if (APP_MUSIC_TASK != app_get_curr_task()) {
+        log_error("tone callback task out \n");
+        return;
+    }
+
+    switch (index) {
+    case IDEX_TONE_DI:
+        ///提示音播放结束        
+        printf(" >>>>> tone \n");
+        
+        user_record_status(1);
+        app_task_switch_to(APP_RECORD_TASK);
         break;
     default:
         break;
@@ -279,7 +300,7 @@ int app_common_key_msg_deal(struct sys_event *event)
         #if USER_IR_POWER
         if(APP_IDLE_TASK != app_get_curr_task()){
             user_power_off();
-            int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_POWER_OFF], 1, common_tone_play_end_callback, (void *)IDEX_TONE_POWER_OFF);
+            int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_POWER_OFF], 1, common_power_on_tone_play_end_callback, (void *)IDEX_TONE_POWER_OFF);
             if (err) {
                 app_task_switch_to(APP_IDLE_TASK);
             }
@@ -314,6 +335,18 @@ int app_common_key_msg_deal(struct sys_event *event)
             user_rgb_display_bass(bass_st,4);
 
         }
+        break;
+
+    case USER_KEY_RECORD_START:
+        #if TCFG_APP_RECORD_EN
+        if(APP_RECORD_TASK != app_get_curr_task()){
+            // app_task_switch_to(APP_RECORD_TASK);
+            int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_DI], 1, common_record_tone_play_end_callback, (void *)IDEX_TONE_DI);
+            if (err) {
+                app_task_switch_to(APP_RECORD_TASK);
+            }
+        }
+        #endif
         break;
     default:
         ui_key_msg_post(key_event);

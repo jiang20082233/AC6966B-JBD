@@ -129,7 +129,7 @@ const u16 linein_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
 const u16 music_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
     //单击             //长按          //hold         //抬起            //双击                //三击
     [0] = {
-        KEY_MUSIC_PP, KEY_NULL,		KEY_NULL,	KEY_NULL,		KEY_CALL_LAST_NO,			KEY_NULL
+        KEY_MUSIC_PP, USER_KEY_RECORD_START,		KEY_NULL,	KEY_NULL,		KEY_CALL_LAST_NO,			KEY_NULL
     },
     [1] = {
         KEY_MUSIC_NEXT,		KEY_VOL_UP,			KEY_VOL_UP,			KEY_VOL_UP,		KEY_NULL,			KEY_NULL
@@ -207,13 +207,13 @@ const u16 pc_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
 const u16 record_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
     //单击             //长按          //hold         //抬起            //双击                //三击
     [0] = {
-        KEY_CHANGE_MODE, KEY_POWEROFF,		KEY_POWEROFF_HOLD,	KEY_NULL,		KEY_NULL,			KEY_NULL
+        KEY_ENC_START, KEY_CHANGE_MODE,		KEY_NULL,	KEY_NULL,		KEY_NULL,			KEY_NULL
     },
     [1] = {
-        KEY_NULL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_CHANGE_MODE,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
     },
     [2] = {
-        KEY_MUSIC_PP,		KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_CHANGE_MODE,		KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
     },
     [3] = {
         KEY_NULL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL

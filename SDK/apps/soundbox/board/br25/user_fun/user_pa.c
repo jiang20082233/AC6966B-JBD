@@ -332,6 +332,11 @@ void user_pa_in_service(void *pa){
         pa_sys_auto_mute = 0;
     }
 
+    //录音
+    if(user_record_status(0xff)){
+        pa_sys_auto_mute = 0;
+    }
+
     // printf(">>>>>>>>>>>  mute flag %d\n",pa_sys_auto_mute);
     if(pa_sys_auto_mute){
         ((PA_IN_STRL *)pa)->io_strl(pa,PA_MUTE);

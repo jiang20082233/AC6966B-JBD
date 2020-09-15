@@ -53,6 +53,7 @@ static const char *const tone_index[] = {
 #if (TCFG_APP_RECORD_EN)
     [IDEX_TONE_RECORD] 			= SDFILE_RES_ROOT_PATH"tone/record.*",
 #endif
+    [IDEX_TONE_DI]              = TONE_DI,
 } ;
 
 #if TCFG_TONE2TWS_ENABLE

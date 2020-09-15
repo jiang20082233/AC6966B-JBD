@@ -6,19 +6,19 @@ USER_POWER_INFO user_power_io={
     .vol = 0,
 };
 #endif
-// void user_bt_noconect_power_off(void *p_time){
-//     static u32 user_power_off_time = -1;
 
-//     if(p_time){
-        
-//     }
+//设置、获取 录音状态
+u8 user_record_status(u8 cmd){
+    static u8 user_record_status  = 0;
 
-//     // if(-1 == user_power_off_time){
-//     //     return;
-//     // }
+    if(0 == cmd || 1 == cmd){
+        user_record_status = cmd;
 
-//     if(user_power_off_time)
-// }
+        user_mic_check_en(!user_record_status);
+        printf(">>>>>>>>>>>>>>>>>>>>  record status  %d\n",user_record_status);
+    }
+    return user_record_status;//USER_KEY_RECORD_START
+} 
 void user_eq_mode_sw(void){
     #if USER_EQ_FILE_ADD_EQ_TABLE
         static int user_eq_mode = 0;
@@ -69,7 +69,7 @@ void user_bass_terble_updata(u32 bass_ad,u32 terble_ad){
     s32 bass  = bass_ad,terble = terble_ad;
 
     //无效值
-    if((512-20) < bass_ad || (512+20) > terble_ad){
+    if((512-20) < bass_ad || (512+20) > terble_ad  || user_record_status(0xff)){
         return;
     }
 
@@ -103,7 +103,7 @@ void user_bass_terble_updata(u32 bass_ad,u32 terble_ad){
 void user_mic_vol_updata(u32 vol){
     static int mic_old =0;
     //ad 512 无效
-    if((512+20) > vol || !user_get_mic_status()){
+    if((512+20) > vol || !user_get_mic_status() || user_record_status(0xff)){
         return;
     }
     
@@ -121,7 +121,7 @@ void user_mic_reverb_updata(u32 vol){
     #if (defined(TCFG_MIC_EFFECT_ENABLE) && TCFG_MIC_EFFECT_ENABLE)
     static int rev_old =0;
     //ad 512 无效
-    if((512-20) < vol || !user_get_mic_status()){
+    if((512-20) < vol || !user_get_mic_status() || user_record_status(0xff)){
         return;
     }
     
@@ -225,7 +225,7 @@ u16 user_fun_get_vbat(void){
     // printf("user vbat >>>> %d %dV\n",user_power_io.vol,(vddio_m*2*user_power_io.vol)/0x3ffL);
     user_power_io.vol = (vddio_m*2*user_power_io.vol)/0x3ffL;
     tp = user_power_io.vol;
-    return tp;
+    
     #endif
     return tp;
 }

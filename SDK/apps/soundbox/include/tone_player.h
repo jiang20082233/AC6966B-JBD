@@ -59,6 +59,7 @@ enum {
     IDEX_TONE_PC,
     IDEX_TONE_RTC,
     IDEX_TONE_RECORD,
+    IDEX_TONE_DI,
 
     IDEX_TONE_NONE = 0xFF,
 };
@@ -86,12 +87,13 @@ enum {
 #define TONE_MIX_VOL			TONE_RES_ROOT_PATH"tone/mix.*"
 #define TONE_MUSIC				TONE_RES_ROOT_PATH"tone/music.*"
 #define TONE_USB				TONE_RES_ROOT_PATH"tone/usb.*"
-#define TONE_SD				TONE_RES_ROOT_PATH"tone/sd.*"
+#define TONE_SD				    TONE_RES_ROOT_PATH"tone/sd.*"
 #define TONE_LINEIN				TONE_RES_ROOT_PATH"tone/linein.*"
 #define TONE_PC 				TONE_RES_ROOT_PATH"tone/pc.*"
 #define TONE_FM 				TONE_RES_ROOT_PATH"tone/fm.*"
 #define TONE_RTC 				TONE_RES_ROOT_PATH"tone/rtc.*"
 #define TONE_RECORD 			TONE_RES_ROOT_PATH"tone/record.*"
+#define TONE_DI				    TONE_RES_ROOT_PATH"tone/di.*"
 #define TONE_SPDIF 			    TONE_RES_ROOT_PATH"tone/spdif.*"
 
 #ifdef CONFIG_CPU_BR18

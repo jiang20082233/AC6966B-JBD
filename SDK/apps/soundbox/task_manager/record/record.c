@@ -39,6 +39,7 @@
 #include "audio_reverb.h"
 #include "clock_cfg.h"
 #include "dev_manager.h"
+#include "user_fun_cfg.h"
 
 #if TCFG_APP_RECORD_EN
 
@@ -138,8 +139,10 @@ static void  record_tone_play_end_callback(void *priv, int flag)
         return;
     }
     switch (index == IDEX_TONE_RECORD) {
+    case IDEX_TONE_DI:
     case IDEX_TONE_RECORD:
         log_i("IDEX_TONE_RECORD end\n");
+        record_key_pp();
         break;
     }
 }
@@ -173,7 +176,11 @@ static int record_key_event_opr(struct sys_event *event)
         log_i("  KEY_ENC_START \n");
         record_key_pp();
         return true;
-
+    case KEY_CHANGE_MODE:
+        puts(">>>> recorde to music");
+        app_task_switch_to(APP_MUSIC_TASK);
+        ret = true;
+        break;
 #if (TCFG_MIC_EFFECT_ENABLE)
     case KEY_REVERB_OPEN:
         log_i("record mode ignore mic_effect!!\n");
@@ -274,6 +281,10 @@ static int record_sys_event_handler(struct sys_event *event)
 /*----------------------------------------------------------------------------*/
 int record_app_check(void)
 {
+    if(!user_record_status(0xff)){
+        return false;
+    }
+
 #if (TCFG_MIC_EFFECT_ENABLE)
     if (mic_effect_get_status()) {
         log_i("mic_effect working!!\n");
@@ -281,6 +292,7 @@ int record_app_check(void)
     }
 #endif
     if (dev_manager_get_total(0)) {
+        user_record_status(0);
         return true;
     }
     return false;
@@ -298,11 +310,13 @@ void app_record_task()
     int res;
     int msg[32];
     record_task_start();
-    int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_RECORD], 1, record_tone_play_end_callback, (void *)IDEX_TONE_RECORD);
-    if (err) {
-        log_e("%s tone play err!!\n");
-    }
-
+    // int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_RECORD], 1, record_tone_play_end_callback, (void *)IDEX_TONE_RECORD);
+    // int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_DI], 1, record_tone_play_end_callback, (void *)IDEX_TONE_DI);
+    // if (err) {
+    //     log_e("%s tone play err!!\n");
+    //     record_key_pp();
+    // }
+    record_key_pp();
 
     while (1) {
         app_task_get_msg(msg, ARRAY_SIZE(msg), 1);
@@ -319,6 +333,7 @@ void app_record_task()
 
         if (app_task_exitting()) {
             record_task_close();
+            user_record_status(0);
             return;
         }
     }
