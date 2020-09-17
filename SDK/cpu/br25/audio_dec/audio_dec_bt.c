@@ -45,6 +45,10 @@ struct a2dp_dec_hdl {
     struct a2dp_decoder dec;		// a2dp解码句柄
     struct audio_res_wait wait;		// 资源等待句柄
     struct audio_mixer_ch mix_ch;	// 叠加句柄
+#if (RECORDER_MIX_EN)
+    struct audio_mixer_ch rec_mix_ch;	// 叠加句柄
+#endif//RECORDER_MIX_EN
+
     struct audio_stream *stream;	// 音频流
     struct audio_eq_drc *eq_drc;    //eq drc句柄
     equal_loudness_hdl *loudness;   //等响度句柄
@@ -57,6 +61,10 @@ struct esco_dec_hdl {
     struct esco_decoder dec;		// esco解码句柄
     struct audio_res_wait wait;		// 资源等待句柄
     struct audio_mixer_ch mix_ch;	// 叠加句柄
+#if (RECORDER_MIX_EN)
+    struct audio_mixer_ch rec_mix_ch;	// 叠加句柄
+#endif//RECORDER_MIX_EN
+
     struct audio_stream *stream;	// 音频流
     struct audio_eq_drc *eq_drc;    //eq drc句柄
     u32 tws_mute_en : 1;	// 静音
@@ -72,6 +80,7 @@ struct esco_dec_hdl {
     struct audio_wireless_sync *sync;
 };
 
+/* extern struct audio_mixer recorder_mixer; */
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -79,6 +88,7 @@ struct a2dp_dec_hdl *bt_a2dp_dec = NULL;
 struct esco_dec_hdl *bt_esco_dec = NULL;
 
 extern s16 mix_buff[];
+extern s16 recorder_mix_buff[];
 
 //////////////////////////////////////////////////////////////////////////////
 
@@ -117,6 +127,10 @@ static void a2dp_audio_res_close(void)
     a2dp_decoder_close(&bt_a2dp_dec->dec);
     a2dp_eq_drc_close(bt_a2dp_dec->eq_drc);
     audio_mixer_ch_close(&bt_a2dp_dec->mix_ch);
+#if (RECORDER_MIX_EN)
+    audio_mixer_ch_close(&bt_a2dp_dec->rec_mix_ch);
+#endif//RECORDER_MIX_EN
+
     a2dp_output_sync_close(bt_a2dp_dec->sync);
     bt_a2dp_dec->sync = NULL;
 
@@ -225,6 +239,13 @@ static int a2dp_dec_start(void)
     audio_mixer_ch_set_no_wait(&dec->mix_ch, 1, 10); // 超时自动丢数
     audio_mixer_ch_sample_sync_enable(&dec->mix_ch, 1);
 
+#if (RECORDER_MIX_EN)
+    audio_mixer_ch_open_head(&dec->rec_mix_ch, &recorder_mixer); // 挂载到mixer最前面
+    audio_mixer_ch_set_src(&dec->rec_mix_ch, 1, 0);
+    audio_mixer_ch_set_no_wait(&dec->rec_mix_ch, 1, 10); // 超时自动丢数
+    /* audio_mixer_ch_sample_sync_enable(&dec->rec_mix_ch, 1); */
+#endif//RECORDER_MIX_EN
+
     dec->eq_drc = a2dp_eq_drc_open(fmt->sample_rate, ch_num);
 
     //dec->loudness = equal_loudness_open_demo(fmt->sample_rate, ch_num);
@@ -255,6 +276,10 @@ static int a2dp_dec_start(void)
     dec->stream = audio_stream_open(dec, a2dp_dec_out_stream_resume);
     audio_stream_add_list(dec->stream, entries, entry_cnt);
 
+#if (RECORDER_MIX_EN)
+    audio_stream_add_entry(entries[entry_cnt - 2], &dec->rec_mix_ch.entry);
+#endif//RECORDER_MIX_EN
+
     audio_output_set_start_volume(APP_AUDIO_STATE_MUSIC);
 
     log_i("dec->ch:%d, fmt->channel:%d\n", dec->dec.ch, fmt->channel);
@@ -282,6 +307,10 @@ __err3:
     dec->dec.start = 0;
     a2dp_eq_drc_close(dec->eq_drc);
     audio_mixer_ch_close(&dec->mix_ch);
+#if (RECORDER_MIX_EN)
+    audio_mixer_ch_close(&dec->rec_mix_ch);
+#endif//RECORDER_MIX_EN
+
     if (dec->sync) {
         a2dp_output_sync_close(dec->sync);
         dec->sync = NULL;
@@ -364,7 +393,8 @@ int a2dp_dec_open(int media_type)
 
     bt_a2dp_dec = dec;
     dec->wait.priority = 1;
-    dec->wait.preemption = 1;
+    dec->wait.preemption = 0;
+    dec->wait.snatch_same_prio = 1;
     dec->wait.handler = a2dp_wait_res_handler;
     audio_decoder_task_add_wait(&decode_task, &dec->wait);
 
@@ -649,6 +679,10 @@ static void esco_audio_res_close(void)
     esco_decoder_close(&bt_esco_dec->dec);
     esco_eq_drc_close(bt_esco_dec->eq_drc);
     audio_mixer_ch_close(&bt_esco_dec->mix_ch);
+#if (RECORDER_MIX_EN)
+    audio_mixer_ch_close(&bt_esco_dec->rec_mix_ch);
+#endif//RECORDER_MIX_EN
+
     esco_output_sync_close(bt_esco_dec->sync);
     bt_esco_dec->sync = NULL;
 
@@ -727,6 +761,17 @@ static int esco_dec_start()
     audio_mixer_ch_set_src(&dec->mix_ch, 1, 0);
     audio_mixer_ch_set_no_wait(&dec->mix_ch, 1, 10); // 超时自动丢数
     audio_mixer_ch_sample_sync_enable(&dec->mix_ch, 1);
+
+#if (RECORDER_MIX_EN)
+    audio_mixer_ch_open_head(&dec->rec_mix_ch, &recorder_mixer); // 挂载到mixer最前面
+    audio_mixer_ch_set_src(&dec->rec_mix_ch, 1, 0);
+    audio_mixer_ch_set_no_wait(&dec->rec_mix_ch, 1, 10); // 超时自动丢数
+    audio_mixer_ch_sample_sync_enable(&dec->rec_mix_ch, 1);
+    audio_mixer_ch_set_sample_rate(&dec->mix_ch, dec->dec.sample_rate);
+    /* audio_mixer_ch_set_sample_rate(&dec->rec_mix_ch, dec->dec.sample_rate); */
+    printf("[%s], dec->dec.sample_rate = %d\n", __FUNCTION__, dec->dec.sample_rate);
+#endif//RECORDER_MIX_EN
+
     dec->eq_drc = esco_eq_drc_open(dec->dec.sample_rate, dec->dec.ch_num);
 
     dec->dec.decoder.entry.data_handler = esco_dec_data_handler;
@@ -749,6 +794,10 @@ static int esco_dec_start()
     entries[entry_cnt++] = &dec->mix_ch.entry;
     dec->stream = audio_stream_open(dec, esco_dec_out_stream_resume);
     audio_stream_add_list(dec->stream, entries, entry_cnt);
+
+#if (RECORDER_MIX_EN)
+    audio_stream_add_entry(entries[entry_cnt - 2], &dec->rec_mix_ch.entry);
+#endif//RECORDER_MIX_EN
 
     audio_output_set_start_volume(APP_AUDIO_STATE_CALL);
 
@@ -793,6 +842,10 @@ __err3:
     dec->dec.start = 0;
     esco_eq_drc_close(dec->eq_drc);
     audio_mixer_ch_close(&dec->mix_ch);
+#if (RECORDER_MIX_EN)
+    audio_mixer_ch_close(&dec->rec_mix_ch);
+#endif//RECORDER_MIX_EN
+
     if (dec->sync) {
         esco_output_sync_close(dec->sync);
         dec->sync = NULL;
@@ -877,7 +930,8 @@ int esco_dec_open(void *param, u8 mute)
     }
 
     dec->wait.priority = 2;
-    dec->wait.preemption = 1;
+    dec->wait.preemption = 0;
+    dec->wait.snatch_same_prio = 1;
     dec->wait.handler = esco_wait_res_handler;
     err = audio_decoder_task_add_wait(&decode_task, &dec->wait);
     if (bt_esco_dec->dec.start == 0) {

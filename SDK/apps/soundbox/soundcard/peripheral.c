@@ -8,7 +8,7 @@
 #include "asm/rtc.h"
 #include "asm/power/p33.h"
 #include "asm/gpio.h"
-#include "audio_reverb.h"
+/* #include "audio_reverb.h" */
 
 
 #if SOUNDCARD_ENABLE

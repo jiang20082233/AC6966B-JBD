@@ -336,11 +336,12 @@ static void localtws_mixer_open(struct localtws_enc_hdl *enc, struct audio_fmt *
 /*----------------------------------------------------------------------------*/
 int localtws_enc_open_use(struct localtws_enc_hdl *enc, struct audio_fmt *pfmt)
 {
-    if (!encode_task) {
-        encode_task = zalloc(sizeof(*encode_task));
-        ASSERT(encode_task);
-        audio_encoder_task_create(encode_task, "audio_enc");
-    }
+    /* if (!encode_task) { */
+    /* encode_task = zalloc(sizeof(*encode_task)); */
+    /* ASSERT(encode_task); */
+    /* audio_encoder_task_create(encode_task, "audio_enc"); */
+    /* } */
+    audio_encoder_task_open();
     enc->encode_task = encode_task;
     if (pfmt->coding_type & AUDIO_CODING_SBC) {
         clock_add(ENC_TWS_SBC_CLK);
@@ -365,11 +366,13 @@ int localtws_enc_open_use(struct localtws_enc_hdl *enc, struct audio_fmt *pfmt)
 void localtws_enc_close_use(struct localtws_enc_hdl *enc)
 {
     struct audio_fmt *pfmt = &enc->encoder.fmt;
-    if (encode_task) {
-        audio_encoder_task_del(encode_task);
-        free(encode_task);
-        encode_task = NULL;
-    }
+
+    audio_encoder_task_close();
+    /* if (encode_task) { */
+    /* audio_encoder_task_del(encode_task); */
+    /* free(encode_task); */
+    /* encode_task = NULL; */
+    /* } */
     if (enc->encoder.enc_ops->coding_type & AUDIO_CODING_SBC) {
         clock_remove(ENC_TWS_SBC_CLK);
     } else {

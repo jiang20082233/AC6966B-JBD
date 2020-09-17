@@ -87,7 +87,6 @@
 #include "soundcard/soundcard.h"
 
 #include "audio_dec.h"
-#include "audio_reverb.h"
 #include "tone_player.h"
 #include "dac.h"
 
@@ -760,6 +759,24 @@ int bt_key_event_handler(struct sys_event *event)
         }
         break;
 
+#if TCFG_USER_TWS_ENABLE
+    case KEY_CHANGE_MODE:
+#if (TCFG_DEC2TWS_ENABLE)
+        ret = false;
+#else
+        if (tws_api_get_tws_state() & TWS_STA_SIBLING_CONNECTED) {
+            if (tws_api_get_role() == TWS_ROLE_MASTER) {
+                bt_tws_api_push_cmd(SYNC_CMD_MODE_CHANGE, 400);
+            }
+        } else {
+            ret = false;
+            break;
+        }
+
+#endif
+        break;
+#endif
+
     default:
         ret = false;
         break;
@@ -937,4 +954,16 @@ int bt_background_event_handler_filter(struct sys_event *event)
 {
     return 0;
 }
+
+
+u8 get_call_status()
+{
+    return BT_CALL_HANGUP;
+}
+
+u32 bt_tws_master_slot_clk(void)
+{
+    return 0;
+}
+
 #endif

@@ -5,7 +5,7 @@
 *****************************************************************/
 #ifndef _AUDIO_SRC_H_
 #define _AUDIO_SRC_H_
-#include "audio_stream.h"
+#include "media/audio_stream.h"
 #include "audio_resample.h"
 
 

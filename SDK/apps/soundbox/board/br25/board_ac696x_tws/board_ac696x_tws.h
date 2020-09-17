@@ -86,13 +86,17 @@
 //*********************************************************************************//
 //                                  SD 配置                                        //
 //*********************************************************************************//
+#define     SD_CMD_DECT 	0
+#define     SD_CLK_DECT  	1
+#define     SD_IO_DECT 		2
+
 #define TCFG_SD0_ENABLE						DISABLE_THIS_MOUDLE
 //A组IO: CMD:PC4    CLK:PC5    DAT0:PC3             //D组IO: CMD:PB2    CLK:PB0    DAT0:PB3
 //B组IO: CMD:PB6    CLK:PB7    DAT0:PB5             //E组IO: CMD:PA4    CLK:PC5    DAT0:DM
 //C组IO: CMD:PA4    CLK:PA2    DAT0:PA3             //F组IO: CMD:PB6    CLK:PB7    DAT0:PB4
 #define TCFG_SD0_PORTS						'D'
 #define TCFG_SD0_DAT_MODE					1//AC696x不支持4线模式
-#define TCFG_SD0_DET_MODE					SD_CMD_DECT
+#define TCFG_SD0_DET_MODE					SD_CLK_DECT
 #define TCFG_SD0_DET_IO 					IO_PORT_DM//当SD_DET_MODE为2时有效
 #define TCFG_SD0_DET_IO_LEVEL				0//IO检查，0：低电平检测到卡。 1：高电平(外部电源)检测到卡。 2：高电平(SD卡电源)检测到卡。
 #define TCFG_SD0_CLK						(3000000*2L)
@@ -324,6 +328,7 @@ DAC硬件上的连接方式,可选的配置：
 #define AUDIO_OUTPUT_WAY_HDMI       3
 #define AUDIO_OUTPUT_WAY_SPDIF      4
 #define AUDIO_OUTPUT_WAY_BT      	5	// bt emitter
+#define AUDIO_OUTPUT_WAY_DONGLE		7
 #define AUDIO_OUTPUT_WAY            AUDIO_OUTPUT_WAY_DAC
 #define LINEIN_INPUT_WAY            LINEIN_INPUT_WAY_ANALOG
 
@@ -561,10 +566,12 @@ DAC硬件上的连接方式,可选的配置：
 #define TCFG_DEC_FLAC_ENABLE				DISABLE
 #define TCFG_DEC_APE_ENABLE					DISABLE
 #define TCFG_DEC_M4A_ENABLE					DISABLE
+#define TCFG_DEC_ALAC_ENABLE				DISABLE
 #define TCFG_DEC_AMR_ENABLE					DISABLE
 #define TCFG_DEC_DTS_ENABLE					DISABLE
 #define TCFG_DEC_MIDI_ENABLE                DISABLE
 #define TCFG_DEC_G726_ENABLE                DISABLE
+#define TCFG_DEC_MTY_ENABLE					DISABLE
 
 
 #define TCFG_DEC_ID3_V1_ENABLE				DISABLE
@@ -657,8 +664,9 @@ DAC硬件上的连接方式,可选的配置：
 //ali ai profile
 #define DUEROS_DMA_EN              0  //not surport
 #define TRANS_DATA_EN              0  //not surport
+#define	ANCS_CLIENT_EN			   0
 
-#if (DUEROS_DMA_EN || TRANS_DATA_EN)
+#if (DUEROS_DMA_EN || TRANS_DATA_EN || ANCS_CLIENT_EN)
 #define BT_FOR_APP_EN			   1
 #else
 #define BT_FOR_APP_EN			   0
@@ -679,7 +687,7 @@ DAC硬件上的连接方式,可选的配置：
 //*********************************************************************************//
 //                                 编译警告                                         //
 //*********************************************************************************//
-#if ((TRANS_DATA_EN || ((TCFG_ONLINE_TX_PORT == IO_PORT_DP) && TCFG_ONLINE_ENABLE)) && (TCFG_PC_ENABLE || TCFG_UDISK_ENABLE))
+#if ((ANCS_CLIENT_EN || TRANS_DATA_EN || ((TCFG_ONLINE_TX_PORT == IO_PORT_DP) && TCFG_ONLINE_ENABLE)) && (TCFG_PC_ENABLE || TCFG_UDISK_ENABLE))
 #error "eq online adjust enable, plaease close usb marco !!!"
 #endif// ((TRANS_DATA_EN || TCFG_ONLINE_ENABLE) && (TCFG_PC_ENABLE || TCFG_UDISK_ENABLE))
 
@@ -689,7 +697,7 @@ DAC硬件上的连接方式,可选的配置：
 #endif//((TCFG_SPI_LCD_ENABLE &&  TCFG_CODE_FLASH_ENABLE) && (TCFG_FLASH_DEV_SPI_HW_NUM == TCFG_TFT_LCD_DEV_SPI_HW_NUM))
 #endif//TCFG_UI_ENABLE
 
-#if(TRANS_DATA_EN && DUEROS_DMA_EN)
+#if((TRANS_DATA_EN + DUEROS_DMA_EN + ANCS_CLIENT_EN) > 1)
 #error "they can not enable at the same time,just select one!!!"
 #endif//(TRANS_DATA_EN && DUEROS_DMA_EN)
 
@@ -697,9 +705,23 @@ DAC硬件上的连接方式,可选的配置：
 #error "对箱支持音源转发，请关闭录音等功能 !!!"
 #endif// (TCFG_DEC2TWS_ENABLE && (TCFG_APP_RECORD_EN || TCFG_APP_RTC_EN ||TCFG_DRC_ENABLE))
 
-#if (TRANS_DATA_EN && (TCFG_PC_ENABLE || TCFG_UDISK_ENABLE))
+#if ((ANCS_CLIENT_EN || TRANS_DATA_EN) && (TCFG_PC_ENABLE || TCFG_UDISK_ENABLE))
 #error "eq online adjust enable, plaease close usb marco !!!"
 #endif //(TRANS_DATA_EN && (TCFG_PC_ENABLE || TCFG_UDISK_ENABLE))
+
+#if ((TCFG_APP_RECORD_EN) && (TCFG_USER_TWS_ENABLE))
+#error "TWS 暂不支持录音功能"
+#endif
+
+#include "app_config.h"
+#if ((TCFG_SD0_ENABLE) && (TCFG_SD0_PORTS == 'D') && ((RECORDER_MIX_EN) || (TCFG_SD0_DET_MODE == SD_CMD_DECT)))
+/*
+ 1.如果有FM模式下录音的功能，即FM和SD同时工作的情况，那么SD IO就不能用PB0,PB2,PB3这组口。
+ 2.如果FM模式没有录音的功能，即FM和SD不会有同时工作的情况，那么 SD IO可以使用PB0,PB2,PB3这组口，
+   但SD就不能使用CMD检测。要用CLK或IO检测，这样就要有硬件上的支持，如3.3K电阻或者牺牲另一个引脚做IO检测*
+ */
+#error "SD IO使用D组口 引脚干扰FM的问题 ！！！"
+#endif
 
 ///<<<<所有宏定义不要在编译警告后面定义！！！！！！！！！！！！！！！！！！！！！！！！！！
 ///<<<<所有宏定义不要在编译警告后面定义！！！！！！！！！！！！！！！！！！！！！！！！！！

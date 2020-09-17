@@ -26,6 +26,7 @@
 #include "norflash.h"
 #include "asm/spi.h"
 #include "ui_manage.h"
+#include "color_led_app.h"
 
 #define LOG_TAG_CONST       BOARD
 #define LOG_TAG             "[BOARD]"
@@ -421,6 +422,24 @@ LED_PLATFORM_DATA_END()
 #endif
 
 
+#if TCFG_COLORLED_ENABLE
+COLORLED_PLATFORM_DATA_BEGIN(colorled_data)
+	.work_mode			= COLOR_LED_MODE_PWM,
+
+	.pin_red.pin 		= TCFG_COLOR_RED_PIN,
+	.pin_red.timer_hdl 	= JL_TIMER5,
+	.pin_red.output_ch	= PWM_NO_OUTPUT_CH,
+
+	.pin_gree.pin 	= TCFG_COLOR_GREE_PIN,
+	.pin_gree.timer_hdl 	= JL_TIMER3,
+	.pin_gree.output_ch	= CH1_T3_PWM_OUT,
+
+	.pin_blue.pin 	= TCFG_COLOR_BLUE_PIN,
+	.pin_blue.timer_hdl	= JL_TIMER2,
+	.pin_blue.output_ch	= CH2_T2_PWM_OUT,
+COLORLED_PLATFORM_DATA_END()
+#endif
+
 #if TCFG_UI_LED7_ENABLE
 LED7_PLATFORM_DATA_BEGIN(led7_data)
 	.pin_type = LED7_PIN7,
@@ -746,6 +765,10 @@ static void board_devices_init(void)
 {
 #if TCFG_PWMLED_ENABLE
     ui_pwm_led_init(&pwm_led_data);
+#endif
+
+#if TCFG_COLORLED_ENABLE
+	color_led_init((void *)&colorled_data);
 #endif
 
 #if (TCFG_IOKEY_ENABLE || TCFG_ADKEY_ENABLE || TCFG_IRKEY_ENABLE || TCFG_RDEC_KEY_ENABLE ||  TCFG_CTMU_TOUCH_KEY_ENABLE)

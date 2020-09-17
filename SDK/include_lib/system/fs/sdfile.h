@@ -119,7 +119,6 @@ int sdfile_pos(SDFILE *fp);
 int sdfile_len(SDFILE *fp);
 int sdfile_get_name(SDFILE *fp, u8 *name, int len);
 int sdfile_get_attrs(SDFILE *fp, struct vfs_attr *attr);
-int sdfile_delete_data(SDFILE *fp);
 
 #define fopen 	sdfile_open
 #define fread 	sdfile_read
@@ -130,9 +129,11 @@ int sdfile_delete_data(SDFILE *fp);
 #define fpos 	sdfile_pos
 #define fget_name 	sdfile_get_name
 #define fget_attrs 	sdfile_get_attrs
-#define fdel_data   sdfile_delete_data
 
 #endif  /* VFS_ENABLE */
+
+int sdfile_delete_data(SDFILE *fp);
+#define fdel_data   sdfile_delete_data
 
 #ifndef SDFILE_MOUNT_PATH
 #define SDFILE_MOUNT_PATH     	"mnt/sdfile"

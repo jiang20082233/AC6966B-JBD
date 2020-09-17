@@ -169,6 +169,24 @@ static void common_function_attr_high_low_set(void *priv, u8 attr, u8 *data, u16
 #endif
 }
 
+static void common_function_attr_misc_setting_set(void *priv, u8 attr, u8 *data, u16 len)
+{
+    struct smartbox *smart = (struct smartbox *)priv;
+    if (smart == NULL) {
+        return ;
+    }
+    if (BT_CALL_HANGUP != get_call_status()) {
+        smart->err_code = -1;
+        return;
+    }
+    u32 mask = data[0] << 24 | data[1] << 16 | data[2] << 8 | data[3];
+    if (0 == mask) {
+        smart->err_code = -1;
+        return;
+    }
+    set_smartbox_opt_setting(ATTR_TYPE_MISC_SETTING, data);
+}
+
 static const attr_set_func common_function_set_tab[COMMON_FUNCTION_ATTR_TYPE_MAX] = {
     [COMMON_FUNCTION_ATTR_TYPE_BATTERY 				          ] = NULL,
     [COMMON_FUNCTION_ATTR_TYPE_VOL 					          ] = common_function_attr_vol_set,
@@ -183,6 +201,7 @@ static const attr_set_func common_function_set_tab[COMMON_FUNCTION_ATTR_TYPE_MAX
     [COMMON_FUNCTION_ATTR_TYPE_HIGH_LOW_SET			          ] = common_function_attr_high_low_set,
     [COMMON_FUNCTION_ATTR_TYPE_PRE_FETCH_ALL_EQ_INFO 	      ] = NULL,
     [COMMON_FUNCTION_ATTR_TYPE_PHONE_SCO_STATE_INFO 	      ] = NULL,
+    [COMMON_FUNCTION_ATTR_TYPE_MISC_SETTING_INFO 	      	  ] = common_function_attr_misc_setting_set,
 };
 
 
@@ -368,6 +387,20 @@ static u32 common_function_attr_high_low_get(void *priv, u8 attr, u8 *buf, u16 b
     return rlen;
 }
 
+static u32 common_function_attr_misc_setting_info_get(void *priv, u8 attr, u8 *buf, u16 buf_size, u32 offset)
+{
+    u32 rlen = 0;
+    extern u32 get_misc_setting_data_len(void);
+    u32 data_len = get_misc_setting_data_len();
+    u8 *misc_data = zalloc(data_len);
+    get_smartbox_opt_setting(ATTR_TYPE_MISC_SETTING, misc_data);
+    rlen = add_one_attr(buf, buf_size, offset, attr, misc_data, data_len);
+    if (misc_data) {
+        free(misc_data);
+    }
+    return rlen;
+}
+
 static const attr_get_func target_common_function_get_tab[COMMON_FUNCTION_ATTR_TYPE_MAX] = {
     [COMMON_FUNCTION_ATTR_TYPE_BATTERY 				          ] = common_function_attr_battery_get,
     [COMMON_FUNCTION_ATTR_TYPE_VOL 					          ] = common_function_attr_vol_get,
@@ -382,6 +415,7 @@ static const attr_get_func target_common_function_get_tab[COMMON_FUNCTION_ATTR_T
     [COMMON_FUNCTION_ATTR_TYPE_HIGH_LOW_SET			          ] = common_function_attr_high_low_get,
     [COMMON_FUNCTION_ATTR_TYPE_PRE_FETCH_ALL_EQ_INFO 	      ] = common_function_attr_pre_fetch_all_eq_info_get,
     [COMMON_FUNCTION_ATTR_TYPE_PHONE_SCO_STATE_INFO 	      ] = common_function_attr_phone_sco_state_info_get,
+    [COMMON_FUNCTION_ATTR_TYPE_MISC_SETTING_INFO 	      	  ] = common_function_attr_misc_setting_info_get,
 };
 
 

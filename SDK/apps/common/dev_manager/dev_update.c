@@ -149,7 +149,7 @@ void dev_update_check(char *logo)
             printf("open update file err!!!\n");
             return ;
         }
-#if  defined(USER_UART_UPDATE_ENABLE) && (UART_UPDATE_ROLE == UART_UPDATE_MASTER)
+#if(USER_UART_UPDATE_ENABLE) && (UART_UPDATE_ROLE == UART_UPDATE_MASTER)
         uart_update_send_update_ready(update_path);
         while (get_uart_update_sta()) {
             os_time_dly(10);

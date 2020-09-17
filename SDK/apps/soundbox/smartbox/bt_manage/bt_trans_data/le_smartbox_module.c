@@ -754,7 +754,10 @@ void bt_ble_exit(void)
 {
     log_info("***** ble_exit******\n");
     ble_module_enable(0);
-
+#if SMART_BOX_EN
+    extern void smartbox_exit(void);
+    smartbox_exit();
+#endif
 }
 
 

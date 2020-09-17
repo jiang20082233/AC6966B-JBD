@@ -17,16 +17,13 @@ const struct task_info task_info_table[] = {
 #if (TCFG_PREVENT_TASK_FILL)
     {"prevent",             1,     128,   0		},
 #endif
-#if (TCFG_DEC2TWS_TASK_ENABLE)
-    {"local_dec",           3,     512,   128  },
-#endif
     {"dev_mg",           	3,     512,   512  },
     {"audio_enc",           3,     512,   128  },
     {"usb_msd",           	1,     512,   128   },
     {"aec",					2,	   768,   128	},
     {"aec_dbg",				3,	   128,   128	},
     {"update",				1,	   512,   0		},
-#ifdef USER_UART_UPDATE_ENABLE
+#if(USER_UART_UPDATE_ENABLE)
     {"uart_update",	        1,	   256,   128	},
 #endif
     {"systimer",		    6,	   128,   0		},

@@ -88,8 +88,10 @@ static const char dec_file_ext[][3] = {
 
 #if (TCFG_DEC_M4A_ENABLE)
     {"M4A"},
-    {"MP4"},
     {"AAC"},
+#endif
+#if (TCFG_DEC_M4A_ENABLE || TCFG_DEC_ALAC_ENABLE)
+    {"MP4"},
 #endif
     {'\0'},
 };

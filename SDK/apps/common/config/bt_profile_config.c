@@ -140,7 +140,11 @@ const u8 more_avctp_cmd_support = 0;
 const u8 hci_inquiry_support = 1;
 const u8 btstack_emitter_support  = 1;  /*定义用于优化代码编译*/
 extern const u8 sdp_a2dp_source_service_data[];
-//u8 a2dp_profile_support = 1;
+
+#if (USER_SUPPORT_PROFILE_A2DP==0)
+u8 a2dp_profile_support = 1;
+#endif
+
 SDP_RECORD_HANDLER_REGISTER(a2dp_src_sdp_record_item) = {
     .service_record = (u8 *)sdp_a2dp_source_service_data,
     .service_record_handle =  0x0001000B,
@@ -162,4 +166,8 @@ u8 rfcomm_debug_enable = 0xf;
 u8 profile_debug_enable = 0xff;
 u8 ble_debug_enable    = 0xff;
 u8 btstack_tws_debug_enable = 0xf;*/
+
+#else
+const u8 btstack_emitter_support  = 1;  /*定义用于优化代码编译*/
+const u8 a2dp_mutual_support = 1;
 #endif

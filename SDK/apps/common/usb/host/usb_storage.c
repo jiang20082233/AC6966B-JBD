@@ -26,7 +26,6 @@
 #include "debug.h"
 
 #if TCFG_UDISK_ENABLE
-
 static int set_stor_power(struct usb_host_device *host_dev, u32 value);
 static int get_stor_power(struct usb_host_device *host_dev, u32 value);
 
@@ -36,6 +35,7 @@ const struct interface_ctrl udisk_ops = {
     .get_power = get_stor_power,
     .ioctl = NULL,
 };
+
 
 static struct mass_storage mass_stor ;//SEC(.usb_h_udisk);
 
@@ -1060,7 +1060,7 @@ int usb_stor_init(struct device *device)
     ret = get_msd_max_lun(host_dev, &lun);
     if (ret != DEV_ERR_NONE) {
         disk->dev_status = DEV_IDLE;
-        usb_stor_force_reset(usb_id);
+        /* usb_stor_force_reset(usb_id); */
         log_error("ret = %d\n", ret);
         return ret;
     }

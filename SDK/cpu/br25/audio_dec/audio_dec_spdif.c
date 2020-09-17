@@ -555,7 +555,8 @@ int spdif_dec_open(struct audio_fmt fmt)
     spdif_dec_hdl->fmt.sample_rate = fmt.sample_rate;
     spdif_dec_hdl->coding_type = fmt.coding_type;
     spdif_dec_hdl->wait.priority = 2;
-    spdif_dec_hdl->wait.preemption    = 1;
+    spdif_dec_hdl->wait.preemption = 0;
+    spdif_dec_hdl->wait.snatch_same_prio = 1;
     spdif_dec_hdl->wait.handler = spdif_wait_res_handler;
     err = audio_decoder_task_add_wait(&decode_task, &spdif_dec_hdl->wait);
     spdif_dec_hdl->status = SPDIF_STATE_OPEN;

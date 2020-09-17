@@ -150,6 +150,10 @@ inline static u8 __get_max_msd_dev()
 #if defined(TCFG_NORFLASH_DEV_ENABLE) && TCFG_NORFLASH_DEV_ENABLE
     cnt++;
 #endif
+
+#if TCFG_VIR_UDISK_ENABLE
+    cnt++;
+#endif
     if (!cnt) {
         cnt = 1;
     } else if (cnt >= MAX_MSD_DEV) {

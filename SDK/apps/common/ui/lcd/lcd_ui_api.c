@@ -24,8 +24,12 @@ struct ui_server_env {
     u8 init: 1;
     u8 key_lock : 1;
     OS_SEM start_sem;
+    int (*touch_event_call)(void);
+    int touch_event_interval;
 };
 
+int lcd_backlight_status();
+int lcd_backlight_ctrl(u8 on);
 static struct ui_server_env __ui_display = {0};
 
 int key_is_ui_takeover()
@@ -177,6 +181,10 @@ int ui_key_msg_post(int key)
 {
     u8 count = 0;
     int msg[8];
+    if (!lcd_backlight_status()) {
+        lcd_backlight_ctrl(true);
+        return 0;
+    }
     msg[0] = UI_MSG_KEY;
     msg[1] = key;
     return post_ui_msg(msg, 2);
@@ -189,6 +197,10 @@ int ui_touch_msg_post(struct touch_event *event)
 {
     int msg[8];
     int i = 0;
+    if (!lcd_backlight_status()) {
+        lcd_backlight_ctrl(true);
+        return 0;
+    }
     msg[0] = UI_MSG_TOUCH;
     memcpy(&msg[1], event, sizeof(struct touch_event));
     return post_ui_msg(msg, sizeof(struct touch_event) / 4 + 1);
@@ -301,6 +313,12 @@ int ui_message_handler(int id, const char *msg, va_list argptr)
 extern void sys_param_init(void);
 
 
+void ui_set_touch_event(int (*touch_event)(void), int interval)
+{
+    __ui_display.touch_event_call = touch_event;
+    __ui_display.touch_event_interval = interval;
+}
+
 static void ui_task(void *p)
 {
     int msg[32];
@@ -320,6 +338,11 @@ static void ui_task(void *p)
     os_sem_post(&(__ui_display.start_sem));
     struct touch_event *touch;
     struct element_touch_event t;
+
+    if (__ui_display.touch_event_call && __ui_display.touch_event_interval) {
+        sys_timer_add((void *)NULL, __ui_display.touch_event_call, __ui_display.touch_event_interval); //注册按键扫描定时器
+    }
+
     while (1) {
         ret = os_taskq_pend(NULL, msg, ARRAY_SIZE(msg)); //500ms_reflash
         if (ret != OS_TASKQ) {

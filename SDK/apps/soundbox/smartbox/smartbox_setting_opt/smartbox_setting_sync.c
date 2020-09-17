@@ -4,7 +4,7 @@
 #include "smartbox_setting_opt.h"
 #include "adv_time_stamp_setting.h"
 
-#if (TCFG_EQ_ENABLESMART_BOX_EN && TCFG_USER_TWS_ENABLE)
+#if (SMART_BOX_EN && TCFG_USER_TWS_ENABLE)
 static void smartbox_sync_tws_func_t(void *data, u16 len, bool rx)
 {
     if (rx) {
@@ -15,6 +15,25 @@ static void smartbox_sync_tws_func_t(void *data, u16 len, bool rx)
 REGISTER_TWS_FUNC_STUB(adv_tws_sync) = {
     .func_id = TWS_FUNC_ID_ADV_SETTING_SYNC,
     .func    = smartbox_sync_tws_func_t,
+};
+
+static void tws_app_opt_sync_call_fun(int cmd)
+{
+    struct sys_event event;
+
+    event.type = SYS_BT_EVENT;
+    event.arg = (void *)SYS_BT_EVENT_FROM_APP_OPT_TWS;
+
+    event.u.bt.event = APP_OPT_TWS_EVENT_SYNC_FUN_CMD;
+    event.u.bt.args[0] = 0;
+    event.u.bt.args[1] = 0;
+    event.u.bt.args[2] = cmd;
+    sys_event_notify(&event);
+}
+
+TWS_SYNC_CALL_REGISTER(tws_tone_sync) = {
+    .uuid = TWS_FUNC_APP_OPT_UUID,
+    .func = tws_app_opt_sync_call_fun,
 };
 
 #if 1//RCSP_SMARTBOX_ADV_EN

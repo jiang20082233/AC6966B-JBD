@@ -23,7 +23,6 @@
 
 #include "media/includes.h"
 #include "tone_player.h"
-#include "audio_reverb.h"
 #include "audio_dec_linein.h"
 
 #include "asm/audio_linein.h"
@@ -136,6 +135,7 @@ static int linein_key_msg_deal(struct sys_event *event)
     case KEY_LINEIN_START:
         linein_start();
         linein_last_onoff = 1;
+        UI_REFLASH_WINDOW(true);//刷新主页并且支持打断显示
         break;
     case KEY_TEST_DEMO_0:
         log_info("KEY_TEST_DEMO_0 = %d \n", key_value);
@@ -214,7 +214,7 @@ static void  line_tone_play_end_callback(void *priv, int flag)
 static void linein_app_init(void)
 {
     UI_SHOW_WINDOW(ID_WINDOW_LINEIN);//打开ui主页
-    UI_SHOW_MENU(MENU_AUX, 1000, 0, NULL);
+    UI_SHOW_MENU(MENU_AUX, 0, 0, NULL);
     sys_key_event_enable();//开启按键
     ui_update_status(STATUS_LINEIN_MODE);
     clock_idle(LINEIN_IDLE_CLOCK);

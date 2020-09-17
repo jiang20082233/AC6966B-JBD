@@ -41,7 +41,6 @@
 #include "device/sdmmc.h"
 #include "pc/usb_msd.h"
 #include "ui/ui_api.h"
-#include "audio_reverb.h"
 #include "clock_cfg.h"
 #include "dev_multiplex_api.h"
 #include "usb/otg.h"

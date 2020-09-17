@@ -51,7 +51,6 @@
 #include "soundcard/soundcard.h"
 
 #include "audio_dec.h"
-#include "audio_reverb.h"
 #include "tone_player.h"
 #include "dac.h"
 #include "user_fun_cfg.h"

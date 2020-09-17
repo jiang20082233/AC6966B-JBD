@@ -16,6 +16,7 @@
 
 extern struct audio_decoder_task decode_task;
 extern struct audio_mixer mixer;
+extern struct audio_mixer recorder_mixer;
 
 u32 audio_output_rate(int input_rate);
 u32 audio_output_channel_num(void);
@@ -35,7 +36,6 @@ void audio_resume_all_mix(void);
 
 
 //////////////////////////////////////////////////////////////////////////////
-void audio_dec_bt_emitter_check_empty_en(u8 en);
 void audio_sbc_enc_inbuf_resume(void);
 
 int audio_dec_init();

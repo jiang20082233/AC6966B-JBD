@@ -77,6 +77,7 @@ objs += \
 	$(ROOT)/apps/common/device/gSensor/da230.o \
     $(ROOT)/apps/common/device/gSensor/SC7A20.o \
 	$(ROOT)/apps/common/device/gSensor/gSensor_manage.o \
+	$(ROOT)/apps/common/third_party_profile/ancs_client_demo/le_ancs_client.o \
 	$(ROOT)/apps/common/third_party_profile/jieli/trans_data_demo/spp_trans_data.o \
 	$(ROOT)/apps/common/third_party_profile/jieli/hid_user.o \
 	$(ROOT)/apps/common/third_party_profile/jieli/trans_data_demo/le_trans_data.o \
@@ -127,7 +128,8 @@ objs += \
 include $(ROOT)/apps/$(APP_CASE)/soundcard/Makefile
 include $(ROOT)/apps/$(APP_CASE)/smartbox/Makefile
 include $(ROOT)/apps/$(APP_CASE)/ui/lcd/Makefile
-include $(ROOT)/apps/$(APP_CASE)/trans_data_demo/Makefile
+include $(ROOT)/apps/$(APP_CASE)/third_party_profile/Makefile
+include $(ROOT)/apps/$(APP_CASE)/ui/color_led/Makefile
 
 objs += \
 	$(ROOT)/apps/$(APP_CASE)/common/task_table.o \
@@ -184,6 +186,9 @@ objs += \
     $(ROOT)/apps/common/charge_box/chgbox_ui.o \
     $(ROOT)/apps/common/charge_box/chgbox_handshake.o \
 
+#bt user api
+objs += \
+    $(ROOT)/apps/common/bt_common/bt_test_api.o \
 
 objs += \
 	$(ROOT)/apps/$(APP_CASE)/ui/led/pwm_led_api.o \
@@ -220,7 +225,8 @@ objs += \
 	$(ROOT)/apps/$(APP_CASE)/task_manager/record/record.o \
 	$(ROOT)/apps/$(APP_CASE)/task_manager/rtc/rtc.o \
 	$(ROOT)/apps/$(APP_CASE)/task_manager/rtc/rtc_simulate.o \
-	$(ROOT)/apps/$(APP_CASE)/task_manager/rtc/alarm.o \
+	$(ROOT)/apps/$(APP_CASE)/task_manager/rtc/alarm_api.o \
+	$(ROOT)/apps/$(APP_CASE)/task_manager/rtc/alarm_user.o \
 	$(ROOT)/apps/$(APP_CASE)/task_manager/spdif/spdif.o \
 	$(ROOT)/apps/$(APP_CASE)/task_manager/spdif/hdmi_cec_drv.o \
 	$(ROOT)/apps/$(APP_CASE)/task_manager/bt/bt.o \

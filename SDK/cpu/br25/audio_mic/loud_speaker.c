@@ -8,7 +8,8 @@
 #include "audio_config.h"
 #include "storage_dev/storage_dev.h"
 #include "loud_speaker.h"
-/* #include "audio_dec.h" */
+#include "audio_dec.h"
+#include "audio_enc.h"
 #include "media/pcm_decoder.h"
 #include "application/audio_howling.h"
 #include "application/audio_pitch.h"
@@ -19,23 +20,16 @@
 #define LOG_DUMP_ENABLE
 #include "debug.h"
 
-#define REVERB_ENABLE    			1 //声卡混响
 #define ECHO_ENABLE    			    0 //K歌混响
-#define HOWLING_ENABLE    			0 //啸叫抑制 有问题
+#define HOWLING_ENABLE    			1 //啸叫抑制
 #define PITCH_ENABLE    			0 //变声
 
 
 #if (TCFG_LOUDSPEAKER_ENABLE)
 
-extern int audio_ladc_open(u16 sample_rate, u8 gain);
-extern void audio_ladc_close();
-extern void set_mic_resume_hdl(void (*resume)(void *priv), void *priv);
-extern void audio_adc_mic_enable(u8 mark);
-extern void audio_adc_set_mic_cbuf_hdl(cbuffer_t *mic_cbuf);
-
-extern u32 audio_output_channel_num(void);
-extern int audio_output_set_start_volume(u8 state);
-extern void audio_adc_set_mic_gain(struct audio_adc_hdl *adc, u8 gain);
+/* extern u32 audio_output_channel_num(void); */
+/* extern int audio_output_set_start_volume(u8 state); */
+/* extern void audio_adc_set_mic_gain(struct audio_adc_hdl *adc, u8 gain); */
 
 extern struct audio_adc_hdl adc_hdl;
 extern struct audio_decoder_task decode_task;
@@ -43,11 +37,11 @@ extern struct audio_mixer mixer;
 
 
 //************************* MIC to DAC API *****************************//
-#define ADC_BUF_NUM        	2
-#define ADC_CH_NUM         	1
-#define ADC_IRQ_POINTS     	32//256
-#define ADC_BUFS_SIZE      	(ADC_BUF_NUM *ADC_CH_NUM* ADC_IRQ_POINTS)
-#define PCM_BUF_LEN  		(1024)
+/* #define ADC_BUF_NUM        	2 */
+/* #define ADC_CH_NUM         	1 */
+/* #define ADC_IRQ_POINTS     	32//256 */
+/* #define ADC_BUFS_SIZE      	(ADC_BUF_NUM *ADC_CH_NUM* ADC_IRQ_POINTS) */
+#define PCM_BUF_LEN  		(4*1024)
 
 
 enum {
@@ -62,7 +56,6 @@ struct s_speaker_hdl {
 
     u32 process_len;
     struct audio_stream *stream;		// 音频流
-    s16 adc_buf[ADC_BUFS_SIZE];
 
     int mic_gain;
     u16 mic_sr;
@@ -123,7 +116,7 @@ static void adc_output_to_buf(void *priv, s16 *data, int len)
     if (!wlen) {
         putchar('W');
     }
-    /* audio_decoder_resume(&speaker_hdl->pcm_dec.decoder); */
+    audio_decoder_resume(&speaker_hdl->pcm_dec.decoder);
 }
 
 
@@ -151,11 +144,7 @@ void stop_loud_speaker(void)
 
     speaker_hdl->status = REVERB_STATUS_STOP;
 
-    /* audio_adc_del_output_handler(&adc_hdl, &speaker_hdl->adc_output); */
-    /* audio_adc_mic_close(&speaker_hdl->mic_ch); */
-    audio_adc_mic_enable(0);
-    audio_ladc_close();
-
+    audio_mic_close(&speaker_hdl->mic_ch, &speaker_hdl->adc_output);
     pcm_dec_close();
 #if REVERB_ENABLE
     close_reverb(speaker_hdl->p_reverb_hdl);
@@ -180,8 +169,8 @@ void stop_loud_speaker(void)
 static int pcm_fread(void *hdl, void *buf, u32 len)
 {
     struct s_speaker_hdl *dec = (struct s_speaker_hdl *)hdl;
-
     int rlen = cbuf_read(&dec->pcm_cbuf, buf, len);
+    /* printf("rlen %d",rlen); */
     return rlen;
 }
 
@@ -243,14 +232,13 @@ static int pcm_dec_start(void)
         goto __err1;
     }
 
-    pcm_decoder_set_event_handler(&dec->pcm_dec, pcm_dec_event_handler, pcm_dec_maigc++);
+    pcm_decoder_set_event_handler(&dec->pcm_dec, pcm_dec_event_handler, 0);
     pcm_decoder_set_read_data(&dec->pcm_dec, pcm_fread, dec);
     pcm_decoder_set_data_handler(&dec->pcm_dec, pcm_dec_data_handler);
 
-    /* audio_mixer_ch_open(&dec->mix_ch, &mixer); */
-    audio_mixer_ch_open_head(&dec->mix_ch, &mixer); // 挂载到mixer最前面
+    audio_mixer_ch_open(&dec->mix_ch, &mixer);
     audio_mixer_ch_set_src(&dec->mix_ch, 1, 1);
-    audio_mixer_ch_set_no_wait(&dec->mix_ch, 1, 10); // 超时自动丢数
+    /* audio_mixer_ch_set_no_wait(&dec->mix_ch, 1, 10); // 超时自动丢数 */
 
 
 // 数据流串联
@@ -263,7 +251,6 @@ static int pcm_dec_start(void)
 
 #if REVERB_ENABLE
     entries[entry_cnt++] = &dec->p_reverb_hdl->entry;
-    /* printf("\n--func111=%s\n", __FUNCTION__); */
 #endif
 
 #if ECHO_ENABLE
@@ -279,7 +266,6 @@ static int pcm_dec_start(void)
 
     audio_output_set_start_volume(APP_AUDIO_STATE_MUSIC);
 
-    /* audio_adc_mic_start(&dec->mic_ch); */
     log_i("\n\n audio decoder start \n");
     dec->status = REVERB_STATUS_START;
     err = audio_decoder_start(&dec->pcm_dec.decoder);
@@ -291,10 +277,7 @@ static int pcm_dec_start(void)
 __err3:
 
     dec->status = 0;
-    /* audio_adc_mic_close(&dec->mic_ch);  */
-    audio_adc_mic_enable(0);
-    audio_ladc_close();
-
+    audio_mic_close(&dec->mic_ch, &dec->adc_output);
 __err2:
     if (dec->stream) {
         audio_stream_close(dec->stream);
@@ -328,7 +311,6 @@ static int pcmdec_wait_res_handler(struct audio_res_wait *wait, int event)
             /* reverb_hdl->status = REVERB_STATUS_PAUSE; */
         }
     }
-
     return err;
 }
 
@@ -353,10 +335,9 @@ void start_loud_speaker(struct audio_fmt *fmt)
     }
     f.channel = 1;
 
-
     reverb->source_ch_num = f.channel;
     reverb->mic_sr = f.sample_rate;
-    reverb->mic_gain = 0;
+    reverb->mic_gain = 2;
 
 #if REVERB_ENABLE
     reverb->p_reverb_hdl = open_reverb(NULL, f.sample_rate);
@@ -367,8 +348,7 @@ void start_loud_speaker(struct audio_fmt *fmt)
     ASSERT(reverb->p_echo_hdl);
 #endif
 #if HOWLING_ENABLE
-    /* reverb->p_howling_hdl = open_howling(NULL, f.sample_rate,1); */
-    reverb->p_howling_hdl = open_howling(NULL, f.sample_rate, audio_output_channel_num(), 0);
+    reverb->p_howling_hdl = open_howling(NULL, f.sample_rate, audio_output_channel_num(), 1);
     reverb->howling_en = 1;
 #endif
 
@@ -376,29 +356,12 @@ void start_loud_speaker(struct audio_fmt *fmt)
 #if PITCH_ENABLE
     reverb->p_pitch_hdl = open_pitch(NULL);
 #endif
-#if 0
-    audio_adc_mic_open(&reverb->mic_ch, AUDIO_ADC_MIC_CH, &adc_hdl);
-    audio_adc_mic_set_sample_rate(&reverb->mic_ch, f.sample_rate);
-    audio_adc_mic_set_gain(&reverb->mic_ch, reverb->mic_gain);
-    audio_adc_mic_set_buffs(&reverb->mic_ch, reverb->adc_buf, ADC_IRQ_POINTS * 2, ADC_BUF_NUM);
-    reverb->adc_output.handler = adc_output_to_buf;
-    audio_adc_add_output_handler(&adc_hdl, &reverb->adc_output);
-
+#if 1
     cbuf_init(&reverb->pcm_cbuf, reverb->pcm_buf, sizeof(reverb->pcm_buf));
-    /* audio_mic_0dB_en(1); */
-    SFR(JL_ANA->ADA_CON1, 16, 1, 1); //mic 前置增益0db
-    audio_adc_mic_start(&reverb->mic_ch);
-
-
-#else
-    cbuf_init(&reverb->pcm_cbuf, reverb->pcm_buf, sizeof(reverb->pcm_buf));
-    if (audio_ladc_open(f.sample_rate, 1) == 0) {
-        printf("%s, mic adc open success \n", __FUNCTION__);
-        audio_adc_set_mic_cbuf_hdl(&reverb->pcm_cbuf);
-        /* set_mic_resume_hdl(mic_stream_adc_resume, stream); */
-        audio_adc_mic_enable(1);
-        printf("mic_stream_start ok\n");
-        /* return true; */
+    if (audio_mic_open(&reverb->mic_ch, f.sample_rate, reverb->mic_gain) == 0) {
+        reverb->adc_output.handler = adc_output_to_buf;
+        audio_mic_add_output(&reverb->adc_output);
+        audio_mic_start(&reverb->mic_ch);
     }
 #endif
     reverb->pcm_dec.ch_num = 1;
@@ -416,11 +379,7 @@ void start_loud_speaker(struct audio_fmt *fmt)
     }
 
     log_e("audio decoder task add wait err \n");
-    /* audio_adc_mic_close(&reverb->mic_ch); */
-    /* audio_adc_del_output_handler(&adc_hdl, &reverb->adc_output); */
-    audio_adc_mic_enable(0);
-    audio_ladc_close();
-
+    audio_mic_close(&reverb->mic_ch, &reverb->adc_output);
 #if REVERB_ENABLE
     close_reverb(reverb->p_reverb_hdl);
 #endif
@@ -454,9 +413,8 @@ void set_speaker_gain_up(u8 value)
     if (speaker_hdl->mic_gain > 14) {
         speaker_hdl->mic_gain = 14;
     }
-    audio_adc_set_mic_gain(speaker_hdl->mic_ch.hdl, speaker_hdl->mic_gain);
+    audio_mic_set_gain(speaker_hdl->mic_gain);
     printf("mic gain up [%d]\n", speaker_hdl->mic_gain);
-    /* printf("\n--func=%s\n", __FUNCTION__); */
 }
 
 void set_speaker_gain_down(u8 value)
@@ -464,15 +422,11 @@ void set_speaker_gain_down(u8 value)
     if ((!speaker_hdl) || (speaker_hdl->status != REVERB_STATUS_START)) {
         return;
     }
-    //o-31
-    /* speaker_hdl->mic_gain -= value; */
     if (speaker_hdl->mic_gain >= value) {
         /* speaker_hdl->mic_gain = 0; */
         speaker_hdl->mic_gain -= value;
     }
-    /* audio_adc_mic_set_gain(&speaker_hdl->mic_ch, speaker_hdl->mic_gain); */
-    audio_adc_set_mic_gain(speaker_hdl->mic_ch.hdl, speaker_hdl->mic_gain);
-    /* printf("\n--func=%s\n", __FUNCTION__); */
+    audio_mic_set_gain(speaker_hdl->mic_gain);
     printf("mic gain [%d]\n", speaker_hdl->mic_gain);
 }
 
@@ -485,7 +439,10 @@ void switch_holwing_en(void)
 {
     if (speaker_hdl) {
         speaker_hdl->howling_en ^= 1;
-        printf("howling_en [%d]", speaker_hdl->howling_en);
+        if (speaker_hdl->p_howling_hdl) {
+            pause_howling(speaker_hdl->p_howling_hdl, speaker_hdl->howling_en);
+            printf("howling_en [%d]", speaker_hdl->howling_en);
+        }
     }
 }
 

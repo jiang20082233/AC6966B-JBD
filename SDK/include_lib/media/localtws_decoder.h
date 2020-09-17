@@ -21,6 +21,7 @@ struct localtws_decoder {
     u32 wait_time;
     int begin_delay_time;
     void *sync;
+    u16 resume_timeout;
     u16 drop_samples;
     u32 dec_type;			// 解码类型
     u16 sample_rate;		// 采样率

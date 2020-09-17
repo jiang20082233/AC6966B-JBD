@@ -75,6 +75,7 @@ typedef struct __ECHO_FUNC_API_ {
     int (*open)(unsigned int *ptr, ECHO_PARM_SET *echo_parm, EF_REVERB_FIX_PARM *echo_fix_parm);
     int (*init)(unsigned int *ptr, ECHO_PARM_SET *echo_parm);
     int (*run)(unsigned int *ptr, short *inbuf, short *outdata, int len);
+    void (*reset_wetdry)(unsigned int *ptr, int wetgain, int drygain);  //新增
 } ECHO_FUNC_API;
 
 typedef struct _EHCO_API_STRUCT_ {

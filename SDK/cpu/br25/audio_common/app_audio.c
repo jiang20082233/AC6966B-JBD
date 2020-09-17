@@ -59,7 +59,7 @@ extern struct audio_dac_hdl dac_hdl;
 extern struct audio_adc_hdl adc_hdl;
 OS_SEM dac_sem;
 
-#if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC)
+#if AUDIO_OUTPUT_ONLY_DAC
 s16 dac_buff[4 * 1024] SEC(.dac_buff);
 #endif
 
@@ -1093,7 +1093,7 @@ void _audio_adc_irq_hook(void)
 ********************* -HB ******************************/
 void app_audio_output_init(void)
 {
-#if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC)
+#if AUDIO_OUTPUT_ONLY_DAC
     audio_dac_init(&dac_hdl, &dac_data);
     audio_dac_set_buff(&dac_hdl, dac_buff, sizeof(dac_buff));
 
@@ -1150,7 +1150,7 @@ int app_audio_output_samplerate_select(u32 sample_rate, u8 high)
 ********************* -HB ******************************/
 int app_audio_output_samplerate_set(int sample_rate)
 {
-#if AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC
+#if AUDIO_OUTPUT_ONLY_DAC
     return audio_dac_set_sample_rate(&dac_hdl, sample_rate);
 #endif
     return 0;
@@ -1163,7 +1163,7 @@ int app_audio_output_samplerate_set(int sample_rate)
 ********************* -HB ******************************/
 int app_audio_output_samplerate_get(void)
 {
-#if AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC
+#if AUDIO_OUTPUT_ONLY_DAC
     return audio_dac_get_sample_rate(&dac_hdl);
 #endif
     return 0;
@@ -1176,7 +1176,7 @@ int app_audio_output_samplerate_get(void)
 ********************* -HB ******************************/
 int app_audio_output_mode_get(void)
 {
-#if AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC
+#if AUDIO_OUTPUT_ONLY_DAC
     return audio_dac_get_pd_output(&dac_hdl);
 #endif
     return 0;
@@ -1189,7 +1189,7 @@ int app_audio_output_mode_get(void)
 ********************* -HB ******************************/
 int app_audio_output_mode_set(u8 output)
 {
-#if AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC
+#if AUDIO_OUTPUT_ONLY_DAC
     return audio_dac_set_pd_output(&dac_hdl, output);
 #endif
     return 0;
@@ -1202,7 +1202,7 @@ int app_audio_output_mode_set(u8 output)
 ********************* -HB ******************************/
 int app_audio_output_channel_get(void)
 {
-#if AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC
+#if AUDIO_OUTPUT_ONLY_DAC
     return audio_dac_get_channel(&dac_hdl);
 #endif
     return 0;
@@ -1217,7 +1217,7 @@ int app_audio_output_channel_get(void)
 ********************* -HB ******************************/
 int app_audio_output_channel_set(u8 channel)
 {
-#if AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC
+#if AUDIO_OUTPUT_ONLY_DAC
     return audio_dac_set_channel(&dac_hdl, channel);
 #endif
     return 0;
@@ -1333,8 +1333,7 @@ u32 data_energy_value(/*u8 channel,*/void * buffer,int len,u16 packey_cnt){
 ********************* -HB ******************************/
 int app_audio_output_write(void *buf, int len)
 {
-    // audio_output_data_db_calc(buf,len,dac_hdl.channel);
-#if AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC
+#if AUDIO_OUTPUT_ONLY_DAC
     return audio_dac_write(&dac_hdl, buf, len);
 #elif AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_FM
     return fm_emitter_cbuf_write(buf, len);
@@ -1396,7 +1395,7 @@ int app_audio_output_get_cur_buf_points(void)
 
 int app_audio_output_ch_analog_gain_set(u8 ch, u8 again)
 {
-#if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC) || (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_BT)
+#if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC) || (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_BT) || (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DONGLE)
     return audio_dac_ch_analog_gain_set(&dac_hdl, ch, again);
 #endif
     return 0;
@@ -1404,7 +1403,7 @@ int app_audio_output_ch_analog_gain_set(u8 ch, u8 again)
 
 int app_audio_output_ch_digital_gain_set(u8 ch, u32 dgain)
 {
-#if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC) || (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_BT)
+#if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC) || (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_BT) || (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DONGLE)
     return audio_dac_ch_digital_gain_set(&dac_hdl, ch, dgain);
 #endif
     return 0;
@@ -1434,7 +1433,7 @@ int audio_output_buf_time(void)
 
 int audio_output_dev_is_working(void)
 {
-#if AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC
+#if AUDIO_OUTPUT_ONLY_DAC
     return audio_dac_is_working(&dac_hdl);
 #endif
     return 1;

@@ -31,6 +31,9 @@ struct linein_dec_hdl {
     struct pcm_decoder pcm_dec;		// pcm解码句柄
     struct audio_res_wait wait;		// 资源等待句柄
     struct audio_mixer_ch mix_ch;	// 叠加句柄
+#if (RECORDER_MIX_EN)
+    struct audio_mixer_ch rec_mix_ch;	// 叠加句柄
+#endif/*RECORDER_MIX_EN*/
     struct audio_eq_drc *eq_drc;//eq drc句柄
     u32 id;				// 唯一标识符，随机值
     u32 start : 1;		// 正在解码
@@ -117,6 +120,9 @@ void audio_linein_set_src_by_dac_sync(int in_rate, int out_rate)
     struct linein_dec_hdl *dec = linein_dec;
     if (dec && dec->start && (dec->pcm_dec.dec_no_out_sound == 0)) {
         audio_buf_sync_follow_rate(&dec->mix_ch.sync, in_rate, out_rate);
+#if(RECORDER_MIX_EN)
+        audio_buf_sync_follow_rate(&dec->rec_mix_ch.sync, in_rate, out_rate);
+#endif/*RECORDER_MIX_EN*/
     }
 }
 
@@ -225,14 +231,25 @@ int linein_dec_start()
 
     // 设置叠加功能
     audio_mixer_ch_open_head(&dec->mix_ch, p_mixer);
+    audio_mixer_ch_set_no_wait(&dec->mix_ch, 1, 10); // 超时自动丢数
+#if (RECORDER_MIX_EN)
+    audio_mixer_ch_open_head(&dec->rec_mix_ch, &recorder_mixer);
+    audio_mixer_ch_set_no_wait(&dec->rec_mix_ch, 1, 10); // 超时自动丢数
+#endif/*RECORDER_MIX_EN*/
     if (dec->pcm_dec.dec_no_out_sound) {
         audio_mixer_ch_set_src(&dec->mix_ch, 1, 0);
+#if (RECORDER_MIX_EN)
+        audio_mixer_ch_set_src(&dec->rec_mix_ch, 1, 0);
+#endif/*RECORDER_MIX_EN*/
     } else {
         struct audio_mixer_ch_sync_info info = {0};
         info.priv = dec->linein;
         info.get_total = linein_sample_total;
         info.get_size = linein_sample_size;
         audio_mixer_ch_set_sync(&dec->mix_ch, &info, 1, 1);
+#if (RECORDER_MIX_EN)
+        audio_mixer_ch_set_sync(&dec->rec_mix_ch, &info, 1, 1);
+#endif/*RECORDER_MIX_EN*/
     }
     dec->eq_drc = linein_eq_drc_open(dec->pcm_dec.sample_rate, dec->pcm_dec.output_ch_num);
     // 数据流串联
@@ -248,6 +265,9 @@ int linein_dec_start()
     dec->stream = audio_stream_open(dec, linein_dec_out_stream_resume);
     audio_stream_add_list(dec->stream, entries, entry_cnt);
 
+#if (RECORDER_MIX_EN)
+    audio_stream_add_entry(entries[entry_cnt - 2], &dec->rec_mix_ch.entry);
+#endif/*RECORDER_MIX_EN*/
 
     audio_output_set_start_volume(APP_AUDIO_STATE_MUSIC);
 
@@ -266,6 +286,9 @@ __err3:
         dec->linein = NULL;
     }
     audio_mixer_ch_close(&dec->mix_ch);
+#if (RECORDER_MIX_EN)
+    audio_mixer_ch_close(&dec->rec_mix_ch);
+#endif/*RECORDER_MIX_EN*/
 #if TCFG_PCM_ENC2TWS_ENABLE
     if (linein_dec->pcm_dec.dec_no_out_sound) {
         linein_dec->pcm_dec.dec_no_out_sound = 0;
@@ -303,6 +326,9 @@ static void __linein_dec_close(void)
 
         linein_eq_drc_close(linein_dec->eq_drc);
         audio_mixer_ch_close(&linein_dec->mix_ch);
+#if (RECORDER_MIX_EN)
+        audio_mixer_ch_close(&linein_dec->rec_mix_ch);
+#endif/*RECORDER_MIX_EN*/
 #if TCFG_PCM_ENC2TWS_ENABLE
         if (linein_dec->pcm_dec.dec_no_out_sound) {
             linein_dec->pcm_dec.dec_no_out_sound = 0;
@@ -379,7 +405,8 @@ int linein_dec_open(u8 source, u32 sample_rate)
     dec->pcm_dec.sample_rate = sample_rate;
 
     dec->wait.priority = 2;
-    dec->wait.preemption = 1;
+    dec->wait.preemption = 0;
+    dec->wait.snatch_same_prio = 1;
     dec->wait.handler = linein_wait_res_handler;
     clock_add(AUDIO_CODING_PCM);
 

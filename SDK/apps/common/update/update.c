@@ -8,6 +8,7 @@
 #include "syscfg_id.h"
 #include "vm.h"
 #include "btcontroller_modules.h"
+#include "uart_update.h"
 
 #if TCFG_UI_ENABLE
 #include "ui/ui_api.h"
@@ -153,8 +154,10 @@ int update_result_deal()
     result = (g_updata_flag & 0xffff);
     log_info("<--------update_result_deal=0x%x %x--------->\n", result, g_updata_flag >> 16);
 #ifdef  CONFIG_DEBUG_ENABLE
+#if TCFG_APP_BT_EN
     u8 check_update_param_len(void);
     ASSERT(check_update_param_len(), "UPDATE_PARAM_LEN ERROR");
+#endif
 #endif
     if (result == UPDATA_NON || 0 == result) {
         return 0;
@@ -464,15 +467,18 @@ void update_parm_set_and_get_buf(int type, u32 loader_saddr, void **buf_addr, u1
     }
 
     set_loader_start_addr(loader_saddr);
-#if RCSP_UPDATE_EN
     if ((BLE_APP_UPDATA == type) || (SPP_APP_UPDATA == type)) {
+#if RCSP_UPDATE_EN
         extern u32 ex_cfg_get_start_addr(void);
         exif_addr = ex_cfg_get_start_addr();
         printf("exif_addr:0x%x\n", exif_addr);
         updata_parm_set(type, (u8 *)&exif_addr, sizeof(exif_addr));
-    } else
 #endif
-    {
+    } else if (UART_UPDATA == type) {
+#if(USER_UART_UPDATE_ENABLE) && (UART_UPDATE_ROLE == UART_UPDATE_SLAVE)
+        sava_uart_update_param();
+#endif
+    } else {
         updata_parm_set(type, (u8 *)loader_file_path, sizeof(loader_file_path));
     }
 

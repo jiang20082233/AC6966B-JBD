@@ -61,17 +61,21 @@ int usb_device_mode(const usb_dev usb_id, const u32 class)
         gpio_set_die(IO_PORT_DM + 2 * usb_id, 1);
         gpio_set_die(IO_PORT_DP + 2 * usb_id, 1);
 
+#if USB_DEVICE_CLASS_CONFIG & MASSSTORAGE_CLASS
         msd_release(usb_id);
+#endif
         uac_release(usb_id);
         usb_device_hold(usb_id);
         return 0;
     }
 
     usb_add_desc_config(usb_id, MAX_INTERFACE_NUM, NULL);
+#if USB_DEVICE_CLASS_CONFIG & MASSSTORAGE_CLASS
     if ((class & MASSSTORAGE_CLASS) == MASSSTORAGE_CLASS) {
         msd_register(usb_id);
         usb_add_desc_config(usb_id, class_index++, msd_desc_config);
     }
+#endif
 
     if ((class & AUDIO_CLASS) == AUDIO_CLASS) {
         usb_add_desc_config(usb_id, class_index++, uac_audio_desc_config);

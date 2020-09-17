@@ -67,6 +67,9 @@ const int config_mp3pick_dec_use_malloc = 1;
 const int config_wma_dec_use_malloc     = 1;
 const int config_wmapick_dec_use_malloc = 1;
 const int config_m4a_dec_use_malloc     = 1;
+const int config_m4apick_dec_use_malloc = 1;
+const int config_wav_dec_use_malloc     = 1;
+const int config_alac_dec_use_malloc    = 1;
 const int config_dts_dec_use_malloc     = 1;
 const int config_amr_dec_use_malloc     = 1;
 const int config_flac_dec_use_malloc    = 1;
@@ -80,6 +83,9 @@ const int config_mp3pick_dec_use_malloc = 0;
 const int config_wma_dec_use_malloc     = 0;
 const int config_wmapick_dec_use_malloc = 0;
 const int config_m4a_dec_use_malloc     = 0;
+const int config_m4apick_dec_use_malloc = 0;
+const int config_wav_dec_use_malloc     = 0;
+const int config_alac_dec_use_malloc    = 0;
 const int config_dts_dec_use_malloc     = 0;
 const int config_amr_dec_use_malloc     = 0;
 const int config_flac_dec_use_malloc    = 0;
@@ -89,6 +95,11 @@ const int config_aptx_dec_use_malloc    = 0;
 const int config_midi_dec_use_malloc    = 0;
 #endif
 
+#if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DONGLE)
+const int config_mp3_enc_use_layer_3	= 1;
+#else
+const int config_mp3_enc_use_layer_3	= 0;
+#endif
 
 
 /**

@@ -42,6 +42,21 @@ objs += \
 
 else ifeq ($(APP_CASE),dongle)
 
+else ifeq ($(APP_CASE),bt_udisk)
+objs += \
+      $(ROOT)/cpu/$(CPU)/overlay_code.o \
+	  $(ROOT)/cpu/$(CPU)/irflt.o \
+	  $(ROOT)/cpu/$(CPU)/plcnt.o \
+
+objs += \
+	  $(ROOT)/cpu/$(CPU)/uart_test.o \
+	  $(ROOT)/cpu/$(CPU)/uart_bt_product.o \
+	  $(ROOT)/cpu/$(CPU)/spi_test.o \
+	  $(ROOT)/cpu/$(CPU)/iic_eeprom_test.o \
+	  $(ROOT)/cpu/$(CPU)/iic_slave_test.o \
+	  $(ROOT)/cpu/$(CPU)/clock_manager.o \
+
+
 endif
 
 include $(ROOT)/cpu/$(CPU)/ui_driver/Makefile

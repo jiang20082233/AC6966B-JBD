@@ -83,7 +83,13 @@ static void dec_out_stream_resume(void *p)
 
     audio_decoder_resume(&dec->pcm_dec.decoder);
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    pcm解码启动
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 static int pcm_dec_start(struct __mic_stream *stream)
 {
     int err = 0;
@@ -119,7 +125,13 @@ static int pcm_dec_start(struct __mic_stream *stream)
     }
     return err;
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    pcm解码停止
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 static void pcm_dec_stop(struct __mic_stream *stream)
 {
     printf("mic stream dec stop \n\n");
@@ -148,7 +160,13 @@ static int pcmdec_wait_res_handler(struct audio_res_wait *wait, int event)
 
     return err;
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    打开pcm解码
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 static int pcm_dec_open(struct __mic_stream *stream)
 {
     stream->pcm_dec.ch_num = 2;
@@ -163,6 +181,13 @@ static int pcm_dec_open(struct __mic_stream *stream)
     return audio_decoder_task_add_wait(&decode_task, &stream->wait);
 }
 
+/*----------------------------------------------------------------------------*/
+/**@brief    关闭pcm解码
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 static void pcm_dec_close(struct __mic_stream *stream)
 {
     pcm_dec_stop(stream);
@@ -170,7 +195,13 @@ static void pcm_dec_close(struct __mic_stream *stream)
 }
 
 
-
+/*----------------------------------------------------------------------------*/
+/**@brief    唤醒mic数据处理任务
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void mic_stream_adc_resume(void *priv)
 {
     struct __mic_stream *stream = (struct __mic_stream *)priv;
@@ -179,7 +210,13 @@ void mic_stream_adc_resume(void *priv)
         os_sem_post(&stream->sem);
     }
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    mic数据处理函数
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 static int mic_stream_effects_run(struct __mic_stream *stream)
 {
     u32 tmp_len, wlen, data_len;
@@ -227,7 +264,13 @@ static int mic_stream_effects_run(struct __mic_stream *stream)
     }
     return 0;
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    mic数据处理任务
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 static void mic_stream_task_deal(void *p)
 {
     int res = 0;
@@ -244,7 +287,13 @@ static void mic_stream_task_deal(void *p)
         }
     }
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    创建mic数据流
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 struct __mic_stream *mic_stream_creat(struct __mic_stream_parm *parm)
 {
     int err = 0;
@@ -300,7 +349,13 @@ struct __mic_stream *mic_stream_creat(struct __mic_stream_parm *parm)
     printf("mic stream creat ok\n");
     return stream;
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    设置mic处理函数的回调处理
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void mic_stream_set_output(struct __mic_stream  *stream, void *priv, u32(*func)(void *priv, void *in, void *out, u32 inlen, u32 outlen))
 {
     if (stream) {
@@ -308,6 +363,14 @@ void mic_stream_set_output(struct __mic_stream  *stream, void *priv, u32(*func)(
         stream->out.func = func;
     }
 }
+
+/*----------------------------------------------------------------------------*/
+/**@brief    mic中断数据输出回调函数
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 static void adc_output_to_buf(void *priv, s16 *data, int len)
 {
     struct __mic_stream *stream = (struct __mic_stream *)priv;
@@ -318,7 +381,13 @@ static void adc_output_to_buf(void *priv, s16 *data, int len)
         os_sem_post(&stream->sem);
     }
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    打开mic
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 bool mic_stream_start(struct __mic_stream  *stream)
 {
     if (stream) {
@@ -333,7 +402,13 @@ bool mic_stream_start(struct __mic_stream  *stream)
     }
     return false;
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    关闭mic数据流
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void mic_stream_destroy(struct __mic_stream **hdl)
 {
     int err = 0;

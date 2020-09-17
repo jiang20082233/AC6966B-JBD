@@ -444,7 +444,8 @@ static int usb_audio_play_open(void *_info)
     printf("usb_audio_play_open sr:%d ch:%d\n", dec->pcm_dec.sample_rate, dec->pcm_dec.ch_num);
     set_uac_speaker_rx_handler(dec, uac_speaker_stream_rx_handler);
     dec->wait.priority = 2;
-    dec->wait.preemption = 1;
+    dec->wait.preemption = 0;
+    dec->wait.snatch_same_prio = 1;
     dec->wait.handler = uac_wait_res_handler;
     audio_decoder_task_add_wait(&decode_task, &dec->wait);
 

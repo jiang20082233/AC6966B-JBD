@@ -63,5 +63,9 @@ void enc_write_flash_set_limit(void *hdl, u32 cut_size, u32 limit_size);
 void last_enc_file_codeing_type_save(u32 type);
 int last_enc_file_path_get(char path[64]);
 
+
+void *get_wfil_head_hdl(void *enc_whdl);
+FILE *get_wfil_file(void *enc_whdl);
+
 #endif
 

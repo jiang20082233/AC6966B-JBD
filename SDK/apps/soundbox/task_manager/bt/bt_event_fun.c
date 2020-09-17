@@ -1,5 +1,3 @@
-
-
 #include "system/includes.h"
 #include "media/includes.h"
 
@@ -47,9 +45,9 @@
 #include "soundcard/soundcard.h"
 
 #include "audio_dec.h"
-#include "audio_reverb.h"
 #include "tone_player.h"
 #include "dac.h"
+#include "audio_recorder_mix.h"
 
 
 #define LOG_TAG_CONST        BT
@@ -834,7 +832,10 @@ void sys_auto_shut_down_enable(void)
     } else {//在切换到蓝牙任务APP_STA_START中，current_app为空
         app_var.auto_shut_down_timer = sys_timeout_add(NULL, sys_enter_soft_poweroff, (app_var.auto_off_time * 1000));
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> V1.1.0
 #endif
 }
 
@@ -1379,6 +1380,9 @@ void bt_status_phone_active(struct bt_event *bt)
 /*----------------------------------------------------------------------------*/
 void bt_status_phone_hangup(struct bt_event *bt)
 {
+#if (RECORDER_MIX_EN)
+    recorder_mix_stop();
+#endif/*RECORDER_MIX_EN*/
     __this->esco_dump_packet = ESCO_DUMP_PACKET_CALL;
     /* log_info("phone_handup\n"); */
     if (bt_user_priv_var.phone_ring_flag) {
@@ -1517,6 +1521,9 @@ void bt_status_sco_change(struct bt_event *bt)
     mem_stats();
     /* log_info(" BT_STATUS_SCO_STATUS_CHANGE len:%d ,type:%d", (bt->value >> 16), (bt->value & 0x0000ffff)); */
     if (bt->value != 0xff) {
+#if (RECORDER_MIX_EN)
+        recorder_mix_call_status_change(1);
+#endif/*RECORDER_MIX_EN*/
 #ifdef PHONE_CALL_DEFAULT_MAX_VOL
         bt_user_priv_var.set_call_vol_flag |= BIT(2);
         if ((BIT(1) | BIT(2)) == bt_user_priv_var.set_call_vol_flag) {
@@ -1574,6 +1581,9 @@ void bt_status_sco_change(struct bt_event *bt)
         bt_user_priv_var.phone_call_dec_begin = 0;
         __this->esco_dump_packet = ESCO_DUMP_PACKET_CALL;
         esco_dec_close();
+#if (RECORDER_MIX_EN)
+        recorder_mix_call_status_change(0);
+#endif/*RECORDER_MIX_EN*/
 #if TCFG_USER_TWS_ENABLE
         tws_page_scan_deal_by_esco(0);
 #endif
@@ -1658,8 +1668,7 @@ void bt_status_conn_a2dp_ch(struct bt_event *bt)
 {
 #if TCFG_USER_EMITTER_ENABLE
     if (bt_user_priv_var.emitter_or_receiver == BT_EMITTER_EN) {
-        extern u8 app_common_key_var_2_event(u32 key_var);
-        app_common_key_var_2_event(KEY_BT_EMITTER_SW);
+        app_task_put_key_msg(KEY_BT_EMITTER_SW, 0);
     }
 #endif
 }
@@ -1718,9 +1727,14 @@ void bt_status_voice_recognition(struct bt_event *bt)
     __this->esco_dump_packet = ESCO_DUMP_PACKET_DEFAULT;
     /* put_buf(bt, sizeof(struct bt_event)); */
     app_var.siri_stu = bt->value;
-    if (__this->call_flag && (app_var.siri_stu == 0)) {
+    if (__this->call_flag && ((app_var.siri_stu == 0) || (app_var.siri_stu == 3))) {
         sys_timeout_add(NULL, bt_switch_back, 10);
     }
+#if (RECORDER_MIX_EN)
+    if (app_var.siri_stu) {
+        recorder_mix_stop();
+    }
+#endif/*RECORDER_MIX_EN*/
 }
 
 /*----------------------------------------------------------------------------*/
@@ -1905,7 +1919,12 @@ void bt_hci_event_disconnect(struct bt_event *bt)
 #endif
 
 #if TCFG_USER_TWS_ENABLE
-    bt_tws_phone_disconnected();
+    /* bt_tws_phone_disconnected(); */
+    if (bt->value == ERROR_CODE_CONNECTION_TIMEOUT) {
+        bt_tws_phone_connect_timeout();
+    } else {
+        bt_tws_phone_disconnected();
+    }
 #else
     if (bt_user_priv_var.emitter_or_receiver != BT_EMITTER_EN) {
         bt_wait_phone_connect_control(1);

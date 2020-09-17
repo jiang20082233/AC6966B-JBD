@@ -15,6 +15,7 @@
 #if (SMART_BOX_EN)
 
 static u8 vol_setting[1] = {0};
+extern int get_bt_tws_connect_status();
 
 bool smartbox_set_device_volume(int volume)
 {
@@ -145,7 +146,7 @@ static void vol_setting_sync(u8 *vol_info)
 {
 #if TCFG_USER_TWS_ENABLE
     if (get_bt_tws_connect_status()) {
-        update_adv_setting(BIT(ATTR_TYPE_VOL_SETTING));
+        update_smartbox_setting(BIT(ATTR_TYPE_VOL_SETTING));
     }
 #endif
 }
@@ -172,14 +173,12 @@ static void deal_vol_setting(u8 *vol_info, u8 write_vm, u8 tws_sync)
 {
     if (vol_info) {
         set_vol_info(vol_info);
-    } else {
-        smartbox_get_vol_info(vol_info);
     }
     if (write_vm) {
-        update_vol_vm_value(vol_info);
+        update_vol_vm_value(vol_setting);
     }
     if (tws_sync) {
-        vol_setting_sync(vol_info);
+        vol_setting_sync(vol_setting);
     }
     vol_state_update();
 }

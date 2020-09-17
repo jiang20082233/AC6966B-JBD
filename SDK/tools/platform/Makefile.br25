@@ -201,7 +201,11 @@ endif
 #
 export DIR_OUTPUT = $(ROOT)/cpu/$(CPU)/tools
 ifneq ($(cibuild),y)
+ifeq ($(HOST_OS), linux)
 export POST_BUILD_SCRIPT = $(ROOT)/cpu/$(CPU)/tools/download.sh
+else
+export POST_BUILD_SCRIPT = $(ROOT)/cpu/$(CPU)/tools/download.bat
+endif
 else
 export POST_BUILD_SCRIPT = $(ROOT)/cpu/$(CPU)/tools/download.bat
 endif

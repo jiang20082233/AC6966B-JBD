@@ -149,7 +149,7 @@ static void adc_mic_output_handler(void *priv, s16 *data, int len)
 
 
 #define HIGHT_COMPLEX		0
-#define LOW_COMPLEX			(BIT(4))	
+#define LOW_COMPLEX			(BIT(4))
 
 
 extern struct audio_adc_hdl adc_hdl;
@@ -160,9 +160,9 @@ int audio_mic_enc_open(int (*mic_output)(void *priv, void *buf, int len), u32 co
 
     switch (code_type) {
     case AUDIO_CODING_OPUS:
-        //1. quality:bitrate     0:16kbps    1:32kbps    2:64kbps           
+        //1. quality:bitrate     0:16kbps    1:32kbps    2:64kbps
         //   quality: MSB_2:(bit7_bit6)     format_mode    //0:百度_无头.                   1:酷狗_eng+range.
-        //   quality:LMSB_2:(bit5_bit4)     low_complexity //0:高复杂度,高质量.兼容之前库.  1:低复杂度,低质量.  
+        //   quality:LMSB_2:(bit5_bit4)     low_complexity //0:高复杂度,高质量.兼容之前库.  1:低复杂度,低质量.
         //2. sample_rate         sample_rate=16k         ignore
         fmt.quality = 0 /*| LOW_COMPLEX*/;
         fmt.sample_rate = 16000;
@@ -180,13 +180,14 @@ int audio_mic_enc_open(int (*mic_output)(void *priv, void *buf, int len), u32 co
         break;
     }
 
-    if (!encode_task) {
-        encode_task = zalloc(sizeof(*encode_task));
-        if (!encode_task) {
-            printf("encode_task NULL !!!\n");
-        }
-        audio_encoder_task_create(encode_task, "audio_enc");
-    }
+    audio_encoder_task_open();
+    /* if (!encode_task) { */
+    /* encode_task = zalloc(sizeof(*encode_task)); */
+    /* if (!encode_task) { */
+    /* printf("encode_task NULL !!!\n"); */
+    /* } */
+    /* audio_encoder_task_create(encode_task, "audio_enc"); */
+    /* } */
     if (!mic_enc) {
         mic_enc = zalloc(sizeof(*mic_enc));
         if (!mic_enc) {
@@ -249,6 +250,7 @@ int audio_mic_enc_close()
     mic_enc_resume();
     audio_encoder_close(&mic_enc->encoder);
 
+    audio_encoder_task_close();
     /* if (encode_task) { */
     /* audio_encoder_task_del(encode_task); */
     /* free(encode_task); */

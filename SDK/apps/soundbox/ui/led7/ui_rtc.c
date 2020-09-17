@@ -68,6 +68,7 @@ static void ui_led7_show_curtime(void *hd, u8 Hour, u8 Min)
 
     dis->lock(1);
     dis->setXY(0, 0);
+    dis->Clear_FlashChar(BIT(0) | BIT(1) | BIT(2) | BIT(3));
     dis->show_string(tmp_buf);
     dis->flash_icon(LED7_2POINT);
     dis->lock(0);

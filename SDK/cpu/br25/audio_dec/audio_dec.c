@@ -18,11 +18,13 @@
 #include "asm/audio_spdif.h"
 #include "clock_cfg.h"
 #include "audio_link.h"
-#include "audio_reverb.h"
+/* #include "audio_reverb.h" */
 #include "btstack/avctp_user.h"
 #include "application/audio_output_dac.h"
 #include "application/audio_energy_detect.h"
 #include "application/audio_vocal_remove.h"
+#include "audio_dongle_codec.h"
+
 
 #if TCFG_USER_TWS_ENABLE
 #include "bt_tws.h"
@@ -37,7 +39,11 @@ extern void mix_out_automute_close();
 
 #define AUDIO_CODEC_SUPPORT_SYNC	1 // 同步
 
+#if (RECORDER_MIX_EN)
+#define MAX_SRC_NUMBER      		4 // 最大支持src个数
+#else
 #define MAX_SRC_NUMBER      		3 // 最大支持src个数
+#endif/*RECORDER_MIX_EN*/
 
 #define AUDIO_DECODE_TASK_WAKEUP_TIME	0	// 解码定时唤醒 // ms
 
@@ -61,6 +67,11 @@ struct prevent_task_fill *prevent_fill = NULL;
 
 u8  audio_src_hw_filt[SRC_FILT_POINTS * SRC_CHI * 2 * MAX_SRC_NUMBER];
 s16 mix_buff[AUDIO_MIXER_LEN / 2] SEC(.dec_mix_buff);
+#if (RECORDER_MIX_EN)
+struct audio_mixer recorder_mixer = {0};
+s16 recorder_mix_buff[AUDIO_MIXER_LEN / 2] SEC(.dec_mix_buff);
+#endif/*RECORDER_MIX_EN*/
+
 #if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC)
 #if AUDIO_CODEC_SUPPORT_SYNC
 s16 dac_sync_buff[256];
@@ -78,6 +89,28 @@ void mix_out_eq_drc_close(struct audio_eq_drc *eq_drc);
 extern void audio_reverb_set_src_by_dac_sync(int in_rate, int out_rate);
 extern void audio_linein_set_src_by_dac_sync(int in_rate, int out_rate);
 extern void audio_usb_set_src_by_dac_sync(int in_rate, int out_rate);
+
+//////////////////////////////////////////////////////////////////////////////
+/*----------------------------------------------------------------------------*/
+/**@brief   获取dac能量值
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
+int audio_dac_energy_get(void)
+{
+#if AUDIO_OUTPUT_AUTOMUTE
+    int audio_energy_detect_energy_get(void *_hdl, u8 ch);
+    if (mix_out_automute_hdl) {
+        return audio_energy_detect_energy_get(mix_out_automute_hdl, BIT(0));
+    }
+
+    return (-1);
+#else
+    return 0;
+#endif
+}
 
 //////////////////////////////////////////////////////////////////////////////
 /*----------------------------------------------------------------------------*/
@@ -240,7 +273,7 @@ u32 audio_output_nor_rate(void)
 #if TCFG_IIS_ENABLE
     return TCFG_IIS_OUTPUT_SR;
 #endif
-#if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC)
+#if AUDIO_OUTPUT_ONLY_DAC
 
 #if (TCFG_REVERB_ENABLE || TCFG_MIC_EFFECT_ENABLE)
     /* return TCFG_REVERB_SAMPLERATE_DEFUAL; */
@@ -249,6 +282,10 @@ u32 audio_output_nor_rate(void)
 #elif (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_FM)
     return 41667;
 #else
+    return 44100;
+#endif
+
+#if TCFG_VIR_UDISK_ENABLE
     return 44100;
 #endif
 
@@ -268,6 +305,7 @@ u32 audio_output_rate(int input_rate)
     if (out_rate) {
         return out_rate;
     }
+
 #if (TCFG_REVERB_ENABLE || TCFG_MIC_EFFECT_ENABLE)
     if (input_rate > 48000) {
         return 48000;
@@ -285,7 +323,7 @@ u32 audio_output_rate(int input_rate)
 /*----------------------------------------------------------------------------*/
 u32 audio_output_channel_num(void)
 {
-#if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC)
+#if AUDIO_OUTPUT_ONLY_DAC
     /*根据DAC输出的方式选择输出的声道*/
     u8 dac_connect_mode =  app_audio_output_mode_get();
     if (dac_connect_mode == DAC_OUTPUT_LR || dac_connect_mode == DAC_OUTPUT_DUAL_LR_DIFF) {
@@ -476,6 +514,40 @@ static void audio_last_out_stream_resume(void *p)
 {
 }
 
+#if 0//(RECORDER_MIX_EN)
+struct audio_mixer recorder_mixer = {0};
+s16 recorder_mix_buff[AUDIO_MIXER_LEN / 2] SEC(.dec_mix_buff);
+struct recorder_mix_stream *rec_mix = NULL;
+void audio_recorder_mix_init(void)
+{
+    audio_mixer_open(&recorder_mixer);
+    audio_mixer_set_event_handler(&recorder_mixer, mixer_event_handler);
+    //audio_mixer_set_check_sr_handler(&recorder_mixer, audio_mixer_check_sr);
+    /*初始化mix_buf的长度*/
+    audio_mixer_set_output_buf(&recorder_mixer, recorder_mix_buff, sizeof(recorder_mix_buff));
+    u8 ch_num = audio_output_channel_num();
+    audio_mixer_set_channel_num(&recorder_mixer, ch_num);
+    /* u16 sr = audio_output_nor_rate(); */
+    /* if (sr) { */
+    // 固定采样率输出
+    /* audio_mixer_set_sample_rate(&recorder_mixer, MIXER_SR_SPEC, 16000L); */
+    audio_mixer_set_sample_rate(&recorder_mixer, MIXER_SR_SPEC, 16000L);
+    /* } */
+
+    rec_mix = recorder_mix_stream_open(ENCODE_SOURCE_USER);
+
+    struct audio_stream_entry *entries[8] = {NULL};
+    u8 entry_cnt = 0;
+
+    entries[entry_cnt++] = &recorder_mixer.entry;
+    entries[entry_cnt++] = &rec_mix->entry;
+
+    recorder_mixer.stream = audio_stream_open(NULL, audio_last_out_stream_resume);
+    audio_stream_add_list(recorder_mixer.stream, entries, entry_cnt);
+
+}
+#endif//RECORDER_MIX_EN
+
 
 /*----------------------------------------------------------------------------*/
 /**@brief    音频解码初始化
@@ -560,6 +632,24 @@ int audio_dec_init()
     mixer.stream = audio_stream_open(NULL, audio_last_out_stream_resume);
     audio_stream_add_list(mixer.stream, entries, entry_cnt);
 
+    /* #if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DONGLE) */
+#if 1
+
+    audio_dongle_emitter_init();
+    struct audio_stream_entry *dongle_entries_start = entries[entry_cnt - 2];
+    entry_cnt = 0;
+    entries[entry_cnt++] = dongle_entries_start;
+    entries[entry_cnt++] = &dongle_emitter.mix_ch.entry;
+    for (int i = 0; i < entry_cnt - 1; i++) {
+        audio_stream_add_entry(entries[i], entries[i + 1]);
+    }
+#endif
+
+#if (RECORDER_MIX_EN)
+    //audio_recorder_mix_init();
+    recorder_mix_init(&recorder_mixer, recorder_mix_buff, sizeof(recorder_mix_buff));
+#endif//RECORDER_MIX_EN
+
     app_audio_volume_init();
     audio_output_set_start_volume(APP_AUDIO_STATE_MUSIC);
 
@@ -596,6 +686,33 @@ REGISTER_LP_TARGET(audio_dec_init_lp_target) = {
 
 
 struct drc_ch high_bass_drc = {0};
+static int high_bass_th = 0;
+/*----------------------------------------------------------------------------*/
+/**@brief    高低音限幅器系数回调
+   @param    *drc: 句柄
+   @param    *info: 系数结构地址
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
+int high_bass_drc_set_filter_info(int th)
+{
+    /* int th = 0; // -60 ~ 0 db  */
+    if (th < -60) {
+        th = -60;
+    }
+    if (th > 0) {
+        th = 0;
+    }
+    local_irq_disable();
+    high_bass_th = th;
+    if (mix_eq_drc && mix_eq_drc->drc) {
+        mix_eq_drc->drc->updata = 1;
+    }
+    local_irq_enable();
+    return 0;
+}
+
 /*----------------------------------------------------------------------------*/
 /**@brief    高低音限幅器系数回调
    @param    *drc: 句柄
@@ -606,7 +723,7 @@ struct drc_ch high_bass_drc = {0};
 /*----------------------------------------------------------------------------*/
 int high_bass_drc_get_filter_info(struct audio_drc *drc, struct audio_drc_filter_info *info)
 {
-    int th = 0;//-60 ~0db
+    int th = high_bass_th;//-60 ~0db
     int threshold = round(pow(10.0, th / 20.0) * 32768); // 0db:32768, -60db:33
 
     high_bass_drc.nband = 1;

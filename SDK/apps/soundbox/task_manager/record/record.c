@@ -36,7 +36,6 @@
 #include "audio_dec.h"
 #include "ui/ui_api.h"
 #include "fm_emitter/fm_emitter_manage.h"
-#include "audio_reverb.h"
 #include "clock_cfg.h"
 #include "dev_manager.h"
 #include "user_fun_cfg.h"
@@ -86,6 +85,7 @@ static void record_mic_start(void)
     fmt.limit_size = 3000;              //录音文件大小最小限制， 单位byte
     fmt.gain = 8;
     fmt.source = ENCODE_SOURCE_MIC;     //录音输入源
+    fmt.err_callback = NULL;
     int ret = recorder_encode_start(&fmt);
     if (ret) {
         log_e("record_mic_start fail !!, dev = %s\n", logo);

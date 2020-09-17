@@ -22,6 +22,7 @@
 #define     VM_ALARM_NAME_4             	 16
 #define     VM_FM_INFO				    	 17
 // #define		VM_RTC_TRIM				    	 18
+
 #define		CFG_RCSP_ADV_HIGH_LOW_VOL		 19
 #define     CFG_RCSP_ADV_EQ_MODE_SETTING     20
 #define     CFG_RCSP_ADV_EQ_DATA_SETTING     21
@@ -31,7 +32,14 @@
 #define     CFG_RCSP_ADV_MIC_SETTING         25
 #define     CFG_RCSP_ADV_LED_SETTING         26
 #define     CFG_RCSP_ADV_KEY_SETTING         27
-#define     CFG_RCSP_ADV_VOL_SETTING         28
+#define     CFG_RCSP_MISC_DRC_SETTING        28
+#define     CFG_RCSP_MISC_REVERB_ON_OFF      29
+#define     VM_ALARM_RING_NAME_0             30
+#define     VM_ALARM_RING_NAME_1             31
+#define     VM_ALARM_RING_NAME_2             32
+#define     VM_ALARM_RING_NAME_3             33
+#define     VM_ALARM_RING_NAME_4             34
+
 // #define 	CFG_FLASH_BREAKPOINT			 29
 // #define 	CFG_USB_BREAKPOINT				 30
 // #define 	CFG_SD0_BREAKPOINT				 31
@@ -41,6 +49,10 @@
 // #define 	CFG_FM_TRANSMIT_INFO			 35
 // #define 	CFG_AAP_MODE_INFO				 36
 // #define     CFG_UI_SYS_INFO					 37
+//
+//
+//
+#define    VM_TWS_ROLE                       38
 
 #if (VM_ITEM_MAX_NUM > 128)
 

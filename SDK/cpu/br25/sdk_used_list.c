@@ -40,7 +40,9 @@ sbc_hwaccel
 cvsd_decoder
 pcm_decoder
 
-//mty_decoder
+#if TCFG_DEC_MTY_ENABLE
+mty_decoder
+#endif
 
 #if TCFG_DEC_MP3_ENABLE
 mp3_decoder
@@ -66,6 +68,13 @@ ape_decoder
 
 #if TCFG_DEC_M4A_ENABLE
 m4a_decoder
+#if TCFG_DEC2TWS_ENABLE
+m4apick_decoder
+#endif
+#endif
+
+#if TCFG_DEC_ALAC_ENABLE
+alac_decoder
 #endif
 
 #if TCFG_DEC_AMR_ENABLE

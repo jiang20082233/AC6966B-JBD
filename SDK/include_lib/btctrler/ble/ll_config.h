@@ -161,6 +161,7 @@ extern const int config_btctler_le_hw_nums;
 extern const int config_btctler_le_rx_nums;
 extern const int config_btctler_le_acl_packet_length;
 extern const int config_btctler_le_acl_total_nums;
+extern const int config_btctler_le_slave_conn_update_winden;
 /*-----------------------------------------------------------*/
 
 #endif //_LL_CONFIG_H_

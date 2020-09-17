@@ -6,7 +6,7 @@
 #include "application/audio_eq.h"
 #include "application/audio_drc.h"
 #include "application/eq_config.h"
-#include "audio_stream.h"
+#include "media/audio_stream.h"
 
 struct audio_eq_drc_parm {
     u8 eq_en: 1;				//eq是否使能 1:使能  0:关闭

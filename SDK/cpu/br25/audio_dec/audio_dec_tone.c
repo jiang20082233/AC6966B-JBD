@@ -6,6 +6,8 @@
 #include "clock_cfg.h"
 #include "audio_dec.h"
 
+#define AUDIO_DEC_TONE_WAIT_USE_PRIO			0 // 采用优先级顺序播放方式
+
 //////////////////////////////////////////////////////////////////////////////
 extern int audio_dec_file_app_init_ok(struct audio_dec_file_app_hdl *file_dec);
 extern int audio_dec_sine_app_init_ok(struct audio_dec_sine_app_hdl *sine_dec);
@@ -282,6 +284,20 @@ static int tone_dec_sine_app_evt_cb(void *priv, int event, int *param)
     return 0;
 }
 
+static void _tone_dec_app_comm_deal(struct audio_dec_app_hdl *dec)
+{
+    if (dec->dec_type == AUDIO_CODING_SBC) {
+        audio_dec_app_set_frame_info(dec, 0x4e, dec->dec_type);
+    }
+#if AUDIO_DEC_TONE_WAIT_USE_PRIO
+    if (dec->dec_mix == 0) {
+        dec->wait.priority = 3;
+        dec->wait.preemption = 0;
+        dec->wait.snatch_same_prio = 1;
+    }
+#endif
+}
+
 /*----------------------------------------------------------------------------*/
 /**@brief    提示音list播放
    @param    *dec: 句柄
@@ -345,6 +361,7 @@ static int tone_dec_list_play(struct tone_dec_handle *dec, u8 next)
         if (dec->dec_sin == NULL) {
             return false;
         }
+        _tone_dec_app_comm_deal(dec->dec_sin->dec);
         dec->dec_sin->dec->evt_cb = tone_dec_sine_app_evt_cb;
         dec->dec_sin->priv = dec;
         audio_dec_sine_app_open(dec->dec_sin);
@@ -368,6 +385,7 @@ static int tone_dec_list_play(struct tone_dec_handle *dec, u8 next)
         if (dec->dec_sin == NULL) {
             return false;
         }
+        _tone_dec_app_comm_deal(dec->dec_sin->dec);
         dec->dec_sin->dec->evt_cb = tone_dec_sine_app_evt_cb;
         dec->dec_sin->priv = dec;
         audio_dec_sine_app_open(dec->dec_sin);
@@ -379,6 +397,7 @@ static int tone_dec_list_play(struct tone_dec_handle *dec, u8 next)
     if (dec->dec_file == NULL) {
         return false;
     }
+    _tone_dec_app_comm_deal(dec->dec_file->dec);
     dec->dec_file->dec->evt_cb = tone_dec_file_app_evt_cb;
     dec->dec_file->priv = dec;
     audio_dec_file_app_open(dec->dec_file);

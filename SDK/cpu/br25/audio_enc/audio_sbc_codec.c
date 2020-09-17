@@ -261,10 +261,11 @@ int audio_sbc_enc_open()
 
     fmt.priv = &sbc_param;
 
-    if (!encode_task) {
-        encode_task = zalloc(sizeof(*encode_task));
-        audio_encoder_task_create(encode_task, "audio_enc");
-    }
+    audio_encoder_task_open();
+    /* if (!encode_task) { */
+    /* encode_task = zalloc(sizeof(*encode_task)); */
+    /* audio_encoder_task_create(encode_task, "audio_enc"); */
+    /* } */
     if (!sbc_enc) {
         sbc_enc = zalloc(sizeof(*sbc_enc));
     }
@@ -317,11 +318,12 @@ int audio_sbc_enc_close()
     free(sbc_enc);
     sbc_enc = NULL;
 
-    if (encode_task) {
-        audio_encoder_task_del(encode_task);
-        free(encode_task);
-        encode_task = NULL;
-    }
+    audio_encoder_task_close();
+    /* if (encode_task) { */
+    /* audio_encoder_task_del(encode_task); */
+    /* free(encode_task); */
+    /* encode_task = NULL; */
+    /* } */
 
     clock_remove(ENC_SBC_CLK);
 

@@ -14,6 +14,7 @@
 #include "ui_number.h"
 #include "ui_watch.h"
 #include "ui_progress.h"
+#include "ui_progress_multi.h"
 #include <stdarg.h>
 
 struct uimsg_handl {

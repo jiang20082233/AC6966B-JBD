@@ -10,6 +10,7 @@
 #include "btstack_3th_protocol_user.h"
 #include "btstack/avctp_user.h"
 #include "smartbox_rcsp_manage.h"
+#include "smartbox_music_info_setting.h"
 #include "app_task.h"
 
 //#if (SMART_BOX_EN && RCSP_SMARTBOX_ADV_EN)
@@ -48,6 +49,7 @@ struct t_s_info _s_info = {
     .work_mode = 1,
 };
 
+extern int get_bt_tws_connect_status();
 
 static u8 adv_setting_result = 0;
 static u8 adv_set_deal_one_attr(u8 *buf, u8 size, u8 offset)
@@ -345,4 +347,76 @@ int JL_smartbox_adv_event_handler(struct rcsp_event *rcsp)
     return 0;
 }
 
+// 下面是弹窗的其他设置
+int app_core_data_for_send(u8 *packet, u16 size)
+{
+    //printf("for app send size %d\n", size);
+
+    if (JL_rcsp_get_auth_flag()) {
+        *packet = 1;
+    } else {
+        *packet = 0;
+    }
+
+    if (RCSP_SPP == bt_3th_get_cur_bt_channel_sel()) {
+        if (get_ble_adv_notify()) {
+            *(packet + 1) = 1;
+        } else {
+            *(packet + 1) = 0;
+        }
+
+#if RCSP_ADV_MUSIC_INFO_ENABLE
+        if (get_player_time_en()) {
+            *(packet + 2) = 1;
+        } else {
+            *(packet + 2) = 0;
+        }
+#else
+        *(packet + 2) = 0;
+#endif
+
+        *(packet + 3) = get_connect_flag();
+    }
+
+    return 4;
+}
+
+void app_core_data_for_set(u8 *packet, u16 size)
+{
+    u8 rcsp_auth_flag =  *packet;
+    u8 ble_adv_notify =  *(packet + 1);
+    u8 player_time_en =  *(packet + 2);
+    u8 connect_flag   =  *(packet + 3);
+
+    if (RCSP_SPP == bt_3th_get_cur_bt_channel_sel()) {
+        JL_rcsp_set_auth_flag(rcsp_auth_flag);
+        set_ble_adv_notify(ble_adv_notify);
+#if RCSP_ADV_MUSIC_INFO_ENABLE
+        set_player_time_en(player_time_en);
+#endif
+        set_connect_flag(connect_flag);
+    }
+
+    return;
+}
+
+u8 smart_auth_res_deal(void)
+{
+    if ((tws_api_get_tws_state() & TWS_STA_SIBLING_CONNECTED)) {
+        if (RCSP_SPP == bt_3th_get_cur_bt_channel_sel()) {
+            tws_api_sync_call_by_uuid(TWS_FUNC_APP_OPT_UUID, APP_OPT_SYNC_CMD_RCSP_AUTH_RES, 300);
+            return 0;
+        } else {
+            return 1;
+        }
+    } else {
+        return 1;
+    }
+}
+
+
+void rcsp_tws_auth_sync_deal(void)
+{
+    smart_auth_res_pass();
+}
 #endif

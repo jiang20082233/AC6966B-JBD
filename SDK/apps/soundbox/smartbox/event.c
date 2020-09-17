@@ -143,18 +143,22 @@ static void smartbox_common_event_deal(int msg, int argc, int *argv)
 #if TCFG_APP_BT_EN
             ret = app_task_switch_to(APP_BT_TASK);
 #endif
+            break;
         case MUSIC_FUNCTION_MASK:
 #if TCFG_APP_MUSIC_EN
             ret = app_task_switch_to(APP_MUSIC_TASK);
 #endif
+            break;
         case RTC_FUNCTION_MASK:
 #if TCFG_APP_RTC_EN
             ret = app_task_switch_to(APP_RTC_TASK);
 #endif
+            break;
         case LINEIN_FUNCTION_MASK:
 #if TCFG_APP_LINEIN_EN
             ret = app_task_switch_to(APP_LINEIN_TASK);
 #endif
+            break;
         case FMTX_FUNCTION_MASK:
             break;
         }

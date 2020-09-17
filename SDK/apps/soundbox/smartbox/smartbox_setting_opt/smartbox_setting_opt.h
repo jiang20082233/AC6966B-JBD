@@ -18,6 +18,7 @@ typedef struct _SMARTBOX_SETTING_OPT {
     void (*set_setting)(u8 *setting_data);
     void (*get_setting)(u8 *setting_data);
 
+    // 上面是必填，下面是选填
     int (*custom_setting_init)(void);
     int (*custom_vm_info_update)(void);
     int (*custom_setting_update)(u8 *setting_data);

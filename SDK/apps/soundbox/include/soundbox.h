@@ -77,6 +77,27 @@ int trans_data_sys_event_handler_specific(struct sys_event *event);
 #define BT_STATE_TWS_CONNECTED(a, b)      trans_data_bt_state_tws_connected(a,b)
 #define SYS_EVENT_HANDLER_SPECIFIC(a)           trans_data_sys_event_handler_specific(a)
 
+#elif ANCS_CLIENT_EN
+
+int ancs_data_bt_state_init();
+int ancs_data_bt_state_set_page_scan_enable();
+int ancs_data_bt_state_get_connect_mac_addr();
+int ancs_data_bt_state_cancel_page_scan();
+int ancs_data_bt_state_enter_soft_poweroff();
+int ancs_data_bt_state_tws_init(int paired);
+int ancs_data_bt_state_tws_connected(int first_pair, u8 *comm_addr);
+int ancs_data_sys_event_handler_specific(struct sys_event *event);
+
+#define BT_STATE_INIT()                   ancs_data_bt_state_init()
+#define BT_STATE_SET_PAGE_SCAN_ENABLE()   ancs_data_bt_state_set_page_scan_enable()
+#define BT_STATE_GET_CONNECT_MAC_ADDR()   ancs_data_bt_state_get_connect_mac_addr()
+#define BT_STATE_CANCEL_PAGE_SCAN()       ancs_data_bt_state_cancel_page_scan()
+#define BT_STATE_ENTER_SOFT_POWEROFF()    ancs_data_bt_state_enter_soft_poweroff()
+#define BT_STATE_TWS_INIT(a)              ancs_data_bt_state_tws_init(a)
+#define BT_STATE_TWS_CONNECTED(a, b)      ancs_data_bt_state_tws_connected(a,b)
+#define SYS_EVENT_HANDLER_SPECIFIC(a)     ancs_data_sys_event_handler_specific(a)
+
+
 #else
 
 int adv_bt_state_init();

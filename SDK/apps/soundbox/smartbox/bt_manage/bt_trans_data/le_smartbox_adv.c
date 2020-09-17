@@ -113,6 +113,7 @@ void set_adv_notify_state(u8 notify)
 static void rcsp_adv_fill_mac_addr(u8 *mac_addr_buf)
 {
 #if (MUTIl_CHARGING_BOX_EN)
+    extern u8 *get_chargebox_adv_addr(void);
     u8 *mac_addr = get_chargebox_adv_addr();
     if (mac_addr) {
         swapX(mac_addr, mac_addr_buf, 6);

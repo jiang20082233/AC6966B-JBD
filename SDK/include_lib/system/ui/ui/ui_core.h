@@ -182,6 +182,8 @@ struct draw_context {
     u8 *buf1;
     u32 len;
     u16 lines;
+    u8 col_align;
+    u8 row_align;
 
     u8 *mask;
 };

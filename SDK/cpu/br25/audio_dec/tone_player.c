@@ -226,7 +226,7 @@ static void tone2tws_rx_callback_func(u32 dat_addr)
     }
     int dat[3];
     memcpy(dat, (void *)dat_addr, sizeof(dat));
-    static char *single_file[2] = {NULL};
+    char *single_file[2] = {NULL};
     if ((dat[0] == (u32) - 1) && (IS_DEFAULT_SINE(dat[1])) && (dat[2] == 0)) {
         // is sine idx
         single_file[0] = (char *)dat[1];
@@ -333,7 +333,7 @@ int tone_play_open_with_callback(const char **list, u8 follow, u8 preemption, vo
 /*----------------------------------------------------------------------------*/
 int tone_play(const char *name, u8 preemption)
 {
-    static char *single_file[2] = {NULL};
+    char *single_file[2] = {NULL};
     single_file[0] = (char *)name;
     single_file[1] = NULL;
     return tone_play_open_with_callback(single_file, 0, preemption, NULL, NULL);
@@ -367,7 +367,7 @@ int tone_play_index_with_callback(u8 index, u8 preemption, void (*evt_handler)(v
     if (index >= IDEX_TONE_NONE) {
         return -1;
     }
-    static char *single_file[2] = {NULL};
+    char *single_file[2] = {NULL};
     single_file[0] = (char *)tone_index[index];
     single_file[1] = NULL;
     return tone_play_open_with_callback(single_file, 0, preemption, evt_handler, evt_priv);
@@ -417,7 +417,7 @@ int tone_play_with_callback_by_index(u8 index,
     if (index >= IDEX_TONE_NONE) {
         return -1;
     }
-    static char *single_file[2] = {NULL};
+    char *single_file[2] = {NULL};
     single_file[0] = (char *)tone_index[index];
     single_file[1] = NULL;
     return tone_play_open_with_callback(single_file, 0, preemption, evt_handler, evt_priv);
@@ -438,7 +438,7 @@ int tone_play_with_callback_by_name(char *name,
                                     void (*evt_handler)(void *priv, int flag),
                                     void *evt_priv)
 {
-    static char *single_file[2] = {NULL};
+    char *single_file[2] = {NULL};
     single_file[0] = name;
     single_file[1] = NULL;
     return tone_play_open_with_callback(single_file, 0, preemption, evt_handler, evt_priv);

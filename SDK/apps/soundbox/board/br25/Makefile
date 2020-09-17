@@ -1,9 +1,9 @@
 LIBS = \
 --start-group \
    $(AR_DIR)/cpu$(LIB_SUFFIX).a \
-   $(AR_DIR)/system$(LIB_SUFFIX).a \
    $(AR_DIR)/btstack$(LIB_SUFFIX).a \
    $(AR_DIR)/btctrler$(LIB_SUFFIX).a \
+   $(AR_DIR)/system$(LIB_SUFFIX).a \
    $(AR_DIR)/libepmotion.a \
    $(AR_DIR)/wtg_dec_lib.a \
    $(AR_DIR)/sbc_eng_lib.a \
@@ -11,7 +11,7 @@ LIBS = \
    $(AR_DIR)/wtg_dec_lib.a \
    $(AR_DIR)/flac_dec_lib.a \
    $(AR_DIR)/ape_dec_lib.a \
-   $(AR_DIR)/m4a_dec_lib.a \
+   $(AR_DIR)/m4a_tws_lib.a \
    $(AR_DIR)/amr_dec_lib.a \
    $(AR_DIR)/dts_dec_lib.a \
    $(AR_DIR)/mp3_decstream_lib.a \
@@ -53,6 +53,7 @@ LIBS = \
    $(AR_DIR)/rcsp_stack.a \
    $(AR_DIR)/lib_midi_dec.a \
 # $(AR_DIR)/libOpcore_maskrom_pi32v2_OnChip.a \
+
 
 
 ifeq ($(CONFIG_ANS_V2),y)
@@ -133,4 +134,10 @@ objs += \
 	  $(ROOT)/apps/$(APP_CASE)/board/$(CPU)/board_ac696x_smartbox/key_table/irkey_table.o \
 	  $(ROOT)/apps/$(APP_CASE)/board/$(CPU)/board_ac696x_smartbox/key_table/rdec_key_table.o \
 	  $(ROOT)/apps/$(APP_CASE)/board/$(CPU)/board_ac696x_smartbox/key_table/touch_key_table.o \
+	  $(ROOT)/apps/$(APP_CASE)/board/$(CPU)/board_ac6082_demo/board_ac6082_demo.o \
+	  $(ROOT)/apps/$(APP_CASE)/board/$(CPU)/board_ac6082_demo/key_table/iokey_table.o \
+	  $(ROOT)/apps/$(APP_CASE)/board/$(CPU)/board_ac6082_demo/key_table/adkey_table.o \
+	  $(ROOT)/apps/$(APP_CASE)/board/$(CPU)/board_ac6082_demo/key_table/irkey_table.o \
+	  $(ROOT)/apps/$(APP_CASE)/board/$(CPU)/board_ac6082_demo/key_table/rdec_key_table.o \
+	  $(ROOT)/apps/$(APP_CASE)/board/$(CPU)/board_ac6082_demo/key_table/touch_key_table.o \
 

@@ -38,8 +38,8 @@ const struct __mic_effect_parm effect_parm_default = {
 
 const struct __mic_stream_parm effect_mic_stream_parm_default = {
     .sample_rate 		= MIC_EFFECT_SAMPLERATE,//采样率
-    .point_unit  		= 80,//一次处理数据的数据单元， 单位点 4对齐(要配合mic起中断点数修改)
-    .dac_delay			= 10,//dac硬件混响延时， 单位ms
+    .point_unit  		= 64,//一次处理数据的数据单元， 单位点 4对齐(要配合mic起中断点数修改)
+    .dac_delay			= 12,//dac硬件混响延时， 单位ms
 };
 
 const REVERBN_PARM_SET effect_reverb_parm_default = {

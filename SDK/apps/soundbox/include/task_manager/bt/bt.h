@@ -64,6 +64,7 @@ struct app_bt_opr {
 
 extern struct app_bt_opr app_bt_hdl;
 
+
 extern void app_bt_task();
 extern u8 get_bt_init_status();
 extern u16 bt_key_event_get(struct key_event *key);
@@ -97,7 +98,10 @@ extern int bt_background_event_handler_filter(struct sys_event *event);
 extern int bt_background_event_handler(struct sys_event *event);
 extern void sys_auto_sniff_controle(u8 enable, u8 *addr);
 extern void bt_drop_a2dp_frame_stop();
+extern u8 bt_get_task_state();
 
+
+void bt_drop_a2dp_frame_start(void);
 u8 get_esco_packet_dump(void);
 void user_get_bt_music_info(u8 type, u32 time, u8 *info, u16 len);
 void phonebook_packet_handler(u8 type, const u8 *name, const u8 *number, const u8 *date);
@@ -111,6 +115,8 @@ int phone_get_device_vol(void);
 void bt_set_music_device_volume(int volume);
 void bt_reverb_status_change(struct bt_event *bt);
 int bt_get_battery_value();
+
+
 u8 bt_status_event_filter(struct bt_event *bt);
 void  bt_status_init_ok(struct bt_event *bt);
 void bt_status_connect(struct bt_event *bt);

@@ -8,10 +8,10 @@
 #include "chgbox_wireless.h"
 #include "key_event_deal.h"
 #include "device/chargebox.h"
-#include "le_rcsp_adv_module.h"
 #include "chgbox_ui.h"
 #include "chgbox_handshake.h"
 #include "asm/pwm_led.h"
+#include "le_smartbox_module.h"
 
 #if(TCFG_CHARGE_BOX_ENABLE)
 
@@ -334,7 +334,7 @@ static int charge_chargebox_event_handler(struct chargebox_event *e)
         break;
     case CHGBOX_EVENT_OPEN_LID:
         log_info("OPEN_LID_1\n");
-#if RCSP_ADV_EN
+#if SMART_BOX_EN
         bt_ble_rcsp_adv_enable();
 #endif
         chargebox_set_newstatus(CHG_STATUS_COMM);     //设置新模式
@@ -342,7 +342,7 @@ static int charge_chargebox_event_handler(struct chargebox_event *e)
     case CHGBOX_EVENT_CLOSE_LID:
         log_info("CLOSE_LID_1\n");
         //开盖超时进来的,可以不做任何操作
-#if RCSP_ADV_EN
+#if SMART_BOX_EN
         bt_ble_rcsp_adv_disable();
 #endif
         break;
@@ -442,7 +442,7 @@ static void comm_pair_connecting(void)
 static void comm_app_auto_exit(void)
 {
     if (auto_exit_cnt++ > COMM_LIFE_MAX) {
-#if RCSP_ADV_EN
+#if SMART_BOX_EN
         bt_ble_rcsp_adv_disable();
 #endif
         if (sys_info.lowpower_flag) {
@@ -495,7 +495,7 @@ static int comm_chargebox_event_handler(struct chargebox_event *e)
         break;
     case CHGBOX_EVENT_CLOSE_LID:
         log_info("CLOSE_LID_2\n");
-#if RCSP_ADV_EN
+#if SMART_BOX_EN
         bt_ble_rcsp_adv_disable();
 #endif
         if (sys_info.lowpower_flag) {
@@ -515,7 +515,7 @@ static int comm_chargebox_event_handler(struct chargebox_event *e)
         break;
     case CHGBOX_EVENT_EAR_L_OFFLINE:
         log_info("EAR_L_OUT_2\n");
-#if RCSP_ADV_EN
+#if SMART_BOX_EN
         bt_ble_rcsp_adv_disable();
 #endif
         chgbox_ui_update_status(UI_MODE_COMM, CHGBOX_UI_EAR_L_OUT);
@@ -528,7 +528,7 @@ static int comm_chargebox_event_handler(struct chargebox_event *e)
         break;
     case CHGBOX_EVENT_EAR_R_OFFLINE:
         log_info("EAR_R_OUT_2\n");
-#if RCSP_ADV_EN
+#if SMART_BOX_EN
         bt_ble_rcsp_adv_disable();
 #endif
         chgbox_ui_update_status(UI_MODE_COMM, CHGBOX_UI_EAR_R_OUT);
@@ -628,7 +628,7 @@ static int lowpower_chargebox_event_handler(struct chargebox_event *e)
     case CHGBOX_EVENT_OPEN_LID:
         log_info("OPEN_LID_3\n");
         chgbox_ui_update_status(UI_MODE_LOWPOWER, CHGBOX_UI_OPEN_LID);
-#if RCSP_ADV_EN
+#if SMART_BOX_EN
         bt_ble_rcsp_adv_enable();
 #endif
         chargebox_set_newstatus(CHG_STATUS_COMM);     //设置新模式
@@ -636,7 +636,7 @@ static int lowpower_chargebox_event_handler(struct chargebox_event *e)
     case CHGBOX_EVENT_CLOSE_LID:
         log_info("CLOSE_LID_3\n");
         chgbox_ui_update_status(UI_MODE_LOWPOWER, CHGBOX_UI_CLOSE_LID);
-#if RCSP_ADV_EN
+#if SMART_BOX_EN
         bt_ble_rcsp_adv_disable();
 #endif
         break;

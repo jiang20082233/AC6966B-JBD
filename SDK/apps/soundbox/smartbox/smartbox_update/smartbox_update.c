@@ -14,6 +14,7 @@
 #include "update_loader_download.h"
 #include "btstack_3th_protocol_user.h"
 #include "le_smartbox_module.h"
+#include "classic/tws_api.h"
 
 #if (SMART_BOX_EN)
 

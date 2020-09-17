@@ -53,6 +53,10 @@ RAM_BEGIN       = RAM_LIMIT_L;
 RAM_END         = RAM_LIMIT_H;
 RAM_SIZE        = RAM_END - RAM_BEGIN;
 
+RES_RAM_BEGIN       = 0x01ffffff;
+RES_RAM_END         = 0x02800000;
+RES_RAM_SIZE        = RES_RAM_END - RES_RAM_BEGIN;
+
 #if (EQ_SECTION_MAX > 10)
 EQ_SECTION_NUM = EQ_SECTION_MAX + 3;
 #else
@@ -67,6 +71,7 @@ MEMORY
 {
 	code0(rx)    	  : ORIGIN =  0x1E00120,  LENGTH = CONFIG_FLASH_SIZE
 	ram0(rwx)         : ORIGIN =  RAM_BEGIN, LENGTH = RAM_SIZE
+	res_ram(rwx)      : ORIGIN =  RES_RAM_BEGIN, LENGTH = RES_RAM_SIZE
 }
 
 
@@ -115,6 +120,10 @@ SECTIONS
         *(.bt_aac_dec_core_code)
         *(.bt_aac_dec_core_sparse_code)
 
+        . = ALIGN(4);
+        *(.alac_const)
+        *(.alac_code)
+
 		. = ALIGN(4); // must at tail, make rom_code size align 4
 
         clock_critical_handler_begin = .;
@@ -161,8 +170,10 @@ SECTIONS
 
         *(.tech_lib.aec.text)
 
+#if TCFG_APP_BT_EN
 		. = ALIGN(4);
 		#include "btstack/btstack_lib_text.ld"
+#endif
 		. = ALIGN(4);
 		#include "system/system_lib_text.ld"
 		. = ALIGN(4);
@@ -252,8 +263,10 @@ SECTIONS
         . = ALIGN(4);
         *(.data*)
 
+#if TCFG_APP_BT_EN
         . = ALIGN(4);
 		#include "btstack/btstack_lib_data.ld"
+#endif
         . = ALIGN(4);
 		#include "system/system_lib_data.ld"
 		. = ALIGN(4);
@@ -274,8 +287,10 @@ SECTIONS
         *(.sd0_var)
         *(.sd1_var)
         *(.dac_buff)
+#if TCFG_APP_BT_EN
 		. = ALIGN(4);
 		#include "btstack/btstack_lib_bss.ld"
+#endif
         . = ALIGN(4);
 		#include "system/system_lib_bss.ld"
         . = ALIGN(4);
@@ -299,6 +314,19 @@ SECTIONS
         . = ALIGN(4);
 		*(.non_volatile_ram)
 		. = ALIGN(32);
+#if TCFG_VIR_UDISK_ENABLE == 1
+        *(.usb_audio_play_dma)
+        *(.usb_audio_rec_dma)
+        *(.uac_rx)
+        *(.mass_storage)
+        *(.usb_msd_dma)
+        *(.usb_hid_dma)
+        *(.usb_iso_dma)
+        *(.uac_var)
+        *(.usb_config_var)
+        . = ALIGN(32);
+#endif
+
     } > ram0
 
 
@@ -347,6 +375,9 @@ SECTIONS
 			*(.aec_mem)
             *(.msbc_enc)
 			*(.cvsd_bss)
+#if (RECORDER_MIX_EN)
+			*(.enc_file_mem)
+#endif/*RECORDER_MIX_EN*/
 
 #if TCFG_BLUETOOTH_BACK_MODE == 0
             . = ALIGN(4);
@@ -474,10 +505,16 @@ SECTIONS
             *(.m4a_ctrl_mem)
 			*(.m4a_dec_data)
 			*(.m4a_data)
+			*(.m4apick_mem)
+			*(.m4apick_ctrl_mem)
 
 			*(.aac_ctrl_mem)
 			*(.aac_bss)
 			*(.aac_data)
+
+			*(.alac_ctrl_mem)
+			*(.alac_bss)
+			*(.alac_data)
 		}
 
 		.overlay_amr
@@ -503,6 +540,7 @@ SECTIONS
 		}
         .overlay_pc
 		{
+#if TCFG_VIR_UDISK_ENABLE == 0
             *(.usb_audio_play_dma)
             *(.usb_audio_rec_dma)
             *(.uac_rx)
@@ -513,6 +551,7 @@ SECTIONS
             *(.usb_iso_dma)
             *(.uac_var)
             *(.usb_config_var)
+#endif
 		}
 
     } > ram0
@@ -590,13 +629,25 @@ SECTIONS
 
 	_HEAP_BEGIN = .;
 	_HEAP_END = RAM_END;
-}
 
+#if (TCFG_APP_BT_EN==0)
+	. = ORIGIN(res_ram);
+	.unuse ALIGN(32):
+	{
+		#include "btstack/unuse_btstack_lib.ld"
+		#include "btctrler/unuse_btctler_lib.ld"
+	} > res_ram
+
+#endif
+
+}
 
 #include "update/update.ld"
 #include "media/media.ld"
 #include "driver/cpu/br25/driver_lib.ld"
+#if TCFG_APP_BT_EN
 #include "btctrler/port/br25/btctler_lib.ld"
+#endif
 
 //================== Section Info Export ====================//
 text_begin  = ADDR(.text);

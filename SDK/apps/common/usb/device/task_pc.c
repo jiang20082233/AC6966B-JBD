@@ -169,6 +169,10 @@ void usb_start()
     msd_register_disk("fat_nor", NULL);
 #endif
 
+#if TCFG_VIR_UDISK_ENABLE
+    msd_register_disk("vir_udisk0", NULL);
+#endif
+
     msd_set_wakeup_handle(usb_msd_wakeup);
     msd_set_reset_wakeup_handle(usb_msd_reset_wakeup);
     usb_msd_init();
