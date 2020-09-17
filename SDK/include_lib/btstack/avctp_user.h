@@ -518,6 +518,12 @@ extern void clear_sniff_cnt(void);
 #define BD_CLASS_HIFI_AUDIO			0x240428
 #define BD_CLASS_PHONEBOOK			0x340404
 #define BD_CLASS_PAN_DEV            0X020118
+
+
+#define BD_CLASS_MOUSE              0x002580
+#define BD_CLASS_KEYBOARD           0x002540
+#define BD_CLASS_KEYBOARD_MOUSE     0x0025C0
+
 extern void __change_hci_class_type(u32 class);
 extern void __set_support_msbc_flag(bool flag);
 extern void __set_support_aac_flag(bool flag);

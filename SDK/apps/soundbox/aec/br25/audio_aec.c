@@ -19,11 +19,17 @@
 #include "debug.h"
 
 #define AEC_USER_MALLOC_ENABLE	1
-#if TCFG_CALLING_EN_REVERB
+#if (TCFG_CALLING_EN_REVERB)
 #define AEC_TOGGLE			0
 #else
 #define AEC_TOGGLE			1
 #endif
+
+#if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DONGLE)
+#undef AEC_TOGGLE
+#define AEC_TOGGLE			0
+#endif
+
 #if (TCFG_EQ_ENABLE == 1)
 #define AEC_DCCS_EN			1 /*mic去直流滤波eq*/
 #define AEC_UL_EQ_EN		1 /*mic 普通eq*/
@@ -207,7 +213,7 @@ const int DCCS_8k_Coeff[5] = {
 const int DCCS_16k_Coeff[5] = {
     (1006633 << 2),	-(967542 << 2),	(1048576 << 2),	(2013266 << 2),	-(2097152 << 2)
 };
-int aec_dccs_eq_filter(int sr, struct audio_eq_filter_info *info)
+int aec_dccs_eq_filter(struct audio_eq *eq, int sr, struct audio_eq_filter_info *info)
 {
     //r_printf("dccs_eq sr:%d\n", sr);
     if (sr == 16000) {

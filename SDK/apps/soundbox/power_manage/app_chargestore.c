@@ -18,6 +18,7 @@
 #include "app_action.h"
 #include "bt_common.h"
 #include "le_rcsp_adv_module.h"
+#include "app_task.h"
 
 #define LOG_TAG_CONST       APP_CHARGESTORE
 #define LOG_TAG             "[APP_CHARGESTORE]"
@@ -397,109 +398,109 @@ int app_chargestore_event_handler(struct chargestore_event *chargestore_dev)
 #endif
             }
         }
-    }
-    break;
+        break;
 #if TCFG_USER_TWS_ENABLE
-case CMD_BOX_TWS_REMOTE_ADDR:
-    log_info("event_CMD_BOX_TWS_REMOTE_ADDR \n");
-    chargestore_set_tws_remote_info(chargestore_dev->packet, chargestore_dev->size);
-    break;
+    case CMD_BOX_TWS_REMOTE_ADDR:
+        log_info("event_CMD_BOX_TWS_REMOTE_ADDR \n");
+        chargestore_set_tws_remote_info(chargestore_dev->packet, chargestore_dev->size);
+        break;
 #endif
 #endif
 #if TCFG_CHARGESTORE_ENABLE
-case CMD_TWS_CHANNEL_SET:
-    chargestore_set_tws_channel_info();
-    break;
-#if TCFG_USER_TWS_ENABLE
-case CMD_TWS_REMOTE_ADDR:
-    log_info("event_CMD_TWS_REMOTE_ADDR\n");
-    if (chargestore_set_tws_remote_info(chargestore_dev->packet, chargestore_dev->size) == false) {
-        //交换地址后,断开与手机连接,并删除所有连过的手机地址
-        user_send_cmd_prepare(USER_CTRL_DEL_ALL_REMOTE_INFO, 0, NULL);
-        __this->ear_number = 2;
-        sys_enter_soft_poweroff((void *)1);
-    } else {
-        __this->pair_flag = 1;
-        if (get_tws_phone_connect_state() == TRUE) {
-            __this->active_disconnect = 1;
-            user_send_cmd_prepare(USER_CTRL_DISCONNECTION_HCI, 0, NULL);
-        } else {
-            chargestore_set_phone_disconnect();
-        }
-    }
-    break;
-case CMD_TWS_ADDR_DELETE:
-    log_info("event_CMD_TWS_ADDR_DELETE\n");
-    chargestore_clean_tws_conn_info(chargestore_dev->packet[0]);
-    break;
-#endif
-case CMD_POWER_LEVEL_OPEN:
-    log_info("event_CMD_POWER_LEVEL_OPEN\n");
-
-    //电压过低,不进响应开盖命令
-#if TCFG_SYS_LVD_EN
-    if (get_vbat_need_shutdown() == TRUE) {
-        log_info(" lowpower deal!\n");
+    case CMD_TWS_CHANNEL_SET:
+        chargestore_set_tws_channel_info();
         break;
-    }
-#endif
-
-    if (__this->cover_status) {//当前为开盖
-        if (__this->power_sync) {
-            if (chargestore_sync_chg_level() == 0) {
-                __this->power_sync = 0;
+#if TCFG_USER_TWS_ENABLE
+    case CMD_TWS_REMOTE_ADDR:
+        log_info("event_CMD_TWS_REMOTE_ADDR\n");
+        if (chargestore_set_tws_remote_info(chargestore_dev->packet, chargestore_dev->size) == false) {
+            //交换地址后,断开与手机连接,并删除所有连过的手机地址
+            user_send_cmd_prepare(USER_CTRL_DEL_ALL_REMOTE_INFO, 0, NULL);
+            __this->ear_number = 2;
+            sys_enter_soft_poweroff((void *)1);
+        } else {
+            __this->pair_flag = 1;
+            if (get_tws_phone_connect_state() == TRUE) {
+                __this->active_disconnect = 1;
+                user_send_cmd_prepare(USER_CTRL_DISCONNECTION_HCI, 0, NULL);
+            } else {
+                chargestore_set_phone_disconnect();
             }
         }
-        if (app && strcmp(app->name, APP_NAME_BT) && (app_var.goto_poweroff_flag == 0)) {
-            /* app_var.play_poweron_tone = 1; */
-            app_var.play_poweron_tone = 0;
-            power_set_mode(TCFG_LOWPOWER_POWER_SEL);
-            task_switch_to_bt();
-        }
-    }
-    break;
-case CMD_POWER_LEVEL_CLOSE:
-    log_info("event_CMD_POWER_LEVEL_CLOSE\n");
-    if (!__this->cover_status) {//当前为合盖
-        if (app && strcmp(app->name, "idle")) {
-            sys_enter_soft_poweroff((void *)1);
-        }
-    }
-    break;
-case CMD_CLOSE_CID:
-    log_info("event_CMD_CLOSE_CID\n");
-    if (!__this->cover_status) {//当前为合盖
-#if (TCFG_BLE_DEMO_SELECT == DEF_BLE_DEMO_ADV)
-        if ((__this->bt_init_ok) && (tws_api_get_role() == TWS_ROLE_MASTER))  {
-            bt_ble_icon_close(1);
-        }
-#elif (TCFG_BLE_DEMO_SELECT == DEF_BLE_DEMO_ADV_RCSP)
-        if ((__this->bt_init_ok) && (tws_api_get_role() == TWS_ROLE_MASTER))  {
-            bt_ble_adv_ioctl(BT_ADV_SET_EDR_CON_FLAG, SECNE_DISMISS, 1);
+        break;
+    case CMD_TWS_ADDR_DELETE:
+        log_info("event_CMD_TWS_ADDR_DELETE\n");
+        chargestore_clean_tws_conn_info(chargestore_dev->packet[0]);
+        break;
+#endif
+    case CMD_POWER_LEVEL_OPEN:
+        log_info("event_CMD_POWER_LEVEL_OPEN\n");
+
+        //电压过低,不进响应开盖命令
+#if TCFG_SYS_LVD_EN
+        if (get_vbat_need_shutdown() == TRUE) {
+            log_info(" lowpower deal!\n");
+            break;
         }
 #endif
-        if (!__this->timer) {
-            __this->timer = sys_timeout_add(NULL, chargestore_timeout_deal, 2000);
+
+        if (__this->cover_status) {//当前为开盖
+            if (__this->power_sync) {
+                if (chargestore_sync_chg_level() == 0) {
+                    __this->power_sync = 0;
+                }
+            }
+
+            if ((app == APP_IDLE_TASK) && (app_var.goto_poweroff_flag == 0)) {
+                /* app_var.play_poweron_tone = 1; */
+                app_var.play_poweron_tone = 0;
+                power_set_mode(TCFG_LOWPOWER_POWER_SEL);
+                task_switch_to_bt();
+            }
+        }
+        break;
+    case CMD_POWER_LEVEL_CLOSE:
+        log_info("event_CMD_POWER_LEVEL_CLOSE\n");
+        if (!__this->cover_status) {//当前为合盖
+            if (app != APP_IDLE_TASK) {
+                sys_enter_soft_poweroff((void *)1);
+            }
+        }
+        break;
+    case CMD_CLOSE_CID:
+        log_info("event_CMD_CLOSE_CID\n");
+        if (!__this->cover_status) {//当前为合盖
+#if (TCFG_BLE_DEMO_SELECT == DEF_BLE_DEMO_ADV)
+            if ((__this->bt_init_ok) && (tws_api_get_role() == TWS_ROLE_MASTER))  {
+                bt_ble_icon_close(1);
+            }
+#elif (TCFG_BLE_DEMO_SELECT == DEF_BLE_DEMO_ADV_RCSP)
+            if ((__this->bt_init_ok) && (tws_api_get_role() == TWS_ROLE_MASTER))  {
+                bt_ble_adv_ioctl(BT_ADV_SET_EDR_CON_FLAG, SECNE_DISMISS, 1);
+            }
+#endif
             if (!__this->timer) {
-                log_error("timer alloc err!\n");
+                __this->timer = sys_timeout_add(NULL, chargestore_timeout_deal, 2000);
+                if (!__this->timer) {
+                    log_error("timer alloc err!\n");
+                } else {
+                    __this->close_ing = 1;
+                }
             } else {
+                sys_timer_modify(__this->timer, 2000);
                 __this->close_ing = 1;
             }
         } else {
-            sys_timer_modify(__this->timer, 2000);
-            __this->close_ing = 1;
+            __this->ear_number = 1;
+            __this->close_ing = 0;
         }
-    } else {
-        __this->ear_number = 1;
-        __this->close_ing = 0;
-    }
-    break;
+        break;
 #endif
-default:
-    break;
-}
+    default:
+        break;
+    }
 
-return ret;
+    return ret;
 }
 
 #if TCFG_CHARGESTORE_ENABLE

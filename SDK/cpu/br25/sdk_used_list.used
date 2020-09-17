@@ -1,4 +1,23 @@
 
+
+
+tws_local_media_sync
+tws_afh_sync
+tws_ci_data
+tws_acl_data_sync
+tws_event_sync
+tws_conn_sync
+tws_lmp_slot_sync
+tws_low_latency
+tws_media_sync
+tws_power_balance
+tws_sync_call
+tws_tx_sync
+tws_link_sync
+
+
+
+
 fat_vfs_ops
 
 
@@ -13,6 +32,8 @@ pcm_decoder
 
 
 
+
+
 mp3_decoder
 
 
@@ -21,21 +42,14 @@ mp3_decoder
 
 
 wma_decoder
-
-
-
-
-
-
-flac_decoder
-
-
-
-ape_decoder
-
-
-
 m4a_decoder
+
+
+
+
+
+
+alac_decoder
 
 
 
@@ -43,7 +57,7 @@ amr_decoder
 
 
 
-dts_decoder
+
 
 
 

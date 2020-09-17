@@ -37,7 +37,6 @@ u32 linein_func_get(void *priv, u8 *buf, u16 buf_size, u32 mask)
 {
     u16 offset = 0;
     if (mask & BIT(LINEIN_INFO_ATTR_STATUS)) {
-        extern u8 linein_get_status(void);
         u8 status = linein_get_status();
         offset = add_one_attr(buf, buf_size, offset, LINEIN_INFO_ATTR_STATUS, (u8 *)&status, sizeof(status));
     }

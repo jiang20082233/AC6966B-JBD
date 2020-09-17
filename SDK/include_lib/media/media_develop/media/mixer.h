@@ -53,6 +53,7 @@ struct audio_mixer {
     u8  channel_num;	// 声道数
     u8  sample_sync;
     u16 sample_rate;	// 当前mixer的采样率
+    int need_sr;
     MIXER_SR_TYPE sr_type;	// 采样率设置类型
     void (*evt_handler)(struct audio_mixer *, int);	// 事件返回接口
     u16(*check_sr)(struct audio_mixer *, u16 sr);	// 检查采样率
@@ -77,6 +78,7 @@ struct audio_mixer_ch {
     u16 offset;			// 当前通道在输出buf中的偏移位置
     u16 sample_rate;	// 当前通道采样率
     u16 lose_time;		// 超过该时间还没有数据，则以为可以丢数。no_wait置1有效
+    u16 input_timeout;
     unsigned long lose_limit_time;	// 丢数超时中间运算变量
     struct list_head list_entry;	// 链表
     struct audio_mixer *mixer;	// mixer句柄
@@ -116,6 +118,8 @@ void audio_mixer_set_sample_rate(struct audio_mixer *mixer, MIXER_SR_TYPE type, 
 int audio_mixer_get_sample_rate_by_type(struct audio_mixer *mixer, MIXER_SR_TYPE type);
 // 获取采样率（按mixer->sr_type获取）
 int audio_mixer_get_sample_rate(struct audio_mixer *mixer);
+// 获取mixer当前正在用的采样率
+int audio_mixer_get_cur_sample_rate(struct audio_mixer *mixer);
 
 // 获取通道总数
 int audio_mixer_get_ch_num(struct audio_mixer *mixer);

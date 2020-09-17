@@ -85,6 +85,9 @@ static int esco_enc_pcm_get(struct audio_encoder *encoder, s16 **frame, u16 fram
         rlen = audio_aec_output_read(enc->pcm_frame, frame_len);
         if (rlen == frame_len) {
             /*esco编码读取数据正常*/
+#if (RECORDER_MIX_EN)
+            recorder_mix_sco_data_write(enc->pcm_frame, frame_len);
+#endif/*RECORDER_MIX_EN*/
             break;
         } else if (rlen == 0) {
             /*esco编码读不到数,返回0*/
@@ -164,10 +167,13 @@ int esco_enc_open(u32 coding_type, u8 frame_len)
         /*Unsupoport eSCO Air Mode*/
     }
 
-    if (!encode_task) {
-        encode_task = zalloc(sizeof(*encode_task));
-        audio_encoder_task_create(encode_task, "audio_enc");
-    }
+    /* if (!encode_task) { */
+    /* encode_task = zalloc(sizeof(*encode_task)); */
+    /* audio_encoder_task_create(encode_task, "audio_enc"); */
+    /* } */
+
+    audio_encoder_task_open();
+
     if (!esco_enc) {
         esco_enc = zalloc(sizeof(*esco_enc));
     }
@@ -242,20 +248,66 @@ void esco_enc_close()
     esco_enc = NULL;
     local_irq_enable();
 
-    if (encode_task) {
-        audio_encoder_task_del(encode_task);
-        local_irq_disable();
-        free(encode_task);
-        encode_task = NULL;
-        local_irq_enable();
-    }
+    audio_encoder_task_close();
+    /* if (encode_task) { */
+    /* audio_encoder_task_del(encode_task); */
+    /* local_irq_disable(); */
+    /* free(encode_task); */
+    /* encode_task = NULL; */
+    /* local_irq_enable(); */
+    /* } */
     clock_set_cur();
 }
+
+struct __encoder_task {
+    u8 init_ok;
+    atomic_t used;
+    OS_MUTEX mutex;
+};
+
+static struct __encoder_task enc_task = {0};
+
+int audio_encoder_task_open(void)
+{
+    local_irq_disable();
+    if (enc_task.init_ok == 0) {
+        atomic_set(&enc_task.used, 0);
+        os_mutex_create(&enc_task.mutex);
+        enc_task.init_ok = 1;
+    }
+    local_irq_enable();
+
+    os_mutex_pend(&enc_task.mutex, 0);
+    if (!encode_task) {
+        encode_task = zalloc(sizeof(*encode_task));
+        audio_encoder_task_create(encode_task, "audio_enc");
+    }
+    atomic_inc_return(&enc_task.used);
+    os_mutex_post(&enc_task.mutex);
+    return 0;
+}
+
+void audio_encoder_task_close(void)
+{
+    os_mutex_pend(&enc_task.mutex, 0);
+    if (encode_task) {
+        if (atomic_dec_and_test(&enc_task.used)) {
+            audio_encoder_task_del(encode_task);
+            //local_irq_disable();
+            free(encode_task);
+            encode_task = NULL;
+            //local_irq_enable();
+        }
+    }
+    os_mutex_post(&enc_task.mutex);
+}
+
+
 
 /**************************mic ladc 接口***************************************************/
 #define MIC_ADC_BUF_NUM        2
 #if TCFG_MIC_EFFECT_ENABLE
-#define MIC_ADC_IRQ_POINTS     80
+#define MIC_ADC_IRQ_POINTS     64 //不能随便更改
 #else
 #define MIC_ADC_IRQ_POINTS     256
 #endif

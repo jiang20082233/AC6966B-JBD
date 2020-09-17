@@ -67,6 +67,7 @@ const struct local_dec_type local_dec_clk_tb[] = {
     {AUDIO_CODING_SBC,  DEC_TWS_SBC_CLK},
     {AUDIO_CODING_MP3,  DEC_MP3_CLK},
     {AUDIO_CODING_WMA,  DEC_WMA_CLK},
+    {AUDIO_CODING_M4A,  DEC_M4A_CLK},
 };
 
 /*----------------------------------------------------------------------------*/

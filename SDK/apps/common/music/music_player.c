@@ -47,7 +47,10 @@ static const char scan_parm[] = "-t"
                                 "APE"
 #endif
 #if (TCFG_DEC_M4A_ENABLE)
-                                "M4AMP4AAC"
+                                "M4AAAC"
+#endif
+#if (TCFG_DEC_M4A_ENABLE || TCFG_DEC_ALAC_ENABLE)
+                                "MP4"
 #endif
 #if (TCFG_DEC_AMR_ENABLE)
                                 "AMR"

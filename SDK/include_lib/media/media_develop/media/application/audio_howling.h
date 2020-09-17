@@ -25,7 +25,7 @@ HOWLING_API_STRUCT *open_howling(void *howl_para, u16 sample_rate, u8 channel, u
 // HOWLING_API_STRUCT *open_howling(HOWLING_PARM_SET *howl_para, u16 sample_rate, u8 channel, u8 mode);
 void run_howling(HOWLING_API_STRUCT *howling_hdl, short *in, short *out, int len);
 void close_howling(HOWLING_API_STRUCT *holing_hdl);
-
+void pause_howling(HOWLING_API_STRUCT *holing_hdl, u8 run_mark);
 
 #endif
 

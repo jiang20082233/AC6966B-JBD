@@ -141,7 +141,7 @@
 #define CONFIG_TWS_PAIR_MODE                CONFIG_TWS_PAIR_BY_CLICK
 
 #define CONFIG_TWS_USE_COMMMON_ADDR         1      /* tws 使用公共地址 */
-#define CONFIG_TWS_PAIR_ALL_WAY             1      /* tws 任何时候 链接搜索  */
+#define CONFIG_TWS_PAIR_ALL_WAY             0      /* tws 任何时候 链接搜索  */
 
 
 /* 声道确定方式选择 */
@@ -212,7 +212,7 @@
 #define CONFIG_BT_RX_BUFF_SIZE  (12 * 1024)
 
 #else
-#if (TCFG_REVERB_ENABLE || TCFG_USER_BLE_ENABLE)
+#if (TCFG_REVERB_ENABLE || TCFG_USER_BLE_ENABLE || RECORDER_MIX_EN)
 #define CONFIG_BT_RX_BUFF_SIZE  (11 * 1024)
 #else
 #define CONFIG_BT_RX_BUFF_SIZE  (12 * 1024)
@@ -321,15 +321,15 @@
 #endif
 
 #if (defined(CONFIG_CPU_BR23))
-//#define USER_UART_UPDATE_ENABLE           //用于客户开发上位机或者多MCU串口升级方案
+#define USER_UART_UPDATE_ENABLE           0//用于客户开发上位机或者多MCU串口升级方案
 
 #define UART_UPDATE_SLAVE	0
 #define UART_UPDATE_MASTER	1
 
 //配置串口升级的角色
-#define UART_UPDATE_ROLE	UART_UPDATE_MASTER
+#define UART_UPDATE_ROLE	UART_UPDATE_SLAVE
 
-#ifdef USER_UART_UPDATE_ENABLE
+#if USER_UART_UPDATE_ENABLE
 #undef TCFG_CHARGESTORE_ENABLE
 #undef TCFG_TEST_BOX_ENABLE
 #endif

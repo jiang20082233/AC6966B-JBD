@@ -16,6 +16,7 @@ void pcm2file_enc_close(void *hdl);
 int pcm2file_enc_is_work(void *hdl);
 int get_pcm2file_enc_file_len(void *hdl);
 struct audio_encoder *get_pcm2file_encoder_hdl(void *hdl);
+int pcm2file_enc_get_time(void *hdl);
 
 #endif
 

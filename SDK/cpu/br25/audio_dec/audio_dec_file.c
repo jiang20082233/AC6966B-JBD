@@ -30,7 +30,7 @@
 #if TCFG_APP_MUSIC_EN
 
 
-#define FILE_DEC_PICK_EN			0 // 本地解码拆包转发
+#define FILE_DEC_PICK_EN			1 // 本地解码拆包转发
 
 #if (!TCFG_DEC2TWS_ENABLE)
 #undef FILE_DEC_PICK_EN
@@ -64,10 +64,12 @@ const struct dec_type  dec_clk_tb[] = {
     {AUDIO_CODING_FLAC, DEC_FLAC_CLK},
     {AUDIO_CODING_DTS,  DEC_DTS_CLK},
     {AUDIO_CODING_M4A,  DEC_M4A_CLK},
+    {AUDIO_CODING_ALAC, DEC_ALAC_CLK},
     {AUDIO_CODING_MIDI, DEC_MIDI_CLK},
 
     {AUDIO_CODING_MP3 | AUDIO_CODING_STU_PICK,  DEC_MP3PICK_CLK},
     {AUDIO_CODING_WMA | AUDIO_CODING_STU_PICK,  DEC_WMAPICK_CLK},
+    {AUDIO_CODING_M4A | AUDIO_CODING_STU_PICK,  DEC_M4APICK_CLK},
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -228,6 +230,9 @@ static const struct audio_dec_input file_input = {
 #if TCFG_DEC_M4A_ENABLE
     | AUDIO_CODING_M4A
 #endif
+#if TCFG_DEC_ALAC_ENABLE
+    | AUDIO_CODING_ALAC
+#endif
 #if TCFG_DEC_AMR_ENABLE
     | AUDIO_CODING_AMR
 #endif
@@ -288,10 +293,6 @@ static void file_dec_release(void)
     free(file_dec);
     file_dec = NULL;
     local_irq_enable();
-
-#if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_BT)
-    audio_dec_bt_emitter_check_empty_en(0);
-#endif
 }
 
 /*----------------------------------------------------------------------------*/
@@ -500,15 +501,13 @@ __stream_set_end:
         dec->file_dec.status = FILE_DEC_STATUS_PAUSE;
         return 0;
     }
-
+    // 设置时钟
+    clock_set_cur();
     dec->file_dec.status = FILE_DEC_STATUS_PLAY;
     err = audio_decoder_start(&dec->file_dec.decoder);
     if (err) {
         goto __err3;
     }
-
-    // 设置时钟
-    clock_set_cur();
 
     return 0;
 
@@ -533,7 +532,7 @@ __err3:
     file_decoder_close(&dec->file_dec);
 __err1:
     file_dec_release();
-
+    clock_set_cur();
     return err;
 }
 
@@ -649,10 +648,6 @@ int file_dec_create(void *priv, void (*handler)(void *, int argc, int *argv))
     file_dec->evt_cb = handler;
     file_dec->evt_priv = priv;
 
-#if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_BT)
-    audio_dec_bt_emitter_check_empty_en(1);
-#endif
-
     return 0;
 }
 
@@ -712,7 +707,8 @@ int file_dec_open(void *file, struct audio_dec_breakpoint *bp)
 #endif
 
     dec->wait.priority = 1;
-    dec->wait.preemption = 1;
+    dec->wait.preemption = 0;
+    dec->wait.snatch_same_prio = 1;
     dec->wait.handler = file_wait_res_handler;
     err = audio_decoder_task_add_wait(&decode_task, &dec->wait);
 

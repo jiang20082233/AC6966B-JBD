@@ -363,7 +363,7 @@ __no_cache1:
         goto __no_cache2;
     }
     align_addr = (addr + len) / 4096 * 4096;
-    if (len - ((addr + len) - align_addr) >= 4096) {
+    if ((int)len - (int)((addr + len) - align_addr) >= 4096) {
         align_addr -= 4096;
         if (flash_cache_addr != align_addr) {
             flash_cache_addr = align_addr;

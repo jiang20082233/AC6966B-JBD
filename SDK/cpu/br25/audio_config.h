@@ -71,6 +71,9 @@
 #define APP_AUDIO_STATE_WTONE       3
 #define APP_AUDIO_CURRENT_STATE     4
 
+#define AUDIO_OUTPUT_ONLY_DAC \
+    (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DAC || AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_BT || AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DONGLE)
+
 u8 get_max_sys_vol(void);
 u8 get_tone_vol(void);
 

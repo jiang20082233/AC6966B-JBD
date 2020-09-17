@@ -34,7 +34,7 @@ struct ui_progress {
     u16 mask_len;
     void *timer;
     const struct layout_info *info;
-    const struct progress_pic_info *pic_info[PROGRESS_CHILD_NUM];
+    const struct progress_highlight_info *pic_info[PROGRESS_CHILD_NUM];
     const struct element_event_handler *handler;
 };
 

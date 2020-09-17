@@ -46,7 +46,6 @@
 #include "soundcard/soundcard.h"
 
 #include "audio_dec.h"
-#include "audio_reverb.h"
 #include "tone_player.h"
 #include "dac.h"
 #define LOG_TAG_CONST        BT
@@ -131,19 +130,7 @@ void bt_fix_fre_api()
 
 }
 
-#define BLE_FIXED_FRE_INDEX		0	//unit:(2402 +(x)*2) MHz
-extern void ble_enter_single_carrier_mode(u8 ch_index);
-void ble_fix_fre_api()
-{
-#if TCFG_USER_BLE_ENABLE
-#if (CONFIG_BT_MODE == BT_NORMAL)
-    bt_ble_adv_enable(0);
-#endif
-    ble_enter_single_carrier_mode(BLE_FIXED_FRE_INDEX);
-#endif
-}
-
-
+extern void ble_fix_fre_api();
 /*----------------------------------------------------------------------------*/
 /**@brief    蓝牙量产串口控制处理
    @param

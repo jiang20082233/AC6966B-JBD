@@ -2,7 +2,7 @@
 #include "soundcard/lamp.h"
 #include "soundcard/peripheral.h"
 #include "common/user_msg.h"
-#include "audio_reverb.h"
+/* #include "audio_reverb.h" */
 #include "system/timer.h"
 #include "os/os_api.h"
 #include "asm/audio_linein.h"

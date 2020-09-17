@@ -69,6 +69,7 @@ const struct audio_overlay_type  aotype[] = {
     /* {AUDIO_CODING_APE, OVERLAY_APE }, */
     /* {AUDIO_CODING_FLAC, OVERLAY_FLAC}, */
     /* {AUDIO_CODING_M4A, OVERLAY_M4A }, */
+    /* {AUDIO_CODING_ALAC, OVERLAY_M4A }, */
     /* {AUDIO_CODING_AMR, OVERLAY_AMR }, */
     /* {AUDIO_CODING_DTS, OVERLAY_DTS }, */
 #ifdef CONFIG_MP3_WMA_LIB_SPECIAL

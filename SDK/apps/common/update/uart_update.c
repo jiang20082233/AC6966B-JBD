@@ -1,5 +1,5 @@
 #include "app_config.h"
-#if  defined(USER_UART_UPDATE_ENABLE) && (UART_UPDATE_ROLE == UART_UPDATE_SLAVE)
+#if(USER_UART_UPDATE_ENABLE) && (UART_UPDATE_ROLE == UART_UPDATE_SLAVE)
 #include "typedef.h"
 #include "update_loader_download.h"
 #include "os/os_api.h"
@@ -72,12 +72,14 @@ enum {
 };
 
 
-static void uart_update_hdl_register(void (*resume_hdl)(void *priv), int (*sleep_hdl)(void *priv)){
+static void uart_update_hdl_register(void (*resume_hdl)(void *priv), int (*sleep_hdl)(void *priv))
+{
     uart_update_resume_hdl = resume_hdl;
     uart_update_sleep_hdl  = sleep_hdl;
 }
 
-void sava_uart_update_param(void){
+void sava_uart_update_param(void)
+{
     UPDATA_UART uart_param = {.control_baud = update_baudrate, .control_io_tx = update_cfg.tx, .control_io_rx = update_cfg.rx};
     updata_parm_set(UART_UPDATA, (u8 *)&uart_param, sizeof(UPDATA_UART));
 }
@@ -86,7 +88,7 @@ static void uart_update_callback(void *priv, u8 type, u8 cmd)
 {
     if (cmd == UPDATE_LOADER_OK) {
         update_mode_api(type, update_baudrate, update_cfg.tx, update_cfg.rx);
-    }else{
+    } else {
         //失败将波特率设置回初始,并重置变量
         rx_cnt = 0;
         update_baudrate = 9600;
@@ -124,35 +126,35 @@ __recheck:
                 crc = CRC16(protocal_frame.raw_data, protocal_frame.data.length + SYNC_SIZE - 2);
                 memcpy(&crc0, &protocal_frame.raw_data[protocal_frame.data.length + SYNC_SIZE - 2], 2);
                 if (crc0 == crc) {
-                    switch(protocal_frame.data.data[0]){
-                        case CMD_UART_UPDATE_START:
-                            log_info("CMD_UART_UPDATE_START\n");
-                            os_taskq_post_msg(THIS_TASK_NAME, 1, MSG_UART_UPDATE_START_RSP);
-                            break;
-                        case CMD_UART_UPDATE_READ:
-                            log_info("CMD_UART_UPDATE_READ\n");
-                            if(uart_update_resume_hdl){
-                                uart_update_resume_hdl(NULL);
-                            }
-                            break;
-                        case CMD_UART_UPDATE_END:
-                            log_info("CMD_UART_UPDATE_END\n");
-                            break;
-                        case CMD_UART_UPDATE_UPDATE_LEN:
-                            log_info("CMD_UART_UPDATE_LEN\n");
-                            break;
-                        case CMD_UART_JEEP_ALIVE:
-                            log_info("CMD_UART_KEEP_ALIVE\n");
-                            break;
-                        case CMD_UART_UPDATE_READY:
-                            log_info("CMD_UART_UPDATE_READY\n");
-                            os_taskq_post_msg(THIS_TASK_NAME, 1, MSG_UART_UPDATE_READY);
-                            break;
-                        default:
-                            log_info("unkown cmd...\n");
-                            break;
+                    switch (protocal_frame.data.data[0]) {
+                    case CMD_UART_UPDATE_START:
+                        log_info("CMD_UART_UPDATE_START\n");
+                        os_taskq_post_msg(THIS_TASK_NAME, 1, MSG_UART_UPDATE_START_RSP);
+                        break;
+                    case CMD_UART_UPDATE_READ:
+                        log_info("CMD_UART_UPDATE_READ\n");
+                        if (uart_update_resume_hdl) {
+                            uart_update_resume_hdl(NULL);
+                        }
+                        break;
+                    case CMD_UART_UPDATE_END:
+                        log_info("CMD_UART_UPDATE_END\n");
+                        break;
+                    case CMD_UART_UPDATE_UPDATE_LEN:
+                        log_info("CMD_UART_UPDATE_LEN\n");
+                        break;
+                    case CMD_UART_JEEP_ALIVE:
+                        log_info("CMD_UART_KEEP_ALIVE\n");
+                        break;
+                    case CMD_UART_UPDATE_READY:
+                        log_info("CMD_UART_UPDATE_READY\n");
+                        os_taskq_post_msg(THIS_TASK_NAME, 1, MSG_UART_UPDATE_READY);
+                        break;
+                    default:
+                        log_info("unkown cmd...\n");
+                        break;
                     }
-                }else{
+                } else {
                     rx_cnt = 0;
                 }
             }
@@ -191,8 +193,8 @@ u32 uart_dev_receive_data(void *buf, u32 relen, u32 addr)
         file_cmd.addr = addr;
         file_cmd.len = relen;
         uart_send_packet(&file_cmd, sizeof(file_cmd));
-        if(uart_update_sleep_hdl){
-            if(uart_update_sleep_hdl(NULL) == OS_TIMEOUT){
+        if (uart_update_sleep_hdl) {
+            if (uart_update_sleep_hdl(NULL) == OS_TIMEOUT) {
                 continue;
             }
         }
@@ -210,11 +212,11 @@ u32 uart_dev_receive_data(void *buf, u32 relen, u32 addr)
 bool uart_update_cmd(u8 cmd, u8 *buf, u32 len)
 {
     u8 *pbuf, i;
-    //for (i = 0; i < RETRY_TIME; i++) 
+    //for (i = 0; i < RETRY_TIME; i++)
     {
         pbuf = protocal_frame.data.data;
         pbuf[0] = cmd;
-        if(buf){
+        if (buf) {
             memcpy(pbuf + 1, buf, len);
         }
         uart_send_packet(pbuf, len + 1);
@@ -229,16 +231,16 @@ void uart_update_recv(u8 cmd, u8 *buf, u32 len)
     switch (cmd) {
     case CMD_UPDATE_START:
         memcpy(&baudrate, buf, 4);
-        if(update_baudrate != baudrate){
+        if (update_baudrate != baudrate) {
             update_baudrate = baudrate;
             uart_update_set_baud(baudrate);
             uart_update_cmd(CMD_UPDATE_START, &update_baudrate, 4);
-        }else{
+        } else {
             app_update_loader_downloader_init(              //设置完波特率后开始升级
-                    UART_UPDATA,
-                    uart_update_callback,
-                    NULL,
-                    &uart_ch_update_op);
+                UART_UPDATA,
+                uart_update_callback,
+                NULL,
+                &uart_ch_update_op);
         }
         break;
 
@@ -262,7 +264,8 @@ bool uart_send_update_len(u32 update_len)
 }
 
 
-u16 uart_f_open(void){
+u16 uart_f_open(void)
+{
     return 1;
 }
 
@@ -288,7 +291,8 @@ int uart_f_seek(void *fp, u8 type, u32 offset)
     return 0;//FR_OK;
 }
 
-u16 uart_f_stop(u8 err){
+u16 uart_f_stop(u8 err)
+{
     uart_update_cmd(CMD_UPDATE_END, &err, 1);
     update_baudrate = 9600;             //把波特率设置回9600
     return 0;
@@ -321,31 +325,32 @@ static void update_loader_download_task(void *p)
             continue;
         }
         switch (msg[1]) {
-            case MSG_UART_UPDATE_READY:
-                uart_update_cmd(CMD_UPDATE_START, NULL, 0);
-                break;
+        case MSG_UART_UPDATE_READY:
+            uart_update_cmd(CMD_UPDATE_START, NULL, 0);
+            break;
 
-            case MSG_UART_UPDATE_START_RSP:         //收到START_RSP 进行波特率设置设置
-                log_info("MSG_UART_UPDATE_START_RSP\n");
-                uart_update_recv(protocal_frame.data.data[0], &protocal_frame.data.data[1], protocal_frame.data.length - 1);
-                break;
+        case MSG_UART_UPDATE_START_RSP:         //收到START_RSP 进行波特率设置设置
+            log_info("MSG_UART_UPDATE_START_RSP\n");
+            uart_update_recv(protocal_frame.data.data[0], &protocal_frame.data.data[1], protocal_frame.data.length - 1);
+            break;
 
-            case MSG_UART_UPDATE_READ_RSP:
-                log_info("MSG_UART_UPDATE_READ_RSP\n");
-                break;
+        case MSG_UART_UPDATE_READ_RSP:
+            log_info("MSG_UART_UPDATE_READ_RSP\n");
+            break;
 
-            default:
-                log_info("unkown msg..............\n");
-                break;
+        default:
+            log_info("unkown msg..............\n");
+            break;
         }
     }
 }
 
-void uart_update_init(uart_update_cfg *cfg){
+void uart_update_init(uart_update_cfg *cfg)
+{
     memcpy(&update_cfg, cfg, sizeof(uart_update_cfg));
     task_create(update_loader_download_task, NULL, THIS_TASK_NAME);
     uart_hw_init(update_cfg, uart_data_decode);
-    printf(">>>%s\n",__func__);
+    printf(">>>%s\n", __func__);
 }
 
 

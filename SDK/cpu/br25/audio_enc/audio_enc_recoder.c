@@ -438,10 +438,9 @@ struct record_hdl {
     u8  stop_req;
     u8  nchl;
     u8  coding_type;
-
-#if TCFG_MIC_REC_PITCH_EN
-    s_pitch_hdl *pitch_hdl;
-#endif
+    volatile u8  busy;
+    volatile u8  status;
+    void (*err_callback)(void);
 };
 
 extern u32 timer_get_ms(void);
@@ -470,7 +469,15 @@ static void dual_to_single(void *out, void *in, u16 len)
         inbuf += 2;
     }
 }
-
+int recorder_get_enc_time()
+{
+    int ret = 0;
+    if (rec_hdl && rec_hdl->file) {
+        ret = pcm2file_enc_get_time(rec_hdl->file);
+    }
+//	log_d("get ret %d s\n", ret);
+    return ret;
+}
 
 void recorder_pcm2file_write_pcm_ex(s16 *data, int len)
 {
@@ -531,6 +538,14 @@ void recorder_encode_stop(void)
             break;
         }
         rec_hdl->magic++;
+
+        rec_hdl->status = 0;
+        printf("[%s], wait busy\n", __FUNCTION__);
+        while (rec_hdl->busy) {
+            os_time_dly(2);
+        }
+        printf("[%s], wait busy ok\n", __FUNCTION__);
+
         pcm2file_enc_close(rec_hdl->file);
 
         if (rec_hdl->coding_type == AUDIO_CODING_WAV) {
@@ -543,8 +558,12 @@ void recorder_encode_stop(void)
 
         rec_hdl->file = NULL;
         sys_timeout_del(rec_hdl->cut_head_timer);
+
+        local_irq_disable();
         free(rec_hdl);
         rec_hdl = NULL;
+        local_irq_enable();
+
         clock_set_cur();
     }
 }
@@ -558,7 +577,11 @@ static void recorder_encode_event_handler(struct audio_encoder *hdl, int argc, i
     struct audio_encoder *enc = get_pcm2file_encoder_hdl(rec_hdl->file);
     printf("%s, argv[]:%d, %d , hdl = %x, enc = %x", __FUNCTION__,  argv[0], argv[1], hdl, enc);
     if ((hdl != NULL) && (hdl == enc)) {
-        recorder_encode_stop();
+        if (rec_hdl->err_callback) {
+            rec_hdl->err_callback();
+        } else {
+            recorder_encode_stop();
+        }
     } else {
         printf("err enc handle !!\n");
     }
@@ -681,6 +704,11 @@ int recorder_encode_start(struct record_file_fmt *f)
         clock_add(ENC_MP3_CLK);
     }
 
+    rec->err_callback = NULL;
+    if (fmt.err_callback) {
+        rec->err_callback = fmt.err_callback;
+    }
+
     last_enc_file_codeing_type_save(afmt.coding_type);
     pcm2file_enc_set_evt_handler(rec->file, recorder_encode_event_handler, rec->magic);
     pcm2file_enc_write_file_set_limit(rec->file, cut_tail_size, fmt.limit_size);
@@ -716,18 +744,26 @@ int recorder_encode_start(struct record_file_fmt *f)
     clock_set_cur();
     rec->start_sys_tick = timer_get_ms();
     rec_hdl = rec;
+
+    rec_hdl->status = 1;
+    rec_hdl->busy = 0;
+
     return 0;
 }
 
-void recorder_userdata_to_enc(s16 *data, int len)
+int recorder_userdata_to_enc(s16 *data, int len)
 {
-    if (rec_hdl == NULL) {
-        return ;
+    if ((rec_hdl == NULL) || (rec_hdl->status == 0)) {
+        return 0;
     }
+    rec_hdl->busy = 1;
     if (rec_hdl->cut_head_flag) {
-        return ;
+        rec_hdl->busy = 0;
+        return 0;
     }
-    pcm2file_enc_write_pcm(rec_hdl->file, data, 512);
+    int wlen = pcm2file_enc_write_pcm(rec_hdl->file, data, len);
+    rec_hdl->busy = 0;
+    return wlen;
 }
 
 void recorder_device_offline_check(char *logo)
@@ -741,48 +777,6 @@ void recorder_device_offline_check(char *logo)
     }
 }
 
-int mixer_recorder_encoding(void)
-{
-    return recorder_is_encoding();
-}
-int mixer_recorder_start(void)
-{
-    if (audio_output_channel_num() > 2) {
-        printf("chl is overlimit, record fail!!\n");
-        return -1;
-    }
-
-    struct record_file_fmt fmt = {0};
-    char folder[] = {REC_FOLDER_NAME};         //录音文件夹名称
-    char filename[] = {"AC69****"};     //录音文件名，不需要加后缀，录音接口会根据编码格式添加后缀
-    char *logo = dev_manager_get_phy_logo(dev_manager_find_active(0));//获取最后活动设备
-
-    fmt.dev = logo;
-    fmt.folder = folder;
-    fmt.filename = filename;
-    fmt.coding_type = AUDIO_CODING_WAV; 		//mix录音建议使用AUDIO_CODING_WAV
-    fmt.channel = RECORD_PLAYER_MIXER_CHANNELS;
-    fmt.sample_rate = audio_mixer_get_sample_rate(&mixer);
-    fmt.cut_head_time = 300;            //录音文件去头时间,单位ms
-    fmt.cut_tail_time = 300;            //录音文件去尾时间,单位ms
-    fmt.limit_size = 3000;              //录音文件大小最小限制， 单位byte
-    fmt.source = ENCODE_SOURCE_MIX;     //录音输入源
-    if (fmt.channel > 2) {
-        return -1;
-    }
-    int ret = recorder_encode_start(&fmt);
-    if (ret) {
-        printf("mixer_recorder_start fail !!\n");
-    } else {
-        printf("mixer_recorder_start succ !!\n");
-    }
-    return ret;
-}
-
-void mixer_recorder_stop(void)
-{
-    recorder_encode_stop();
-}
 #endif//
 
 

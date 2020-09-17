@@ -952,6 +952,9 @@ static void dev_manager_task(void *p)
 	dev_manager_add("res_nor");
 #endif
 
+#if TCFG_VIR_UDISK_ENABLE
+	dev_manager_add("vir_udisk0");
+#endif
 
 #if FLASH_INSIDE_REC_ENABLE
     set_rec_capacity(512*1024);//需要先设置容量,注意要小于Ini文件设置大小.

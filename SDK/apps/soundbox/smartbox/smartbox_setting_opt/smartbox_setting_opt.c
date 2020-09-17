@@ -50,22 +50,6 @@ static u8 deal_setting_string_item(u8 *des, u8 *src, u8 src_len, u8 type)
     return src_len + sizeof(type);
 }
 
-void update_info_from_vm_info(void)
-{
-    SMARTBOX_SETTING_OPT *opt = g_opt_link_head;
-    while (opt) {
-        if (get_setting_event_flag() & BIT(opt->setting_type)) {
-            if (opt->custom_vm_info_update) {
-                opt->custom_vm_info_update();
-            } else if (opt->deal_opt_setting) {
-                opt->deal_opt_setting(NULL, 1, 0);
-            }
-        }
-        opt = opt->next;
-    }
-    set_setting_event_flag(0);
-}
-
 u8 smartbox_read_data_from_vm(u8 syscfg_id, u8 *buf, u8 buf_len)
 {
     int len = 0;
@@ -139,12 +123,12 @@ void update_smartbox_setting(u16 type)
     if (offset > 1) {
         setting_to_sync[0] = offset;
         if (type == ((u16) - 1)) {
-            tws_api_send_data_to_sibling(setting_to_sync, g_opt_total_size, TWS_FUNC_ID_ADV_SETTING_SYNC);
-            //tws_api_sync_call_by_uuid('T', SYNC_CMD_APP_RESET_LED_UI, 300);
+            tws_api_send_data_to_sibling(setting_to_sync, offset, TWS_FUNC_ID_ADV_SETTING_SYNC);
+            tws_api_sync_call_by_uuid(TWS_FUNC_APP_OPT_UUID, APP_OPT_SYNC_CMD_APP_RESET_LED_UI, 300);
         } else {
             if (tws_api_get_role() == TWS_ROLE_MASTER) {
-                tws_api_send_data_to_sibling(setting_to_sync, g_opt_total_size, TWS_FUNC_ID_ADV_SETTING_SYNC);
-                /*     tws_api_sync_call_by_uuid('T', SYNC_CMD_APP_RESET_LED_UI, 300); */
+                tws_api_send_data_to_sibling(setting_to_sync, offset, TWS_FUNC_ID_ADV_SETTING_SYNC);
+                tws_api_sync_call_by_uuid(TWS_FUNC_APP_OPT_UUID, APP_OPT_SYNC_CMD_APP_RESET_LED_UI, 300);
             }
         }
     }
@@ -175,14 +159,28 @@ void deal_sibling_setting(u8 *buf)
                 offset += opt->data_len;
                 set_setting_event_flag(get_setting_event_flag() | BIT(type));
                 break;
-            } else {
-                return;
             }
             opt = opt->next;
         }
     }
     // 发送事件
     JL_rcsp_event_to_user(DEVICE_EVENT_FROM_RCSP, MSG_JL_ADV_SETTING_UPDATE, NULL, 0);
+}
+
+void update_info_from_vm_info(void)
+{
+    SMARTBOX_SETTING_OPT *opt = g_opt_link_head;
+    while (opt) {
+        if (get_setting_event_flag() & BIT(opt->setting_type)) {
+            if (opt->custom_vm_info_update) {
+                opt->custom_vm_info_update();
+            } else if (opt->deal_opt_setting) {
+                opt->deal_opt_setting(NULL, 1, 0);
+            }
+        }
+        opt = opt->next;
+    }
+    set_setting_event_flag(0);
 }
 
 void set_smartbox_opt_setting(u16 setting_type, u8 *data)
@@ -214,6 +212,7 @@ void smartbox_opt_release(void)
         if (opt->custom_setting_release) {
             opt->custom_setting_release();
         }
+        opt = opt->next;
     }
 }
 

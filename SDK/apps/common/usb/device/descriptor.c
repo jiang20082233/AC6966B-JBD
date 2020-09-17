@@ -110,6 +110,9 @@ void get_manufacture_str(u8 *ptr)
 }
 void get_iserialnumber_str(u8 *ptr)
 {
+#if USB_ROOT2
+    memcpy(ptr, serial_string, serial_string[0]);
+#else
     extern __attribute__((weak)) u8 *get_norflash_uuid(void);
     u8 flash_id[16] = {0};
     int i;
@@ -127,7 +130,7 @@ void get_iserialnumber_str(u8 *ptr)
             } else {
                 bcd = bcd + '0';
             }
-            ptr[2 + i * 4] = bcd; 
+            ptr[2 + i * 4] = bcd;
             bcd = flash_id[i] & 0xf;
             if (bcd > 9) {
                 bcd = bcd - 0xa + 'A';
@@ -139,6 +142,7 @@ void get_iserialnumber_str(u8 *ptr)
     } else {
         memcpy(ptr, serial_string, serial_string[0]);
     }
+#endif
 }
 #if USB_ROOT2
 static const u8 ee_string[] = {0x12, 0x03, 0x4D, 0x00, 0x53, 0x00, 0x46, 0x00, 0x54,

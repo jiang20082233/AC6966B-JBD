@@ -21,6 +21,7 @@
 #include "smartbox/smartbox.h"
 #include "smartbox_update.h"
 #include "smartbox/function.h"
+#include "smartbox_setting_sync.h"
 
 #if SMART_BOX_EN
 
@@ -151,7 +152,7 @@ int smartbox_bt_state_enter_soft_poweroff()
     return 0;
 }
 
-int smartbox_bt_status_event_handler(struct bt_event *bt)
+static int smartbox_bt_status_event_handler(struct bt_event *bt)
 {
     switch (bt->event) {
     case BT_STATUS_SECOND_CONNECTED:
@@ -210,7 +211,7 @@ int smartbox_bt_status_event_handler(struct bt_event *bt)
 }
 
 
-int smartbox_hci_event_handler(struct bt_event *bt)
+static int smartbox_hci_event_handler(struct bt_event *bt)
 {
     switch (bt->event) {
     case HCI_EVENT_CONNECTION_COMPLETE:
@@ -228,7 +229,42 @@ int smartbox_hci_event_handler(struct bt_event *bt)
     return 0;
 }
 
-void smartbox_bt_tws_event_handler(struct bt_event *bt)
+static void smartbox_app_opt_tws_event_handler(struct bt_event *bt)
+{
+    int reason = bt->args[2];
+    switch (bt->event) {
+    case APP_OPT_TWS_EVENT_SYNC_FUN_CMD:
+#if (TCFG_USER_TWS_ENABLE)
+        if (reason == APP_OPT_SYNC_CMD_APP_RESET_LED_UI) {
+#if RCSP_ADV_LED_SET_ENABLE
+            extern void update_led_setting_state(void);
+            update_led_setting_state();
+#endif
+        } else if (reason == APP_OPT_SYNC_CMD_MUSIC_INFO) {
+#if RCSP_ADV_MUSIC_INFO_ENABLE
+            extern void get_music_info(void);
+            get_music_info();
+#endif
+        } else if (reason == APP_OPT_SYNC_CMD_RCSP_AUTH_RES) {
+            extern void rcsp_tws_auth_sync_deal(void);
+            rcsp_tws_auth_sync_deal();
+        } else if (reason == APP_OPT_SYNC_CMD_MUSIC_PLAYER_STATE) {
+#if RCSP_ADV_MUSIC_INFO_ENABLE
+            void rcsp_update_player_state(void);
+            rcsp_update_player_state();
+#endif
+        } else if (reason ==  APP_OPT_SYNC_CMD_MUSIC_PLAYER_TIEM_EN) {
+#if RCSP_ADV_MUSIC_INFO_ENABLE
+            extern void reset_player_time_en(void);
+            reset_player_time_en();
+#endif
+        }
+#endif
+        break;
+    }
+}
+
+static void smartbox_bt_tws_event_handler(struct bt_event *bt)
 {
     int role = bt->args[0];
     int phone_link_connection = bt->args[1];
@@ -301,34 +337,6 @@ void smartbox_bt_tws_event_handler(struct bt_event *bt)
 
         /* deal_adv_setting_gain_time_stamp(); */
         break;
-    case TWS_EVENT_SYNC_FUN_CMD:
-#if (TCFG_USER_TWS_ENABLE)
-        if (reason == SYNC_CMD_APP_RESET_LED_UI) {
-#if RCSP_ADV_LED_SET_ENABLE
-            extern void update_led_setting_state(void);
-            update_led_setting_state();
-#endif
-        } else if (reason == SYNC_CMD_MUSIC_INFO) {
-#if RCSP_ADV_MUSIC_INFO_ENABLE
-            extern void get_music_info(void);
-            get_music_info();
-#endif
-        } else if (reason == SYNC_CMD_RCSP_AUTH_RES) {
-            extern void rcsp_tws_auth_sync_deal(void);
-            rcsp_tws_auth_sync_deal();
-        } else if (reason == SYNC_CMD_MUSIC_PLAYER_STATE) {
-#if RCSP_ADV_MUSIC_INFO_ENABLE
-            void rcsp_update_player_state(void);
-            rcsp_update_player_state();
-#endif
-        } else if (reason ==  SYNC_CMD_MUSIC_PLAYER_TIEM_EN) {
-#if RCSP_ADV_MUSIC_INFO_ENABLE
-            extern void reset_player_time_en(void);
-            reset_player_time_en();
-#endif
-        }
-#endif
-        break;
     case TWS_EVENT_ROLE_SWITCH:
         if (role == TWS_ROLE_MASTER) {	// 切换后触发
 #if RCSP_ADV_LED_SET_ENABLE
@@ -360,6 +368,8 @@ int sys_event_handler_specific(struct sys_event *event)
 #if TCFG_USER_TWS_ENABLE
         else if (((u32)event->arg == SYS_BT_EVENT_FROM_TWS)) {
             smartbox_bt_tws_event_handler(&event->u.bt);
+        } else if (((u32)event->arg == SYS_BT_EVENT_FROM_APP_OPT_TWS)) {
+            smartbox_app_opt_tws_event_handler(&event->u.bt);
         }
 #endif
 #if OTA_TWS_SAME_TIME_ENABLE

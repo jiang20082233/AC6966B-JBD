@@ -11,7 +11,6 @@
 #include "asm/pwm_led.h"
 #include "user_cfg.h"
 #include "ui/ui_api.h"
-#include "audio_reverb.h"
 #include "clock_cfg.h"
 #include "includes.h"
 #include "fm/fm_api.h"

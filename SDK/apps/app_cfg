@@ -15,6 +15,7 @@ export CONFIG_UI_ENABLE ?= n
 export CONFIG_MEDIA_ENABLE = y
 export APP_OTA_EN = n
 
+
 export USB_HOST_SUPPORT_MSD ?= y
 export USB_HOST_SUPPORT_AOA ?= n
 export USB_HOST_SUPPORT_ADB ?= n
@@ -30,7 +31,7 @@ export DOWNLOAD_SUFFIX = _2M_flash
 #export LIB_SUFFIX = _2M_flash
 
 OTA_UPDATE = n
-BANK_ENABLE = n
+BANK_ENABLE = y
 
 #AUDIO_CFG_DEFINE += \
 #-DCONFIG_LITE_DECODER=1 \

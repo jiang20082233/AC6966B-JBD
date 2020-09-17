@@ -223,6 +223,15 @@ void emitter_or_receiver_switch(u8 flag)
 }
 
 
+void bt_emitter_receiver_sw()
+{
+    if (bt_user_priv_var.emitter_or_receiver != BT_EMITTER_EN) {
+        emitter_or_receiver_switch(BT_EMITTER_EN);
+    } else {
+        emitter_or_receiver_switch(BT_RECEIVER_EN);
+    }
+}
+
 /*----------------------------------------------------------------------------*/
 /**@brief    蓝牙发射变量初始化
    @param    无
@@ -448,6 +457,7 @@ u8 search_bd_name_filt(char *data, u8 len, u32 dev_class, char rssi)
         return FALSE;
     }
 
+    memset(bd_name, 0, sizeof(bd_name));
     memcpy(bd_name, data, len);
     log_info("name:%s,len:%d,class %x ,rssi %d\n", bd_name, len, dev_class, rssi);
 #if 0
@@ -612,25 +622,25 @@ void emitter_rx_avctp_opid_deal(u8 cmd, u8 id)
     switch (cmd) {
     case AVCTP_OPID_NEXT:
         log_info("AVCTP_OPID_NEXT\n");
-        app_common_key_var_2_event(KEY_MUSIC_NEXT);
+        app_task_put_key_msg(KEY_MUSIC_NEXT, 0);
         break;
     case AVCTP_OPID_PREV:
         log_info("AVCTP_OPID_PREV\n");
-        app_common_key_var_2_event(KEY_MUSIC_PREV);
+        app_task_put_key_msg(KEY_MUSIC_PREV, 0);
         break;
     case AVCTP_OPID_PAUSE:
     case AVCTP_OPID_PLAY:
     case AVCTP_OPID_STOP:
         log_info("AVCTP_OPID_PP\n");
-        app_common_key_var_2_event(KEY_BT_EMITTER_SW);
+        app_task_put_key_msg(KEY_BT_EMITTER_SW, 0);
         break;
     case AVCTP_OPID_VOLUME_UP:
         log_info("AVCTP_OPID_VOLUME_UP\n");
-        app_common_key_var_2_event(KEY_VOL_UP);
+        app_task_put_key_msg(KEY_VOL_UP, 0);
         break;
     case AVCTP_OPID_VOLUME_DOWN:
         log_info("AVCTP_OPID_VOLUME_DOWN\n");
-        app_common_key_var_2_event(KEY_VOL_DOWN);
+        app_task_put_key_msg(KEY_VOL_DOWN, 0);
         break;
     default:
         break;
@@ -735,6 +745,7 @@ u8 bt_emitter_stu_sw(void)
 #define ESCO_ADC_IRQ_POINTS     256
 #define ESCO_ADC_BUFS_SIZE      (ESCO_ADC_BUF_NUM * ESCO_ADC_IRQ_POINTS)
 
+#if 0
 struct bt_emitter_mic_hdl {
     struct audio_adc_output_hdl adc_output;
     struct adc_mic_ch mic_ch;
@@ -834,6 +845,265 @@ int bt_emitter_mic_open(void)
     bt_emitter_mic->start = 1;
     return 0;
 }
+
+#else
+
+#include "audio_dec.h"
+#include "clock_cfg.h"
+#include "media/pcm_decoder.h"
+
+#define BT_EMITTER_PCM_BUF_LEN			(3*1024)
+
+struct bt_emitter_mic_dec_hdl {
+    struct audio_stream *stream;	// 音频流
+    struct pcm_decoder pcm_dec;		// pcm解码句柄
+    struct audio_res_wait wait;		// 资源等待句柄
+    struct audio_mixer_ch mix_ch;	// 叠加句柄
+    u32 id;				// 唯一标识符，随机值
+    u32 start : 1;		// 正在解码
+    u32 mic_start : 1;
+    struct audio_adc_output_hdl adc_output;
+    struct adc_mic_ch mic_ch;
+    s16 adc_buf[ESCO_ADC_BUFS_SIZE];    //align 4Bytes
+    u8  pcm_buf[BT_EMITTER_PCM_BUF_LEN];
+    cbuffer_t cbuf;
+    u32 lost;
+    u32 cbuf_use_max;
+};
+
+static struct bt_emitter_mic_dec_hdl *bt_emitter_mic_dec = NULL;
+
+extern struct audio_adc_hdl adc_hdl;
+
+
+static void adc_mic_output_handler(void *priv, s16 *data, int len)
+{
+    struct bt_emitter_mic_dec_hdl *dec = bt_emitter_mic_dec;
+    if (!dec || !dec->start) {
+        return ;
+    }
+    int wlen = cbuf_write(&dec->cbuf, data, len);
+    if (wlen != len) {
+        dec->lost++;
+    }
+    u32 max = cbuf_get_data_len(&dec->cbuf);
+    if (dec->cbuf_use_max < max) {
+        dec->cbuf_use_max = max;
+    }
+    audio_decoder_resume(&dec->pcm_dec.decoder);
+}
+
+static int bt_emitter_mic_dec_read(void *hdl, void *data, int len)
+{
+    struct bt_emitter_mic_dec_hdl *dec = hdl;
+    return cbuf_read(&dec->cbuf, data, len);
+}
+
+static int bt_emitter_mic_dec_size(void *hdl)
+{
+    struct bt_emitter_mic_dec_hdl *dec = hdl;
+    return cbuf_get_data_size(&dec->cbuf);
+}
+static int bt_emitter_mic_dec_total(void *hdl)
+{
+    struct bt_emitter_mic_dec_hdl *dec = hdl;
+    return dec->cbuf.total_len;
+}
+
+static void bt_emitter_mic_dec_relaese()
+{
+    if (bt_emitter_mic_dec) {
+        audio_decoder_task_del_wait(&decode_task, &bt_emitter_mic_dec->wait);
+        clock_remove(AUDIO_CODING_PCM);
+        local_irq_disable();
+        free(bt_emitter_mic_dec);
+        bt_emitter_mic_dec = NULL;
+        local_irq_enable();
+    }
+}
+
+static void bt_emitter_mic_dec_event_handler(struct audio_decoder *decoder, int argc, int *argv)
+{
+    switch (argv[0]) {
+    case AUDIO_DEC_EVENT_END:
+        if (!bt_emitter_mic_dec) {
+            log_i("bt_emitter_mic_dec handle err ");
+            break;
+        }
+        if (bt_emitter_mic_dec->id != argv[1]) {
+            log_w("bt_emitter_mic_dec id err : 0x%x, 0x%x \n", bt_emitter_mic_dec->id, argv[1]);
+            break;
+        }
+        bt_emitter_mic_close();
+        break;
+    }
+}
+
+static void bt_emitter_mic_dec_out_stream_resume(void *p)
+{
+    struct bt_emitter_mic_dec_hdl *dec = p;
+    audio_decoder_resume(&dec->pcm_dec.decoder);
+}
+
+int bt_emitter_mic_dec_start()
+{
+    int err;
+    struct bt_emitter_mic_dec_hdl *dec = bt_emitter_mic_dec;
+    struct audio_mixer *p_mixer = &mixer;
+
+    if (!bt_emitter_mic_dec) {
+        return -EINVAL;
+    }
+
+    err = pcm_decoder_open(&dec->pcm_dec, &decode_task);
+    if (err) {
+        goto __err1;
+    }
+
+    bt_emitter_set_vol(app_var.music_volume);
+    audio_sbc_enc_reset_buf(1);
+
+    // 打开mic驱动
+    audio_adc_mic_open(&dec->mic_ch, AUDIO_ADC_MIC_CH, &adc_hdl);
+    audio_adc_mic_set_sample_rate(&dec->mic_ch, dec->pcm_dec.sample_rate);
+    audio_adc_mic_set_gain(&dec->mic_ch, app_var.aec_mic_gain);
+    audio_adc_mic_set_buffs(&dec->mic_ch, dec->adc_buf,
+                            ESCO_ADC_IRQ_POINTS * 2, ESCO_ADC_BUF_NUM);
+    dec->adc_output.handler = adc_mic_output_handler;
+    audio_adc_add_output_handler(&adc_hdl, &dec->adc_output);
+
+    cbuf_init(&dec->cbuf, dec->pcm_buf, sizeof(dec->pcm_buf));
+
+    audio_adc_mic_start(&dec->mic_ch);
+    dec->mic_start = 1;
+
+    pcm_decoder_set_event_handler(&dec->pcm_dec, bt_emitter_mic_dec_event_handler, dec->id);
+    pcm_decoder_set_read_data(&dec->pcm_dec, bt_emitter_mic_dec_read, dec);
+
+    // 设置叠加功能
+    audio_mixer_ch_open_head(&dec->mix_ch, p_mixer);
+    struct audio_mixer_ch_sync_info info = {0};
+    info.priv = dec;
+    info.get_total = bt_emitter_mic_dec_total;
+    info.get_size = bt_emitter_mic_dec_size;
+    audio_mixer_ch_set_sync(&dec->mix_ch, &info, 1, 1);
+
+    // 数据流串联
+    struct audio_stream_entry *entries[8] = {NULL};
+    u8 entry_cnt = 0;
+    entries[entry_cnt++] = &dec->pcm_dec.decoder.entry;
+    entries[entry_cnt++] = &dec->mix_ch.entry;
+    dec->stream = audio_stream_open(dec, bt_emitter_mic_dec_out_stream_resume);
+    audio_stream_add_list(dec->stream, entries, entry_cnt);
+
+
+    audio_output_set_start_volume(APP_AUDIO_STATE_MUSIC);
+
+    dec->start = 1;
+    err = audio_decoder_start(&dec->pcm_dec.decoder);
+    if (err) {
+        goto __err3;
+    }
+    clock_set_cur();
+    return 0;
+__err3:
+    dec->start = 0;
+    if (dec->mic_start) {
+        audio_adc_mic_close(&dec->mic_ch);
+        audio_adc_del_output_handler(&adc_hdl, &dec->adc_output);
+        dec->mic_start = 0;
+    }
+    audio_mixer_ch_close(&dec->mix_ch);
+    if (dec->stream) {
+        audio_stream_close(dec->stream);
+        dec->stream = NULL;
+    }
+    pcm_decoder_close(&dec->pcm_dec);
+__err1:
+    bt_emitter_mic_dec_relaese();
+    return err;
+}
+
+static void __bt_emitter_mic_dec_close(void)
+{
+    if (bt_emitter_mic_dec && bt_emitter_mic_dec->start) {
+        bt_emitter_mic_dec->start = 0;
+
+        pcm_decoder_close(&bt_emitter_mic_dec->pcm_dec);
+
+        bt_emitter_mic_dec->mic_start = 0;
+        audio_adc_mic_close(&bt_emitter_mic_dec->mic_ch);
+        audio_adc_del_output_handler(&adc_hdl, &bt_emitter_mic_dec->adc_output);
+
+        audio_mixer_ch_close(&bt_emitter_mic_dec->mix_ch);
+
+        if (bt_emitter_mic_dec->stream) {
+            audio_stream_close(bt_emitter_mic_dec->stream);
+            bt_emitter_mic_dec->stream = NULL;
+        }
+    }
+}
+
+static int bt_emitter_mic_wait_res_handler(struct audio_res_wait *wait, int event)
+{
+    int err = 0;
+    log_i("bt_emitter_mic_wait_res_handler, event:%d\n", event);
+    if (event == AUDIO_RES_GET) {
+        // 启动解码
+        err = bt_emitter_mic_dec_start();
+    } else if (event == AUDIO_RES_PUT) {
+        // 被打断
+        __bt_emitter_mic_dec_close();
+    }
+
+    return err;
+}
+
+void bt_emitter_mic_close(void)
+{
+    if (!bt_emitter_mic_dec) {
+        return;
+    }
+
+    __bt_emitter_mic_dec_close();
+    bt_emitter_mic_dec_relaese();
+    clock_set_cur();
+    log_i("bt_emitter_mic dec close \n\n ");
+}
+
+int bt_emitter_mic_open(void)
+{
+    if (bt_user_priv_var.emitter_or_receiver != BT_EMITTER_EN) {
+        return 0;
+    }
+    bt_emitter_mic_close();
+
+    int err;
+    struct bt_emitter_mic_dec_hdl *dec;
+    dec = zalloc(sizeof(*dec));
+    if (!dec) {
+        return -ENOMEM;
+    }
+    bt_emitter_mic_dec = dec;
+
+    dec->id = rand32();
+    dec->pcm_dec.ch_num = 1;
+    dec->pcm_dec.output_ch_num = audio_sbc_enc_get_channel_num();
+    dec->pcm_dec.sample_rate = audio_sbc_enc_get_rate();
+
+    dec->wait.priority = 2;
+    dec->wait.preemption = 1;
+    dec->wait.handler = bt_emitter_mic_wait_res_handler;
+    clock_add(AUDIO_CODING_PCM);
+
+    err = audio_decoder_task_add_wait(&decode_task, &dec->wait);
+    return err;
+}
+
+
+#endif
+
+
 
 void audio_sbc_enc_open_exit(void)
 {
@@ -1009,6 +1279,12 @@ void emitter_media_source(u8 source, u8 en)
 void emitter_or_receiver_switch(u8 flag)
 {
 }
+
+u8 bt_search_status()
+{
+    return 0;
+}
+
 #endif
 
 

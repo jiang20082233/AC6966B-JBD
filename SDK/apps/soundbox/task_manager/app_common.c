@@ -22,7 +22,6 @@
 #include "ui/ui_api.h"
 #include "fm_emitter/fm_emitter_manage.h"
 #include "common/fm_emitter_led7_ui.h"
-#include "audio_reverb.h"
 #if TCFG_CHARGE_ENABLE
 #include "app_charge.h"
 #endif
@@ -37,6 +36,7 @@
 #include "tone_player.h"
 #include "ui_manage.h"
 #include "soundbox.h"
+#include "audio_recorder_mix.h"
 
 #define LOG_TAG_CONST       APP_ACTION
 #define LOG_TAG             "[APP_ACTION]"
@@ -54,13 +54,7 @@ extern u32 timer_get_ms(void);
 extern int alarm_sys_event_handler(struct sys_event *event);
 extern void bt_tws_sync_volume();
 
-#if 1//(!TCFG_APP_MUSIC_EN)
-#define music_play_usb_host_mount_before(...)
-#define music_play_usb_host_mount_after(...)
-#endif//(!TCFG_APP_MUSIC_EN)
 
-extern void reverb_eq_cal_coef(u8 filtN, int gainN, u8 sw);
-extern u8 app_common_key_event_get(struct key_event *key);
 int app_common_key_msg_deal(struct sys_event *event)
 {
     int ret = false;
@@ -223,6 +217,12 @@ int app_common_key_msg_deal(struct sys_event *event)
 #endif
 #if (TCFG_MIC_EFFECT_ENABLE)
     case KEY_REVERB_OPEN:
+#if TCFG_USER_TWS_ENABLE
+        if (!key->init) {
+            break;
+        }
+#endif
+
         if (mic_effect_get_status()) {
             mic_effect_stop();
         } else {
@@ -230,6 +230,17 @@ int app_common_key_msg_deal(struct sys_event *event)
         }
         break;
 #endif
+    case KEY_ENC_START:
+#if (RECORDER_MIX_EN)
+        if (recorder_mix_get_status()) {
+            printf("recorder_encode_stop\n");
+            recorder_mix_stop();
+        } else {
+            printf("recorder_encode_start\n");
+            recorder_mix_start();
+        }
+#endif/*RECORDER_MIX_EN*/
+        break;
     default:
         ui_key_msg_post(key_event);
 #ifdef CONFIG_BOARD_AC695X_SOUNDCARD
@@ -418,6 +429,8 @@ void app_default_event_deal(struct sys_event *event)
 }
 
 
+#if 0
+extern int key_event_remap(struct sys_event *e);
 extern const u16 bt_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX];
 u8 app_common_key_var_2_event(u32 key_var)
 {
@@ -434,13 +447,29 @@ u8 app_common_key_var_2_event(u32 key_var)
                 e.u.key.value = key_value;
                 /* e.u.key.tmr = timer_get_ms(); */
                 e.arg  = (void *)DEVICE_EVENT_FROM_KEY;
-                sys_event_notify(&e);
                 /* printf("key2event:%d %d %d\n", key_var, key_value, key_event); */
-                return true;
+                if (key_event_remap(&e)) {
+                    sys_event_notify(&e);
+                    return true;
+                }
             }
         }
     }
 #endif
     return false;
 }
+
+#else
+
+u8 app_common_key_var_2_event(u32 key_var)
+{
+    struct sys_event e = {0};
+    e.type = SYS_KEY_EVENT;
+    e.u.key.type = KEY_DRIVER_TYPE_SOFTKEY;
+    e.u.key.event = key_var;
+    e.arg  = (void *)DEVICE_EVENT_FROM_KEY;
+    sys_event_notify(&e);
+    return true;
+}
+#endif
 

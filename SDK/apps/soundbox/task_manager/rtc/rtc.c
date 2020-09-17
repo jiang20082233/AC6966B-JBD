@@ -9,10 +9,15 @@
 #include "ui/ui_api.h"
 #include "rtc/alarm.h"
 #include "rtc/rtc_ui.h"
-#include "audio_reverb.h"
 #include "clock_cfg.h"
 #include "ui/ui_style.h"
 #include "ui_manage.h"
+
+/*************************************************************
+   此文件函数主要是rtc模式按键处理和事件处理
+
+**************************************************************/
+
 
 #if TCFG_APP_RTC_EN
 
@@ -72,44 +77,6 @@ const char *alm_select[] =  {"AL-1", "AL-2", "AL-3", "AL-4", "AL-5"};
 
 
 
-void app_fake_rtc_tick()
-{
-#if (defined(TCFG_USE_FAKE_RTC) && (TCFG_USE_FAKE_RTC))
-    extern void write_sys_time(struct sys_time * curr_time);
-    extern void read_sys_time(struct sys_time * curr_time);
-    extern void is_alm_come(void);
-
-    static u8 cnt = 0;
-    struct sys_time temp_time;
-    cnt++;
-    if (cnt == 2) {
-        cnt = 0;
-        read_sys_time(&temp_time);
-        if (++temp_time.sec >= 60) {
-            temp_time.sec = 0;
-            if (++temp_time.min >= 60) {
-                temp_time.min = 0;
-                if (++temp_time.hour >= 24) {
-                    temp_time.hour = 0;
-                    if (++temp_time.day > month_for_day(temp_time.month, temp_time.year)) {
-                        temp_time.day = 1;
-                        if (++temp_time.month > 12) {
-                            temp_time.month = 1;
-                            if (++temp_time.year > MAX_YEAR) {
-                                temp_time.year = MIN_YEAR;
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        write_sys_time(&temp_time);
-    }
-    is_alm_come();
-    /* putchar('T'); */
-#endif
-}
-
 
 static void ui_set_rtc_timeout(u8 menu)
 {
@@ -128,7 +95,7 @@ struct ui_rtc_display *__attribute__((weak)) rtc_ui_get_display_buf()
 
 
 //*----------------------------------------------------------------------------*/
-/**@brief    rtc 闹钟开关设置 \ 时间设置使能
+/**@brief    rtc 闹钟设置 \ 时间设置转换
    @param    无
    @return
    @note
@@ -181,7 +148,7 @@ static void set_rtc_sw()
 /*----------------------------------------------------------------------------*/
 static void set_rtc_pos()
 {
-    T_ALARM alarm;
+    T_ALARM alarm = {0};
     if ((!__this) || (!__this->dev_handle)) {
         return;
     }
@@ -209,6 +176,7 @@ static void set_rtc_pos()
         }
 
         rtc->rtc_menu = UI_RTC_ACTION_YEAR_SET + (__this->rtc_pos - RTC_POS_YEAR);
+
         rtc->time.Year = __this->set_time.year;
         rtc->time.Month = __this->set_time.month;
         rtc->time.Day = __this->set_time.day;
@@ -226,16 +194,17 @@ static void set_rtc_pos()
                 log_error("alarm_get_info \n");
             }
 
-            __this->set_time.hour = alarm.time.bHour;
-            __this->set_time.min = alarm.time.bMin;
+            __this->set_time.hour = alarm.time.hour;
+            __this->set_time.min = alarm.time.min;
             __this->alm_enable = alarm.sw;
+
         } else {
             __this->rtc_pos++;
             if (__this->rtc_pos == ALM_POS_MAX) {
                 __this->rtc_pos = RTC_POS_NULL;
-                alarm.time.bHour = __this->set_time.hour;
-                alarm.time.bMin  = __this->set_time.min;
-                alarm.time.bSec  = 0;
+                alarm.time.hour = __this->set_time.hour;
+                alarm.time.min  = __this->set_time.min;
+                alarm.time.sec  = 0;
                 alarm.sw = __this->alm_enable;
                 alarm.index = __this->alm_num;
                 alarm.mode  = 0;
@@ -666,7 +635,14 @@ void app_rtc_task()
 {
     int res;
     int msg[32];
+#if (SMART_BOX_EN)
+    extern u8 smartbox_rtc_ring_tone(void);
+    if (smartbox_rtc_ring_tone()) {
+        tone_play_by_path(tone_table[IDEX_TONE_RTC], 1);
+    }
+#else
     tone_play_by_path(tone_table[IDEX_TONE_RTC], 1);
+#endif
     rtc_task_start();
 
     while (1) {
@@ -697,10 +673,6 @@ void app_rtc_task()
 
 }
 
-void app_fake_rtc_tick()
-{
-    putchar('T');
-}
 #endif
 
 

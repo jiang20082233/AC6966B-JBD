@@ -96,7 +96,13 @@ void mic_eq_drc_update();
 void mic_high_bass_coeff_cal_init(BFILT_API_STRUCT *filt, u16 sample_rate);
 void mic_high_bass_coeff_cal_uninit(BFILT_API_STRUCT *filt);
 void mic_effect_echo_parm_parintf(ECHO_PARM_SET *parm);
-
+/*----------------------------------------------------------------------------*/
+/**@brief    mic数据流音效处理参数更新
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 static void mic_effect_parm_update(struct __mic_effect *effect)
 {
     for (int i = 0; i < MASK_MAX; i++) {
@@ -154,7 +160,13 @@ static void mic_effect_parm_update(struct __mic_effect *effect)
         }
     }
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    mic混响参数淡入淡出处理
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 static void mic_effect_fade_run(struct __mic_effect *effect)
 {
     if (effect == NULL) {
@@ -200,7 +212,13 @@ static void mic_effect_fade_run(struct __mic_effect *effect)
     }
 #endif
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    mic数据流串接入口
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 /* #define TEST_PORT IO_PORTA_00 */
 static u32 mic_effect_effect_run(void *priv, void *in, void *out, u32 inlen, u32 outlen)
 {
@@ -233,6 +251,14 @@ static u32 mic_effect_effect_run(void *priv, void *in, void *out, u32 inlen, u32
     /* gpio_direction_output(TEST_PORT, 0); */
     return outlen;
 }
+
+/*----------------------------------------------------------------------------*/
+/**@brief   释放mic数据流资源
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 static void mic_effect_destroy(struct __mic_effect **hdl)
 {
     if (hdl == NULL || *hdl == NULL) {
@@ -297,13 +323,26 @@ static void mic_effect_destroy(struct __mic_effect **hdl)
     mem_stats();
     clock_remove_set(REVERB_CLK);
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    串流唤醒
+   @param
+   @return
+   @note 暂未使用
+*/
+/*----------------------------------------------------------------------------*/
 static void mic_stream_resume(void *p)
 {
     struct __mic_effect *effect = (struct __mic_effect *)p;
     /* audio_decoder_resume_all(&decode_task); */
 }
 
+/*----------------------------------------------------------------------------*/
+/**@brief    串流数据处理长度回调
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 static void mic_effect_data_process_len(struct audio_stream_entry *entry, int len)
 {
 
@@ -311,6 +350,14 @@ static void mic_effect_data_process_len(struct audio_stream_entry *entry, int le
     effect->out_len += len;
     /* printf("out len[%d]",effect->out_len); */
 }
+
+/*----------------------------------------------------------------------------*/
+/**@brief    (mic数据流)混响打开接口
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 bool mic_effect_start(void)
 {
     bool ret = false;
@@ -330,7 +377,7 @@ bool mic_effect_start(void)
 
     if ((effect->parm.effect_config & BIT(MIC_EFFECT_CONFIG_REVERB))
         && (effect->parm.effect_config & BIT(MIC_EFFECT_CONFIG_ECHO))) {
-        log_e("effect config err !!!, cann't support echo && reverb at the same time\n");
+        log_e("effect config err ?? !!!, cann't support echo && reverb at the same time\n");
         mic_effect_destroy(&effect);
         return false;
     }
@@ -359,7 +406,7 @@ bool mic_effect_start(void)
     }
     ///初始化数字音量
     if (effect->parm.effect_config & BIT(MIC_EFFECT_CONFIG_DVOL)) {
-        effect->d_vol = audio_dig_vol_open(&effect_dvol_default_parm);
+        /* effect->d_vol = audio_dig_vol_open(&effect_dvol_default_parm); */
     }
     ///滤波器初始化
     if (effect->parm.effect_config & BIT(MIC_EFFECT_CONFIG_FILT)) {
@@ -442,26 +489,51 @@ bool mic_effect_start(void)
     mic_effect_change_mode(0);
     return true;
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    (mic数据流)混响关闭接口
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void mic_effect_stop(void)
 {
     mic_effect_destroy(&__this);
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    (mic数据流)混响暂停接口
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void mic_effect_pause(u8 mark)
 {
     if (__this) {
         __this->pause_mark = mark ? 1 : 0;
     }
 }
+
+/*----------------------------------------------------------------------------*/
+/**@brief    (mic数据流)混响状态获取接口
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 u8 mic_effect_get_status(void)
 {
     printf("\n--func=%s\n", __FUNCTION__);
     return ((__this) ? 1 : 0);
 }
 
-
-//数字音量调节接口
+/*----------------------------------------------------------------------------*/
+/**@brief    数字音量调节接口
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void mic_effect_set_dvol(u8 vol)
 {
     if (__this == NULL) {
@@ -477,7 +549,14 @@ u8 mic_effect_get_dvol(void)
     return 0;
 }
 
-//reverb 参数调节接口
+
+/*----------------------------------------------------------------------------*/
+/**@brief    reverb 效果声增益调节接口
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void mic_effect_set_reverb_wet(int wet)
 {
     if (__this == NULL || __this->p_reverb_hdl == NULL) {
@@ -495,8 +574,13 @@ int mic_effect_get_reverb_wet(void)
     }
     return 0;
 }
-
-//echo 参数调节接口
+/*----------------------------------------------------------------------------*/
+/**@brief    echo 回声延时调节接口
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void mic_effect_set_echo_delay(u32 delay)
 {
     if (__this == NULL || __this->p_echo_hdl == NULL) {
@@ -513,6 +597,13 @@ u32 mic_effect_get_echo_delay(void)
     }
     return 0;
 }
+/*----------------------------------------------------------------------------*/
+/**@brief    echo 回声衰减系数调节接口
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void mic_effect_set_echo_decay(u32 decay)
 {
     if (__this == NULL || __this->p_echo_hdl == NULL) {
@@ -530,7 +621,13 @@ u32 mic_effect_get_echo_decay(void)
     }
     return 0;
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    设置各类音效运行标记
+   @param
+   @return
+   @note 暂不使用
+*/
+/*----------------------------------------------------------------------------*/
 void mic_effect_set_function_mask(u32 mask)
 {
     if (__this == NULL) {
@@ -540,7 +637,13 @@ void mic_effect_set_function_mask(u32 mask)
     __this->parm.effect_run = mask;
     os_mutex_post(&__this->mutex);
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    获取各类音效运行标记
+   @param
+   @return
+   @note 暂不使用
+*/
+/*----------------------------------------------------------------------------*/
 u32 mic_effect_get_function_mask(void)
 {
     if (__this) {
@@ -548,7 +651,13 @@ u32 mic_effect_get_function_mask(void)
     }
     return 0;
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    喊mic效果系数计算
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 static void mic_effect_shout_wheat_cal_coef(int sw)
 {
     log_info("%s %d\n", __FUNCTION__, __LINE__);
@@ -575,7 +684,13 @@ static void mic_effect_shout_wheat_cal_coef(int sw)
     os_mutex_post(&__this->mutex);
 #endif
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    低音系数计算
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 static void mic_effect_low_sound_cal_coef(int gainN)
 {
     log_info("%s %d\n", __FUNCTION__, __LINE__);
@@ -604,7 +719,13 @@ static void mic_effect_low_sound_cal_coef(int gainN)
     os_mutex_post(&__this->mutex);
 #endif
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    高音系数计算
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 static void mic_effect_high_sound_cal_coef(int gainN)
 {
     log_info("%s %d\n", __FUNCTION__, __LINE__);
@@ -678,7 +799,13 @@ u8 mic_effect_eq_section_num(void)
 {
     return (EQ_SECTION_MAX + 3);
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    reverb 混响参数更新
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void mic_effect_reverb_parm_fill(REVERBN_PARM_SET *parm, u8 fade, u8 online)
 {
 
@@ -712,6 +839,13 @@ void mic_effect_reverb_parm_fill(REVERBN_PARM_SET *parm, u8 fade, u8 online)
     os_mutex_post(&__this->mutex);
 #endif
 }
+/*----------------------------------------------------------------------------*/
+/**@brief    echo 混响参数更新
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void mic_effect_echo_parm_fill(ECHO_PARM_SET *parm, u8 fade, u8 online)
 {
 
@@ -747,7 +881,13 @@ void mic_effect_echo_parm_fill(ECHO_PARM_SET *parm, u8 fade, u8 online)
     os_mutex_post(&__this->mutex);
 #endif
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    变声参数直接更新
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void set_pitch_para(u32 shiftv, u32 sr, u8 effect, u32 formant_shift)
 {
     if (__this == NULL || __this->p_pitch_hdl == NULL) {
@@ -767,7 +907,13 @@ void set_pitch_para(u32 shiftv, u32 sr, u8 effect, u32 formant_shift)
     update_pict_parm(__this->p_pitch_hdl);
 
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    变声参数更新
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void mic_effect_pitch_parm_fill(PITCH_PARM_SET2 *parm, u8 fade, u8 online)
 {
 
@@ -794,6 +940,14 @@ void mic_effect_pitch_parm_fill(PITCH_PARM_SET2 *parm, u8 fade, u8 online)
     os_mutex_post(&__this->mutex);
 #endif
 }
+
+/*----------------------------------------------------------------------------*/
+/**@brief    噪声抑制参数更新
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void mic_effect_noisegate_parm_fill(NOISE_PARM_SET *parm, u8 fade, u8 online)
 {
     if (__this == NULL || __this->p_noisegate_hdl == NULL) {
@@ -817,7 +971,13 @@ void mic_effect_noisegate_parm_fill(NOISE_PARM_SET *parm, u8 fade, u8 online)
     pause_noisegate(__this->p_noisegate_hdl, 0);
     os_mutex_post(&__this->mutex);
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    喊mic参数更新
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void mic_effect_shout_wheat_parm_fill(SHOUT_WHEAT_PARM_SET *parm, u8 fade, u8 online)
 {
     log_info("%s %d\n", __FUNCTION__, __LINE__);
@@ -872,6 +1032,14 @@ void mic_effect_high_sound_parm_fill(HIGH_SOUND_PARM_SET *parm, u8 fade, u8 onli
     __this->update_mask |= BIT(MASK_HIGH_SOUND);
     os_mutex_post(&__this->mutex);
 }
+
+/*----------------------------------------------------------------------------*/
+/**@brief    mic增益调节
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void mic_effect_mic_gain_parm_fill(EFFECTS_MIC_GAIN_PARM *parm, u8 fade, u8 online)
 {
     log_info("%s %d\n", __FUNCTION__, __LINE__);
@@ -880,17 +1048,39 @@ void mic_effect_mic_gain_parm_fill(EFFECTS_MIC_GAIN_PARM *parm, u8 fade, u8 onli
     }
     audio_mic_set_gain(parm->gain);
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    mic效果模式切换（数据流音效组合切换）
+   @param
+   @return
+   @note 使用效果配置文件时生效
+*/
+/*----------------------------------------------------------------------------*/
 void mic_effect_change_mode(u16 mode)
 {
     effect_cfg_change_mode(mode);
 }
-
+/*----------------------------------------------------------------------------*/
+/**@brief    获取mic效果模式（数据流音效组合）
+   @param
+   @return
+   @note 使用效果配置文件时生效
+*/
+/*----------------------------------------------------------------------------*/
 u16 mic_effect_get_cur_mode(void)
 {
     return effect_cfg_get_cur_mode();
 }
 
+
+
+
+/*----------------------------------------------------------------------------*/
+/**@brief    eq接口
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
 void mic_eq_drc_update()
 {
     local_irq_disable();

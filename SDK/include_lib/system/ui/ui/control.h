@@ -27,6 +27,10 @@ struct layout_info;
 #define CTRL_PROGRESS_CHILD_HIGHLIGHT   (CTRL_PROGRESS_CHILD_BEGIN)
 #define CTRL_PROGRESS_CHILD_END     (CTRL_PROGRESS_CHILD_BEGIN + 1)
 
+#define CTRL_TYPE_MULTIPROGRESS          32
+#define CTRL_MULTIPROGRESS_CHILD_BEGIN   (CTRL_TYPE_MULTIPROGRESS + 1)
+#define CTRL_MULTIPROGRESS_CHILD_HIGHLIGHT   (CTRL_MULTIPROGRESS_CHILD_BEGIN)
+#define CTRL_MULTIPROGRESS_CHILD_END     (CTRL_MULTIPROGRESS_CHILD_BEGIN + 1)
 
 #define CTRL_TYPE_WATCH 			40
 #define CTRL_WATCH_CHILD_BEGIN  	(CTRL_TYPE_WATCH + 1)
@@ -193,6 +197,12 @@ struct ui_watch_info {
 };
 
 struct ui_progress_info {
+    struct ui_ctrl_info_head head;
+    struct element_event_action *action;
+    struct ui_ctrl_info_head *ctrl;
+};
+
+struct ui_multiprogress_info {
     struct ui_ctrl_info_head head;
     struct element_event_action *action;
     struct ui_ctrl_info_head *ctrl;

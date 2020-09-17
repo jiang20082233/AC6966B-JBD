@@ -288,6 +288,7 @@ int uac_mic_stream_read(u8 *buf, u32 len)
         r_ch += 2;
     }
     /* memcpy(buf, sin_48k, len); */
+    return len;
 #else
     if (mic_tx_handler) {
         return mic_tx_handler(0, buf, len);

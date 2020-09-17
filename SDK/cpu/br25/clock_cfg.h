@@ -47,6 +47,7 @@ enum {
     DEC_DTS_CLK	,
 
     DEC_M4A_CLK	,    ///20
+    DEC_ALAC_CLK,
     DEC_FM_CLK	,
     DEC_LINE_CLK,
     DEC_TWS_SBC_CLK,
@@ -76,6 +77,7 @@ enum {
 
     DEC_MP3PICK_CLK	,
     DEC_WMAPICK_CLK	,
+    DEC_M4APICK_CLK	,
     DEC_MIX_CLK,
 
     DEC_IIS_CLK,
@@ -86,6 +88,7 @@ enum {
     DEC_VBASS_CLK,
     DEC_LOUDNES_CLK,
 
+    DONGLE_ENC_CLK,
 
     ENUM_MAX_CLK = 63	,
 };

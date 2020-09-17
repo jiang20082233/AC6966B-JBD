@@ -101,6 +101,7 @@ static const uint8_t profile_data[] = {
 #define ATTR_TYPE_EQ_SETTING		(8)
 #define ATTR_TYPE_HIGH_LOW_VOL		(9)
 #define ATTR_TYPE_VOL_SETTING		(10)
+#define ATTR_TYPE_MISC_SETTING		(11)
 
 #ifndef JL_SMART_BOX_CUSTOM_APP_EN
 //rcsp功能模块使能

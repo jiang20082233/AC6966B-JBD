@@ -46,7 +46,6 @@
 #include "soundcard/soundcard.h"
 
 #include "audio_dec.h"
-#include "audio_reverb.h"
 #include "tone_player.h"
 #include "dac.h"
 
@@ -62,6 +61,8 @@
 
 #if TCFG_APP_BT_EN
 #define __this 	(&app_bt_hdl)
+
+extern void bt_drop_a2dp_frame_start(void);
 
 /*************************************************************
 
@@ -121,7 +122,7 @@ static void bt_resume_deal(void)
 /*----------------------------------------------------------------------------*/
 int bt_must_work(void)
 {
-    if (app_var.siri_stu) {
+    if ((app_var.siri_stu) && (app_var.siri_stu != 3)) {
         // siri不退出
         return true;
     }
@@ -145,7 +146,7 @@ int bt_must_work(void)
    @note
 */
 /*----------------------------------------------------------------------------*/
-static int a2dp_media_packet_play_start(void *p)
+static void a2dp_media_packet_play_start(void *p)
 {
     __this->back_mode_systime = 0;
     if ((__this->exit_flag == 0) || (__this->sbc_packet_step == 2)) {
@@ -162,7 +163,6 @@ static int a2dp_media_packet_play_start(void *p)
         event.u.bt.value = __this->a2dp_decoder_type;
         sys_event_notify(&event);
     }
-    return 0;
 }
 
 /*----------------------------------------------------------------------------*/
@@ -411,9 +411,6 @@ static void bt_no_background_exit_check(void *priv)
 #if TCFG_USER_BLE_ENABLE
     bt_ble_exit();
 #endif
-#if TCFG_USER_TWS_ENABLE
-    bt_tws_poweroff();
-#endif
     btstack_exit();
     log_info("bt_exit_check ok\n");
     __this->exit_flag = 1;
@@ -487,6 +484,11 @@ static u8 bt_background_poweroff_exit()
     __this->exiting = 1;
     set_stack_exiting(1);
 
+
+#if TCFG_USER_TWS_ENABLE
+    bt_tws_poweroff();
+#endif
+
     user_send_cmd_prepare(USER_CTRL_WRITE_SCAN_DISABLE, 0, NULL);
     user_send_cmd_prepare(USER_CTRL_WRITE_CONN_DISABLE, 0, NULL);
     user_send_cmd_prepare(USER_CTRL_PAGE_CANCEL, 0, NULL);
@@ -520,6 +522,9 @@ static u8 bt_nobackground_exit()
     __this->exiting = 1;
     set_stack_exiting(1);
     __a2dp_drop_frame(NULL);//临时解决非后台退出杂音问题
+#if TCFG_USER_TWS_ENABLE
+    bt_tws_poweroff();
+#endif
     user_send_cmd_prepare(USER_CTRL_WRITE_SCAN_DISABLE, 0, NULL);
     user_send_cmd_prepare(USER_CTRL_WRITE_CONN_DISABLE, 0, NULL);
     user_send_cmd_prepare(USER_CTRL_PAGE_CANCEL, 0, NULL);
@@ -946,4 +951,10 @@ void bt_init_bredr()
     __this->bt_close_bredr = 0;
     bt_wait_phone_connect_control(1);
 }
+
+u8 bt_get_task_state()
+{
+    return __this->exiting;
+}
+
 #endif

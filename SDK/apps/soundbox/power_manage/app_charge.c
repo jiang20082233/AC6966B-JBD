@@ -343,7 +343,7 @@ void charge_ldo5v_off_deal(void)
 #if TCFG_SYS_LVD_EN
             extern void vbat_timer_update(u32 msec);
             vbat_check_init();
-            vbat_timer_update(2);
+            vbat_timer_update(20);
 #endif
             if ((app != APP_BT_TASK) && (app_var.goto_poweroff_flag == 0)) {
 #if TCFG_SYS_LVD_EN
@@ -364,8 +364,8 @@ void charge_ldo5v_off_deal(void)
 #if TCFG_CHARGESTORE_ENABLE
         } else {
             log_info("ldo5v off,enter softpoweroff\n");
-            if (app && (!strcmp(app->name, APP_NAME_BT))) { //软关机
-                sys_enter_soft_poweroff(NULL);
+            if (app != APP_IDLE_TASK) {
+                sys_enter_soft_poweroff(NULL);//软关机
             } else {
                 power_set_soft_poweroff();
             }

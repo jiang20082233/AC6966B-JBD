@@ -192,9 +192,12 @@ void tws_network_local_audio_start(void)
 
 bool get_tws_sibling_connect_state(void)
 {
-    if (gtws.state & BT_TWS_SIBLING_CONNECTED) {
+    if (tws_api_get_tws_state() & TWS_STA_SIBLING_CONNECTED) {
         return TRUE;
     }
+    /* if (gtws.state & BT_TWS_SIBLING_CONNECTED) { */
+    /*     return TRUE; */
+    /* } */
     return FALSE;
 }
 
@@ -574,6 +577,18 @@ void bt_tws_close_search_and_pair()
 
 
 
+/*----------------------------------------------------------------------------*/
+/**@brief    蓝牙tws 开启 tws间从机被搜索链接
+  @param    无
+   @return   无
+   @note     tws 在  所有状态开启
+*/
+/*----------------------------------------------------------------------------*/
+void bt_open_tws_wait_pair_all_way()
+{
+    bt_tws_delete_pair_timer();
+    tws_open_tws_wait_pair(bt_get_tws_device_indicate(NULL), bt_get_local_name());
+}
 
 
 
@@ -691,7 +706,8 @@ void bt_remove_tws_pair()
 /*----------------------------------------------------------------------------*/
 void bt_open_phone_wait_pair(void)
 {
-    if (!(gtws.state & BT_TWS_PHONE_CONNECTED)) { //没连接手机
+    /* if (!(gtws.state & BT_TWS_PHONE_CONNECTED)) { //没连接手机 */
+    if (!(tws_api_get_tws_state() & TWS_STA_PHONE_CONNECTED)) {
         tws_open_phone_wait_pair(bt_get_tws_device_indicate(NULL), bt_get_local_name());
     }
 }
@@ -754,6 +770,12 @@ int bt_tws_start_search_and_pair()
         return 0;
     }
 
+#if CONFIG_TWS_USE_COMMMON_ADDR
+    if (tws_api_get_tws_state() & TWS_STA_PHONE_CONNECTED) {
+        return 0;
+    }
+#endif
+
 #if CONFIG_TWS_PAIR_MODE == CONFIG_TWS_PAIR_BY_CLICK
     gtws.state |= BT_TWS_SEARCH_SIBLING;
 #if CONFIG_TWS_CHANNEL_SELECT == CONFIG_TWS_LEFT_START_PAIR || \
@@ -788,6 +810,12 @@ u8  bt_tws_remove_tws_pair()
         (get_call_status() == BT_CALL_INCOMING)) {
         return 0;//通话过程不允许
     }
+
+#if CONFIG_TWS_USE_COMMMON_ADDR
+    if (tws_api_get_tws_state() & TWS_STA_PHONE_CONNECTED) {
+        return 0;
+    }
+#endif
 
     if (gtws.state & BT_TWS_SIBLING_CONNECTED) {
         tws_remove_tws_pairs();
@@ -963,7 +991,7 @@ __again:
    @note
 */
 /*----------------------------------------------------------------------------*/
-static u32 tws_wait_pair_and_wait_conn()
+static u32 tws_wait_pair_and_wait_conn(u8 sw)
 {
     int timeout = 0;
     if (tws_remote_state_check()) {
@@ -972,8 +1000,15 @@ static u32 tws_wait_pair_and_wait_conn()
         timeout = 2000 + (rand32() % 4 + 1) * 500;
     }
 
-    bt_open_tws_wait_pair();
-    bt_open_tws_wait_conn(0);
+    /* user_send_cmd_prepare(USER_CTRL_PAGE_CANCEL, 0, NULL); */
+    extern void bredr_close_all_scan();
+    bredr_close_all_scan();
+    if (sw) {
+        bt_open_tws_wait_pair_all_way();
+    } else {
+        bt_open_tws_wait_pair();
+        bt_open_tws_wait_conn(0);
+    }
     bt_open_phone_wait_pair();
 
     BT_STATE_SET_PAGE_SCAN_ENABLE();
@@ -1061,7 +1096,7 @@ static void connect_and_connectable_switch(void *_sw)
     }
 
     if (sw == 1) {
-        timeout = tws_wait_pair_and_wait_conn();
+        timeout = tws_wait_pair_and_wait_conn(1);
     } else if (sw == 2) {
         timeout = tws_creat_connection();
     } else if (sw == 3) {
@@ -1076,11 +1111,14 @@ static void connect_and_connectable_switch(void *_sw)
         end_sw = 3;
 #endif
     } else if (gtws.state & BT_TWS_PAIRED) {
-        //// 如果通过按键断开tws后不需要tws马上回链，
-        end_sw = 1;
+        /* //// 如果通过按键断开tws后不需要tws马上回链， */
+        /* end_sw = 1; */
 
-        //// 如果通过tws断开后需要tws马上回链，
-        /* end_sw = 2; */
+        // 如果通过tws断开后需要tws马上回链，
+        end_sw = 2;
+#ifdef CONFIG_TWS_AUTO_PAIR_WITHOUT_UNPAIR
+        end_sw = 3;
+#endif
     }
 
     if (++sw > end_sw) {
@@ -1375,9 +1413,14 @@ int bt_tws_phone_connected()
     //// tws 没有配对过
     if (gtws.state & BT_TWS_UNPAIRED) {
 #if (CONFIG_TWS_PAIR_ALL_WAY == 1)
+
+#if CONFIG_TWS_USE_COMMMON_ADDR
+
+#else
         if (get_call_status() == BT_CALL_HANGUP) {  ///不在通话状态，开启tws 被搜索链接状态
             bt_open_tws_wait_pair();
         }
+#endif
 #endif
         return 0;
     }
@@ -1454,6 +1497,8 @@ void bt_tws_phone_page_timeout()
 void bt_tws_phone_connect_timeout()
 {
     log_debug("bt_tws_phone_connect_timeout: %x, %d\n", gtws.state, gtws.pair_timer);
+
+    gtws.state &= ~BT_TWS_PHONE_CONNECTED;
 
     /*
      * 跟手机超时断开,如果对耳未连接则优先连接对耳
@@ -1580,6 +1625,11 @@ static void bt_tws_remove_pairs()
     u8 mac_addr[6];
     char channel = 'U';
     char tws_channel = 0;
+    int role = 0;
+
+#if (CONFIG_TWS_USE_COMMMON_ADDR == 0)
+    syscfg_write(VM_TWS_ROLE, &role, 1);
+#endif
 
     memset(mac_addr, 0xFF, 6);
     syscfg_write(CFG_TWS_COMMON_ADDR, mac_addr, 6);
@@ -1777,7 +1827,9 @@ static void tws_local_connected(u8 state, u8 role)
 
 
     if (state & TWS_STA_LOCAL_TWS_OPEN) {
+#if (TCFG_DEC2TWS_ENABLE)
         user_set_tws_box_mode(1);
+#endif
         clear_current_poweron_memory_search_index(0);
         bt_user_priv_var.auto_connection_counter = 0;
         if (!cur_task) {
@@ -1861,6 +1913,12 @@ void tws_event_connected(struct bt_event *evt)
 
     clr_tws_local_back_role();
 
+
+#if (CONFIG_TWS_USE_COMMMON_ADDR == 0)
+    lmp_hci_write_local_address(bt_get_mac_addr());
+#endif
+
+
     syscfg_read(CFG_TWS_REMOTE_ADDR, addr[0], 6);
     syscfg_read(CFG_TWS_COMMON_ADDR, addr[1], 6);
     tws_api_get_sibling_addr(addr[2]);
@@ -1878,6 +1936,9 @@ void tws_event_connected(struct bt_event *evt)
         syscfg_write(CFG_TWS_COMMON_ADDR, addr[3], 6);
         pair_suss = 1;
         log_info("rec comm addr\n");
+#if (CONFIG_TWS_USE_COMMMON_ADDR == 0)
+        syscfg_write(VM_TWS_ROLE, &role, 1);
+#endif
     }
 
 
@@ -1901,6 +1962,13 @@ void tws_event_connected(struct bt_event *evt)
     log_debug("tws_local_channel: %c\n", channel);
 
     BT_STATE_TWS_CONNECTED(pair_suss, addr[3]);
+
+#if CONFIG_TWS_PAIR_MODE == CONFIG_TWS_PAIR_BY_AUTO
+    if (tws_auto_pair_enable) {
+        tws_auto_pair_enable = 0;
+        tws_le_acc_generation_init();
+    }
+#endif
 
 #ifdef CONFIG_NEW_BREDR_ENABLE
     if (channel == 'L') {
@@ -1983,7 +2051,7 @@ void tws_event_connected(struct bt_event *evt)
 
     tws_connect_ble_adv(phone_link_connection);
 
-#if RCSP_ADV_EN
+#if SMART_BOX_EN
     extern void sync_setting_by_time_stamp(void);
     sync_setting_by_time_stamp();
 #endif
@@ -2055,6 +2123,7 @@ void tws_event_connection_timeout(struct bt_event *evt)
     }
 
 #if (CONFIG_TWS_USE_COMMMON_ADDR == 0)
+    u8 mac_addr[6];
     syscfg_read(CFG_BT_MAC_ADDR, mac_addr, 6);
     lmp_hci_write_local_address(mac_addr);
 #endif
@@ -2131,9 +2200,15 @@ void tws_event_connection_detach(struct bt_event *evt)
     if (reason == TWS_DETACH_BY_REMOVE_PAIRS) {
         gtws.state = BT_TWS_UNPAIRED;
         log_debug("<<<<<<<<<<<<<<<<<<<<<<tws detach by remove pairs>>>>>>>>>>>>>>>>>>>\n");
+
+        if (!phone_link_connection) {
+            bt_open_tws_wait_pair();
+        } else {
 #if (CONFIG_TWS_PAIR_ALL_WAY == 1)
-        bt_open_tws_wait_pair();
+            bt_open_tws_wait_pair();
 #endif
+        }
+
         return;
     }
 
@@ -2356,6 +2431,19 @@ static void tws_event_cmd_irsensor_event_far()
 }
 
 
+void tws_event_cmd_mode_change(void)
+{
+    if (get_bt_init_status() && (bt_get_task_state() == 0)) {
+#if TWFG_APP_POWERON_IGNORE_DEV
+        if ((timer_get_ms() - app_var.start_time) > TWFG_APP_POWERON_IGNORE_DEV)
+#endif//TWFG_APP_POWERON_IGNORE_DEV
+
+        {
+            printf("KEY_CHANGE_MODE\n");
+            app_task_switch_next();
+        }
+    }
+}
 
 /*----------------------------------------------------------------------------*/
 /**@brief    蓝牙tws 主从同步调用函数处理
@@ -2430,6 +2518,10 @@ static void tws_event_sync_fun_cmd(struct bt_event *evt)
     case    SYNC_CMD_IRSENSOR_EVENT_FAR:
         tws_event_cmd_irsensor_event_far() ;
         break;
+
+    case SYNC_CMD_MODE_CHANGE:
+        tws_event_cmd_mode_change();
+        break;
     default :
         break;
     }
@@ -2447,7 +2539,9 @@ static void tws_event_sync_fun_tranid(struct bt_event *evt)
 {
     int reason = evt->args[2];
     if (reason == SYNC_CMD_BOX_EXIT_BT) {
+#if (TCFG_DEC2TWS_ENABLE)
         user_set_tws_box_mode(1);
+#endif
         log_debug("\n    ------   TWS_UNACTIVE_DEIVCE \n");
         TWS_LOCAL_IN_BT();
         TWS_REMOTE_OUT_BT();
@@ -2456,7 +2550,9 @@ static void tws_event_sync_fun_tranid(struct bt_event *evt)
     } else if (reason == SYNC_CMD_BOX_INIT_EXIT_BT) {
         TWS_LOCAL_OUT_BT();
         TWS_REMOTE_IN_BT();
+#if (TCFG_DEC2TWS_ENABLE)
         user_set_tws_box_mode(2);
+#endif
         log_debug("\n    ------   TWS_ACTIVE_DEIVCE \n");
         gtws.device_role =  TWS_ACTIVE_DEIVCE;
         tws_local_back_to_bt_mode(TWS_BOX_EXIT_BT, gtws.device_role);
@@ -2464,7 +2560,9 @@ static void tws_event_sync_fun_tranid(struct bt_event *evt)
         log_debug("----  SYNC_CMD_BOX_ENTER_BT");
         TWS_LOCAL_IN_BT();
         TWS_REMOTE_IN_BT();
+#if (TCFG_DEC2TWS_ENABLE)
         user_set_tws_box_mode(0);
+#endif
         tws_local_back_to_bt_mode(TWS_BOX_ENTER_BT, gtws.device_role);
     }
 }
@@ -2524,6 +2622,25 @@ static void tws_event_esco_add_connect(struct bt_event *evt)
         bt_tws_sync_volume();
     }
 }
+
+#if (CONFIG_TWS_USE_COMMMON_ADDR == 0)
+int tws_host_get_local_role()
+{
+    int role = 0;
+
+    if (syscfg_read(VM_TWS_ROLE, &role, 1) == 1) {
+        if (role == TWS_ROLE_SLAVE) {
+
+
+            //printf("\n\n\nrole is slave\n\n\n");
+
+            return TWS_ROLE_SLAVE;
+        }
+    }
+    return TWS_ROLE_MASTER;
+}
+#endif
+
 
 /*----------------------------------------------------------------------------*/
 /**@brief    蓝牙tws tws事件状态处理函数

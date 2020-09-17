@@ -193,6 +193,26 @@
 
 EXTERN(
 
+
+
+
+tws_local_media_sync
+tws_afh_sync
+tws_ci_data
+tws_acl_data_sync
+tws_event_sync
+tws_conn_sync
+tws_lmp_slot_sync
+tws_low_latency
+tws_media_sync
+tws_power_balance
+tws_sync_call
+tws_tx_sync
+tws_link_sync
+
+
+
+
 fat_vfs_ops
 
 
@@ -207,6 +227,8 @@ pcm_decoder
 
 
 
+
+
 mp3_decoder
 
 
@@ -215,21 +237,14 @@ mp3_decoder
 
 
 wma_decoder
-
-
-
-
-
-
-flac_decoder
-
-
-
-ape_decoder
-
-
-
 m4a_decoder
+
+
+
+
+
+
+alac_decoder
 
 
 
@@ -237,7 +252,7 @@ amr_decoder
 
 
 
-dts_decoder
+
 
 
 
@@ -263,6 +278,10 @@ RAM_BEGIN = RAM_LIMIT_L;
 RAM_END = RAM_LIMIT_H;
 RAM_SIZE = RAM_END - RAM_BEGIN;
 
+RES_RAM_BEGIN = 0x01ffffff;
+RES_RAM_END = 0x02800000;
+RES_RAM_SIZE = RES_RAM_END - RES_RAM_BEGIN;
+
 
 
 
@@ -277,6 +296,7 @@ MEMORY
 {
  code0(rx) : ORIGIN = 0x1E00120, LENGTH = (1024 * 1024)
  ram0(rwx) : ORIGIN = RAM_BEGIN, LENGTH = RAM_SIZE
+ res_ram(rwx) : ORIGIN = RES_RAM_BEGIN, LENGTH = RES_RAM_SIZE
 }
 
 
@@ -325,6 +345,10 @@ SECTIONS
         *(.bt_aac_dec_core_code)
         *(.bt_aac_dec_core_sparse_code)
 
+        . = ALIGN(4);
+        *(.alac_const)
+        *(.alac_code)
+
   . = ALIGN(4);
 
         clock_critical_handler_begin = .;
@@ -370,6 +394,7 @@ SECTIONS
         . = ALIGN(4);
 
         *(.tech_lib.aec.text)
+
 
   . = ALIGN(4);
 
@@ -424,7 +449,8 @@ SECTIONS
 
         btstack_code_end = .;
   . = ALIGN(4);
- . = ALIGN(4);
+
+  . = ALIGN(4);
 
 
   . = ALIGN(4);
@@ -432,107 +458,107 @@ SECTIONS
 
    _device_node_begin = .;
      PROVIDE(device_node_begin = .);
-          *(.device)
+     KEEP(*(.device))
      _device_node_end = .;
      PROVIDE(device_node_end = .);
 
   config_target_begin = .;
      PROVIDE(config_target_begin = .);
-          *(.config_target)
+     KEEP(*(.config_target))
   config_target_end = .;
      PROVIDE(config_target_end = .);
 
      system_code_begin = .;
-         *(.system.*.text)
+     KEEP(*(.system.*.text))
      system_code_end = .;
   . = ALIGN(4);
   system_code_size = system_code_end - system_code_begin;
 
   vfs_ops_begin = .;
-   *(.vfs_operations)
+  KEEP(*(.vfs_operations))
   vfs_ops_end = .;
 
      _lib_version_begin = .;
      PROVIDE(lib_version_begin = .);
-         *(.lib_version)
+     KEEP(*(.lib_version))
      _lib_version_end = .;
      PROVIDE(lib_version_end = .);
 
   _initcall_begin = .;
   PROVIDE(initcall_begin = .);
-   *(.initcall)
+     KEEP(*(.initcall))
   _initcall_end = .;
   PROVIDE(initcall_end = .);
 
   _early_initcall_begin = .;
   PROVIDE(early_initcall_begin = .);
-   *(.early.initcall)
+  KEEP(*(.early.initcall))
   _early_initcall_end = .;
   PROVIDE(early_initcall_end = .);
 
   _late_initcall_begin = .;
   PROVIDE(late_initcall_begin = .);
-     *(.late.initcall)
+  KEEP(*(.late.initcall))
   _late_initcall_end = .;
   PROVIDE(late_initcall_end = .);
 
   _platform_initcall_begin = .;
   PROVIDE(platform_initcall_begin = .);
-     *(.platform.initcall)
+  KEEP(*(.platform.initcall))
   _platform_initcall_end = .;
   PROVIDE(platform_initcall_end = .);
 
   _module_initcall_begin = .;
   PROVIDE(module_initcall_begin = .);
-     *(.module.initcall)
+  KEEP(*(.module.initcall))
   _module_initcall_end = .;
   PROVIDE(module_initcall_end = .);
 
   _sys_event_handler_begin = .;
   PROVIDE(sys_event_handler_begin = .);
-     *(.sys_event.4.handler)
-     *(.sys_event.3.handler)
-     *(.sys_event.2.handler)
-     *(.sys_event.1.handler)
-     *(.sys_event.0.handler)
+  KEEP(*(.sys_event.4.handler))
+  KEEP(*(.sys_event.3.handler))
+  KEEP(*(.sys_event.2.handler))
+  KEEP(*(.sys_event.1.handler))
+  KEEP(*(.sys_event.0.handler))
   _sys_event_handler_end = .;
   PROVIDE(sys_event_handler_end = .);
 
   _syscfg_arg_begin = .;
   PROVIDE(syscfg_arg_begin = .);
-     *(.syscfg.arg)
+  KEEP(*(.syscfg.arg))
   _syscfg_arg_end = .;
   PROVIDE(syscfg_arg_end = .);
 
   _syscfg_handler_begin = .;
   PROVIDE(syscfg_handler_begin = .);
-     *(.syscfg.handler)
+  KEEP(*(.syscfg.handler))
   _syscfg_handler_end = .;
   PROVIDE(syscfg_handler_end = .);
 
   _syscfg_ops_begin = .;
   PROVIDE(syscfg_ops_begin = .);
-     *(.syscfg.2.ops)
-     *(.syscfg.1.ops)
-     *(.syscfg.0.ops)
+  KEEP(*(.syscfg.2.ops))
+  KEEP(*(.syscfg.1.ops))
+  KEEP(*(.syscfg.0.ops))
   _syscfg_ops_end = .;
   PROVIDE(syscfg_ops_end = .);
 
   _server_info_begin = .;
   PROVIDE(server_info_begin = .);
-     *(.server_info)
+  KEEP(*(.server_info))
   _server_info_end = .;
   PROVIDE(server_info_end = .);
 
   _bus_device_begin = .;
   PROVIDE(bus_device_begin = .);
-     *(.bus_device)
+  KEEP(*(.bus_device))
   _bus_device_end = .;
   PROVIDE(bus_device_end = .);
 
      _sys_power_hal_ops_begin = .;
      PROVIDE(sys_power_hal_ops_begin = .);
-         *(.sys_power_hal_ops)
+     KEEP(*(.sys_power_hal_ops))
      _sys_power_hal_ops_end = .;
      PROVIDE(sys_power_hal_ops_end = .);
 
@@ -540,14 +566,14 @@ SECTIONS
   . = ALIGN(4);
      lp_target_begin = .;
      PROVIDE(lp_target_begin = .);
-         *(.lp_target)
+     KEEP(*(.lp_target))
      lp_target_end = .;
      PROVIDE(lp_target_end = .);
 
   . = ALIGN(4);
         deepsleep_target_begin = .;
         PROVIDE(deepsleep_target_begin = .);
-            *(.deepsleep_target)
+        KEEP(*(.deepsleep_target))
         deepsleep_target_end = .;
         PROVIDE(deepsleep_target_end = .);
 
@@ -672,6 +698,7 @@ SECTIONS
         . = ALIGN(4);
         *(.data*)
 
+
         . = ALIGN(4);
 
 
@@ -694,7 +721,8 @@ SECTIONS
 
 
         btstack_data_end = .;
- . = ALIGN(4);
+
+        . = ALIGN(4);
 
 
   . = ALIGN(4);
@@ -702,81 +730,81 @@ SECTIONS
 
   _video_subdev_begin = .;
   PROVIDE(video_subdev_begin = .);
-    *(.video_subdev.0)
-    *(.video_subdev.1)
-    *(.video_subdev.2)
-    *(.video_subdev.3)
-    *(.video_subdev.4)
-    *(.video_subdev.5)
+  KEEP(*(.video_subdev.0))
+  KEEP(*(.video_subdev.1))
+  KEEP(*(.video_subdev.2))
+  KEEP(*(.video_subdev.3))
+  KEEP(*(.video_subdev.4))
+  KEEP(*(.video_subdev.5))
   _video_subdev_end = .;
   PROVIDE(video_subdev_end = .);
 
   _audio_subdev_begin = .;
   PROVIDE(audio_subdev_begin = .);
-    *(.audio_subdev.0)
-    *(.audio_subdev.1)
-    *(.audio_subdev.2)
-    *(.audio_subdev.3)
+  KEEP(*(.audio_subdev.0))
+  KEEP(*(.audio_subdev.1))
+  KEEP(*(.audio_subdev.2))
+  KEEP(*(.audio_subdev.3))
   _audio_subdev_end = .;
   PROVIDE(audio_subdev_end = .);
 
   _iic_device_begin = .;
   PROVIDE(iic_device_begin = .);
-    *(.iic)
+  KEEP(*(.iic))
   _iic_device_end = .;
   PROVIDE(iic_device_end = .);
 
         _avin_spi_device_begin = .;
   PROVIDE(avin_spi_device_begin = .);
-   *(.sw_spi)
+  KEEP(*(.sw_spi))
   _avin_spi_device_end = .;
   PROVIDE(avin_spi_device_end = .);
 
   _video_dev_begin = .;
   PROVIDE(video_dev_begin = .);
-    *(.video_device)
+  KEEP(*(.video_device))
   _video_dev_end = .;
   PROVIDE(video_dev_end = .);
 
   _key_driver_ops_begin = .;
   PROVIDE(key_driver_ops_begin = .);
-     *(.key_driver_ops)
+  KEEP(*(.key_driver_ops))
   _key_driver_ops_end = .;
   PROVIDE(key_driver_ops_end = .);
 
   _touch_driver_begin = .;
   PROVIDE(touch_driver_begin = .);
-     *(.touch_driver)
+  KEEP(*(.touch_driver))
   _touch_driver_end = .;
   PROVIDE(touch_driver_end = .);
 
   _static_hi_timer_begin = .;
   PROVIDE(static_hi_timer_begin = .);
-     *(.hi_timer)
+  KEEP(*(.hi_timer))
   _static_hi_timer_end = .;
   PROVIDE(static_hi_timer_end = .);
 
   _sys_cpu_timer_begin = .;
   PROVIDE(sys_cpu_timer_begin = .);
-     *(.sys_cpu_timer)
+  KEEP(*(.sys_cpu_timer))
   _sys_cpu_timer_end = .;
   PROVIDE(sys_cpu_timer_end = .);
 
      _sys_config_begin = .;
      PROVIDE(sys_config_begin = .);
-         *(.sys_cfg)
+     KEEP(*(.sys_cfg))
      _sys_config_end = .;
      PROVIDE(sys_config_end = .);
 
      _sys_fat_begin = .;
      PROVIDE(sys_fat_begin = .);
-         *(.fs_fat)
+     KEEP(*(.fs_fat))
      _sys_fat_end = .;
      PROVIDE(sys_fat_end = .);
 
   _app_begin = .;
   PROVIDE(app_begin = .);
-     *(.app)
+  KEEP(*(.app))
   _app_end = .;
   PROVIDE(app_end = .);
 
@@ -819,6 +847,7 @@ SECTIONS
         *(.sd0_var)
         *(.sd1_var)
         *(.dac_buff)
+
   . = ALIGN(4);
 
 
@@ -837,7 +866,8 @@ SECTIONS
         BTSTACK_LE_HOST_MESH_BSS_SIZE = ABSOLUTE(. - BTSTACK_LE_HOST_MESH_BSS_START);
 
         btstack_bss_end = .;
- . = ALIGN(4);
+
+        . = ALIGN(4);
 
 
         system_bss_start = .;
@@ -923,6 +953,9 @@ SECTIONS
    *(.cvsd_bss)
 
 
+
+
+
             . = ALIGN(4);
             *(.bd_base)
 
@@ -930,7 +963,7 @@ SECTIONS
             acl_tx_pool = .;
             *(.bredr_tx_bulk)
 
-            acl_tx_pool_end = acl_tx_pool + (2 * 1024);
+            acl_tx_pool_end = acl_tx_pool + (3 * 1024);
 
 
 
@@ -948,9 +981,9 @@ SECTIONS
 
             tws_bulk_pool = .;
 
+            tws_bulk_pool_end = tws_bulk_pool + (4 * 1024);
 
 
-            tws_bulk_pool_end = tws_bulk_pool;
 
             . = tws_bulk_pool_end;
 
@@ -1018,10 +1051,16 @@ SECTIONS
             *(.m4a_ctrl_mem)
    *(.m4a_dec_data)
    *(.m4a_data)
+   *(.m4apick_mem)
+   *(.m4apick_ctrl_mem)
 
    *(.aac_ctrl_mem)
    *(.aac_bss)
    *(.aac_data)
+
+   *(.alac_ctrl_mem)
+   *(.alac_bss)
+   *(.alac_data)
   }
 
   .overlay_amr
@@ -1047,6 +1086,7 @@ SECTIONS
   }
         .overlay_pc
   {
+
             *(.usb_audio_play_dma)
             *(.usb_audio_rec_dma)
             *(.uac_rx)
@@ -1057,6 +1097,7 @@ SECTIONS
             *(.usb_iso_dma)
             *(.uac_var)
             *(.usb_config_var)
+
   }
 
     } > ram0
@@ -1065,7 +1106,6 @@ SECTIONS
  _HEAP_BEGIN = .;
  _HEAP_END = RAM_END;
 }
-
 
 
 
@@ -1561,6 +1601,7 @@ SECTIONS
     DRIVER_RAM_TOTAL = (driver_data_end - driver_data_start) + (driver_bss_end - driver_bss_start);
     DRIVER_CODE_TOTAL = (driver_code_end - driver_code_start);
 }
+
 SECTIONS
 {
     .data : ALIGN(4)
@@ -1766,6 +1807,7 @@ SECTIONS
     BTCTLER_RAM_TOTAL = (btctler_data_end - btctler_data_start) + (btctler_bss_end - btctler_bss_start);
     BTCTLER_CODE_TOTAL = (btctler_code_end - btctler_code_start);
 }
+
 
 
 text_begin = ADDR(.text);

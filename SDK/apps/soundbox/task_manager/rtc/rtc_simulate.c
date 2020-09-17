@@ -6,7 +6,15 @@
 #include "ioctl_cmds.h"
 #include "system/sys_time.h"
 
-#if (TCFG_APP_RTC_EN && TCFG_APP_RTC_SIMULATE_EN)
+#if (TCFG_APP_RTC_EN && TCFG_USE_FAKE_RTC)
+
+
+/*************************************************************
+   此文件函数主要是虚拟rtc设备的实现
+  应用于不外挂晶振的场景,用户可以忽略实现,
+  最后的应用的接口与挂晶振的接口一致
+**************************************************************/
+
 
 #define WRITE_ALARM     BIT(1)
 #define READ_ALARM      BIT(5)
@@ -14,80 +22,25 @@
 #define WRITE_RTC       BIT(0)
 #define READ_RTC        BIT(4)
 
+#define MAX_YEAR          2099
+#define MIN_YEAR          2000
+
+
 typedef struct _RTC_SIMULATE_VAR {
+    struct device device;
     struct sys_time sys_simulate_time;
     struct sys_time sys_alarm_time;
-    struct device device;
+    /* OS_MUTEX mutex; */
 } RTC_SIMULATE_VAR;
 
 #define __this	(&rtc_smulate_var)
 static RTC_SIMULATE_VAR rtc_smulate_var = {0};
 
-static u8 g_alarm_flag = 1;
+static u8 g_alarm_flag = 0;
 
-void __attribute__((weak)) alm_wakeup_isr(void) {}
 
-static void rtc_smulate_timer_opt(u8 on_off, u32 msec, void (*func)(void *priv), void *priv)
-{
-    static u16 rtc_smulate_time = 0;
-    if (on_off) {
-        if (0 == rtc_smulate_time) {
-            rtc_smulate_time = sys_timer_add(priv, func, msec);
-        }
-    } else {
-        if (rtc_smulate_time) {
-            sys_timer_del(rtc_smulate_time);
-            rtc_smulate_time = 0;
-        }
-    }
-}
-
-static void calc_time_and_carry(struct sys_time *pt_time, u8 time_type, u32 time_step)
-{
-    u8 *current = NULL;
-    u32 max = 0;
-    switch (time_type) {
-    case TIME_MEMBER_YEAR :
-        pt_time->year += time_step;
-        return;
-    case TIME_MEMBER_MONTH :
-        current = &pt_time->month;
-        max = 13;
-        break;
-    case TIME_MEMBER_DAY :
-        current = &pt_time->day;
-        max = month_for_day(pt_time->month, pt_time->year) + 1;
-        break;
-    case TIME_MEMBER_HOUR :
-        current = &pt_time->hour;
-        max = 24;
-        break;
-    case TIME_MEMBER_MIN :
-        current = &pt_time->min;
-        max = 60;
-        break;
-    case TIME_MEMBER_SEC :
-        current = &pt_time->sec;
-        max = 60;
-        break;
-    default:
-        return;
-    }
-
-    u32 current_time = *current + time_step;
-    if (current_time >= max) {
-        calc_time_and_carry(pt_time, time_type - 1, current_time / max);
-        current_time = current_time % max;
-    }
-    *current = (u8)(current_time & 0xFF);
-
-    switch (time_type) {
-    case TIME_MEMBER_MONTH :
-    case TIME_MEMBER_DAY :
-        *current = 0 == *current ? 1 : *current;
-        break;
-    }
-}
+__attribute__((weak))void  alm_wakeup_isr(void);
+__attribute__((weak)) void set_rtc_default_time(struct sys_time *t);
 
 static u8 is_the_same_time(struct sys_time *time1, struct sys_time *time2)
 {
@@ -99,49 +52,57 @@ static u8 is_the_same_time(struct sys_time *time1, struct sys_time *time2)
             time1->sec == time2->sec);
 }
 
-static void rtc_smulate_time_func(void *priv)
-{
-    static u32 time = 0;
-    calc_time_and_carry(&__this->sys_simulate_time, TIME_MEMBER_SEC, sys_timer_get_ms() / 1000L - time);
-    /* log_i("sys_time year:month:day, %02d :%02d :%02d", __this->sys_simulate_time.year, __this->sys_simulate_time.month, __this->sys_simulate_time.day); */
-    /* log_i("sys_time hour:min:sec, %02d :%02d :%02d", __this->sys_simulate_time.hour, __this->sys_simulate_time.min, __this->sys_simulate_time.sec); */
-    if (g_alarm_flag && is_the_same_time(&__this->sys_alarm_time, &__this->sys_simulate_time)) {
-        alm_wakeup_isr();
-    }
-    time = sys_timer_get_ms() / 1000L;
-}
 
 static int rtc_simulate_init(const struct dev_node *node, void *arg)
 {
-    __this->sys_simulate_time.year = 2020;
-    __this->sys_simulate_time.month = 1;
-    __this->sys_simulate_time.day = 1;
-    __this->sys_simulate_time.hour = 0;
-    __this->sys_simulate_time.min = 0;
-    __this->sys_simulate_time.sec = 0;
+    /* os_mutex_create(&__this->mutex); */
+
+    if (set_rtc_default_time) {
+        set_rtc_default_time(&__this->sys_simulate_time);
+    } else {
+        __this->sys_simulate_time.year = 2020;
+        __this->sys_simulate_time.month = 1;
+        __this->sys_simulate_time.day = 1;
+        __this->sys_simulate_time.hour = 0;
+        __this->sys_simulate_time.min = 0;
+        __this->sys_simulate_time.sec = 0;
+    }
+    printf("rtc_simulate_init: %d-%d-%d %d:%d:%d\n",
+           __this->sys_simulate_time.year,
+           __this->sys_simulate_time.month,
+           __this->sys_simulate_time.day,
+           __this->sys_simulate_time.hour,
+           __this->sys_simulate_time.min,
+           __this->sys_simulate_time.sec);
     return 0;
 }
 
 static int rtc_simulate_open(const char *name, struct device **device, void *arg)
 {
     *device = &__this->device;
-    rtc_smulate_timer_opt(1, 500, rtc_smulate_time_func, NULL);
+
     return 0;
 }
 
 static void write_alarm(struct sys_time *alarm_time)
 {
+    local_irq_disable();
     memcpy(&__this->sys_alarm_time, alarm_time, sizeof(struct sys_time));
+    local_irq_enable();
 }
 
 static void write_sys_time(struct sys_time *curr_time)
 {
+    local_irq_disable();
     memcpy(&__this->sys_simulate_time, curr_time, sizeof(struct sys_time));
+    local_irq_enable();
 }
 
 static void read_sys_time(struct sys_time *curr_time)
 {
+    local_irq_disable();
     memcpy(curr_time, &__this->sys_simulate_time, sizeof(struct sys_time));
+    local_irq_enable();
 }
 
 static void set_alarm_ctrl(u8 set_alarm)
@@ -173,6 +134,61 @@ static int rtc_simulate_ioctl(struct device *device, u32 cmd, u32 arg)
     return err;
 }
 
+
+
+void app_fake_rtc_tick()
+{
+#if (defined(TCFG_USE_FAKE_RTC) && (TCFG_USE_FAKE_RTC))
+    static u8 cnt = 0;
+    struct sys_time temp_time;
+    cnt++;
+    if (cnt == 2) {
+        cnt = 0;
+        read_sys_time(&temp_time);
+        if (++temp_time.sec >= 60) {
+            temp_time.sec = 0;
+            if (++temp_time.min >= 60) {
+                temp_time.min = 0;
+                if (++temp_time.hour >= 24) {
+                    temp_time.hour = 0;
+                    if (++temp_time.day > month_for_day(temp_time.month, temp_time.year)) {
+                        temp_time.day = 1;
+                        if (++temp_time.month > 12) {
+                            temp_time.month = 1;
+                            if (++temp_time.year > MAX_YEAR) {
+                                temp_time.year = MIN_YEAR;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        write_sys_time(&temp_time);
+
+        /* printf("rtc_sys_time: %d-%d-%d %d:%d:%d\n", */
+        /*         temp_time.year, */
+        /*         temp_time.month, */
+        /*         temp_time.day, */
+        /*         temp_time.hour, */
+        /*         temp_time.min, */
+        /*         temp_time.sec); */
+        /*  */
+
+        local_irq_disable();
+        if (g_alarm_flag && is_the_same_time(&__this->sys_alarm_time, &__this->sys_simulate_time)) {
+            local_irq_enable();
+            if (alm_wakeup_isr) {
+                alm_wakeup_isr();
+            }
+        } else {
+            local_irq_enable();
+        }
+
+    }
+#endif
+}
+
+
 const struct device_operations rtc_simulate_ops = {
     .init   = rtc_simulate_init,
     .open   = rtc_simulate_open,
@@ -180,5 +196,11 @@ const struct device_operations rtc_simulate_ops = {
     .read   = NULL,
     .write  = NULL,
 };
+#else
+void app_fake_rtc_tick()
+{
+    putchar('T');
+}
+
 
 #endif

@@ -14,3 +14,5 @@ objs += \
 		$(ROOT)/apps/$(APP_CASE)/smartbox/smartbox_setting/adv_mic_setting.o \
 		$(ROOT)/apps/$(APP_CASE)/smartbox/smartbox_setting/adv_time_stamp_setting.o \
 		$(ROOT)/apps/$(APP_CASE)/smartbox/smartbox_setting/adv_work_setting.o \
+
+include $(ROOT)/apps/$(APP_CASE)/smartbox/smartbox_setting/smartbox_misc_setting/Makefile

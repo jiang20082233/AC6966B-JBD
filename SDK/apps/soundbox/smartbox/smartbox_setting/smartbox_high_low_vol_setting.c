@@ -42,7 +42,7 @@ static void high_low_vol_setting_sync(u8 *vol_gain_param)
 {
 #if TCFG_USER_TWS_ENABLE
     if (get_bt_tws_connect_status()) {
-        update_adv_setting(BIT(ATTR_TYPE_HIGH_LOW_VOL));
+        update_smartbox_setting(BIT(ATTR_TYPE_HIGH_LOW_VOL));
     }
 #endif
 }

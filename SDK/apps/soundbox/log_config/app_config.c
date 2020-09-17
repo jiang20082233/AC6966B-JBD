@@ -41,6 +41,12 @@ const char log_tag_const_d_UI AT(.LOG_TAG_CONST) = FALSE;
 const char log_tag_const_w_UI AT(.LOG_TAG_CONST) = TRUE;
 const char log_tag_const_e_UI AT(.LOG_TAG_CONST) = TRUE;
 
+const char log_tag_const_v_COLOR_LED AT(.LOG_TAG_CONST) = FALSE;
+const char log_tag_const_i_COLOR_LED AT(.LOG_TAG_CONST) = TRUE;
+const char log_tag_const_d_COLOR_LED AT(.LOG_TAG_CONST) = FALSE;
+const char log_tag_const_w_COLOR_LED AT(.LOG_TAG_CONST) = TRUE;
+const char log_tag_const_e_COLOR_LED AT(.LOG_TAG_CONST) = TRUE;
+
 const char log_tag_const_v_APP_CHARGE AT(.LOG_TAG_CONST) = FALSE;
 const char log_tag_const_i_APP_CHARGE AT(.LOG_TAG_CONST) = TRUE;
 const char log_tag_const_d_APP_CHARGE AT(.LOG_TAG_CONST) = FALSE;

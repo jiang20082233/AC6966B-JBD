@@ -93,6 +93,7 @@ const struct clock_type  clock_enum[] = {
     { DEC_DTS_CLK	, (120), "DEC_DTS_CLK	 " },
 
     { DEC_M4A_CLK	, (48), "DEC_M4A_CLK	 "},
+    { DEC_ALAC_CLK	, (48), "DEC_ALAC_CLK	 "},
     { DEC_FM_CLK	, (12), "DEC_FM_CLK	 " },
     { DEC_LINE_CLK	, (24), "DEC_LINE_CLK	 " },
     { DEC_TWS_SBC_CLK, (32), "DEC_TWS_SBC_CLK" },
@@ -128,6 +129,7 @@ const struct clock_type  clock_enum[] = {
 
     { DEC_MP3PICK_CLK,	(8), 	"DEC_MP3PICK_CLK"   },
     { DEC_WMAPICK_CLK,	(8),	"DEC_WMAICK_CLK"   },
+    { DEC_M4APICK_CLK,	(8),	"DEC_M4AICK_CLK"   },
     { DEC_MIX_CLK, (6 + MIX_SRC_CLK),	"DEC_MIX_CLK"   },
 
     { DEC_IIS_CLK, (64),	"DEC_IIS_CLK"   },
@@ -141,6 +143,7 @@ const struct clock_type  clock_enum[] = {
     { DEC_VBASS_CLK, (8),	"DEC_VBASS_CLK"   },
     { DEC_LOUDNES_CLK, (108),	"DEC_LOUDNES_CLK"},
 
+    { DONGLE_ENC_CLK, (48), "DONGLE_ENC_CLK"  },
 
 };
 

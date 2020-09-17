@@ -291,7 +291,7 @@ u8  get_cur_battery_level(void)
 void vbat_check_init(void)
 {
     if (vbat_timer == 0) {
-        vbat_timer = sys_timer_add(NULL, vbat_check, 2);
+        vbat_timer = sys_timer_add(NULL, vbat_check, 20);
         vbat_check_idle = 0;
     }
 }
@@ -332,7 +332,7 @@ void vbat_check(void *priv)
     u8 detect_cnt = 6;
 
     if (cur_timer_period == VBAT_TIMER_10_S) {
-        vbat_timer_update(2);
+        vbat_timer_update(20);
         cur_timer_period = VBAT_TIMER_2_MS;
         vbat_check_idle = 0;
     }

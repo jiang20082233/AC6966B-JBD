@@ -5,10 +5,19 @@ objs += \
 	$(ROOT)/apps/common/usb/device/descriptor.o \
 	$(ROOT)/apps/common/usb/device/usb_device.o \
 	$(ROOT)/apps/common/usb/device/user_setup.o \
+
+#    $(error $(USB_SLAVE_SUPPORT_HID) $(USB_SLAVE_SUPPORT_AUDIO) $(USB_SLAVE_SUPPORT_MSD))
+
+ifeq ($(findstring y, $(USB_SLAVE_SUPPORT_HID) $(USB_SLAVE_SUPPORT_AUDIO) $(USB_SLAVE_SUPPORT_MSD)), y)
+objs += \
 	$(ROOT)/apps/common/usb/device/task_pc.o \
+
+endif
+
 
 #mass storage
 ifeq ($(USB_SLAVE_SUPPORT_MSD),y)
+
 objs += \
 	$(ROOT)/apps/common/usb/device/msd.o \
 	$(ROOT)/apps/common/usb/device/msd_upgrade.o \

@@ -64,12 +64,12 @@ CLOSE:
 ******************************************************************************/
 
 
+
 extern void *audio_dig_vol_group_open(void);
 extern int audio_dig_vol_group_add(void *group_head, void *dig_vol_hdl, char *logo);
 extern int audio_dig_vol_group_del(void *group_head, char *logo);
 extern int audio_dig_vol_group_close(void *group_head);
-extern int audio_dig_vol_group_dodge(void *group_head, char *logo, u8 en);
-
+extern int audio_dig_vol_group_dodge(void *group_head, char *logo, u8 weight, u8 other_weight);
 
 /******************************************************************************
                 audio digital group demo
@@ -90,8 +90,8 @@ CLOSE:
     audio_dig_vol_group_close(dig_vol_group1);
 
 DODGE:
-    audio_dig_vol_group_dodge(dig_vol_group1, "dig_vol_1", 1);      // dodge
-    audio_dig_vol_group_dodge(dig_vol_group1, "dig_vol_1", 0);      // no dodge
+    audio_dig_vol_group_dodge(dig_vol_group1, "dig_vol_1", 100, 0);         // dodge
+    audio_dig_vol_group_dodge(dig_vol_group1, "dig_vol_1", 100, 100);       // no dodge
 
 ******************************************************************************/
 

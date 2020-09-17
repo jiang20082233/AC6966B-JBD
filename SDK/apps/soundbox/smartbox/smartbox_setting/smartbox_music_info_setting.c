@@ -75,7 +75,7 @@ void btstack_avrcp_ch_creat_ok(void)
 {
     if (tws_api_get_role() == TWS_ROLE_SLAVE) {
         //printf("\n\n\n\nrcsp ge music info\n");
-        //tws_api_sync_call_by_uuid('T', SYNC_CMD_MUSIC_INFO, 300);
+        tws_api_sync_call_by_uuid(TWS_FUNC_APP_OPT_UUID, APP_OPT_SYNC_CMD_MUSIC_INFO, 300);
     } else {
         if ((tws_api_get_tws_state() & TWS_STA_SIBLING_CONNECTED) == 0) {
             //printf("\n\n\nno tws rcsp ge music info\n\n");
@@ -189,9 +189,9 @@ void bt_status_change(u8 state)
         rcsp_update_player_state();
     } else {
         if (tws_api_get_role() == TWS_ROLE_MASTER) {
-            //tws_api_sync_call_by_uuid('T', SYNC_CMD_MUSIC_PLAYER_STATE, 300);
+            tws_api_sync_call_by_uuid(TWS_FUNC_APP_OPT_UUID, APP_OPT_SYNC_CMD_MUSIC_PLAYER_STATE, 300);
         } else {
-            //tws_api_sync_call_by_uuid('T', SYNC_CMD_MUSIC_PLAYER_TIEM_EN, 300);
+            tws_api_sync_call_by_uuid(TWS_FUNC_APP_OPT_UUID, APP_OPT_SYNC_CMD_MUSIC_PLAYER_TIEM_EN, 300);
         }
     }
 }
@@ -512,6 +512,13 @@ void avrcp_element_attr_rsp_ext_process(u8 type, u32 time, u8 *info,  u16 len)
     if (0 == len) {
         rcsp_adv_music_info_deal(type, time, info, len);
     }
+}
+
+
+#else
+u8 get_player_time_en(void)
+{
+    return 0;
 }
 
 #endif

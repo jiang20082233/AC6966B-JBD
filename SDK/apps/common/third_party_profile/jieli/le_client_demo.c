@@ -62,14 +62,19 @@ static u8 att_ram_buffer[ATT_RAM_BUFSIZE] __attribute__((aligned(4)));
 static u8 search_ram_buffer[SEARCH_PROFILE_BUFSIZE] __attribute__((aligned(4)));
 #define scan_buffer search_ram_buffer
 //---------------
-
+//搜索类型
 #define SET_SCAN_TYPE       SCAN_ACTIVE
-#define SET_SCAN_INTERVAL   48
-#define SET_SCAN_WINDOW     16
+//搜索 周期大小
+#define SET_SCAN_INTERVAL   48 //(unit:0.625ms)
+//搜索 窗口大小
+#define SET_SCAN_WINDOW     16 //(unit:0.625ms)
 
-#define SET_CONN_INTERVAL   24
-#define SET_CONN_LATENCY    0
-#define SET_CONN_TIMEOUT    400
+//连接周期
+#define SET_CONN_INTERVAL   24 //(unit:1.25ms)
+//连接latency
+#define SET_CONN_LATENCY    0  //(unit:conn_interval)
+//连接超时
+#define SET_CONN_TIMEOUT    400 //(unit:10ms)
 //----------------------------------------------------------------------------
 static u8 scan_ctrl_en;
 static u8 ble_work_state = 0;
@@ -122,22 +127,7 @@ static const struct conn_update_param_t connection_param_table[] = {
 };
 
 static u8 send_param_index = 3;
-void client_send_conn_param_update(void)
-{
-    struct conn_update_param_t *param = (void *)&connection_param_table[send_param_index];//for test
-    log_info("client update param:-%d-%d-%d-%d-\n", param->interval_min, param->interval_max, param->latency, param->timeout);
-    if (con_handle) {
-        ble_user_cmd_prepare(BLE_CMD_ONNN_PARAM_UPDATA, 2, con_handle, param);
-    }
-}
-
-/* static void test_send_conn_update(void) */
-/* { */
-/* client_send_conn_param_update(); */
-/* send_param_index++; */
-/* send_param_index &= 3; */
-/* sys_timeout_add(0,test_send_conn_update,10000); */
-/* } */
+//----------------------------------------------------------------------------
 
 static void client_event_report(le_client_event_e event, u8 *packet, int size)
 {
@@ -371,6 +361,7 @@ opt_end:
 
 }
 
+//协议栈内部调用
 //return: 0--accept,1--reject
 int l2cap_connection_update_request_just(u8 *packet)
 {
@@ -381,6 +372,7 @@ int l2cap_connection_update_request_just(u8 *packet)
     /* return 1; */
 }
 
+//协议栈内部调用
 void user_client_report_search_result(search_result_t *result_info)
 {
     if (result_info == (void *) - 1) {
@@ -414,7 +406,6 @@ void user_client_report_search_result(search_result_t *result_info)
 
 static u32 client_timer_handle = 0;
 static u32 test_data_count;
-extern s8 ble_vendor_get_peer_rssi(u16 conn_handle);
 static void client_timer_handler(void)
 {
     if (!con_handle) {
@@ -447,6 +438,7 @@ static target_uuid_t *get_match_handle_target(u16 handle)
     return NULL;
 }
 
+//协议栈内部调用
 void user_client_report_data_callback(att_data_report_t *report_data)
 {
     /* log_info("\n-report_data:type %02x,handle %04x,offset %d,len %d:",report_data->packet_type, */
@@ -488,16 +480,14 @@ static void client_search_profile_start(void)
     memset(&target_handle, 0, sizeof(target_hdl_t));
     user_client_init(con_handle, search_ram_buffer, SEARCH_PROFILE_BUFSIZE);
     if (client_config->search_uuid_cnt) {
-        ble_user_cmd_prepare(BLE_CMD_SEARCH_PROFILE, 2, PFL_SERVER_ALL, 0);
-        /* ble_user_cmd_prepare(BLE_CMD_SEARCH_PROFILE, 2,PFL_SERVER_UUID16,test_services_uuid16); */
-        /* ble_user_cmd_prepare(BLE_CMD_SEARCH_PROFILE, 2,PFL_SERVER_UUID128,&test_services_uuid128); */
+        ble_op_search_profile_all();
     } else {
         user_client_set_search_complete();
     }
 }
 
 //------------------------------------------------------------
-static bool resolve_adv_report(u8 *adv_address, u8 data_length, u8 *data)
+static bool resolve_adv_report(u8 *adv_address, u8 data_length, u8 *data, s8 rssi)
 {
     u8 i, lenght, ad_type;
     u8 *adv_data_pt;
@@ -539,7 +529,7 @@ static bool resolve_adv_report(u8 *adv_address, u8 data_length, u8 *data)
         case HCI_EIR_DATATYPE_SHORTENED_LOCAL_NAME:
             tmp32 = adv_data_pt[lenght - 1];
             adv_data_pt[lenght - 1] = 0;;
-            log_info("remoter_name: %s\n", adv_data_pt);
+            log_info("remoter_name: %s,rssi:%d\n", adv_data_pt, rssi);
             log_info_hexdump(adv_address, 6);
             adv_data_pt[lenght - 1] = tmp32;
             //-------
@@ -595,7 +585,7 @@ static void client_report_adv_data(adv_report_t *report_pt, u16 len)
 
 //    log_info("rssi:%d\n",report_pt->rssi);
 
-    find_remoter = resolve_adv_report(report_pt->address, report_pt->length, report_pt->data);
+    find_remoter = resolve_adv_report(report_pt->address, report_pt->length, report_pt->data, report_pt->rssi);
 
     if (find_remoter) {
         log_info("rssi:%d\n", report_pt->rssi);
@@ -644,7 +634,7 @@ static void client_report_ext_adv_data(u8 *report_pt, u16 len)
     find_remoter = resolve_adv_report(\
                                       address, \
                                       report_pt[GET_STRUCT_MEMBER_OFFSET(__ext_adv_report_event, Data_Length)], \
-                                      &report_pt[GET_STRUCT_MEMBER_OFFSET(__ext_adv_report_event, Data)] \
+                                      &report_pt[GET_STRUCT_MEMBER_OFFSET(__ext_adv_report_event, Data)], 0 \
                                      );
 
     if (find_remoter) {
@@ -694,7 +684,7 @@ static void client_ext_create_connection(u8 *conn_addr, u8 addr_type)
 
     log_info_hexdump(create_conn_par, sizeof(*create_conn_par));
 
-    ble_user_cmd_prepare(BLE_CMD_EXT_CREATE_CONN, 2, create_conn_par, sizeof(*create_conn_par));
+    ble_op_ext_create_conn(create_conn_par, sizeof(*create_conn_par));
 }
 
 #endif /* EXT_ADV_MODE_EN */
@@ -714,7 +704,7 @@ static void client_create_connection(u8 *conn_addr, u8 addr_type)
 
     set_ble_work_state(BLE_ST_CREATE_CONN);
     log_info_hexdump(create_conn_par, sizeof(struct create_conn_param_t));
-    ble_user_cmd_prepare(BLE_CMD_CREATE_CONN, 1, create_conn_par);
+    ble_op_create_connection(create_conn_par);
 }
 
 static void bt_ble_create_connection(u8 *conn_addr, u8 addr_type)
@@ -729,7 +719,7 @@ static void bt_ble_create_connection(u8 *conn_addr, u8 addr_type)
 static void client_create_connection_cannel(void)
 {
     set_ble_work_state(BLE_ST_SEND_CREATE_CONN_CANNEL);
-    ble_user_cmd_prepare(BLE_CMD_CREATE_CONN_CANCEL, 0);
+    ble_op_create_connection_cancel();
 }
 
 static int client_disconnect(void *priv)
@@ -738,7 +728,7 @@ static int client_disconnect(void *priv)
         if (BLE_ST_SEND_DISCONN != get_ble_work_state()) {
             log_info(">>>ble send disconnect\n");
             set_ble_work_state(BLE_ST_SEND_DISCONN);
-            ble_user_cmd_prepare(BLE_CMD_DISCONNECT, 1, con_handle);
+            ble_op_disconnect(con_handle);
         } else {
             log_info(">>>ble wait disconnect...\n");
         }
@@ -801,7 +791,7 @@ const char *const phy_result[] = {
 static void set_connection_data_length(u16 tx_octets, u16 tx_time)
 {
     if (con_handle) {
-        ble_user_cmd_prepare(BLE_CMD_SET_DATA_LENGTH, 3, con_handle, tx_octets, tx_time);
+        ble_op_set_data_length(con_handle, tx_octets, tx_time);
     }
 }
 
@@ -814,12 +804,12 @@ static void set_connection_data_phy(u8 tx_phy, u8 rx_phy)
     u8 all_phys = 0;
     u16 phy_options = 0;
 
-    ble_user_cmd_prepare(BLE_CMD_SET_PHY, 5, con_handle, all_phys, tx_phy, rx_phy, phy_options);
+    ble_op_set_ext_phy(con_handle, all_phys, tx_phy, rx_phy, phy_options);
 }
 
 static void client_profile_start(u16 con_handle)
 {
-    ble_user_cmd_prepare(BLE_CMD_ATT_SEND_INIT, 4, con_handle, att_ram_buffer, ATT_RAM_BUFSIZE, ATT_LOCAL_PAYLOAD_SIZE);
+    ble_op_att_send_init(con_handle, att_ram_buffer, ATT_RAM_BUFSIZE, ATT_LOCAL_PAYLOAD_SIZE);
     set_ble_work_state(BLE_ST_CONNECT);
 
     if (0 == client_config->security_en) {
@@ -911,7 +901,7 @@ static void cbk_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *p
         case HCI_EVENT_DISCONNECTION_COMPLETE:
             log_info("HCI_EVENT_DISCONNECTION_COMPLETE: %0x\n", packet[5]);
             con_handle = 0;
-            ble_user_cmd_prepare(BLE_CMD_ATT_SEND_INIT, 4, con_handle, 0, 0, 0);
+            ble_op_att_send_init(con_handle, 0, 0, 0);
             set_ble_work_state(BLE_ST_DISCONN);
             client_event_report(CLI_EVENT_DISCONNECT, packet, size);
             bt_ble_scan_enable(0, 1);
@@ -920,7 +910,7 @@ static void cbk_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *p
         case ATT_EVENT_MTU_EXCHANGE_COMPLETE:
             mtu = att_event_mtu_exchange_complete_get_MTU(packet) - 3;
             log_info("ATT MTU = %u\n", mtu);
-            ble_user_cmd_prepare(BLE_CMD_ATT_MTU_SIZE, 1, mtu);
+            ble_op_att_set_send_mtu(mtu);
             break;
 
         case HCI_EVENT_VENDOR_REMOTE_TEST:
@@ -952,7 +942,7 @@ static void cbk_packet_handler(uint8_t packet_type, uint16_t channel, uint8_t *p
 static int get_buffer_vaild_len(void *priv)
 {
     u32 vaild_len = 0;
-    ble_user_cmd_prepare(BLE_CMD_ATT_VAILD_LEN, 1, &vaild_len);
+    ble_op_att_get_remain(&vaild_len);
     return vaild_len;
 }
 
@@ -974,7 +964,7 @@ static int client_operation_send(u16 handle, u8 *data, u16 len, u8 att_op_type)
         return APP_BLE_BUFF_FULL;
     }
 
-    ret = ble_user_cmd_prepare(BLE_CMD_ATT_SEND_DATA, 4, handle, data, len, att_op_type);
+    ret = ble_op_att_send_data(handle, data, len, att_op_type);
     if (ret == BLE_BUFFER_FULL) {
         ret = APP_BLE_BUFF_FULL;
     }
@@ -1051,7 +1041,7 @@ const struct __ext_scan_enable ext_scan_disable = {
 //扫描数设置
 static void scanning_setup_init(void)
 {
-    ble_user_cmd_prepare(BLE_CMD_SCAN_PARAM, 3, SET_SCAN_TYPE, SET_SCAN_INTERVAL, SET_SCAN_WINDOW);
+    ble_op_set_scan_param(SET_SCAN_TYPE, SET_SCAN_INTERVAL, SET_SCAN_WINDOW);
 }
 
 static int bt_ble_scan_enable(void *priv, u32 en)
@@ -1103,16 +1093,16 @@ static int bt_ble_scan_enable(void *priv, u32 en)
 
 #if EXT_ADV_MODE_EN
     if (en) {
-        ble_user_cmd_prepare(BLE_CMD_EXT_SCAN_PARAM, 2, &ext_scan_param, sizeof(ext_scan_param));
-        ble_user_cmd_prepare(BLE_CMD_EXT_SCAN_ENABLE, 2, &ext_scan_enable, sizeof(ext_scan_enable));
+        ble_op_set_ext_scan_param(&ext_scan_param, sizeof(ext_scan_param));
+        ble_op_ext_scan_enable(&ext_scan_enable, sizeof(ext_scan_enable));
     } else {
-        ble_user_cmd_prepare(BLE_CMD_EXT_SCAN_ENABLE, 2, &ext_scan_disable, sizeof(ext_scan_disable));
+        ble_op_ext_scan_enable(&ext_scan_disable, sizeof(ext_scan_disable));
     }
 #else
     if (en) {
         scanning_setup_init();
     }
-    ble_user_cmd_prepare(BLE_CMD_SCAN_ENABLE, 1, en);
+    ble_op_scan_enable(en);
 #endif /* EXT_ADV_MODE_EN */
 
     return APP_BLE_NO_ERROR;
@@ -1164,11 +1154,6 @@ struct ble_client_operation_t *ble_get_client_operation_table(void)
     return &client_operation;
 }
 
-bool ble_msg_deal(u32 param)
-{
-    return FALSE;
-}
-
 #define PASSKEY_ENTER_ENABLE      0 //输入passkey使能，可修改passkey
 //重设passkey回调函数，在这里可以重新设置passkey
 //passkey为6个数字组成，十万位、万位。。。。个位 各表示一个数字 高位不够为0
@@ -1189,7 +1174,7 @@ static void reset_passkey_cb(u32 *key)
 }
 
 
-extern void reset_PK_cb_register(void (*reset_pk)(u32 *));
+//协议栈内部调用
 void ble_sm_setup_init(io_capability_t io_type, u8 auth_req, uint8_t min_key_size, u8 security_en)
 {
     //setup SM: Display only
@@ -1206,10 +1191,7 @@ void ble_sm_setup_init(io_capability_t io_type, u8 auth_req, uint8_t min_key_siz
 }
 
 
-extern void gatt_client_init(void);
-extern void gatt_client_register_packet_handler(btstack_packet_handler_t handler);
-extern void le_device_db_init(void);
-extern void ble_stack_gatt_role(u8 role);//0--server,1--client
+//协议栈内部调用
 void ble_profile_init(void)
 {
     log_info("ble profile init\n");
@@ -1231,23 +1213,6 @@ void ble_profile_init(void)
     le_l2cap_register_packet_handler(&cbk_packet_handler);
 }
 
-void ble_module_enable(u8 en)
-{
-    log_info("mode_en:%d\n", en);
-    if (en) {
-        scan_ctrl_en = 1;
-        bt_ble_scan_enable(0, 1);
-    } else {
-        if (con_handle) {
-            scan_ctrl_en = 0;
-            client_disconnect(NULL);
-        } else {
-            bt_ble_scan_enable(0, 0);
-            scan_ctrl_en = 0;
-        }
-    }
-
-}
 
 static void device_bonding_init(void)
 {
@@ -1268,6 +1233,18 @@ static void device_bonding_init(void)
     }
 }
 
+static u8 client_idle_query(void)
+{
+    return 0;
+}
+
+REGISTER_LP_TARGET(client_user_target) = {
+    .name = "client_user_demo",
+    .is_idle = client_idle_query,
+};
+
+
+
 
 void bt_ble_init(void)
 {
@@ -1287,24 +1264,47 @@ void bt_ble_exit(void)
     log_info("***** ble_exit******\n");
 }
 
+//统一接口，关闭模块
 void bt_ble_adv_enable(u8 enable)
 {
     ble_module_enable(enable);
 }
 
-void input_key_handler(u8 key_status, u8 key_number)
+//模块开关
+void ble_module_enable(u8 en)
 {
+    log_info("mode_en:%d\n", en);
+    if (en) {
+        scan_ctrl_en = 1;
+        bt_ble_scan_enable(0, 1);
+    } else {
+        if (con_handle) {
+            scan_ctrl_en = 0;
+            client_disconnect(NULL);
+        } else {
+            bt_ble_scan_enable(0, 0);
+            scan_ctrl_en = 0;
+        }
+    }
+
 }
 
-static u8 client_idle_query(void)
+void client_send_conn_param_update(void)
 {
-    return 0;
+    struct conn_update_param_t *param = (void *)&connection_param_table[send_param_index];//for test
+    log_info("client update param:-%d-%d-%d-%d-\n", param->interval_min, param->interval_max, param->latency, param->timeout);
+    if (con_handle) {
+        ble_op_conn_param_update(con_handle, param);
+    }
 }
 
-REGISTER_LP_TARGET(client_user_target) = {
-    .name = "client_user_demo",
-    .is_idle = client_idle_query,
-};
+/* static void test_send_conn_update(void) */
+/* { */
+/* client_send_conn_param_update(); */
+/* send_param_index++; */
+/* send_param_index &= 3; */
+/* sys_timeout_add(0,test_send_conn_update,10000); */
+/* } */
 
 
 //----------------------------------------------------------------------------------

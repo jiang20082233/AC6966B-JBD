@@ -194,6 +194,7 @@ struct usb_ep_addr_t {
 
 typedef u8 usb_dev;
 
+u16 musb_read_sofframe(const usb_dev id);
 u32 musb_read_usb(const usb_dev usb_id, u32 addr);
 void musb_write_usb(const usb_dev usb_id, u32 addr, u32 data);
 u32 usb_dev_con0(const usb_dev usb_id);

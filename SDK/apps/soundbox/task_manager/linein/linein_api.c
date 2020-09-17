@@ -3,7 +3,6 @@
 #include "app_task.h"
 #include "media/includes.h"
 #include "tone_player.h"
-#include "audio_reverb.h"
 #include "audio_dec_linein.h"
 #include "asm/audio_linein.h"
 #include "app_main.h"

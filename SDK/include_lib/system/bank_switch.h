@@ -4,7 +4,7 @@
 #ifdef CONFIG_CODE_BANK_ENABLE
 #define _BANK_ENTRY(num)   __attribute__((section(".bank.code."#num))) __attribute__((banknum(num)))
 #define __BANK_ENTRY(num)  _BANK_ENTRY(num)
-#define _BANK_NUM(num)   __attribute__((section(".bank.code."#num)))
+#define _BANK_NUM(num)     __attribute__((section(".bank.code."#num))) __attribute__((banknum(num)))
 #define __BANK_NUM(num)   _BANK_NUM(num)
 #define __BANK_COMMON()   __attribute__((section(".common")))
 #else

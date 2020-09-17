@@ -123,8 +123,10 @@
 <Add directory="apps/soundbox/smartbox/bt_manage/bt_trans_data" />
 <Add directory="apps/soundbox/smartbox/bt_manage" />
 <Add directory="apps/soundbox/smartbox/smartbox_setting" />
+<Add directory="apps/soundbox/smartbox/smartbox_setting/smartbox_misc_setting" />
 <Add directory="apps/soundbox/smartbox/smartbox_setting_opt" />
 <Add directory="apps/soundbox/smartbox/smartbox_update" />
+<Add directory="apps/soundbox/include/ui/color_led" />
 </Compiler>
 <Linker>
 <Add option="--plugin-opt=-pi32v2-always-use-itblock=false" />
@@ -145,9 +147,9 @@
 <Add option="--plugin-opt=-used-symbol-file=cpu/br25/sdk_used_list.used" />
 <Add option="--start-group" />
 <Add option="include_lib/liba/br25/cpu.a" />
-<Add option="include_lib/liba/br25/system.a" />
 <Add option="include_lib/liba/br25/btstack.a" />
 <Add option="include_lib/liba/br25/btctrler.a" />
+<Add option="include_lib/liba/br25/system.a" />
 <Add option="include_lib/liba/br25/libepmotion.a" />
 <Add option="include_lib/liba/br25/wtg_dec_lib.a" />
 <Add option="include_lib/liba/br25/sbc_eng_lib.a" />
@@ -155,7 +157,7 @@
 <Add option="include_lib/liba/br25/wtg_dec_lib.a" />
 <Add option="include_lib/liba/br25/flac_dec_lib.a" />
 <Add option="include_lib/liba/br25/ape_dec_lib.a" />
-<Add option="include_lib/liba/br25/m4a_dec_lib.a" />
+<Add option="include_lib/liba/br25/m4a_tws_lib.a" />
 <Add option="include_lib/liba/br25/amr_dec_lib.a" />
 <Add option="include_lib/liba/br25/dts_dec_lib.a" />
 <Add option="include_lib/liba/br25/mp3_decstream_lib.a" />
@@ -222,6 +224,7 @@
 <Unit filename="apps/common/audio/encode/encode_write_file.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/common/audio/sine_make.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/common/audio/uartPcmSender.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/common/bt_common/bt_test_api.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/common/charge_box/chargeIc_manage.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/common/charge_box/chargeIc_manage.h" />
 <Unit filename="apps/common/charge_box/chgbox_box.c"><Option compilerVer="CC"/></Unit>
@@ -305,6 +308,8 @@
 <Unit filename="apps/common/music/music_player.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/common/music/music_player.h" />
 <Unit filename="apps/common/storage_dev/storage_dev.h" />
+<Unit filename="apps/common/third_party_profile/ancs_client_demo/le_ancs_client.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/common/third_party_profile/ancs_client_demo/le_ancs_client.h" />
 <Unit filename="apps/common/third_party_profile/common/3th_profile_api.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/common/third_party_profile/common/3th_profile_api.h" />
 <Unit filename="apps/common/third_party_profile/common/custom_cfg.c"><Option compilerVer="CC"/></Unit>
@@ -378,6 +383,13 @@
 <Unit filename="apps/common/usb/usb_std_class_def.h" />
 <Unit filename="apps/soundbox/aec/br25/audio_aec.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/soundbox/app_main.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/board/br25/board_ac6082_demo/board_ac6082_demo.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/board/br25/board_ac6082_demo/board_ac6082_demo_cfg.h" />
+<Unit filename="apps/soundbox/board/br25/board_ac6082_demo/key_table/adkey_table.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/board/br25/board_ac6082_demo/key_table/iokey_table.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/board/br25/board_ac6082_demo/key_table/irkey_table.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/board/br25/board_ac6082_demo/key_table/rdec_key_table.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/board/br25/board_ac6082_demo/key_table/touch_key_table.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/soundbox/board/br25/board_ac6969d_demo/board_ac6969d_demo.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/soundbox/board/br25/board_ac6969d_demo/board_ac6969d_demo_cfg.h" />
 <Unit filename="apps/soundbox/board/br25/board_ac6969d_demo/key_table/adkey_table.c"><Option compilerVer="CC"/></Unit>
@@ -485,6 +497,10 @@
 <Unit filename="apps/soundbox/include/task_manager/spdif/hdmi_cec.h" />
 <Unit filename="apps/soundbox/include/task_manager/spdif/hdmi_cec_api.h" />
 <Unit filename="apps/soundbox/include/tone_player.h" />
+<Unit filename="apps/soundbox/include/ui/color_led/color_led.h" />
+<Unit filename="apps/soundbox/include/ui/color_led/color_led_app.h" />
+<Unit filename="apps/soundbox/include/ui/color_led/color_led_driver.h" />
+<Unit filename="apps/soundbox/include/ui/color_led/color_led_table.h" />
 <Unit filename="apps/soundbox/include/ui/lcd_seg/lcd_seg3x9_driver.h" />
 <Unit filename="apps/soundbox/include/ui/lcd_spi/lcd_drive.h" />
 <Unit filename="apps/soundbox/include/ui/led7/led7_driver.h" />
@@ -549,6 +565,10 @@
 <Unit filename="apps/soundbox/smartbox/smartbox_setting/smartbox_eq_setting.h" />
 <Unit filename="apps/soundbox/smartbox/smartbox_setting/smartbox_high_low_vol.h" />
 <Unit filename="apps/soundbox/smartbox/smartbox_setting/smartbox_high_low_vol_setting.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/smartbox/smartbox_setting/smartbox_misc_setting/smartbox_misc_drc_setting.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/smartbox/smartbox_setting/smartbox_misc_setting/smartbox_misc_reverbration_setting.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/smartbox/smartbox_setting/smartbox_misc_setting/smartbox_misc_setting.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/smartbox/smartbox_setting/smartbox_misc_setting/smartbox_misc_setting.h" />
 <Unit filename="apps/soundbox/smartbox/smartbox_setting/smartbox_music_info_setting.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/soundbox/smartbox/smartbox_setting/smartbox_music_info_setting.h" />
 <Unit filename="apps/soundbox/smartbox/smartbox_setting/smartbox_vol_setting.c"><Option compilerVer="CC"/></Unit>
@@ -592,13 +612,19 @@
 <Unit filename="apps/soundbox/task_manager/power_off/power_off.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/soundbox/task_manager/power_on/power_on.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/soundbox/task_manager/record/record.c"><Option compilerVer="CC"/></Unit>
-<Unit filename="apps/soundbox/task_manager/rtc/alarm.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/task_manager/rtc/alarm_api.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/task_manager/rtc/alarm_user.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/soundbox/task_manager/rtc/rtc.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/soundbox/task_manager/rtc/rtc_simulate.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/soundbox/task_manager/spdif/hdmi_cec_drv.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/soundbox/task_manager/spdif/spdif.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/soundbox/task_manager/task_key.c"><Option compilerVer="CC"/></Unit>
-<Unit filename="apps/soundbox/trans_data_demo/trans_data_demo.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/third_party_profile/ancs_client_demo/ancs_client_demo.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/third_party_profile/trans_data_demo/trans_data_demo.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/ui/color_led/color_led_app.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/ui/color_led/color_led_table.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/ui/color_led/driver/color_led.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="apps/soundbox/ui/color_led/driver/color_led_driver.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/soundbox/ui/lcd/STYLE_02/bt_action.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/soundbox/ui/lcd/STYLE_02/clock_action.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="apps/soundbox/ui/lcd/STYLE_02/fm_action.c"><Option compilerVer="CC"/></Unit>
@@ -653,8 +679,9 @@
 <Unit filename="cpu/br25/audio_dec/audio_sync.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="cpu/br25/audio_dec/audio_usb_mic.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="cpu/br25/audio_dec/tone_player.c"><Option compilerVer="CC"/></Unit>
-<Unit filename="cpu/br25/audio_effect/audio_reverb.h" />
 <Unit filename="cpu/br25/audio_effect/eq_config.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="cpu/br25/audio_enc/audio_dongle_codec.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="cpu/br25/audio_enc/audio_dongle_codec.h" />
 <Unit filename="cpu/br25/audio_enc/audio_enc.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="cpu/br25/audio_enc/audio_enc.h" />
 <Unit filename="cpu/br25/audio_enc/audio_enc_file.c"><Option compilerVer="CC"/></Unit>
@@ -662,6 +689,8 @@
 <Unit filename="cpu/br25/audio_enc/audio_enc_recoder.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="cpu/br25/audio_enc/audio_enc_recoder.h" />
 <Unit filename="cpu/br25/audio_enc/audio_mic_codec.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="cpu/br25/audio_enc/audio_recorder_mix.c"><Option compilerVer="CC"/></Unit>
+<Unit filename="cpu/br25/audio_enc/audio_recorder_mix.h" />
 <Unit filename="cpu/br25/audio_enc/audio_sbc_codec.c"><Option compilerVer="CC"/></Unit>
 <Unit filename="cpu/br25/audio_enc/audio_sbc_codec.h" />
 <Unit filename="cpu/br25/audio_mic/effect_cfg.c"><Option compilerVer="CC"/></Unit>
@@ -805,6 +834,8 @@
 <Unit filename="include_lib/driver/device/usb/scsi.h" />
 <Unit filename="include_lib/driver/device/usb/usb_phy.h" />
 <Unit filename="include_lib/driver/device/wireless_charge.h" />
+<Unit filename="include_lib/media/audio_stream.h" />
+<Unit filename="include_lib/media/localtws_decoder.h" />
 <Unit filename="include_lib/media/media_develop/media/MIDI_DEC_API.h" />
 <Unit filename="include_lib/media/media_develop/media/PLC.h" />
 <Unit filename="include_lib/media/media_develop/media/a2dp_decoder.h" />
@@ -834,7 +865,6 @@
 <Unit filename="include_lib/media/media_develop/media/audio_encoder.h" />
 <Unit filename="include_lib/media/media_develop/media/audio_resample.h" />
 <Unit filename="include_lib/media/media_develop/media/audio_splicing.h" />
-<Unit filename="include_lib/media/media_develop/media/audio_stream.h" />
 <Unit filename="include_lib/media/media_develop/media/automute.h" />
 <Unit filename="include_lib/media/media_develop/media/cpu/br25/asm/Resample_api.h" />
 <Unit filename="include_lib/media/media_develop/media/cpu/br25/asm/audio_adc.h" />
@@ -859,7 +889,6 @@
 <Unit filename="include_lib/media/media_develop/media/file_decoder.h" />
 <Unit filename="include_lib/media/media_develop/media/includes.h" />
 <Unit filename="include_lib/media/media_develop/media/limiter_noiseGate_api.h" />
-<Unit filename="include_lib/media/media_develop/media/localtws_decoder.h" />
 <Unit filename="include_lib/media/media_develop/media/mixer.h" />
 <Unit filename="include_lib/media/media_develop/media/pcm_decoder.h" />
 <Unit filename="include_lib/media/media_develop/media/prevent_task_fill.h" />
@@ -965,6 +994,7 @@
 <Unit filename="include_lib/system/ui/ui/ui_number.h" />
 <Unit filename="include_lib/system/ui/ui/ui_pic.h" />
 <Unit filename="include_lib/system/ui/ui/ui_progress.h" />
+<Unit filename="include_lib/system/ui/ui/ui_progress_multi.h" />
 <Unit filename="include_lib/system/ui/ui/ui_slider.h" />
 <Unit filename="include_lib/system/ui/ui/ui_text.h" />
 <Unit filename="include_lib/system/ui/ui/ui_time.h" />
@@ -973,6 +1003,7 @@
 <Unit filename="include_lib/system/user_cfg.h" />
 <Unit filename="include_lib/system/wait.h" />
 <Unit filename="include_lib/update/dual_bank_updata_api.h" />
+<Unit filename="include_lib/update/uart_update.h" />
 <Unit filename="include_lib/update/update.h" />
 <Unit filename="include_lib/update/update_loader_download.h" />
 </Project>

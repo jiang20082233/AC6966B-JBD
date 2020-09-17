@@ -183,6 +183,8 @@ int dev_status_event_filter(struct sys_event *event)
                     ///检查设备升级
                     dev_update_check(add);
                 }
+            } else {
+                ret = false;
             }
         } else {
             ret = false;

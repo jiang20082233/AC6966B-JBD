@@ -24,6 +24,7 @@ typedef struct {
 
 
 int audio_digital_vol_init(void);
+void audio_digital_vol_bg_fade(u8 fade_out);
 dvol_handle *audio_digital_vol_open(u8 vol, u8 vol_max, u16 fade_step);
 void audio_digital_vol_close(dvol_handle *dvol);
 void audio_digital_vol_set(dvol_handle *dvol, u8 vol);

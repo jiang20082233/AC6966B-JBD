@@ -4,6 +4,7 @@
 #include "generic/typedef.h"
 #include "media/includes.h"
 #include "mic_effect.h"
+#include "loud_speaker.h"
 
 
 struct record_file_fmt {
@@ -19,7 +20,9 @@ struct record_file_fmt {
     u32 cut_tail_time;//录音文件去尾时间,单位ms
     u32 limit_size;//录音文件大小最小限制， 单位byte
     u8  source;//录音输入源
+    void (*err_callback)(void);
 };
+
 
 int esco_enc_open(u32 coding_type, u8 frame_len);
 void esco_enc_close();
@@ -42,7 +45,11 @@ int mixer_recorder_encoding(void);
 int mixer_recorder_start(void);
 void mixer_recorder_stop(void);
 int recorder_encode_start(struct record_file_fmt *f);
-void recorder_userdata_to_enc(s16 *data, int len);
+int recorder_userdata_to_enc(s16 *data, int len);
+
+int audio_encoder_task_open(void);
+void audio_encoder_task_close(void);
+
 int audio_mic_open(struct adc_mic_ch *mic, u16 sample_rate, u8 gain);
 void audio_mic_add_output(struct audio_adc_output_hdl *output);
 void audio_mic_start(struct adc_mic_ch *mic);
@@ -51,5 +58,6 @@ void audio_mic_set_gain(u8 gain);
 //////////////////////////////////////////////////////////////////
 #include "audio_enc_file.h"
 #include "audio_enc_recoder.h"
+#include "audio_recorder_mix.h"
 
 #endif/*_AUDIO_ENC_H_*/

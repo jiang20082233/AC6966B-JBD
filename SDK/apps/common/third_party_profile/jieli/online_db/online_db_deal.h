@@ -8,6 +8,7 @@ typedef enum {
     DB_PKT_TYPE_EQ = 5,
     DB_PKT_TYPE_ANC = 7,
     DB_PKT_TYPE_AEC = 8,
+    DB_PKT_TYPE_EXPORT = 0x9,
     DB_PKT_TYPE_MAX,
 } db_pkt_e;
 

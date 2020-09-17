@@ -144,12 +144,18 @@ const int CONFIG_A2DP_DELAY_TIME            = 200;
 /* #endif */
 /* #endif */
 
+const int config_btctler_le_slave_conn_update_winden = 2500;//range:100 to 2500
 /*-----------------------------------------------------------*/
 /**
  * @brief Bluetooth Analog setting
  */
 /*-----------------------------------------------------------*/
+#if ((!TCFG_USER_BT_CLASSIC_ENABLE) && TCFG_USER_BLE_ENABLE)
+const int config_btctler_single_carrier_en = 1;   ////单模ble才设置
+#else
 const int config_btctler_single_carrier_en = 0;
+#endif
+
 
 
 /**

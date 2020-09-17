@@ -148,7 +148,16 @@ const struct __dev_reg dev_reg[] = {
         /*bs_root_path*/	NULL,
         /*fs_type*/			"nor_sdfile"
     },
-
+    // 虚拟U盘
+    {
+        /*logo*/			"vir_udisk0",
+        /*name*/			"vir_udisk0",
+        /*storage_path*/	"storage/vir_udisk0",
+        /*bs_storage_path*/	NULL,
+        /*root_path*/		"storage/vir_udisk0/C/",
+        /*bs_root_path*/	NULL,
+        /*fs_type*/			"fat"
+    },
     //<新加设备参数请在reg end前添加!!
     //<reg end
     {

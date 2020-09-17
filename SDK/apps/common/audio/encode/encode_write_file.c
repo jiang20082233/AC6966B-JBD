@@ -218,11 +218,7 @@ void enc_write_file_close(void *hdl)
                     fwrite(wfil->file, head, len);
                 }
             }
-#if  TCFG_NOR_REC || FLASH_INSIDE_REC_ENABLE
-            fseek(wfil->file, 0, SEEK_SET);
-#else
             fseek(wfil->file, f_len, SEEK_SET);
-#endif
             fget_attrs(wfil->file, &attr);
             fclose(wfil->file);
 			char *dev_logo = NULL;
@@ -404,6 +400,19 @@ int get_enc_file_len(void *hdl)
         /* filelen = flen(wfil->file);		 */
     }
     return filelen;
+}
+
+
+void *get_wfil_head_hdl(void *enc_whdl)
+{
+    struct enc_write_file *wfil = (struct enc_write_file *)enc_whdl;
+    return wfil->set_head_hdl;
+}
+
+FILE *get_wfil_file(void *enc_whdl)
+{
+    struct enc_write_file *wfil = (struct enc_write_file *)enc_whdl;
+    return wfil->file;
 }
 
 //////////////////////////////////////////////////////////////////////////////

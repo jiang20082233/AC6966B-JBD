@@ -15,7 +15,11 @@
 #define  L_sat(b,a)       __asm__ volatile("%0=sat16(%1)(s)":"=&r"(b) : "r"(a));
 #define  L_sat32(b,a,n)       __asm__ volatile("%0=%1>>%2(s)":"=&r"(b) : "r"(a),"r"(n));
 
-struct list_head dvol_head;
+typedef struct {
+    u8 bg_dvol_fade_out;
+    struct list_head dvol_head;
+} dvol_t;
+static dvol_t dvol_attr;
 
 //static struct digital_volume d_volume;
 /*
@@ -60,9 +64,17 @@ const u16 dig_vol_table[DIGITAL_VOL_MAX + 1] = {
 
 int audio_digital_vol_init(void)
 {
-    INIT_LIST_HEAD(&dvol_head);
+    INIT_LIST_HEAD(&dvol_attr.dvol_head);
     return 0;
 }
+
+/*背景音乐淡出使能*/
+void audio_digital_vol_bg_fade(u8 fade_out)
+{
+    printf("audio_digital_vol_bg_fade:%d", fade_out);
+    dvol_attr.bg_dvol_fade_out = fade_out;
+}
+
 /*
  *fade_step一般不超过两级数字音量的最小差值
  *(1)通话如果用数字音量，一般步进小一点，音量调节的时候不会有杂音
@@ -75,7 +87,10 @@ dvol_handle *audio_digital_vol_open(u8 vol, u8 vol_max, u16 fade_step)
     if (dvol) {
         u8 vol_level;
         dvol->fade 		= DIGITAL_FADE_EN;
-        dvol->vol 		= vol;
+        dvol->vol 		= (vol > vol_max) ? vol_max : vol;
+        if (vol > vol_max) {
+            printf("[warning]cur digital_vol(%d) > digital_vol_max(%d)!!", vol, vol_max);
+        }
         dvol->vol_max 	= vol_max;
         vol_level 			= vol * DIGITAL_VOL_MAX / vol_max;
         dvol->vol_target = dig_vol_table[vol_level];
@@ -85,29 +100,31 @@ dvol_handle *audio_digital_vol_open(u8 vol, u8 vol_max, u16 fade_step)
 #if BG_DVOL_FADE_ENABLE
         dvol->vol_bk = -1;
         local_irq_disable();
-        list_add(&dvol->entry, &dvol_head);
-        dvol_handle *hdl;
-        list_for_each_entry(hdl, &dvol_head, entry) {
-            if (hdl != dvol) {
-                hdl->vol_bk = hdl->vol;
-                if (hdl->vol >= BG_DVOL_MAX) {
-                    hdl->vol -= BG_DVOL_MAX_FADE;
-                } else if (hdl->vol >= BG_DVOL_MID) {
-                    hdl->vol -= BG_DVOL_MID_FADE;
-                } else if (hdl->vol >= BG_DVOL_MIN) {
-                    hdl->vol -= BG_DVOL_MIN_FADE;
-                } else {
-                    hdl->vol_bk = -1;
-                    continue;
+        list_add(&dvol->entry, &dvol_attr.dvol_head);
+        if (dvol_attr.bg_dvol_fade_out) {
+            dvol_handle *hdl;
+            list_for_each_entry(hdl, &dvol_attr.dvol_head, entry) {
+                if (hdl != dvol) {
+                    hdl->vol_bk = hdl->vol;
+                    if (hdl->vol >= BG_DVOL_MAX) {
+                        hdl->vol -= BG_DVOL_MAX_FADE;
+                    } else if (hdl->vol >= BG_DVOL_MID) {
+                        hdl->vol -= BG_DVOL_MID_FADE;
+                    } else if (hdl->vol >= BG_DVOL_MIN) {
+                        hdl->vol -= BG_DVOL_MIN_FADE;
+                    } else {
+                        hdl->vol_bk = -1;
+                        continue;
+                    }
+                    u8 vol_level = hdl->vol * DIGITAL_VOL_MAX / hdl->vol_max;
+                    hdl->vol_target = dig_vol_table[vol_level];
+                    //y_printf("bg_dvol fade_out:%x,vol_bk:%d,vol_set:%d,tartget:%d",hdl,hdl->vol_bk,hdl->vol,hdl->vol_target);
                 }
-                u8 vol_level = hdl->vol * DIGITAL_VOL_MAX / hdl->vol_max;
-                hdl->vol_target = dig_vol_table[vol_level];
-                //y_printf("bg_dvol fade_out:%x,vol_bk:%d,vol_set:%d,tartget:%d",hdl,hdl->vol_bk,hdl->vol,hdl->vol_target);
             }
         }
         local_irq_enable();
 #endif
-        printf("digital_vol_open:%x-%d-%d-%d\n", dvol, vol, vol_max, fade_step);
+        printf("digital_vol_open:%x-%d-%d-%d\n", dvol, dvol->vol, dvol->vol_max, fade_step);
     }
     return dvol;
 }
@@ -120,7 +137,7 @@ void audio_digital_vol_close(dvol_handle *dvol)
         local_irq_disable();
         list_del(&dvol->entry);
         dvol_handle *hdl;
-        list_for_each_entry(hdl, &dvol_head, entry) {
+        list_for_each_entry(hdl, &dvol_attr.dvol_head, entry) {
             if ((hdl != dvol) && (hdl->vol_bk >= 0)) {
                 //y_printf("bg_dvol fade_in:%x,%d",hdl,hdl->vol_bk);
                 hdl->vol =  hdl->vol_bk;

@@ -159,6 +159,7 @@ void lmp_hci_user_keypress_request_reply(u8 *addr, u32 key);
 void lmp_hci_user_keypress_request_negative_reply(u8 *addr, u8 key);
 
 
+void lmp_hci_set_role_switch_supported(bool enable);
 
 
 

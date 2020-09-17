@@ -3,6 +3,7 @@
 #include "app_msg.h"
 #include "key_driver.h"
 #include "key_event_deal.h"
+#include "audio_recorder_mix.h"
 
 ///模式配置表，这里可以配置切换模式的顺序，方案根据需求定义
 static const u8 app_task_list[] = {
@@ -240,6 +241,10 @@ int app_task_switch_to(u8 app_task)
     extern void function_change_inform(u8 app_mode, u8 ret);
     function_change_inform(app_task, TRUE);
 #endif
+
+#if (RECORDER_MIX_EN)
+    recorder_mix_stop();
+#endif/*RECORDER_MIX_EN*/
 
     app_prev_task = app_curr_task;
     app_next_task = app_task;

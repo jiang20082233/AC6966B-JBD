@@ -5,9 +5,9 @@
 #include "system/includes.h"
 #include "server/server_core.h"
 #include "media/audio_decoder.h"
-#include "dev_manager.h"
-#include "file_manager.h"
-#include "audio_dec_file.h"
+#include "dev_manager/dev_manager.h"
+#include "file_operate/file_manager.h"
+#include "audio_dec/audio_dec_file.h"
 
 ///解码错误码表
 enum {
