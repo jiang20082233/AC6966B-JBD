@@ -193,20 +193,7 @@ int app_power_event_handler(struct device_event *dev)
 }
 
 
-u16 get_vbat_level(void)
-{
-    u16 vbat_tp = 0;
-    #if (defined(USER_VBAT_CHECK_EN) && USER_VBAT_CHECK_EN)
-    vbat_tp = user_fun_get_vbat();
-    #else
-    vbat_tp = (adc_get_voltage(AD_CH_VBAT) * 4 / 10);
-    #endif
-    // printf(">>>>>>>>>> vbat vol %04d\n",vbat_tp);
-    //return 370;     //debug
-    return vbat_tp;
-}
-
-u16 user_get_vbat_level(void){
+u16 user_get_vbat_level(u16 level){
     #define USER_VBAT_TABLE_SIZE    20
 
     static u16 save_table_old[USER_VBAT_TABLE_SIZE] = {0};
@@ -214,7 +201,7 @@ u16 user_get_vbat_level(void){
     u16 max = 0;
     u16 mix = 0;
 
-    save_table_old[i++]=get_vbat_level();
+    save_table_old[i++]=level;
     if(i >= USER_VBAT_TABLE_SIZE)i = 0;
 
     for(int j = 0;j<USER_VBAT_TABLE_SIZE;j++){
@@ -229,6 +216,21 @@ u16 user_get_vbat_level(void){
 
     // printf(">>>>>>>> vbat %d\n",max);
     return max;
+}
+
+
+u16 get_vbat_level(void)
+{
+    u16 vbat_tp = 0;
+    #if (defined(USER_VBAT_CHECK_EN) && USER_VBAT_CHECK_EN)
+    vbat_tp = user_fun_get_vbat();
+    #else
+    vbat_tp = (adc_get_voltage(AD_CH_VBAT) * 4 / 10);
+    #endif
+    vbat_tp = user_get_vbat_level(vbat_tp);
+    // printf(">>>>>>>>>> vbat vol %04d\n",vbat_tp);
+    //return 370;     //debug
+    return vbat_tp;
 }
 
 __attribute__((weak)) u8 remap_calculate_vbat_percent(u16 bat_val)
@@ -372,9 +374,9 @@ void vbat_check(void *priv)
     }
 
     if (!bat_val) {
-        bat_val = user_get_vbat_level();//get_vbat_level();
+        bat_val = get_vbat_level();
     } else {
-        bat_val = (/*get_vbat_level()*/user_get_vbat_level() + bat_val) / 2;
+        bat_val = (get_vbat_level() + bat_val) / 2;
     }
 
     cur_battery_level = battery_value_to_phone_level(bat_val);

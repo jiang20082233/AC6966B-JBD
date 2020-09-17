@@ -203,14 +203,20 @@ void user_music_set_file_number(int number){
     #endif
 }
 
-void user_vbat_check_init(void){
+//spi pb6 clk 引脚复用设置
+void user_fun_spi_pb6_mult(void){
     #if (defined(USER_VBAT_CHECK_EN) && USER_VBAT_CHECK_EN)
-    adc_add_sample_ch(user_power_io.ch);          //注意：初始化AD_KEY之前，先初始化ADC
-
     gpio_set_die(user_power_io.pro, 0);
     gpio_set_direction(user_power_io.pro, 1);
     gpio_set_pull_down(user_power_io.pro, 0);
     gpio_set_pull_up(user_power_io.pro, 0);
+    #endif
+}
+
+void user_vbat_check_init(void){
+    #if (defined(USER_VBAT_CHECK_EN) && USER_VBAT_CHECK_EN)
+    adc_add_sample_ch(user_power_io.ch);          //注意：初始化AD_KEY之前，先初始化ADC
+    user_fun_spi_pb6_mult();
     #endif
     return;
 }

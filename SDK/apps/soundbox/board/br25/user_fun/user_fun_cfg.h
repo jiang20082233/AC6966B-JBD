@@ -99,5 +99,5 @@ u16 user_fun_get_vbat(void);
 void user_music_set_file_number(int number);
 void user_eq_mode_sw(void);
 u8 user_record_status(u8 cmd);
-
+void user_vbat_check_init(void);
 #endif

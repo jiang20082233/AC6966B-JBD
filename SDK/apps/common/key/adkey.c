@@ -1,3 +1,4 @@
+#include "board_config.h"
 #include "key_driver.h"
 #include "adkey.h"
 #include "gpio.h"
@@ -6,6 +7,10 @@
 
 
 #if TCFG_ADKEY_ENABLE
+
+#if (KEY_AD_NUM_MAX!=ADKEY_MAX_NUM)
+#error adkey 两个宏buxiangdeng
+#endif
 
 static const struct adkey_platform_data *__this = NULL;
 
@@ -26,19 +31,20 @@ u8 user_adkey_mapping(u8 key){
 #if (defined(USER_ADKEY_MAPPING_EN) && USER_ADKEY_MAPPING_EN)    
 
     u8 ad_key_table[][2]={
-        {0,4},
-        {1,3},
-        {2,2},
-        {3,1},
+        {0,3},//mode、tws
+        {2,5},//LED OFF、RGB mode
+        {4,8},//eq
+        {5,1},//+
+        {7,2},//-
+        {8,0},//pp
     };
-    
     if(NO_KEY == tp)return tp;
 
     for(int i = 0;i<(sizeof(ad_key_table)/sizeof(ad_key_table[0]));i++){
         tp = key;
-        if(ad_key_table[i][1] == tp){
-            tp = ad_key_table[i][0];
-            // printf(">>>>>> %d\n",tp);tp = NO_KEY;
+        if(ad_key_table[i][0] == tp){
+            tp = ad_key_table[i][1];
+            // printf(">>>>>> key %d %d\n",key,tp);tp = NO_KEY;
             break;
         }else{
             tp = NO_KEY;
@@ -58,7 +64,8 @@ u8 ad_get_key_value(void)
 
     /* ad_data = adc_get_voltage(__this->ad_channel); */
     ad_data = adc_get_value(__this->ad_channel);
-    /* printf("ad_value = %d \n", ad_data); */
+    // printf("ad_value = %d \n", ad_data); 
+    //return NO_KEY;
     for (i = 0; i < ADKEY_MAX_NUM; i++) {
         if ((ad_data <= __this->ad_value[i]) && (__this->ad_value[i] < 0x3ffL)) {
             #if (defined(USER_ADKEY_MAPPING_EN) && USER_ADKEY_MAPPING_EN)

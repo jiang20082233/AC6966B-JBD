@@ -78,7 +78,7 @@ static void record_mic_start(void)
     fmt.dev = logo;
     fmt.folder = folder;
     fmt.filename = filename;
-    fmt.coding_type = AUDIO_CODING_WAV; //编码格式：AUDIO_CODING_WAV, AUDIO_CODING_MP3
+    fmt.coding_type = AUDIO_CODING_MP3; //编码格式：AUDIO_CODING_WAV, AUDIO_CODING_MP3
     fmt.channel = 1;                    //声道数： 1：单声道 2：双声道
     fmt.sample_rate = 44100;            //采样率：8000，16000，32000，44100
     fmt.cut_head_time = 300;            //录音文件去头时间,单位ms

@@ -203,7 +203,7 @@
 //#define KEY_NUM_MAX                        	10
 //#define KEY_NUM                            	3
 #define KEY_IO_NUM_MAX						6
-#define KEY_AD_NUM_MAX						10
+#define KEY_AD_NUM_MAX						14
 #define KEY_IR_NUM_MAX						21
 #define KEY_TOUCH_NUM_MAX					6
 #define KEY_RDEC_NUM_MAX                    6
@@ -242,32 +242,59 @@
 #endif
 
 //必须从小到大填电阻，没有则同VDDIO,填0x3ffL
-#define USER_003K    (30)//3k
-#define USER_005K    (51)//5.1k
-#define USER_011K    (110)//11K
-#define USER_014K    (140)//14K
-#define USER_015K    (150)
-#define USER_033K    (330)
-#define USER_100K    (1000)
+#define USER_0000K    (0)//0k
+#define USER_0013K    (13)//1.3k
+#define USER_0020K    (20)//2k
+#define USER_0030K    (30)//3k
+#define USER_0040K    (40)//4k
+#define USER_0051K    (51)//5.1k
+#define USER_0068K    (68)//6.8k
+#define USER_0110K    (110)//11K
+#define USER_0140K    (140)//14K
+#define USER_0150K    (150)
+#define USER_0180K    (180)//18k
+#define USER_0240K    (240)//24k
+#define USER_0330K    (330)
+#define USER_0340K    (340)//34k
+#define USER_0802K    (802)//80.2k
+#define USER_1000K    (1000)
 #define USER_NULLK   (2200)
 
-#define USER_R_KEY_01 USER_003K
-#define USER_R_KEY_02 USER_005K
-#define USER_R_KEY_03 USER_011K
-#define USER_R_KEY_04 USER_014K
-#define USER_R_KEY_05 USER_NULLK
-#define USER_R_KEY_06 USER_NULLK
+// #define USER_R_KEY_01 USER_0030K
+// #define USER_R_KEY_02 USER_0051K
+// #define USER_R_KEY_03 USER_0110K
+// #define USER_R_KEY_04 USER_0140K
+#define USER_R_KEY_00 USER_0000K
+#define USER_R_KEY_01 USER_0013K
+#define USER_R_KEY_02 USER_0020K
+#define USER_R_KEY_03 USER_0030K
+#define USER_R_KEY_04 USER_0040K
+#define USER_R_KEY_05 USER_0051K
+#define USER_R_KEY_06 USER_0068K
+#define USER_R_KEY_07 USER_0110K
+#define USER_R_KEY_08 USER_0140K
+#define USER_R_KEY_09 USER_0180K
+#define USER_R_KEY_10 USER_0240K
+#define USER_R_KEY_11 USER_0340K
+#define USER_R_KEY_12 USER_0802K
+#define USER_R_KEY_13 USER_NULLK
+#define USER_R_KEY_14 USER_NULLK
 
-#define TCFG_ADKEY_AD0(x)      (0)                                 //0R
-#define TCFG_ADKEY_AD1(x)      (((x) * USER_R_KEY_01)  / (USER_R_KEY_01   + R_UP))//(0x3ffL * 30   / (30   + R_UP))     //3k
-#define TCFG_ADKEY_AD2(x)      (((x) * USER_R_KEY_02)  / (USER_R_KEY_02   + R_UP))     //6.2k
-#define TCFG_ADKEY_AD3(x)      (((x) * USER_R_KEY_03)  / (USER_R_KEY_03   + R_UP))     //9.1k
+#define TCFG_ADKEY_AD0(x)      (((x) * USER_R_KEY_00)  / (USER_R_KEY_00  + R_UP))                                //0R
+#define TCFG_ADKEY_AD1(x)      (((x) * USER_R_KEY_01)  / (USER_R_KEY_01  + R_UP))//(0x3ffL * 30   / (30   + R_UP))     //3k
+#define TCFG_ADKEY_AD2(x)      (((x) * USER_R_KEY_02)  / (USER_R_KEY_02  + R_UP))     //6.2k
+#define TCFG_ADKEY_AD3(x)      (((x) * USER_R_KEY_03)  / (USER_R_KEY_03  + R_UP))     //9.1k
 #define TCFG_ADKEY_AD4(x)      (((x) * USER_R_KEY_04)  / (USER_R_KEY_04  + R_UP))     //15k
 #define TCFG_ADKEY_AD5(x)      (((x) * USER_R_KEY_05)  / (USER_R_KEY_05  + R_UP))//(((x) * 240)  / (240  + R_UP))     //24k
 #define TCFG_ADKEY_AD6(x)      (((x) * USER_R_KEY_06)  / (USER_R_KEY_06  + R_UP))     //33k
-#define TCFG_ADKEY_AD7(x)      (((x) * 510)  / (510  + R_UP))     //51k
-#define TCFG_ADKEY_AD8(x)      (((x) * 1000) / (1000 + R_UP))     //100k
-#define TCFG_ADKEY_AD9(x)      (((x) * 2200) / (2200 + R_UP))     //220k
+#define TCFG_ADKEY_AD7(x)      (((x) * USER_R_KEY_07)  / (USER_R_KEY_07  + R_UP))     //51k
+#define TCFG_ADKEY_AD8(x)      (((x) * USER_R_KEY_08)  / (USER_R_KEY_08  + R_UP))     //100k
+#define TCFG_ADKEY_AD9(x)      (((x) * USER_R_KEY_09)  / (USER_R_KEY_09  + R_UP))     //220k
+#define TCFG_ADKEY_AD10(x)     (((x) * USER_R_KEY_10)  / (USER_R_KEY_10  + R_UP))     //51k
+#define TCFG_ADKEY_AD11(x)     (((x) * USER_R_KEY_11)  / (USER_R_KEY_11  + R_UP))     //100k
+#define TCFG_ADKEY_AD12(x)     (((x) * USER_R_KEY_12)  / (USER_R_KEY_12  + R_UP))     //220k
+#define TCFG_ADKEY_AD13(x)     (((x) * USER_R_KEY_13)  / (USER_R_KEY_13  + R_UP))     //51k
+#define TCFG_ADKEY_AD14(x)     (((x) * USER_R_KEY_14)  / (USER_R_KEY_14  + R_UP))     //100k
 #define TCFG_ADKEY_VDDIO       (0x3ffL)
 
 #define TCFG_ADKEY_VOLTAGE0(x) ((TCFG_ADKEY_AD0(x) + TCFG_ADKEY_AD1(x)) / 2)
@@ -279,7 +306,12 @@
 #define TCFG_ADKEY_VOLTAGE6(x) ((TCFG_ADKEY_AD6(x) + TCFG_ADKEY_AD7(x)) / 2)
 #define TCFG_ADKEY_VOLTAGE7(x) ((TCFG_ADKEY_AD7(x) + TCFG_ADKEY_AD8(x)) / 2)
 #define TCFG_ADKEY_VOLTAGE8(x) ((TCFG_ADKEY_AD8(x) + TCFG_ADKEY_AD9(x)) / 2)
-#define TCFG_ADKEY_VOLTAGE9(x) ((TCFG_ADKEY_AD9(x) + TCFG_ADKEY_VDDIO) / 2)
+#define TCFG_ADKEY_VOLTAGE9(x) ((TCFG_ADKEY_AD9(x) + TCFG_ADKEY_AD10(x)) / 2)
+#define TCFG_ADKEY_VOLTAGE10(x) ((TCFG_ADKEY_AD10(x) + TCFG_ADKEY_AD11(x)) / 2)
+#define TCFG_ADKEY_VOLTAGE11(x) ((TCFG_ADKEY_AD11(x) + TCFG_ADKEY_AD12(x)) / 2)
+#define TCFG_ADKEY_VOLTAGE12(x) ((TCFG_ADKEY_AD12(x) + TCFG_ADKEY_AD13(x)) / 2)
+#define TCFG_ADKEY_VOLTAGE13(x) ((TCFG_ADKEY_AD13(x) + TCFG_ADKEY_AD14(x)) / 2)
+#define TCFG_ADKEY_VOLTAGE14(x) ((TCFG_ADKEY_AD14(x) + TCFG_ADKEY_VDDIO) / 2)
 
 #define TCFG_ADKEY_VALUE0                   0
 #define TCFG_ADKEY_VALUE1                   1
@@ -291,6 +323,11 @@
 #define TCFG_ADKEY_VALUE7                   7
 #define TCFG_ADKEY_VALUE8                   8
 #define TCFG_ADKEY_VALUE9                   9
+#define TCFG_ADKEY_VALUE10                  10
+#define TCFG_ADKEY_VALUE11                  11
+#define TCFG_ADKEY_VALUE12                  12
+#define TCFG_ADKEY_VALUE13                  13
+#define TCFG_ADKEY_VALUE14                  14
 
 //*********************************************************************************//
 //                                 irkey 配置                                      //
@@ -671,7 +708,7 @@ DAC硬件上的连接方式,可选的配置：
 //*********************************************************************************//
 #define TCFG_DEC_G729_ENABLE                ENABLE
 #define TCFG_DEC_MP3_ENABLE					ENABLE
-#define TCFG_DEC_WMA_ENABLE					ENABLE
+#define TCFG_DEC_WMA_ENABLE					DISABLE
 #define TCFG_DEC_WAV_ENABLE					ENABLE
 #define TCFG_DEC_FLAC_ENABLE				DISABLE
 #define TCFG_DEC_APE_ENABLE					DISABLE
@@ -766,7 +803,7 @@ DAC硬件上的连接方式,可选的配置：
 #define TCFG_ENC_MSBC_ENABLE                ENABLE
 #define TCFG_ENC_MP3_ENABLE                 ENABLE
 #define TCFG_ENC_ADPCM_ENABLE               ENABLE
-#define TCFG_ENC_SBC_ENABLE                 ENABLE
+#define TCFG_ENC_SBC_ENABLE                 DISABLE
 #define TCFG_ENC_OPUS_ENABLE                DISABLE
 #define TCFG_ENC_SPEEX_ENABLE               DISABLE
 

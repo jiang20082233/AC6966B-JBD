@@ -296,6 +296,11 @@ const struct adkey_platform_data adkey_data = {
         TCFG_ADKEY_VOLTAGE7(TCFG_ADKEY_VDDIO),
         TCFG_ADKEY_VOLTAGE8(TCFG_ADKEY_VDDIO),
         TCFG_ADKEY_VOLTAGE9(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE10(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE11(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE12(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE13(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE14(TCFG_ADKEY_VDDIO),
     },
     .key_value = {                                             //AD按键各个按键的键值
         TCFG_ADKEY_VALUE0,
@@ -308,6 +313,11 @@ const struct adkey_platform_data adkey_data = {
         TCFG_ADKEY_VALUE7,
         TCFG_ADKEY_VALUE8,
         TCFG_ADKEY_VALUE9,
+        TCFG_ADKEY_VALUE10,
+        TCFG_ADKEY_VALUE11,
+        TCFG_ADKEY_VALUE12,
+        TCFG_ADKEY_VALUE13,
+        TCFG_ADKEY_VALUE14,
     },
 };
 #endif

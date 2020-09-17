@@ -63,7 +63,7 @@ void user_rgb_gradient(u16 *r,u16 *g,u16 *b,u8 *umode,u16 kk){
         }
         sg+=kk;
         sr = 0xff-sg;
-    	
+
     	if(0xff <= sg){
             sg = 0xff;
             sr = sb = 0;
@@ -77,7 +77,7 @@ void user_rgb_gradient(u16 *r,u16 *g,u16 *b,u8 *umode,u16 kk){
         }
         sb+=kk;
         sg = 0xff-sb;
-    	
+
     	if(0xff <= sb){
             sb = 0xff;
             sr = sg = 0;
@@ -115,7 +115,7 @@ void user_rgb_gradient(u16 *r,u16 *g,u16 *b,u8 *umode,u16 kk){
         }
         sb+=kk;
         sr = 0xff-sb;
-    	
+
     	if(0xff <= sb){
             sg = sb = 0xff;
             sr = 0;
@@ -128,7 +128,7 @@ void user_rgb_gradient(u16 *r,u16 *g,u16 *b,u8 *umode,u16 kk){
         }
         sr+=kk;
         sg = 0xff-sr;
-    	
+
     	if(0xff <= sr){
             sr = sb = 0xff;
             sg = 0;
@@ -140,7 +140,7 @@ void user_rgb_gradient(u16 *r,u16 *g,u16 *b,u8 *umode,u16 kk){
             sg = 0;
         }
         sb -=kk;
-    	
+
     	if(0x0>=sb){
             sr = 0xff;
             sg = sb = 0x0;
@@ -160,7 +160,7 @@ void user_rgb_colour_gradient(void *priv){
         return;
     }
     static u8 mode = 0;
-    
+
     u16 sr=rgb->cur_colour.r,sg=rgb->cur_colour.g,sb=rgb->cur_colour.b;
     user_rgb_gradient(&sr,&sg,&sb,&mode,1);
     rgb->cur_colour.r=sr;
@@ -186,14 +186,14 @@ void user_rgb_bass_display(void *priv,void *data){
 
     if(!rgb || !play_data || !rgb->info || rgb->info->rend_flag || !rgb->info->number || !play_data->display_time || rgb->power_off){
         return;
-    }    
-    
+    }
+
     rgb->interrupt = 1;
     rgb->info->updata_flag = 1;
     if(rgb->interrupt_id){
         sys_timeout_del(rgb->interrupt_id);
     }
-    
+
     user_rgb_clear_colour(rgb->info);
     RGB_COLOUR colour={0x0,0x0,0x0};
     if(play_data->bass){
@@ -209,7 +209,7 @@ void user_rgb_bass_display(void *priv,void *data){
     user_rgb_same_colour(rgb->info,&colour);
 
     rgb->info->updata_flag = 0;
-    rgb->interrupt_id = sys_timeout_add(rgb,user_rgb_clean_interrupt,1000*(play_data->display_time));    
+    rgb->interrupt_id = sys_timeout_add(rgb,user_rgb_clean_interrupt,1000*(play_data->display_time));
 
 }
 
@@ -226,13 +226,13 @@ void user_rgb_vol_display(void *priv,void *data){
     if(rgb->interrupt_id){
         sys_timeout_del(rgb->interrupt_id);
     }
-    
+
     user_rgb_clear_colour(rgb->info);
 
     u16 tp = 0;
     u16 number = (play_data->sys_vol*rgb->info->number/play_data->sys_vol_max);//被点亮的颗数
     RGB_COLOUR colour={0x0,0x0,0x0};
-    
+
     for(int i=0;i<number;i++){
         tp = i*(0xff-0xa)/rgb->info->number;
         tp = !tp?0xa:tp;
@@ -301,11 +301,11 @@ void user_rgb_display_mode_2(void *priv){
     }
     // random_number(7,30);
     // timer_get_ms();
-    
+
     s32 display_number = timer_get_sec()%(rgb->info->number);
     // printf(">>>>>>>>>>>>%d\n",display_number);
     display_number = display_number>=(rgb->info->number>>1)?(rgb->info->number>>1)-(display_number%(rgb->info->number>>1))-2:display_number;
-    
+
     for(int i = 0;i<=display_number;i++){
         user_rgb_colour_only_set(rgb->info,&rgb->cur_colour,(rgb->info->number/2)-i-(!(rgb->info->number%2)));
         user_rgb_colour_only_set(rgb->info,&rgb->cur_colour,(rgb->info->number/2)+i);
@@ -362,8 +362,8 @@ void user_rgb_mode_scan(void *priv){
     }
 
     rgb->info->updata_flag = 1;
-    
-    if(!rgb->interrupt){        
+
+    if(!rgb->interrupt){
         user_rgb_colour_gradient(rgb);
         user_rgb_clear_colour(rgb->info);
 
@@ -372,15 +372,15 @@ void user_rgb_mode_scan(void *priv){
             if(30 != rgb->mode_scan_time){
                 rgb->mode_scan_time = 30;
             }
-            user_rgb_display_mode_1(rgb);   
+            user_rgb_display_mode_1(rgb);
             break;
         case USER_RGB_MODE_2:
             if(100 != rgb->mode_scan_time){
                 rgb->mode_scan_time = 100;
             }
-            user_rgb_display_mode_2(rgb);  
+            user_rgb_display_mode_2(rgb);
             break;
-        case USER_RGB_MODE_3:        
+        case USER_RGB_MODE_3:
             if(100 != rgb->mode_scan_time){
                 rgb->mode_scan_time = 100;
             }
@@ -420,7 +420,7 @@ void user_rgb_mode_scan(void *priv){
             user_rgb_display_mode_5(rgb);
             break;
         case USER_RGB_MODE_OFF:
-            break; 
+            break;
         default:
             break;
         }
@@ -430,7 +430,7 @@ void user_rgb_mode_scan(void *priv){
     sys_timeout_add(rgb,user_rgb_mode_scan,rgb->mode_scan_time);
 }
 
-void user_rgb_fun_power_off(void *priv){ 
+void user_rgb_fun_power_off(void *priv){
     RGB_FUN *rgb = (RGB_FUN *)priv;
     if (!rgb || !rgb->info || rgb->power_off){
         return;
@@ -439,13 +439,13 @@ void user_rgb_fun_power_off(void *priv){
     rgb->cur_mode = USER_RGB_POWER_OFF;
     rgb->power_off = 1;
     user_rgb_power_off(rgb->info);
-  
+
 }
 #endif
 
 //vol显示外部调用接口
 void user_rgb_display_vol(u8 vol,u16 display_time){
-#if USER_RGB_EN    
+#if USER_RGB_EN
     RGB_DISPLAY_DATA data;
     data.display_time = display_time;
     data.sys_vol_max = app_audio_get_max_volume();
@@ -457,11 +457,11 @@ void user_rgb_display_vol(u8 vol,u16 display_time){
 
 //bass状态显示外部调用接口
 void user_rgb_display_bass(u8 bass,u16 display_time){
-#if USER_RGB_EN    
+#if USER_RGB_EN
     RGB_DISPLAY_DATA data;
     data.display_time = display_time;
     data.bass = bass;
-    
+
     user_rgb_mode_set(USER_RGB_EQ_BASS,&data);
 #endif
 }
@@ -519,7 +519,6 @@ u8 user_rgb_mode_set(USER_GRB_MODE mode,void *priv){
     return ret;
 }
 
-
 void user_rgb_fun_init(void){
 #if USER_RGB_EN
     RGB_FUN *rgb = (RGB_FUN *)P_RGB_FUN;
@@ -538,8 +537,10 @@ void user_rgb_fun_init(void){
     user_rgb_same_colour(rgb->info,&user_rgb_fun.cur_colour);
 
     user_rgb_init(rgb->info);
-
-    user_rgb_mode_scan(rgb);
+    user_vbat_check_init();
+    if(rgb->info->init_flag){
+        user_rgb_mode_scan(rgb);
+    }
 #endif
 }
 

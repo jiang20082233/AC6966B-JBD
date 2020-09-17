@@ -102,7 +102,7 @@ void user_rgb_send(void *priv){
         return;
     }
 
-    if(rgb->init_flag && rgb && !rgb->updata_flag){
+    if(rgb->init_flag && rgb && !rgb->updata_flag && rgb->init_flag){
         rgb->rend_flag = 1;
         user_rgb_set_all(rgb->spi_buff,rgb->rgb_buff,rgb->number);
         rgb->rend_flag = 0;
@@ -163,6 +163,8 @@ void user_rgb_init(void *priv){
     if(!(rgb->spi_scan_time)){
         rgb->spi_scan_time = 100;
     }
+
+    rgb->init_flag = true;
 
     sys_timeout_add(rgb,user_rgb_send,rgb->spi_scan_time);//打开spi之后不能马上去发送数据 不然rgb会闪烁一下
     #endif
