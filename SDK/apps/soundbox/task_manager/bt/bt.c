@@ -677,8 +677,29 @@ int bt_key_event_handler(struct sys_event *event)
     int key_event = event->u.key.event;
     int key_value = event->u.key.value;
 
+    #if USER_IR_TWS_KEY_FILTER_EN
+    //过滤对箱都有接收到遥控器按键值 情况
+    extern u32 timer_get_ms(void);
+    static u16 key_old_key =0xfff;
+    static u32 key_old_time = 0;
+    u32 tp_time = timer_get_ms();
+
+    if((u32)event->arg != KEY_EVENT_FROM_TWS){
+        key_old_time =  tp_time;
+        key_old_key = key_event;
+    }else if((tp_time - key_old_time)<15000 && key_event==key_old_key){
+        key_old_key =0xfff;
+        key_old_time =  tp_time;
+        return ret;
+    }
+
+    #endif
 
     log_debug("bt key_event:%d %d %d %d\n", key_event, key->value, key->event, key->init);
+
+
+
+
 
     if (bt_key_event_filter_after(key_event) == true) {
         return true;
@@ -734,9 +755,9 @@ int bt_key_event_handler(struct sys_event *event)
         log_info("    KEY_LOW_LANTECY \n");
         bt_key_low_lantecy();
         break;
-    case KEY_USER_TWS:
-        puts("KEY_USER_TWS\n");
-        break;
+    // case KEY_USER_TWS:
+    //     puts("KEY_USER_TWS\n");
+    //     break;
     case  KEY_NULL:
         log_info("    KEY_NULL \n");
         ret = false;
@@ -901,12 +922,8 @@ void app_bt_task()
         tone_play_by_path(tone_table[IDEX_TONE_BT_MODE], 1);
         #endif
     }else{
-        #if USER_BT_TONE_PLAY_GO_INIT
         bt_task_start();
-        #endif
     }
-
-    
 
     while (1) {
         app_task_get_msg(msg, ARRAY_SIZE(msg), 1);

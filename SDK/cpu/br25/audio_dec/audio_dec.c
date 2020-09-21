@@ -103,7 +103,9 @@ int audio_dac_energy_get(void)
 #if AUDIO_OUTPUT_AUTOMUTE
     int audio_energy_detect_energy_get(void *_hdl, u8 ch);
     if (mix_out_automute_hdl) {
-        return audio_energy_detect_energy_get(mix_out_automute_hdl, BIT(0));
+        int ret = audio_energy_detect_energy_get(mix_out_automute_hdl, BIT(0));
+        printf(">> energy %d\n",ret);
+        return ret;//audio_energy_detect_energy_get(mix_out_automute_hdl, BIT(0));
     }
 
     return (-1);
@@ -623,6 +625,23 @@ int audio_dec_init()
         entries[entry_cnt++] = &mix_vocal_remove_hdl->entry;
     }
 #endif
+
+    #if USER_MIC_MUSIC_VOL_SEPARATE
+    
+    audio_dig_vol_param digvol_last_param = {
+        .vol_start = 30,
+        .vol_max = 30,
+        .ch_total = 2,
+        .fade_en = 1,
+        .fade_points_step = 5,
+        .fade_gain_step = 10,
+        .vol_list = NULL,
+    };
+    digvol_last = audio_dig_vol_open(&digvol_last_param);
+    digvol_last_entry = audio_dig_vol_entry_get(digvol_last);
+    entries[entry_cnt++] = digvol_last_entry;
+
+    #endif
 
 #if AUDIO_OUTPUT_AUTOMUTE
     entries[entry_cnt++] = mix_out_automute_entry;

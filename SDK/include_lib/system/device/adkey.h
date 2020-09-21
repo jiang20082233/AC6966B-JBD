@@ -5,7 +5,7 @@
 #include "asm/adc_api.h"
 
 
-#define ADKEY_MAX_NUM 14
+#define ADKEY_MAX_NUM 10
 
 struct adkey_platform_data {
     u8 enable;

@@ -3,6 +3,7 @@
 #include "gpio.h"
 #include "asm/irflt.h"
 #include "app_config.h"
+#include "user_fun_cfg.h"
 
 #if TCFG_IRKEY_ENABLE
 
@@ -46,7 +47,7 @@ u8 ir_get_key_value(void)
     if (tkey == 0xff) {
         return tkey;
     }
-
+    
     const u8 IRTabFF00[][2]={
         {0,69},{1,70},{2,71},{3,7},{4,25},{5,67},{6,64},
         {7,21},{8,9},{9,68},{10,13},{11,22},{12,12},{13,24},

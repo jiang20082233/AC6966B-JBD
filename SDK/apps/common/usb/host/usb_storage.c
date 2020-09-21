@@ -5,6 +5,7 @@
  * @date 2017-02-09
  */
 
+#include "gpio.h"
 #include "asm/includes.h"
 #include "system/timer.h"
 #include "device/ioctl_cmds.h"

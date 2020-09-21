@@ -765,7 +765,8 @@ int recorder_userdata_to_enc(s16 *data, int len)
     rec_hdl->busy = 0;
     return wlen;
 }
-
+#include "key_event_deal.h"
+#include "user_fun_cfg.h"
 void recorder_device_offline_check(char *logo)
 {
     if (rec_hdl) {
@@ -773,6 +774,8 @@ void recorder_device_offline_check(char *logo)
             ///当前录音正在使用的设备掉线， 应该停掉录音
             printf("is the recording dev = %s\n", logo);
             recorder_encode_stop();
+            user_record_status(0);
+            app_task_put_key_msg(USER_MSG_TO_BT_MODE, 0);
         }
     }
 }

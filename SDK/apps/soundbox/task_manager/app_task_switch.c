@@ -50,22 +50,28 @@ int key_event_remap(struct sys_event *e)
     struct key_event *key = &e->u.key;
     int msg = KEY_NULL;
     switch (key->type) {
+#if TCFG_IOKEY_ENABLE        
     case KEY_DRIVER_TYPE_IO:
         msg = iokey_event_to_msg(app_curr_task, key);
         break;
+#endif
+#if TCFG_ADKEY_ENABLE
     case KEY_DRIVER_TYPE_AD:
     case KEY_DRIVER_TYPE_RTCVDD_AD:
         msg = adkey_event_to_msg(app_curr_task, key);
         break;
+#endif
+#if TCFG_IRKEY_ENABLE
     case KEY_DRIVER_TYPE_IR:
         msg = irkey_event_to_msg(app_curr_task, key);
         break;
-    case KEY_DRIVER_TYPE_TOUCH:
-        msg = touch_key_event_to_msg(app_curr_task, key);
-        break;
-    case KEY_DRIVER_TYPE_RDEC:
-        msg = rdec_key_event_to_msg(app_curr_task, key);
-        break;
+#endif
+    // case KEY_DRIVER_TYPE_TOUCH:
+    //     msg = touch_key_event_to_msg(app_curr_task, key);
+    //     break;
+    // case KEY_DRIVER_TYPE_RDEC:
+    //     msg = rdec_key_event_to_msg(app_curr_task, key);
+    //     break;
 
     case KEY_DRIVER_TYPE_SOFTKEY:
         msg = key->event;
@@ -318,6 +324,7 @@ u8 app_check_curr_task(u8 app)
 
 int user_app_goto_bt(void){
     #if TCFG_APP_BT_EN
+    puts(">>>>>>>   app go to bt mdoe\n");
     return app_task_switch_to(APP_BT_TASK/*app_task_list[0]*/);
     #endif
     return true;

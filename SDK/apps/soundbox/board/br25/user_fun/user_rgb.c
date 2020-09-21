@@ -21,6 +21,8 @@ RGB_INFO user_rgb_info={
     .number = USER_RGB_NUMBER,
     .spi_scan_time = 20,
     .spi_port = USER_RGB_DATA,//SPI2,
+    .rgb_buff = NULL,
+    .spi_buff = NULL,
 };
 RGB_FUN user_rgb_fun = {
     .power_off = 0,
@@ -46,6 +48,11 @@ u32 random_number(u32 start, u32 end){
     return JL_TIMER0->CNT % (end - start + 1) + start;
 }
 
+int user_audio_dac_energy_get(void){
+    int energy = audio_dac_energy_get();
+    // printf(">>> dac energy %d\n",energy);
+    return energy;
+}
 /*
 *r,g,b:基色值
 *umode：模式
@@ -362,10 +369,11 @@ void user_rgb_mode_scan(void *priv){
     }
 
     rgb->info->updata_flag = 1;
-
     if(!rgb->interrupt){
         user_rgb_colour_gradient(rgb);
         user_rgb_clear_colour(rgb->info);
+        
+        user_audio_dac_energy_get();
 
         switch (rgb->cur_mode){
         case USER_RGB_MODE_1:
@@ -415,7 +423,7 @@ void user_rgb_mode_scan(void *priv){
             }else if(USER_RGB_MODE_9 == rgb->cur_mode){
                 rgb->cur_colour.r = 0xff;
                 rgb->cur_colour.g = 0xff;
-                rgb->cur_colour.b = 0xff;
+                rgb->cur_colour.b = 0xff;                
             }
             user_rgb_display_mode_5(rgb);
             break;
@@ -522,8 +530,18 @@ u8 user_rgb_mode_set(USER_GRB_MODE mode,void *priv){
 void user_rgb_fun_init(void){
 #if USER_RGB_EN
     RGB_FUN *rgb = (RGB_FUN *)P_RGB_FUN;
-    if (!rgb || !rgb->info){
+    if (!rgb || !rgb->info || !rgb->info->number){
         printf(">>>>> rgb p error\n");
+        return;
+    }
+    
+    rgb->info->spi_buff = malloc(sizeof(SPI_COLOUR)*rgb->info->number);
+    if(!rgb->info->spi_buff){
+        return;
+    }
+    rgb->info->rgb_buff = malloc(sizeof(RGB_COLOUR)*rgb->info->number);
+    if(!rgb->info->rgb_buff){
+        free(rgb->info->spi_buff);
         return;
     }
     user_rgb_mode_set(USER_RGB_AUTO_SW,rgb);

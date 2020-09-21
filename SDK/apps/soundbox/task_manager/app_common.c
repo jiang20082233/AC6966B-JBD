@@ -76,11 +76,10 @@ static void  common_power_on_tone_play_end_callback(void *priv, int flag)
         break;
     }
 }
-static void  common_record_tone_play_end_callback(void *priv, int flag)
-{
-    u32 index = (u32)priv;
 
-    if (APP_MUSIC_TASK != app_get_curr_task()) {
+static void  bt_tws_tone_play_end_callback(void *priv, int flag){
+    u32 index = (u32)priv;
+    if (APP_BT_TASK != app_get_curr_task()) {
         log_error("tone callback task out \n");
         return;
     }
@@ -89,9 +88,23 @@ static void  common_record_tone_play_end_callback(void *priv, int flag)
     case IDEX_TONE_DI:
         ///提示音播放结束        
         printf(" >>>>> tone \n");
-        
-        user_record_status(1);
-        app_task_switch_to(APP_RECORD_TASK);
+
+        if((tws_api_get_tws_state() &TWS_STA_ESCO_OPEN)||
+            (tws_api_get_tws_state() &TWS_STA_ESCO_OPEN_LINK)
+        ){
+            printf("TWS STA OPEN\n");
+            break;
+        }
+
+        if(tws_api_get_tws_state() & TWS_STA_SIBLING_DISCONNECTED){
+            printf("    KEY TWS SEARCH PAIR \n");
+            bt_tws_start_search_and_pair();
+        }else if(tws_api_get_tws_state() & TWS_STA_SIBLING_CONNECTED){
+            printf("    KEY_TWS_SEARCH_REMOVE_PAIR \n");
+            bt_tws_search_or_remove_pair();
+        }else{
+            puts(">>>>> error\n");
+        }
         break;
     default:
         break;
@@ -313,6 +326,7 @@ int app_common_key_msg_deal(struct sys_event *event)
             user_power_off();
             int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_POWER_OFF], 1, common_power_on_tone_play_end_callback, (void *)IDEX_TONE_POWER_OFF);
             if (err) {
+                printf(">>> ir power off to idle\n");
                 app_task_switch_to(APP_IDLE_TASK);
             }
         }
@@ -349,16 +363,25 @@ int app_common_key_msg_deal(struct sys_event *event)
         break;
 
     case USER_KEY_RECORD_START:
-        #if TCFG_APP_RECORD_EN
+        log_info("    USER_KEY_RECORD_START \n");
+        #if (USER_RECORD_EN && TCFG_APP_RECORD_EN)
         if(APP_RECORD_TASK != app_get_curr_task()){
-            // app_task_switch_to(APP_RECORD_TASK);
-            int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_DI], 1, common_record_tone_play_end_callback, (void *)IDEX_TONE_DI);
-            if (err) {
-                app_task_switch_to(APP_RECORD_TASK);
-            }
+            user_record_status(1);
+            app_task_switch_to(APP_RECORD_TASK);
         }
         #endif
+        break;
+#if TCFG_USER_TWS_ENABLE
+    case KEY_USER_TWS:
+        log_info("    KEY_USER_TWS \n");
+        int err =  tone_play_with_callback_by_name(TONE_DI, 1, bt_tws_tone_play_end_callback, (void *)IDEX_TONE_DI);
+        if (err) {
+            printf("tws switch\n\n");
+            bt_tws_tone_play_end_callback((void *)IDEX_TONE_DI,0);
+        }
 
+        break;
+#endif
     default:
         ui_key_msg_post(key_event);
 #ifdef CONFIG_BOARD_AC695X_SOUNDCARD

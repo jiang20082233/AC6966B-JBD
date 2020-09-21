@@ -25,7 +25,7 @@ typedef struct _USER_RGB_DISPLAY_DATA_{
 }RGB_DISPLAY_DATA;
 
 typedef enum{
-    USER_RGB_MODE_1=0,//节奏渐变 旋转
+    USER_RGB_MODE_1=1,//节奏渐变 旋转
     USER_RGB_MODE_2,//对称 升降 
     USER_RGB_MODE_3,//渐变
     USER_RGB_MODE_4,//三色 旋转

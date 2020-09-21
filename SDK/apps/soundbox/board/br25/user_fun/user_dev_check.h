@@ -30,6 +30,8 @@ typedef struct ex_dev_opr {
     int msg;            //上下线发送的消息
     const int scan_time;// 扫描的时间
     int timer;
+
+    void (*dev_callback_fun)(void *priv);
 }USER_DEV_CHECK;
 
 char ex_dev_detect_init(void *arg);

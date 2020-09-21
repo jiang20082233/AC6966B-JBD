@@ -77,7 +77,7 @@ static void record_mic_start(void)
     fmt.dev = logo;
     fmt.folder = folder;
     fmt.filename = filename;
-    fmt.coding_type = AUDIO_CODING_MP3; //编码格式：AUDIO_CODING_WAV, AUDIO_CODING_MP3
+    fmt.coding_type = AUDIO_CODING_WAV; //编码格式：AUDIO_CODING_WAV, AUDIO_CODING_MP3
     fmt.channel = 1;                    //声道数： 1：单声道 2：双声道
     fmt.sample_rate = 44100;            //采样率：8000，16000，32000，44100
     fmt.cut_head_time = 300;            //录音文件去头时间,单位ms
@@ -114,13 +114,13 @@ static void record_mic_stop(void)
 static void record_key_pp()
 {
     if (recorder_is_encoding()) {
-        log_i("mic record stop && replay\n");
+        printf("mic record stop && replay\n");
         record_mic_stop();
         record_file_play();
     } else {
         record_file_close();
         record_mic_start();
-        log_i("mic record start\n");
+        printf("mic record start\n");
     }
 }
 
@@ -142,7 +142,7 @@ static void  record_tone_play_end_callback(void *priv, int flag)
     case IDEX_TONE_DI:
     case IDEX_TONE_RECORD:
         log_i("IDEX_TONE_RECORD end\n");
-        record_key_pp();
+        // record_key_pp();
         break;
     }
 }
@@ -172,8 +172,14 @@ static int record_key_event_opr(struct sys_event *event)
 
     log_i("key_event:%d \n", key_event);
     switch (key_event) {
+    case USER_MSG_TO_BT_MODE:
+{
+        extern int user_app_goto_bt(void);
+        user_app_goto_bt();
+}
+        break;
     case KEY_ENC_START:
-        log_i("  KEY_ENC_START \n");
+        printf("  KEY_ENC_START \n");
         record_key_pp();
         return true;
     case KEY_CHANGE_MODE:
@@ -309,13 +315,14 @@ void app_record_task()
 {
     int res;
     int msg[32];
+    printf(">>>>>> recode init\n");
     record_task_start();
     // int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_RECORD], 1, record_tone_play_end_callback, (void *)IDEX_TONE_RECORD);
-    // int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_DI], 1, record_tone_play_end_callback, (void *)IDEX_TONE_DI);
-    // if (err) {
-    //     log_e("%s tone play err!!\n");
-    //     record_key_pp();
-    // }
+    int err =  tone_play_with_callback_by_name(TONE_DI, 1, record_tone_play_end_callback, (void *)IDEX_TONE_DI);
+    if (err) {
+        log_e("%s tone play err!!\n");
+        // record_key_pp();
+    }
     record_key_pp();
 
     while (1) {

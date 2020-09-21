@@ -2,6 +2,8 @@
 #include "asm/irflt.h"
 #include "timer.h"
 #include "generic/gpio.h"
+#include "key_driver.h"
+#include "user_fun_cfg.h"
 
 #define ir_log 		log_d
 
@@ -93,9 +95,12 @@ void timer_ir_isr(void)
     }
     if (ir_code.bState == 16) {
         ir_code.wUserCode = ir_code.wData;
+        user_adkey_mult_irkey(KEY_DRIVER_TYPE_IR);
     }
     if (ir_code.bState == 32) {
         /* printf("[0x%X]",ir_code.wData); */
+        
+        user_adkey_mult_irkey(KEY_DRIVER_TYPE_IR);
     }
 }
 
@@ -148,6 +153,8 @@ u8 get_irflt_value(void)
         return tkey;
     }
 
+    user_adkey_mult_irkey(KEY_DRIVER_TYPE_IR);
+    
     /* printf("(0x%X_%x)",ir_code.wUserCode,ir_code.wData); */
     if ((((u8 *)&ir_code.wData)[0] ^ ((u8 *)&ir_code.wData)[1]) == 0xff) {
         /* if (ir_code.wUserCode == 0xFF00) */

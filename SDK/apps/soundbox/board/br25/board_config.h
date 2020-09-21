@@ -4,10 +4,17 @@
 /*
  *  板级配置选择
  */
+// #ifndef IO_PORT_DM
+// #define IO_GROUP_NUM 		16
+// #define IO_PORTD_07 				(IO_GROUP_NUM * 3 + 7)
+// #define IO_MAX_NUM 					(IO_PORTD_07+1)
+// #define USB_IO_OFFSET               5
+// #define IO_PORT_DP                  (IO_MAX_NUM + USB_IO_OFFSET)
+// #define IO_PORT_DM                  (IO_MAX_NUM + USB_IO_OFFSET + 1)
+// #endif
 
-
-#define CONFIG_BOARD_AC6966B
-// #define CONFIG_BOARD_AC6965E
+// #define CONFIG_BOARD_AC6966B
+#define CONFIG_BOARD_AC6965E
 // #define CONFIG_BOARD_AC696X_DEMO
 // #define CONFIG_BOARD_AC6969D_DEMO
 // #define CONFIG_BOARD_AC696X_LIGHTER

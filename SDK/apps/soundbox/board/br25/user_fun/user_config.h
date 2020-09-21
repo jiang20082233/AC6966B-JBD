@@ -33,6 +33,7 @@
 #define USER_USB_OR_SD	        USER_DEV_USB//进music模式优先设备
 #define USER_POWER_ON_INIT      1//等开机提示音播放完之后再切到上线设备
 #define USER_IR_PLAY_FILE_NUMBER      1//遙控器播放文件
+#define USER_IR_TWS_KEY_FILTER_EN    1//TWS 过滤重复iryey消息
 #define USER_EQ_FILE_ADD_EQ_TABLE     1//使用外部配置eq的同时还使用软件中的eq效果  注意：可能影响到外部配置通话eq 未与珠海确认
 #define USER_EQ_LIVE_UPDATE         1//EQ 旋钮实时更新
 #define USER_EQ_BASS_INDEX      1//BASS 调节第几个索引 USER_EQ_BASS_INDEX不要超出eq 段
@@ -40,9 +41,12 @@
 #define USER_IR_POWER           1//遥控器假关机 
 #define USER_BT_TONE_PLAY_GO_INIT  1//BT 播放完提示音再初始化蓝牙模式 避免bt提示音未播放完 被回连提示音打断
 #define USER_MIC_DEFAULT_GAIN       6//default mic 默认音量
+#define USER_RECORD_EN          1//不开录音模式 但需要录音功能
 
 #define USER_ADKEY_MAPPING_EN   1//AD KEY 按鍵值映射
+#define USER_TONE_PLAY_ERROR_NO_RETURN  1//使用有回调函数的接口播放 提示音 提示音播放错误 不需要执行回调函数
 
+#define USER_MIC_MUSIC_VOL_SEPARATE  1//music mic 音量分开调节
 
 #if ((EQ_SECTION_MAX<=USER_EQ_BASS_INDEX || EQ_SECTION_MAX<=USER_EQ_TERBLE_INDEX))
 #error "高低音超出总eq段"

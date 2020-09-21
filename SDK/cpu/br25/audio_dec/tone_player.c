@@ -504,7 +504,7 @@ int tone_play_stop_by_path(char *path)
 /*----------------------------------------------------------------------------*/
 int tone_play_stop(void)
 {
-    tone_dec_stop(&tone_dec, 1, TONE_DEC_STOP_BY_OTHER_PLAY);
+    tone_dec_stop(&tone_dec, !USER_TONE_PLAY_ERROR_NO_RETURN, TONE_DEC_STOP_BY_OTHER_PLAY);
     return 0;
 }
 

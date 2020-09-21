@@ -28,8 +28,10 @@ typedef struct _USER_RGB_INFO_{
     u16 number;//灯总颗数
     u16 spi_scan_time;//spi 数据更新并发送间隔时间
     
-    RGB_COLOUR rgb_buff[USER_RGB_NUMBER];//灯颜色 存储buff
-    SPI_COLOUR spi_buff[USER_RGB_NUMBER] __attribute__((aligned(4)));//spi 数据buff
+    RGB_COLOUR *rgb_buff;//[USER_RGB_NUMBER];//灯颜色 存储buff
+    SPI_COLOUR *spi_buff;//[USER_RGB_NUMBER] __attribute__((aligned(4)));//spi 数据buff
+    // RGB_COLOUR rgb_buff[USER_RGB_NUMBER];//灯颜色 存储buff
+    // SPI_COLOUR spi_buff[USER_RGB_NUMBER] __attribute__((aligned(4)));//spi 数据buff
 }RGB_INFO;
 
 void user_rgb_init(void *priv);

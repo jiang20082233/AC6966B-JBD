@@ -52,7 +52,7 @@ static void idle_app_open_module();
 
 #define POWER_ON_CNT       10
 /// idle 是否关闭不用的模块，减少功耗
-#define LOW_POWER_IN_IDLE    USER_IR_POWER//0
+#define LOW_POWER_IN_IDLE    0//USER_IR_POWER//0
 
 
 #if LOW_POWER_IN_IDLE
@@ -480,7 +480,7 @@ void app_idle_task()
 
     // user_power_off();
     idle_app_start();
-
+    printf(">>>>>>>>>>   task idle init ok\n");
     while (1) {
         app_task_get_msg(msg, ARRAY_SIZE(msg), 1);
 

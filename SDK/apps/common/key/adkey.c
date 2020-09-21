@@ -4,12 +4,13 @@
 #include "gpio.h"
 #include "system/event.h"
 #include "app_config.h"
+#include "user_fun_cfg.h"
 
 
 #if TCFG_ADKEY_ENABLE
 
 #if (KEY_AD_NUM_MAX!=ADKEY_MAX_NUM)
-#error adkey 两个宏buxiangdeng
+// #error adkey 两个宏buxiangdeng
 #endif
 
 static const struct adkey_platform_data *__this = NULL;
@@ -19,7 +20,7 @@ u8 ad_get_key_value(void);
 struct key_driver_para adkey_scan_para = {
     .scan_time 	  	  = 10,				//按键扫描频率, 单位: ms
     .last_key 		  = NO_KEY,  		//上一次get_value按键值, 初始化为NO_KEY;
-    .filter_time  	  = 2,				//按键消抖延时;
+    .filter_time  	  = 5,				//按键消抖延时;
     .long_time 		  = 75,  			//按键判定长按数量
     .hold_time 		  = (75 + 15),  	//按键判定HOLD数量
     .click_delay_time = 20,				//按键被抬起后等待连击延时数量
@@ -33,11 +34,14 @@ u8 user_adkey_mapping(u8 key){
     u8 ad_key_table[][2]={
         {0,3},//mode、tws
         {2,5},//LED OFF、RGB mode
-        {4,8},//eq
-        {5,1},//+
-        {7,2},//-
+        {4,4},//eq
+        {5,2},//+
+        {7,1},//-
         {8,0},//pp
     };
+
+    // printf(">>>>>> key %d\n",key);tp = NO_KEY;
+
     if(NO_KEY == tp)return tp;
 
     for(int i = 0;i<(sizeof(ad_key_table)/sizeof(ad_key_table[0]));i++){
@@ -51,6 +55,10 @@ u8 user_adkey_mapping(u8 key){
         }
     }
 #endif
+    if(tp>=KEY_AD_NUM_MAX && tp != NO_KEY){
+        printf(">>>>>>> ad max num %d curr adk %d\n",KEY_AD_NUM_MAX,tp);
+        tp = NO_KEY;
+    }
     return tp;
 }
 u8 ad_get_key_value(void)
@@ -59,6 +67,10 @@ u8 ad_get_key_value(void)
     u16 ad_data;
 
     if (!__this->enable) {
+        return NO_KEY;
+    }
+
+    if(user_adkey_mult_irkey(KEY_DRIVER_TYPE_AD)){
         return NO_KEY;
     }
 

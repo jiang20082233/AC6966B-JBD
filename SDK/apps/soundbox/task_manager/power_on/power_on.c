@@ -48,8 +48,10 @@ static void  lcd_ui_power_on()
 #include "dev_manager.h"
 void user_power_on_init(void){
     if(dev_manager_get_total(1)){
+        puts("power on to music task\n");
         app_task_switch_to(APP_MUSIC_TASK);
     }else if(timer_get_ms()>1300){
+        puts("power on to bt task\n");
         app_task_switch_to(APP_BT_TASK);
     }else{
         sys_hi_timeout_add(NULL,user_power_on_init,100);

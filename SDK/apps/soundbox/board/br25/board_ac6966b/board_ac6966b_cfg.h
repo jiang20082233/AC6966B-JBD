@@ -43,7 +43,7 @@
 //*********************************************************************************//
 #define TCFG_UART0_ENABLE					0//ENABLE_THIS_MOUDLE                     //串口打印模块使能
 #define TCFG_UART0_RX_PORT					NO_CONFIG_PORT                         //串口接收脚配置（用于打印可以选择NO_CONFIG_PORT）
-#define TCFG_UART0_TX_PORT  				IO_PORT_DP//IO_PORTA_05                            //串口发送脚配置
+#define TCFG_UART0_TX_PORT  				IO_PORTA_05//IO_PORT_DP//IO_PORTA_05                            //串口发送脚配置
 #define TCFG_UART0_BAUDRATE  				1000000                                //串口波特率配置
 
 #ifdef CONFIG_DEBUG_ENABLE
@@ -116,13 +116,17 @@
 //*********************************************************************************//
 //                                  SD 配置                                        //
 //*********************************************************************************//
+#define     SD_CMD_DECT 	0
+#define     SD_CLK_DECT  	1
+#define     SD_IO_DECT 		2
+
 //A组IO: CMD:PC4    CLK:PC5    DAT0:PC3             //D组IO: CMD:PB2    CLK:PB0    DAT0:PB3
 //B组IO: CMD:PB6    CLK:PB7    DAT0:PB5             //E组IO: CMD:PA4    CLK:PC5    DAT0:DM
 //C组IO: CMD:PA4    CLK:PA2    DAT0:PA3             //F组IO: CMD:PB6    CLK:PB7    DAT0:PB4
 #define TCFG_SD0_ENABLE						ENABLE_THIS_MOUDLE
 #define TCFG_SD0_PORTS						'A'
 #define TCFG_SD0_DAT_MODE					1//AC696x不支持4线模式
-#define TCFG_SD0_DET_MODE					SD_CMD_DECT
+#define TCFG_SD0_DET_MODE					SD_CMD_DECT//SD_CLK_DECT
 #define TCFG_SD0_DET_IO 					IO_PORT_DM//当SD_DET_MODE为2时有效
 #define TCFG_SD0_DET_IO_LEVEL				0//IO检查，0：低电平检测到卡。 1：高电平(外部电源)检测到卡。 2：高电平(SD卡电源)检测到卡。
 #define TCFG_SD0_CLK						(3000000*2L)
@@ -135,7 +139,7 @@
 #endif
 #define TCFG_SD1_PORTS						'F'
 #define TCFG_SD1_DAT_MODE					1//AC696x不支持4线模式
-#define TCFG_SD1_DET_MODE					SD_CMD_DECT
+#define TCFG_SD1_DET_MODE					SD_CMD_DECT//SD_CLK_DECT
 #define TCFG_SD1_DET_IO 					IO_PORT_DM//当SD_DET_MODE为2时有效
 #define TCFG_SD1_DET_IO_LEVEL				0//IO检查，0：低电平检测到卡。 1：高电平(外部电源)检测到卡。 2：高电平(SD卡电源)检测到卡。
 #define TCFG_SD1_CLK						(3000000*2L)
@@ -143,12 +147,11 @@
 //*********************************************************************************//
 //                                 USB 配置                                        //
 //*********************************************************************************//
-#define TCFG_PC_ENABLE						0//TCFG_APP_PC_EN//PC模块使能
+#define TCFG_PC_ENABLE						TCFG_APP_PC_EN//PC模块使能
 #define TCFG_UDISK_ENABLE					ENABLE_THIS_MOUDLE//U盘模块使能
 #define TCFG_OTG_USB_DEV_EN                 BIT(0)//USB0 = BIT(0)  USB1 = BIT(1)
 
 #include "usb_std_class_def.h"
-
 #if (defined(CONFIG_DEBUG_ENABLE) && (TCFG_UART0_TX_PORT == IO_PORT_DP))
 #undef TCFG_UDISK_ENABLE
 #define TCFG_UDISK_ENABLE 0
@@ -203,7 +206,7 @@
 //#define KEY_NUM_MAX                        	10
 //#define KEY_NUM                            	3
 #define KEY_IO_NUM_MAX						6
-#define KEY_AD_NUM_MAX						14
+#define KEY_AD_NUM_MAX						6
 #define KEY_IR_NUM_MAX						21
 #define KEY_TOUCH_NUM_MAX					6
 #define KEY_RDEC_NUM_MAX                    6
@@ -445,6 +448,7 @@ DAC硬件上的连接方式,可选的配置：
 #define AUDIO_OUTPUT_WAY_HDMI       3
 #define AUDIO_OUTPUT_WAY_SPDIF      4
 #define AUDIO_OUTPUT_WAY_BT      	5	// bt emitter
+#define AUDIO_OUTPUT_WAY_DONGLE		7
 #define AUDIO_OUTPUT_WAY            AUDIO_OUTPUT_WAY_DAC
 #define LINEIN_INPUT_WAY            LINEIN_INPUT_WAY_ANALOG
 
@@ -496,7 +500,7 @@ DAC硬件上的连接方式,可选的配置：
 
 #else
 
-#define TCFG_PWMLED_ENABLE					0//1               			//是否支持PMW LED推灯模块
+#define TCFG_PWMLED_ENABLE					DISABLE_THIS_MOUDLE			//是否支持PMW LED推灯模块
 #define TCFG_PWMLED_IOMODE					LED_ONE_IO_MODE				//LED模式，单IO还是两个IO推灯
 #define TCFG_PWMLED_PIN						IO_PORTB_00					//LED使用的IO口
 
@@ -561,13 +565,13 @@ DAC硬件上的连接方式,可选的配置：
 #define TCFG_AUDIO_OUT_EQ_ENABLE            0    //开在线调试时，关闭高低音
 #endif
 #endif
-#define TCFG_DRC_ENABLE						1 	  //DRC
-#define TCFG_BT_MUSIC_DRC_ENABLE            1     //支持蓝牙音乐DRC
-#define TCFG_MUSIC_MODE_DRC_ENABLE          1     //支持音乐模式DRC
-#define TCFG_LINEIN_MODE_DRC_ENABLE         1     //支持LINEIN模式DRC
+#define TCFG_DRC_ENABLE						0 	  //DRC
+#define TCFG_BT_MUSIC_DRC_ENABLE            0     //支持蓝牙音乐DRC
+#define TCFG_MUSIC_MODE_DRC_ENABLE          0     //支持音乐模式DRC
+#define TCFG_LINEIN_MODE_DRC_ENABLE         0     //支持LINEIN模式DRC
 #define TCFG_FM_MODE_DRC_ENABLE             0     //支持FM模式DRC
 #define TCFG_SPDIF_MODE_DRC_ENABLE          0     //支持SPDIF模式DRC
-#define TCFG_PC_MODE_DRC_ENABLE             1     //支持PC模式DRC
+#define TCFG_PC_MODE_DRC_ENABLE             0     //支持PC模式DRC
 #define TCFG_AUDIO_OUT_DRC_ENABLE			0 	  //mix_out后drc
 
 #define EQ_SECTION_MAX                      10    //eq段数
@@ -583,7 +587,7 @@ DAC硬件上的连接方式,可选的配置：
 //*********************************************************************************//
 //                                  mic effect 配置                                //
 //*********************************************************************************//
-#define TCFG_MIC_EFFECT_ENABLE       1//DISABLE
+#define TCFG_MIC_EFFECT_ENABLE       ENABLE
 #define TCFG_MIC_EFFECT_DEBUG        0//调试打印
 #define TCFG_MIC_EFFECT_ONLINE_ENABLE  0//混响音效在线调试使能
 #if ((TCFG_ONLINE_ENABLE == 0) && TCFG_MIC_EFFECT_ONLINE_ENABLE)
@@ -611,7 +615,7 @@ DAC硬件上的连接方式,可选的配置：
 #define TCFG_REVERB_SAMPLERATE_DEFUAL (44100)
 
 
-#define TCFG_LOUDSPEAKER_ENABLE            DISABLE
+#define TCFG_LOUDSPEAKER_ENABLE            DISABLE //不能与TCFG_MIC_EFFECT_ENABLE同时打开
 
 //*********************************************************************************//
 //                                  g-sensor配置                                   //
@@ -635,7 +639,7 @@ DAC硬件上的连接方式,可选的配置：
 //*********************************************************************************//
 //                                  蓝牙配置                                       //
 //*********************************************************************************//
-#define TCFG_USER_TWS_ENABLE                0   //tws功能使能
+#define TCFG_USER_TWS_ENABLE                1   //tws功能使能
 #define TCFG_USER_BLE_ENABLE                0   //BLE功能使能
 #define TCFG_USER_BT_CLASSIC_ENABLE         1   //经典蓝牙功能使能
 #define TCFG_BT_SUPPORT_AAC                 0   //AAC格式支持
@@ -655,7 +659,7 @@ DAC硬件上的连接方式,可选的配置：
 #if TCFG_USER_TWS_ENABLE
 #define TCFG_BD_NUM						    1   //连接设备个数配置
 #define TCFG_AUTO_STOP_PAGE_SCAN_TIME       0   //配置一拖二第一台连接后自动关闭PAGE SCAN的时间(单位分钟)
-#define TCFG_USER_ESCO_SLAVE_MUTE           0   //对箱通话slave出声音
+#define TCFG_USER_ESCO_SLAVE_MUTE           1   //对箱通话slave出声音
 #else
 #define TCFG_BD_NUM						    1   //连接设备个数配置
 #define TCFG_AUTO_STOP_PAGE_SCAN_TIME       0 //配置一拖二第一台连接后自动关闭PAGE SCAN的时间(单位分钟)
@@ -663,7 +667,8 @@ DAC硬件上的连接方式,可选的配置：
 #endif
 
 #define BT_INBAND_RINGTONE                  0   //是否播放手机自带来电铃声
-#define BT_PHONE_NUMBER                     1   //是否播放来电报号
+#define BT_PHONE_NUMBER                     0   //是否播放来电报号
+#define BT_SYNC_PHONE_RING                  1   //是否TWS同步播放来电铃声
 #define BT_SUPPORT_DISPLAY_BAT              1   //是否使能电量显示
 #define BT_SUPPORT_MUSIC_VOL_SYNC           0   //是否使能音量同步
 
@@ -683,13 +688,25 @@ DAC硬件上的连接方式,可选的配置：
 #define TCFG_TONE2TWS_ENABLE				0
 #endif
 
+
+//*********************************************************************************//
+//                                  REC 配置                                       //
+//*********************************************************************************//
+#define RECORDER_MIX_EN						DISABLE//混合录音使能
+#define TCFG_RECORD_FOLDER_DEV_ENABLE       ENABLE//音乐播放录音区分使能
+
+
 //*********************************************************************************//
 //                                  linein配置                                     //
 //*********************************************************************************//
 #define TCFG_LINEIN_ENABLE					TCFG_APP_LINEIN_EN	// linein使能
 // #define TCFG_LINEIN_LADC_IDX				0					// linein使用的ladc通道，对应ladc_list
+#if (RECORDER_MIX_EN)
 #define TCFG_LINEIN_LR_CH					AUDIO_LIN_DACL_CH
-#define TCFG_LINEIN_CHECK_PORT				NO_CONFIG_PORT//IO_PORTC_04			// linein检测IO 
+#else
+#define TCFG_LINEIN_LR_CH					AUDIO_LIN_DACL_CH//AUDIO_LIN0_LR
+#endif/*RECORDER_MIX_EN*/
+#define TCFG_LINEIN_CHECK_PORT				NO_CONFIG_PORT//IO_PORTC_04			// linein检测IO
 #define TCFG_LINEIN_PORT_UP_ENABLE        	1					// 检测IO上拉使能
 #define TCFG_LINEIN_PORT_DOWN_ENABLE       	0					// 检测IO下拉使能
 #define TCFG_LINEIN_AD_CHANNEL             	NO_CONFIG_PORT		// 检测IO是否使用AD检测
@@ -697,7 +714,11 @@ DAC硬件上的连接方式,可选的配置：
 #if(TCFG_MIC_EFFECT_ENABLE)
 #define TCFG_LINEIN_INPUT_WAY               LINEIN_INPUT_WAY_DAC//LINEIN_INPUT_WAY_ANALOG
 #else
+#if (RECORDER_MIX_EN)
 #define TCFG_LINEIN_INPUT_WAY               LINEIN_INPUT_WAY_DAC//LINEIN_INPUT_WAY_ANALOG//LINEIN_INPUT_WAY_ANALOG
+#else
+#define TCFG_LINEIN_INPUT_WAY               LINEIN_INPUT_WAY_ANALOG
+#endif/*RECORDER_MIX_EN*/
 #endif
 #define TCFG_LINEIN_MULTIPLEX_WITH_FM		DISABLE 				// linein 脚与 FM 脚复用
 #define TCFG_LINEIN_MULTIPLEX_WITH_SD		DISABLE 				// linein 检测与 SD cmd 复用
@@ -713,10 +734,12 @@ DAC硬件上的连接方式,可选的配置：
 #define TCFG_DEC_FLAC_ENABLE				DISABLE
 #define TCFG_DEC_APE_ENABLE					DISABLE
 #define TCFG_DEC_M4A_ENABLE					DISABLE
+#define TCFG_DEC_ALAC_ENABLE				DISABLE
 #define TCFG_DEC_AMR_ENABLE					DISABLE
 #define TCFG_DEC_DTS_ENABLE					DISABLE
 #define TCFG_DEC_MIDI_ENABLE                DISABLE
 #define TCFG_DEC_G726_ENABLE                DISABLE
+#define TCFG_DEC_MTY_ENABLE					DISABLE
 
 
 #define TCFG_DEC_ID3_V1_ENABLE				DISABLE
@@ -755,6 +778,7 @@ DAC硬件上的连接方式,可选的配置：
 
 #if TCFG_RTC_ENABLE
 #define TCFG_USE_FAKE_RTC                   ENABLE
+#define rtc_dev_ops rtc_simulate_ops
 #endif
 
 //*********************************************************************************//
@@ -786,14 +810,6 @@ DAC硬件上的连接方式,可选的配置：
 
 
 
-//*********************************************************************************//
-//                                  REC 配置                                       //
-//*********************************************************************************//
-#define TCFG_LINEIN_REC_EN					DISABLE
-#define	 TCFG_MIXERCH_REC_EN				DISABLE
-#define TCFG_MIC_REC_PITCH_EN               DISABLE
-#define TCFG_MIC_REC_REVERB_EN              DISABLE
-#define TCFG_RECORD_FOLDER_DEV_ENABLE       DISABLE	///音乐播放录音区分使能
 
 
 //*********************************************************************************//
@@ -801,7 +817,7 @@ DAC硬件上的连接方式,可选的配置：
 //*********************************************************************************//
 #define TCFG_ENC_CVSD_ENABLE                ENABLE
 #define TCFG_ENC_MSBC_ENABLE                ENABLE
-#define TCFG_ENC_MP3_ENABLE                 ENABLE
+#define TCFG_ENC_MP3_ENABLE                 DISABLE
 #define TCFG_ENC_ADPCM_ENABLE               ENABLE
 #define TCFG_ENC_SBC_ENABLE                 DISABLE
 #define TCFG_ENC_OPUS_ENABLE                DISABLE
@@ -811,8 +827,9 @@ DAC硬件上的连接方式,可选的配置：
 //ali ai profile
 #define DUEROS_DMA_EN              0  //not surport
 #define TRANS_DATA_EN              0  //not surport
+#define	ANCS_CLIENT_EN			   0
 
-#if (DUEROS_DMA_EN || TRANS_DATA_EN)
+#if (DUEROS_DMA_EN || TRANS_DATA_EN || ANCS_CLIENT_EN)
 #define BT_FOR_APP_EN			   1
 #else
 #define BT_FOR_APP_EN			   0
@@ -832,7 +849,7 @@ DAC硬件上的连接方式,可选的配置：
 //*********************************************************************************//
 //                                 编译警告                                         //
 //*********************************************************************************//
-#if ((TRANS_DATA_EN || ((TCFG_ONLINE_TX_PORT == IO_PORT_DP) && TCFG_ONLINE_ENABLE)) && (TCFG_PC_ENABLE || TCFG_UDISK_ENABLE || TCFG_SD0_PORTS == 'E'))
+#if ((ANCS_CLIENT_EN || TRANS_DATA_EN || ((TCFG_ONLINE_TX_PORT == IO_PORT_DP) && TCFG_ONLINE_ENABLE)) && (TCFG_PC_ENABLE || TCFG_UDISK_ENABLE || TCFG_SD0_PORTS == 'E'))
 #error "eq online adjust enable, plaease close usb marco  and sdcard port not e!!!"
 #endif// ((TRANS_DATA_EN || TCFG_ONLINE_ENABLE) && (TCFG_PC_ENABLE || TCFG_UDISK_ENABLE))
 
@@ -842,7 +859,7 @@ DAC硬件上的连接方式,可选的配置：
 #endif//((TCFG_SPI_LCD_ENABLE &&  TCFG_CODE_FLASH_ENABLE) && (TCFG_FLASH_DEV_SPI_HW_NUM == TCFG_TFT_LCD_DEV_SPI_HW_NUM))
 #endif//TCFG_UI_ENABLE
 
-#if(TRANS_DATA_EN && DUEROS_DMA_EN)
+#if((TRANS_DATA_EN + DUEROS_DMA_EN + ANCS_CLIENT_EN) > 1)
 #error "they can not enable at the same time,just select one!!!"
 #endif//(TRANS_DATA_EN && DUEROS_DMA_EN)
 
@@ -851,13 +868,33 @@ DAC硬件上的连接方式,可选的配置：
 #endif// (TCFG_DEC2TWS_ENABLE && (TCFG_APP_RECORD_EN || TCFG_APP_RTC_EN ||TCFG_DRC_ENABLE))
 
 #if (TCFG_MIC_EFFECT_ENABLE && (TCFG_DEC_APE_ENABLE || TCFG_DEC_FLAC_ENABLE || TCFG_DEC_DTS_ENABLE))
-k
+#error "无损格式+混响暂时不支持同时打开 !!!"
 #endif//(TCFG_MIC_EFFECT_ENABLE && (TCFG_DEC_APE_ENABLE || TCFG_DEC_FLAC_ENABLE || TCFG_DEC_DTS_ENABLE))
 
 
 #if ((TCFG_NORFLASH_DEV_ENABLE || TCFG_NOR_FS_ENABLE) &&  TCFG_UI_ENABLE)
 #error "引脚复用问题，使用norflash需要关闭UI ！！！"
 #endif
+
+
+#if ((TCFG_APP_RECORD_EN) && (TCFG_USER_TWS_ENABLE))
+// #error "TWS 暂不支持录音功能"
+#endif
+
+#include "app_config.h"
+#if ((TCFG_SD0_ENABLE) && (TCFG_SD0_PORTS == 'D') && ((RECORDER_MIX_EN) || (TCFG_SD0_DET_MODE == SD_CMD_DECT)))
+/*
+ 1.如果有FM模式下录音的功能，即FM和SD同时工作的情况，那么SD IO就不能用PB0,PB2,PB3这组口。
+ 2.如果FM模式没有录音的功能，即FM和SD不会有同时工作的情况，那么 SD IO可以使用PB0,PB2,PB3这组口，
+   但SD就不能使用CMD检测。要用CLK或IO检测，这样就要有硬件上的支持，如3.3K电阻或者牺牲另一个引脚做IO检测*
+ */
+#error "SD IO使用D组口 引脚干扰FM的问题 ！！！"
+#endif
+
+
+
+
+
 ///<<<<所有宏定义不要在编译警告后面定义！！！！！！！！！！！！！！！！！！！！！！！！！！
 ///<<<<所有宏定义不要在编译警告后面定义！！！！！！！！！！！！！！！！！！！！！！！！！！
 

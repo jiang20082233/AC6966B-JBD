@@ -319,7 +319,7 @@ void app_linein_task()
     audio_linein_ch_combine(1,0);
     #endif
 
-    audio_linein_ch_combine(1,1);
+    // audio_linein_ch_combine(1,1);
     err = tone_play_with_callback_by_name(tone_table[IDEX_TONE_LINEIN], 1,
                                           line_tone_play_end_callback, (void *)IDEX_TONE_LINEIN);
     if (err) { //

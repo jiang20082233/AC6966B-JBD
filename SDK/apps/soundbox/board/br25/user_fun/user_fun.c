@@ -7,16 +7,34 @@ USER_POWER_INFO user_power_io={
 };
 #endif
 
+//adkey 与 irkey复用时滤波
+bool user_adkey_mult_irkey(u8 key_type){
+    u32 static ir_time = 0;
+    bool tp = 0;
+    #if ((TCFG_ADKEY_ENABLE && TCFG_IRKEY_ENABLE) && (TCFG_IRKEY_PORT == TCFG_ADKEY_PORT))
+    if(KEY_DRIVER_TYPE_IR == key_type){
+        ir_time = timer_get_ms();
+    }else if(KEY_DRIVER_TYPE_AD == key_type){
+        if(timer_get_ms()-ir_time<200){
+            // printf(">>> %d %d\n",timer_get_ms(),ir_time);
+            tp = 1;
+        }
+    }    
+    #endif
+    return tp;
+}
+
 //设置、获取 录音状态
 u8 user_record_status(u8 cmd){
     static u8 user_record_status  = 0;
-
+    #if USER_RECORD_EN
     if(0 == cmd || 1 == cmd){
         user_record_status = cmd;
 
-        user_mic_check_en(!user_record_status);
-        printf(">>>>>>>>>>>>>>>>>>>>  record status  %d\n",user_record_status);
+        // user_mic_check_en(!user_record_status);
+        // printf(">>>>>>>>>>>>>>>>>>>>  record status  %d\n",user_record_status);
     }
+    #endif
     return user_record_status;//USER_KEY_RECORD_START
 } 
 void user_eq_mode_sw(void){
@@ -113,7 +131,8 @@ void user_mic_vol_updata(u32 vol){
     if(mic_old!=mic_vol ){
         mic_old = mic_vol;
         printf(">>>>> mic_old %d vol %d\n",mic_old,vol);
-        audio_mic_set_gain(mic_old);
+        // audio_mic_set_gain(mic_old);
+        mic_effect_set_dvol(mic_old);
     }
 }
 
@@ -143,6 +162,7 @@ void user_mic_reverb_updata(u32 vol){
 }
 
 void user_4ad_fun_features(u32 *vol){
+    // return;
     // printf(">>>> [%03d  %03d %03d  %03d][%03dV  %03dV %03dV  %03dV]\n",vol[0],vol[1],vol[2],vol[3],
     // (320*vol[0])/1024,
     // (320*vol[1])/1024,
@@ -300,7 +320,7 @@ void user_fun_init(void){
     // #if (USER_IC_MODE == USER_IC_6966B)
     // ex_dev_detect_init(& user_mic_check);
     // #endif
-    ex_dev_detect_init(& user_mic_check);
+    user_mic_check_init();
 
     user_rgb_fun_init();
 }

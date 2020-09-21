@@ -7,7 +7,10 @@
 #include "generic/list.h"
 
 #define BG_DVOL_FADE_ENABLE		1	/*多路声音叠加，背景声音自动淡出小声*/
-
+#if USER_MIC_MUSIC_VOL_SEPARATE
+extern void *digvol_last;
+extern void *digvol_last_entry;
+#endif
 typedef struct {
     u8 toggle;					/*数字音量开关*/
     u8 fade;					/*淡入淡出标志*/

@@ -97,6 +97,7 @@ static void app_audio_volume_change(void)
     local_irq_enable();
 }
 
+#include "application/audio_dig_vol.h"
 static int audio_vol_set(u8 gain_l, u8 gain_r, u8 fade)
 {
 #if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_FM)
@@ -105,11 +106,22 @@ static int audio_vol_set(u8 gain_l, u8 gain_r, u8 fade)
     local_irq_disable();
     __this->fade_gain_l = gain_l;
     __this->fade_gain_r = gain_r;
-    #if 0//((TCFG_LINEIN_LR_CH == AUDIO_LIN_DACL_CH)||TCFG_LINEIN_LR_CH == AUDIO_LIN_DACR_CH)
+    #if USER_MIC_MUSIC_VOL_SEPARATE//((TCFG_LINEIN_LR_CH == AUDIO_LIN_DACL_CH)||TCFG_LINEIN_LR_CH == AUDIO_LIN_DACR_CH)
     // audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(0), gain_l, fade);
-    audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(1), gain_r, fade);
+    // audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(1), gain_r, fade);
     // audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(0), gain_l ? DEFAULT_DIGTAL_VOLUME : 0, fade);
-    audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(0), gain_r ? DEFAULT_DIGTAL_VOLUME : 0, fade);
+    // audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(0), gain_r ? DEFAULT_DIGTAL_VOLUME : 0, fade);
+
+    if(digvol_last && digvol_last_entry){
+        audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(0)|BIT(1), MAX_ANA_VOL, fade);
+
+        if(gain_l == gain_r){
+            audio_dig_vol_set(digvol_last,BIT(0)|BIT(1),gain_l);
+        }else{
+            audio_dig_vol_set(digvol_last,BIT(0),gain_l);
+            audio_dig_vol_set(digvol_last,BIT(1),gain_r);
+        }
+    }
 
     #else
     audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(0), gain_l, fade);
@@ -298,7 +310,13 @@ void app_audio_set_volume(u8 state, s8 volume, u8 fade)
 
 void app_audio_volume_init(void)
 {
+    #if USER_MIC_MUSIC_VOL_SEPARATE
+    audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(0)|BIT(1), MAX_ANA_VOL, 1);
+    audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(0)|BIT(1), DEFAULT_DIGTAL_VOLUME, 1);  
+
+    #else
     app_audio_set_volume(APP_AUDIO_STATE_MUSIC, app_var.music_volume, 1);
+    #endif
 }
 
 s8 app_audio_get_volume(u8 state)

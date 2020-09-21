@@ -102,7 +102,7 @@ void user_rgb_send(void *priv){
         return;
     }
 
-    if(rgb->init_flag && rgb && !rgb->updata_flag && rgb->init_flag){
+    if(rgb->init_flag && rgb && !rgb->updata_flag && rgb->init_flag && rgb->spi_buff && rgb->rgb_buff){
         rgb->rend_flag = 1;
         user_rgb_set_all(rgb->spi_buff,rgb->rgb_buff,rgb->number);
         rgb->rend_flag = 0;

@@ -1,4 +1,10 @@
 #include "audio_digital_vol.h"
+#include "user_fun_cfg.h"
+#if USER_MIC_MUSIC_VOL_SEPARATE
+#include "application/audio_dig_vol.h"
+void *digvol_last = NULL;
+void *digvol_last_entry = NULL;
+#endif
 
 
 #define DIGITAL_FADE_EN 	1
@@ -14,6 +20,7 @@
 #define ASM_ENABLE			1
 #define  L_sat(b,a)       __asm__ volatile("%0=sat16(%1)(s)":"=&r"(b) : "r"(a));
 #define  L_sat32(b,a,n)       __asm__ volatile("%0=%1>>%2(s)":"=&r"(b) : "r"(a),"r"(n));
+
 
 typedef struct {
     u8 bg_dvol_fade_out;

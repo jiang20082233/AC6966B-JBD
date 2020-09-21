@@ -33,5 +33,6 @@ const char *tone_table[] = {
     [IDEX_TONE_PC] 				= TONE_RES_ROOT_PATH"tone/pc.*",
     [IDEX_TONE_RTC] 			= TONE_RES_ROOT_PATH"tone/rtc.*",
     [IDEX_TONE_RECORD] 			= TONE_RES_ROOT_PATH"tone/record.*",
+    [IDEX_TONE_DI]              = TONE_DI,
 };
 

@@ -8,6 +8,7 @@
 
 #include <string.h>
 #include "jiffies.h"
+#include "gpio.h"
 #include "usb_config.h"
 #include "usb_bulk_transfer.h"
 #include "usb_ctrl_transfer.h"

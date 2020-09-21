@@ -1,6 +1,21 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   local_irq_enable = ABSOLUTE(0x117d40);
   local_irq_disable = ABSOLUTE(0x117d44);
   p33_buf = ABSOLUTE(0x117d48);
@@ -192,6 +207,7 @@
   _MASK_MEM_BEGIN = ABSOLUTE(0x31b60);
   _MASK_MEM_SIZE = ABSOLUTE(0x318);
 
+
 EXTERN(
 
 
@@ -231,34 +247,9 @@ pcm_decoder
 
 
 mp3_decoder
-
-
-
-
-
-
-wma_decoder
-m4a_decoder
-
-
-
-
-
-
-alac_decoder
-
-
-
-amr_decoder
-
-
-
-
-
-
-
 g729_decoder
 wav_decoder
+
 );
 
 UPDATA_SIZE = 0x80;
@@ -451,6 +442,7 @@ SECTIONS
         btstack_code_end = .;
   . = ALIGN(4);
 
+
   . = ALIGN(4);
 
 
@@ -612,7 +604,8 @@ SECTIONS
         *(.os_port_const)
 
         system_text_end = .;
- . = ALIGN(4);
+
+  . = ALIGN(4);
   *(.mp2_encode_code)
   *(.mp2_encode_const)
   *(.mp2_encode_sparse_code)
@@ -723,6 +716,7 @@ SECTIONS
 
         btstack_data_end = .;
 
+
         . = ALIGN(4);
 
 
@@ -830,7 +824,8 @@ SECTIONS
      *(.ECDH_sample_data)
 
         system_data_end = .;
- . = ALIGN(4);
+
+  . = ALIGN(4);
 
         . = ALIGN(4);
   EQ_COEFF_BASE = . ;
@@ -868,6 +863,7 @@ SECTIONS
 
         btstack_bss_end = .;
 
+
         . = ALIGN(4);
 
 
@@ -883,7 +879,8 @@ SECTIONS
         *(.ECDH_sample_bss)
 
         system_bss_end = .;
- . = ALIGN(4);
+
+        . = ALIGN(4);
 
         *(.bss)
         . = ALIGN(4);
@@ -1139,6 +1136,7 @@ SECTIONS
   update_code_end = .;
     } > code0
 }
+
 
 
 SECTIONS
@@ -1539,6 +1537,7 @@ SECTIONS
 
     } > code0
 }
+
 SECTIONS
 {
     .data : ALIGN(4)
@@ -1602,6 +1601,7 @@ SECTIONS
     DRIVER_RAM_TOTAL = (driver_data_end - driver_data_start) + (driver_bss_end - driver_bss_start);
     DRIVER_CODE_TOTAL = (driver_code_end - driver_code_start);
 }
+
 
 SECTIONS
 {
@@ -1808,6 +1808,7 @@ SECTIONS
     BTCTLER_RAM_TOTAL = (btctler_data_end - btctler_data_start) + (btctler_bss_end - btctler_bss_start);
     BTCTLER_CODE_TOTAL = (btctler_code_end - btctler_code_start);
 }
+
 
 
 

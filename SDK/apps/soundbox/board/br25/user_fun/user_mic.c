@@ -1,5 +1,5 @@
 #include "user_fun_cfg.h"
-
+void mic_callback_fun(void *priv);
 #ifdef CONFIG_BOARD_AC6965E
 USER_DEV_CHECK user_mic_check ={
     //设置
@@ -19,6 +19,8 @@ USER_DEV_CHECK user_mic_check ={
     .step = 0,
     .stu  = 0,//1
     .online = false,
+
+    .dev_callback_fun = mic_callback_fun,
 };
 #endif
 #ifdef CONFIG_BOARD_AC6966B
@@ -40,14 +42,47 @@ USER_DEV_CHECK user_mic_check ={
     .step = 0,
     .stu  = 0,//1
     .online = false,
+
+    .dev_callback_fun = mic_callback_fun,
 };
 #endif
+
+bool ex_mic_check_en = 1;
 u8 user_mic_check_en(u8 cmd){
   if(0==cmd || 1==cmd){
-    user_mic_check.enable = cmd;
+    ex_mic_check_en = cmd;
+    mic_callback_fun(& user_mic_check);
+    // printf(" ex mic check en %d\n",ex_mic_check_en);
   }
   return user_mic_check.enable;
 }
+
+void mic_callback_fun(void *priv){
+  USER_DEV_CHECK * mic_dev = (USER_DEV_CHECK *)priv;
+  bool enable = 1;
+
+  if(APP_IDLE_TASK == app_get_curr_task() || APP_FM_TASK == app_get_curr_task()){
+    enable = 0;
+  }else if(APP_BT_TASK == app_get_curr_task()){
+    if(!(tws_api_get_tws_state() & TWS_STA_SIBLING_DISCONNECTED)){
+      enable = 0;
+    }
+  }
+
+  if(1 == user_record_status(0xff)){
+    enable = 0;
+  }
+
+  if(!ex_mic_check_en){
+    enable = 0;
+  }
+
+  mic_dev->enable = enable;
+}
+
 bool user_get_mic_status(void){
   return user_mic_check.stu?true:false;
+}
+void user_mic_check_init(void){
+  ex_dev_detect_init(& user_mic_check);
 }

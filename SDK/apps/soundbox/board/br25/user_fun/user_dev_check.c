@@ -63,11 +63,12 @@ static int ex_dev_check(void *arg, u8 cnt)
         cur_stu = adc_get_value(dev->ad_channel) > dev->ad_vol ? false : true;
         /* printf("<%d> ", adc_get_value(dev->ad_channel)); */
     }
+    // user_print("0cur_stu :%d\n",cur_stu);
     if (!dev->up) {
         cur_stu	= !cur_stu;
     }
-    //user_print("cur_stu :%d\n",cur_stu);
 
+    // user_print("1cur_stu :%d\n",cur_stu);
     if (cur_stu != dev->stu) {
         dev->stu = cur_stu;
         dev->cnt = 0;
@@ -155,12 +156,20 @@ static void ex_dev_detect(void *arg)
     extern u8 sd_io_suspend(u8 sdx, u8 sd_io);
     extern u8 sd_io_resume(u8 sdx, u8 sd_io);
 
+    if(dev->dev_callback_fun){
+       dev->dev_callback_fun(dev);
+    }
+
     if(!dev->enable){
         dev->stu = 0;
         dev->step = 0;
-        dev->online = false;
+        if(dev->online){
+            dev->online = false;
+            app_task_put_key_msg(dev->msg,0);
+        }
         return;
     }
+
 
 // #ifdef TCFG_IO_DET_MULTIPLEX_WITH_SD
     if(dev->multiplex_sd){
@@ -180,6 +189,7 @@ static void ex_dev_detect(void *arg)
         }
 
         res = ex_dev_check(dev, 3);
+        // printf(">>>> name %s %d\n",dev->dev_name,res);
         if (!dev->active) {
             dev->step = 0;
             ex_dev_io_stop(dev);

@@ -1,3 +1,5 @@
+
+#include "gpio.h"
 #include "app_config.h"
 
 #ifdef CONFIG_BOARD_AC6966B
