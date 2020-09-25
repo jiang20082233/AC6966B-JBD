@@ -651,8 +651,8 @@ int audio_dec_init()
     mixer.stream = audio_stream_open(NULL, audio_last_out_stream_resume);
     audio_stream_add_list(mixer.stream, entries, entry_cnt);
 
-    /* #if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DONGLE) */
-#if 1
+#if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DONGLE)
+    /* #if 1 */
 
     audio_dongle_emitter_init();
     struct audio_stream_entry *dongle_entries_start = entries[entry_cnt - 2];

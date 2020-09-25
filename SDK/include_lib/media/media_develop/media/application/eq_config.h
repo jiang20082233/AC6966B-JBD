@@ -157,6 +157,7 @@ typedef struct {
     u8 app: 1;
     u8 limit_zero: 1;
     u8 eq_file_ver_err: 1;
+    u8 eq_file_section_err : 1;
     u8 type_num;
     u8 section_max;
     u8 eq_mode;//默认eq系数表的类型

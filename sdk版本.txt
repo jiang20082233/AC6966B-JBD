@@ -1,1 +1,1 @@
-ac696n_soundbox_sdk_v1.1.0
+ac696n_soundbox_sdk_v1.1.1_beta
