@@ -17,6 +17,7 @@
 
 #define LINEIN_INPUT_WAY_ANALOG      0
 #define LINEIN_INPUT_WAY_ADC         1
+#define LINEIN_INPUT_WAY_DAC         2
 
 #define NO_CONFIG_PORT						(-1)
 
@@ -29,7 +30,7 @@
 #define TCFG_APP_FM_EN					    1
 #define TCFG_APP_PC_EN					    1
 #define TCFG_APP_RTC_EN					    0
-#define TCFG_APP_RECORD_EN				    0
+#define TCFG_APP_RECORD_EN				    1
 #define TCFG_APP_SPDIF_EN                   0
 //*********************************************************************************//
 //                               PCM_DEBUG调试配置                                 //
@@ -527,7 +528,7 @@ DAC硬件上的连接方式,可选的配置：
 //*********************************************************************************//
 //                                  mic effect 配置                                //
 //*********************************************************************************//
-#define TCFG_MIC_EFFECT_ENABLE       ENABLE
+#define TCFG_MIC_EFFECT_ENABLE       DISABLE
 #define TCFG_MIC_EFFECT_DEBUG        0//调试打印
 #define TCFG_MIC_EFFECT_ONLINE_ENABLE  0//混响音效在线调试使能
 #if ((TCFG_ONLINE_ENABLE == 0) && TCFG_MIC_EFFECT_ONLINE_ENABLE)
@@ -579,7 +580,7 @@ DAC硬件上的连接方式,可选的配置：
 //*********************************************************************************//
 //                                  蓝牙配置                                       //
 //*********************************************************************************//
-#define TCFG_USER_TWS_ENABLE                1   //tws功能使能
+#define TCFG_USER_TWS_ENABLE                0   //tws功能使能
 #define TCFG_USER_BLE_ENABLE                0   //BLE功能使能
 #define TCFG_USER_BT_CLASSIC_ENABLE         1   //经典蓝牙功能使能
 #define TCFG_BT_SUPPORT_AAC                 0   //AAC格式支持
@@ -671,12 +672,12 @@ DAC硬件上的连接方式,可选的配置：
 #define TCFG_DEC_MP3_ENABLE					ENABLE
 #define TCFG_DEC_WMA_ENABLE					ENABLE
 #define TCFG_DEC_WAV_ENABLE					ENABLE
-#define TCFG_DEC_FLAC_ENABLE				DISABLE
-#define TCFG_DEC_APE_ENABLE					DISABLE
+#define TCFG_DEC_FLAC_ENABLE				ENABLE
+#define TCFG_DEC_APE_ENABLE					ENABLE
 #define TCFG_DEC_M4A_ENABLE					ENABLE
 #define TCFG_DEC_ALAC_ENABLE				ENABLE
 #define TCFG_DEC_AMR_ENABLE					ENABLE
-#define TCFG_DEC_DTS_ENABLE					DISABLE
+#define TCFG_DEC_DTS_ENABLE					ENABLE
 #define TCFG_DEC_MIDI_ENABLE                DISABLE
 #define TCFG_DEC_G726_ENABLE                DISABLE
 #define TCFG_DEC_MTY_ENABLE					DISABLE

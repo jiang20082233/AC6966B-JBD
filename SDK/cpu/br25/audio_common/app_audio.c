@@ -104,10 +104,19 @@ static int audio_vol_set(u8 gain_l, u8 gain_r, u8 fade)
     local_irq_disable();
     __this->fade_gain_l = gain_l;
     __this->fade_gain_r = gain_r;
+
+#if (TCFG_AUDIO_DAC_CONNECT_MODE == DAC_OUTPUT_MONO_L)
+    audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(0), gain_l, fade);
+    audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(0), gain_l ? DEFAULT_DIGTAL_VOLUME : 0, fade);
+#elif (TCFG_AUDIO_DAC_CONNECT_MODE == DAC_OUTPUT_MONO_L)
+    audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(1), gain_r, fade);
+    audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(0), gain_l ? DEFAULT_DIGTAL_VOLUME : 0, fade);
+#else
     audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(0), gain_l, fade);
     audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(1), gain_r, fade);
     audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(0), gain_l ? DEFAULT_DIGTAL_VOLUME : 0, fade);
     audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(1), gain_r ? DEFAULT_DIGTAL_VOLUME : 0, fade);
+#endif
     local_irq_enable();
 
     return 0;

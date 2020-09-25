@@ -57,13 +57,12 @@ int linein_volume_set(u8 vol)
 {
     if (TCFG_LINEIN_LR_CH == AUDIO_LIN_DACL_CH) {
         app_audio_output_ch_analog_gain_set(BIT(0), 0);
-        app_audio_output_ch_analog_gain_set(BIT(1), vol);
+        /* app_audio_output_ch_analog_gain_set(BIT(1), vol); */
     } else if (TCFG_LINEIN_LR_CH == AUDIO_LIN_DACR_CH) {
-        app_audio_output_ch_analog_gain_set(BIT(0), vol);
         app_audio_output_ch_analog_gain_set(BIT(1), 0);
-    } else {
-        app_audio_set_volume(APP_AUDIO_STATE_MUSIC, vol, 1);
+        /* app_audio_output_ch_analog_gain_set(BIT(0), vol); */
     }
+    app_audio_set_volume(APP_AUDIO_STATE_MUSIC, vol, 1);
     log_info("linein vol: %d", __this->volume);
     __this->volume = vol;
 

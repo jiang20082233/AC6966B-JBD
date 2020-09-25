@@ -63,7 +63,7 @@ int __dev_manager_add(char *logo, u8 need_mount)
 
 	if (p) {
 		///挂载文件系统
-		if (dev_manager_list_check_by_logo(logo) == 1) {
+		if (dev_manager_list_check_by_logo(logo)) {
 			printf("dev online aready, err!!!\n");
 			return DEV_MANAGER_ADD_IN_LIST_AREADY;
 		}
@@ -559,7 +559,7 @@ struct vfscan *dev_manager_scan_disk(struct __dev *dev, const char *path, const 
     if(!memcmp(dev->parm->logo ,"udisk",strlen("udisk")))
         dev_sd_change_usb();
 
-    if (dev_manager_check(dev) == NULL) {
+    if (dev_manager_online_check(dev, 1) == NULL) {
         printf("mult remount fail !!!\n");
         return NULL;
     }
@@ -875,7 +875,7 @@ int dev_manager_online_check(struct __dev *dev, u8 valid)
    @note	该接口会检查所有在设备链表中的设备，忽略mount，valid等状态
 */
 /*----------------------------------------------------------------------------*/
-int dev_manager_list_check_by_logo(char *logo)
+struct __dev *dev_manager_list_check_by_logo(char *logo)
 {
 	if (logo == NULL) {
 		return 0;
@@ -885,11 +885,11 @@ int dev_manager_list_check_by_logo(char *logo)
 	list_for_each_entry(dev, &__this->list, entry) {
 		if (!strcmp(dev->parm->logo, logo)) {
 			os_mutex_post(&__this->mutex);
-			return 1;
+			return dev;
 		}
 	}
 	os_mutex_post(&__this->mutex);
-	return 0;
+	return NULL;
 }
 
 //*----------------------------------------------------------------------------*/
@@ -916,6 +916,108 @@ void dev_manager_list_check_mount(void)
 	}
 	os_mutex_post(&__this->mutex);
 }
+
+//*----------------------------------------------------------------------------*/
+/**@brief   设备挂载
+   @param
+   			logo：逻辑盘符，如：sd0/sd1/udisk0
+   @return  0：成功， -1：失败
+   @note	需要主动mount设备可以调用改接口
+*/
+/*----------------------------------------------------------------------------*/
+static int __dev_manager_mount(char *logo)
+{
+	int ret = 0;
+	os_mutex_pend(&__this->mutex, 0);
+	struct __dev *dev = dev_manager_list_check_by_logo(logo);
+	if (dev == NULL) {
+		os_mutex_post(&__this->mutex);
+		return -1;
+	}
+	if(dev->fmnt == NULL){
+		struct __dev_reg *p = dev->parm;
+		dev->fmnt = mount(p->name, p->storage_path, p->fs_type, 3, NULL);
+		if(dev->fmnt && p->bs_storage_path){
+			dev->bs_fmnt = mount(p->name, p->bs_storage_path, p->fs_type, 3, NULL);
+		}
+		dev->valid = (dev->fmnt ? 1 : 0);
+	}
+	ret = (dev->valid ? 0 : -1);
+	os_mutex_post(&__this->mutex);
+	return ret;
+}
+//*----------------------------------------------------------------------------*/
+/**@brief   设备卸载
+   @param
+   			logo：逻辑盘符，如：sd0/sd1/udisk0
+   @return  0：成功， -1：失败
+   @note	需要主动unmount设备可以调用改接口
+*/
+/*----------------------------------------------------------------------------*/
+static int __dev_manager_unmount(char *logo)
+{
+	os_mutex_pend(&__this->mutex, 0);
+	struct __dev *dev = dev_manager_check_by_logo(logo);
+	if (dev == NULL) {
+		os_mutex_post(&__this->mutex);
+		return -1;
+	}
+	if(dev->fmnt){
+		unmount(dev->parm->storage_path);
+		if(dev->bs_fmnt && dev->parm->bs_storage_path){
+			unmount(dev->parm->bs_storage_path);
+		}
+		dev->fmnt = NULL;
+		dev->bs_fmnt = NULL;
+	}
+	dev->valid = 0;
+	os_mutex_post(&__this->mutex);
+	return 0;
+}
+
+//*----------------------------------------------------------------------------*/
+/**@brief   设备复用时挂载
+   @param
+   			logo：逻辑盘符，如：sd0/sd1/udisk0
+   @return  0：成功， -1：失败
+   @note	慎用
+*/
+/*----------------------------------------------------------------------------*/
+int dev_manager_mult_mount(char *logo)
+{
+	int ret = __dev_manager_mount(logo);
+	if(ret == 0){
+#if TCFG_RECORD_FOLDER_DEV_ENABLE
+		char rec_dev_logo[16] = {0};
+		sprintf(rec_dev_logo, "%s%s", logo, "_rec");
+		ret = __dev_manager_mount(rec_dev_logo);
+		if(ret){
+			__dev_manager_unmount(logo);
+		}
+#endif
+	}
+	return ret;
+}
+
+//*----------------------------------------------------------------------------*/
+/**@brief   设备复用时卸载
+   @param
+   			logo：逻辑盘符，如：sd0/sd1/udisk0
+   @return  0：成功， -1：失败
+   @note	慎用
+*/
+/*----------------------------------------------------------------------------*/
+int dev_manager_mult_unmount(char *logo)
+{
+#if TCFG_RECORD_FOLDER_DEV_ENABLE
+	char rec_dev_logo[16] = {0};
+	sprintf(rec_dev_logo, "%s%s", logo, "_rec");
+	__dev_manager_unmount(rec_dev_logo);
+#endif
+	__dev_manager_unmount(logo);
+	return 0;
+}
+
 
 //*----------------------------------------------------------------------------*/
 /**@brief   设备检测线程处理
