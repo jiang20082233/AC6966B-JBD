@@ -560,8 +560,9 @@ static int file_wait_res_handler(struct audio_res_wait *wait, int event)
             if (file_dec->file_dec.status == FILE_DEC_STATUS_PLAY) {
                 err = audio_decoder_start(&file_dec->file_dec.decoder);
                 if (!file_dec->pick_flag) {
+                    audio_stream_clear_from(&mixer.entry);
                     audio_mixer_ch_pause(&file_dec->mix_ch, 0);
-                    audio_decoder_resume_all(&decode_task);
+                    // audio_decoder_resume_all(&decode_task);
                 }
             }
         }

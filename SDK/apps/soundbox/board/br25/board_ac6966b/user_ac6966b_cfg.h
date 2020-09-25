@@ -12,6 +12,7 @@
 #define USER_RGB_EN 1//RGB pb7
 #define USER_RGB_NUMBER 30//rgb 颗数
 #define USER_RGB_LOOP_MODE  USER_RGB_LOOP_MODE_3//循环模式
+#define USER_EQ_LIVE_UPDATE         1//EQ 旋钮实时更新
 
 #define USER_PA_MODE    USER_PA_PIN_1
 

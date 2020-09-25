@@ -140,8 +140,8 @@
 #define CONFIG_TWS_PAIR_BY_FAST_CONN        2      /* 开机快速连接,连接速度比自动配对快,不支持取消配对操作 */
 #define CONFIG_TWS_PAIR_MODE                CONFIG_TWS_PAIR_BY_CLICK
 
-#define CONFIG_TWS_USE_COMMMON_ADDR         1      /* tws 使用公共地址 */
-#define CONFIG_TWS_PAIR_ALL_WAY             0      /* tws 任何时候 链接搜索  */
+#define CONFIG_TWS_USE_COMMMON_ADDR         0      /* tws 使用公共地址 */
+#define CONFIG_TWS_PAIR_ALL_WAY             1      /* tws 任何时候 链接搜索  */
 
 
 /* 声道确定方式选择 */
@@ -153,7 +153,7 @@
 #define CONFIG_TWS_EXTERN_UP_AS_LEFT          5 //外部有上拉电阻作为左耳
 #define CONFIG_TWS_EXTERN_DOWN_AS_LEFT        6 //外部有下拉电阻作为左耳
 #define CONFIG_TWS_SECECT_BY_CHARGESTORE      7 //充电仓决定左右耳
-#define CONFIG_TWS_CHANNEL_SELECT             CONFIG_TWS_LEFT_START_PAIR //配对方式选择
+#define CONFIG_TWS_CHANNEL_SELECT             CONFIG_TWS_MASTER_AS_LEFT //配对方式选择
 
 #define CONFIG_TWS_CHANNEL_CHECK_IO           IO_PORTA_07					//上下拉电阻检测引脚
 

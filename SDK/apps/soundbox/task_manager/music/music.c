@@ -354,6 +354,25 @@ static int music_key_event_opr(struct sys_event *event)
     log_i("music task msg = %d\n", msg[0]);
 
     switch (msg[0]) {
+    case USER_KEY_MUSIC_PLAYER_START:
+        logo = dev_manager_get_logo(dev_manager_find_active(1));
+        if (music_player_get_play_status() == FILE_DEC_STATUS_PLAY) {
+            if (music_player_get_dev_cur() && logo) {
+                ///播放的设备跟当前活动的设备是同一个设备，不处理
+                if (0 == strcmp(logo, music_player_get_dev_cur())) {
+                    puts("the same dev 00!!\n");
+                    //break;
+                }
+            }
+        }
+        if (true == breakpoint_vm_read(breakpoint, logo)) {
+            puts(">>> play ccccccc 33\n");
+            err = music_player_play_by_breakpoint(logo, breakpoint);
+        } else {
+            puts(">>> play ccccccc 44\n");
+            err = music_player_play_first_file(logo);
+        }    
+        break;
     case KEY_MUSIC_PLAYER_START:
         log_i("KEY_MUSIC_PLAYER_START !!\n");
         ///断点播放活动设备
@@ -542,7 +561,7 @@ static int music_key_event_opr(struct sys_event *event)
 /*----------------------------------------------------------------------------*/
 static int music_sys_event_handler(struct sys_event *event)
 {
-    printf(">>>>>>>>>>> music type %d arg %d %d\n",event->type,(u32)event->arg,AUDIO_DEC_EVENT_END);
+    // printf(">>>>>>>>>>> music type %d arg %d %d\n",event->type,(u32)event->arg,AUDIO_DEC_EVENT_END);
     int err = 0;
     char *logo = NULL;
     char *evt_logo = NULL;
@@ -643,6 +662,9 @@ static void music_player_play_start(void)
     }
     ///提示音播放失败，直接推送KEY_MUSIC_PLAYER_START启动播放
 }
+void user_music_player_play_start(void){
+    music_player_play_start();
+}
 //*----------------------------------------------------------------------------*/
 /**@brief    music 模式初始化处理
    @param    无
@@ -723,6 +745,7 @@ void app_music_task()
     int user_dev_tone_number = IDEX_TONE_MUSIC;
     
     #ifdef USER_USB_OR_SD
+    printf(">>>>>> music dev onlie nubmer %d\n",dev_manager_get_total(1));
     if(dev_manager_get_total(1)>1){
         if((USER_USB_OR_SD == USER_DEV_USB) || (USER_USB_OR_SD == USER_DEV_SD0) || (USER_USB_OR_SD == USER_DEV_SD1)){
             // if(USER_USB_OR_SD == USER_DEV_USB){

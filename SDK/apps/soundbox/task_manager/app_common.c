@@ -101,10 +101,52 @@ static void  bt_tws_tone_play_end_callback(void *priv, int flag){
             bt_tws_start_search_and_pair();
         }else if(tws_api_get_tws_state() & TWS_STA_SIBLING_CONNECTED){
             printf("    KEY_TWS_SEARCH_REMOVE_PAIR \n");
-            bt_tws_search_or_remove_pair();
+            // bt_tws_remove_tws_pair();
+            // app_task_put_key_msg(KEY_TWS_SEARCH_REMOVE_PAIR,0);
+            #if USER_IR_TWS_SYNC_DEL_INFO_EN
+            bt_tws_api_push_cmd(USER_SYNC_CMD_DEL_TWS_INFO, 200);
+            #endif
+            // if (tws_api_get_role() == TWS_ROLE_MASTER) {
+            //     // bt_tws_search_or_remove_pair();
+            //     // bt_tws_api_push_cmd(KEY_TWS_SEARCH_REMOVE_PAIR, 400);
+            // }
+            // bt_tws_search_or_remove_pair();
         }else{
             puts(">>>>> error\n");
         }
+        break;
+    default:
+        break;
+    }
+}
+u16 user_max_tone_paly_id = 0;
+static void user_tone_play_max(void *priv){
+    user_max_tone_paly_id = 0;
+    // extern void user_music_player_play_start(void);
+    // user_music_player_play_start();
+    puts(">>>>>>>>>>>>>>    tone USER_KEY_MUSIC_PLAYER_START\n");
+    app_task_put_key_msg(USER_KEY_MUSIC_PLAYER_START, 0);
+}
+static void  max_tone_play_end_callback(void *priv, int flag)
+{
+    u32 index = (u32)priv;
+        if(user_max_tone_paly_id){
+            puts(">>>>>>>>   555555\n");
+            sys_hi_timeout_del(user_max_tone_paly_id);
+            user_max_tone_paly_id = 0;
+        }
+
+    if (APP_MUSIC_TASK != app_get_curr_task()) {
+        log_error("tone callback task out \n");
+        return;
+    }
+    switch (index) {
+    case IDEX_TONE_MAX_VOL:
+        ///提示音播放结束， 启动播放器播放
+        // music_player_stop(1);
+        // music_player_decode_start();
+
+        user_max_tone_paly_id = sys_hi_timeout_add(NULL,user_tone_play_max,500);
         break;
     default:
         break;
@@ -168,8 +210,12 @@ int app_common_key_msg_deal(struct sys_event *event)
         bt_tws_start_search_and_pair();
         break;
     case KEY_TWS_SEARCH_REMOVE_PAIR:
-        log_info("    KEY_TWS_SEARCH_REMOVE_PAIR \n");
-        bt_tws_search_or_remove_pair();
+        printf("    KEY_TWS_SEARCH_REMOVE_PAIR \n");
+        if (tws_api_get_role() == TWS_ROLE_MASTER) {
+        printf("  kkkkk  TWS_ROLE_MASTER \n");
+            bt_tws_search_or_remove_pair();
+        }
+        printf("  kkkkk  TWS_ROLE_SLAVE \n");
         break;
 #endif
 
@@ -215,16 +261,35 @@ int app_common_key_msg_deal(struct sys_event *event)
         break;
 
     case KEY_VOL_UP:
-        log_info("COMMON KEY_VOL_UP\n");
+        printf("COMMON KEY_VOL_UP\n");
         if(tone_get_status()){
+            printf(">>>>>>>>>>>>   tone status\n");
             break;
-        }        
+        }
+        if (app_audio_get_volume(APP_AUDIO_STATE_MUSIC) == app_audio_get_max_volume()) {
+            if (tone_get_status() == 0) {
+#if TCFG_MAX_VOL_PROMPT
+                // if(app_get_curr_task() == APP_MUSIC_TASK){
+                //     puts("max tone player stop\n");
+                //     music_player_stop(0);
+                // }
+                tone_play_by_path(tone_table[IDEX_TONE_MAX_VOL], USER_TONE_PLAY_MODE?1:0);
+                break;
+                // tone_play_with_callback_by_name(TONE_MAX_VOL,USER_TONE_PLAY_MODE?1:0,max_tone_play_end_callback,(void *)IDEX_TONE_MAX_VOL);
+#endif
+            }
+        }
         app_audio_volume_up(1);
         printf("common vol+: %d", app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
         if (app_audio_get_volume(APP_AUDIO_STATE_MUSIC) == app_audio_get_max_volume()) {
             if (tone_get_status() == 0) {
 #if TCFG_MAX_VOL_PROMPT
+                // if(app_get_curr_task() == APP_MUSIC_TASK){
+                //     puts("max tone player stop\n");
+                //     music_player_stop(0);
+                // }
                 tone_play_by_path(tone_table[IDEX_TONE_MAX_VOL], USER_TONE_PLAY_MODE?1:0);
+                // tone_play_with_callback_by_name(TONE_MAX_VOL,USER_TONE_PLAY_MODE?1:0,max_tone_play_end_callback,(void *)IDEX_TONE_MAX_VOL);
 #endif
             }
         }
@@ -382,6 +447,13 @@ int app_common_key_msg_deal(struct sys_event *event)
 
         break;
 #endif
+    case USER_TWS_PLAY_TONE:
+        puts("USER_TWS_PLAY_TONE\n");
+        if (get_call_status() == BT_CALL_HANGUP) {
+            // bt_tone_play_index(IDEX_TONE_BT_CONN, 1, NULL);
+            tone_play_by_path(TONE_BT_CONN, USER_TONE_PLAY_MODE?1:0);
+        }
+        break;
     default:
         ui_key_msg_post(key_event);
 #ifdef CONFIG_BOARD_AC695X_SOUNDCARD
@@ -402,6 +474,8 @@ int app_power_user_event_handler(struct device_event *dev)
 #if(TCFG_SYS_LVD_EN == 1)
     switch (dev->event) {
     case POWER_EVENT_POWER_WARNING:
+        puts("POWER_EVENT_POWER_WARNING app common\n");
+        user_power_low_dow_sys_vol();
         ui_update_status(STATUS_LOWPOWER);
         tone_play_by_path(tone_table[IDEX_TONE_LOW_POWER], 1);
         return 0;

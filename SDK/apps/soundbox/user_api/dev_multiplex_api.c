@@ -155,22 +155,13 @@ int mult_usb_resume(usb_dev id, u8 mount, u32 delay)
         }
 
         if (mount) {
-            if (dev_manager_check_by_logo("udisk0")) {
-                dev_manager_del("udisk0");
+            if (dev_manager_online_check_by_logo("udisk0", 0)) {
+                dev_manager_mult_unmount("udisk0");
             }
-            /* if (dev_manager_check_by_logo("udisk0_rec")) { */
-            /* dev_manager_del("udisk0_rec"); */
-            /* } */
             if (usb_host_remount(id, MOUNT_RETRY, MOUNT_RESET, MOUNT_TIMEOUT, 0)) {
                 log_error("udisk remount fail\n");
             } else {
-                /* err = dev_manager_add("udisk0_rec"); */
-                /* if (!err) { */
-                err = dev_manager_add("udisk0");
-                /* if (err) { */
-                /* dev_manager_del("udisk0_rec"); */
-                /* } */
-                /* } */
+                err = dev_manager_mult_mount("udisk0");
                 return err;
             }
         } else {

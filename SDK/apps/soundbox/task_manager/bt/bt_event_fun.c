@@ -1170,6 +1170,7 @@ void bt_status_connect(struct bt_event *bt)
     }
 
     if (bt_tws_phone_connected()) {
+        puts(">>>>>>>>> sssssssssss  9999\n");
         return ;
     }
 #else
@@ -1191,6 +1192,7 @@ void bt_status_connect(struct bt_event *bt)
     if (get_call_status() == BT_CALL_HANGUP) {
         bt_tone_play_index(IDEX_TONE_BT_CONN, 1, NULL);
     }
+        puts(">>>>>>>>> sssssssssss  3333\n");
 }
 
 /*----------------------------------------------------------------------------*/

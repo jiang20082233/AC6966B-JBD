@@ -6,8 +6,8 @@ copy ..\..\script.ver .
 copy ..\..\uboot.boot .
 copy ..\..\ota.bin .
 
-..\..\isd_download.exe -tonorflash -dev br25 -boot 0x12000 -div8 -wait 300 -uboot uboot.boot -app app.bin cfg_tool.bin -res tone.cfg eq_cfg_hw.bin -uboot_compress -format all
-::-key 002伦茨AC690X-4A30.key
+isd_download.exe -tonorflash -dev br25 -boot 0x12000 -div8 -wait 300 -uboot uboot.boot -app app.bin cfg_tool.bin -res tone.cfg eq_cfg_hw.bin -uboot_compress -format all  -key 002伦茨AC690X-4A30.key
+::..\..\isd_download.exe -tonorflash -dev br25 -boot 0x12000 -div8 -wait 300 -uboot uboot.boot -app app.bin cfg_tool.bin -res tone.cfg eq_cfg_hw.bin -uboot_compress -format all -key 002伦茨AC690X-4A30.key
 :: -format all
 ::-reboot 2500
 
@@ -23,12 +23,12 @@ if exist *.sty del *.sty
 
 
 @rem 生成固件升级文件
-..\..\fw_add.exe -noenc -fw jl_isd.fw  -add ota.bin -type 100 -out jl_isd.fw
+fw_add.exe -noenc -fw jl_isd.fw  -add ota.bin -type 100 -out jl_isd.fw
 @rem 添加配置脚本的版本信息到 FW 文件中
-..\..\fw_add.exe -noenc -fw jl_isd.fw -add script.ver -out jl_isd.fw
+fw_add.exe -noenc -fw jl_isd.fw -add script.ver -out jl_isd.fw
 
 
-..\..\ufw_maker.exe -fw_to_ufw jl_isd.fw
+ufw_maker.exe -fw_to_ufw jl_isd.fw
 copy jl_isd.ufw update.ufw
 del jl_isd.ufw
 

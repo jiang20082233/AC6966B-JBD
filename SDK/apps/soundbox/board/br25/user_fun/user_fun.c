@@ -131,8 +131,11 @@ void user_mic_vol_updata(u32 vol){
     if(mic_old!=mic_vol ){
         mic_old = mic_vol;
         printf(">>>>> mic_old %d vol %d\n",mic_old,vol);
-        // audio_mic_set_gain(mic_old);
+        #if USER_MIC_MUSIC_VOL_SEPARATE
         mic_effect_set_dvol(mic_old);
+        #else
+        audio_mic_set_gain(mic_old);
+        #endif
     }
 }
 
@@ -223,6 +226,20 @@ void user_music_set_file_number(int number){
     #endif
 }
 
+//低电键音量
+void user_power_low_dow_sys_vol(void){
+    // return;
+    #if (defined(USER_POWER_LOW_DOW_VOL_EN) && USER_POWER_LOW_DOW_VOL_EN)
+    puts(">>>>>>>>>>>>> low dow sys vol\n");
+    if(tone_get_status()){
+        sys_hi_timeout_add(NULL,user_power_low_dow_sys_vol,200);
+    }
+    if(USER_POWER_LOW_DOW_VOL_EN < app_audio_get_volume(APP_AUDIO_STATE_MUSIC)){
+        app_audio_set_volume(APP_AUDIO_STATE_MUSIC, USER_POWER_LOW_DOW_VOL_EN, 1);
+    }
+    printf(">>>>>>>>>>>>> low sys vol %d\n",app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
+    #endif
+}
 //spi pb6 clk 引脚复用设置
 void user_fun_spi_pb6_mult(void){
     #if (defined(USER_VBAT_CHECK_EN) && USER_VBAT_CHECK_EN)

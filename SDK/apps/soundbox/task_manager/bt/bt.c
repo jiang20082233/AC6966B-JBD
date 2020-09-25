@@ -325,6 +325,8 @@ static int bt_connction_status_event_handler(struct bt_event *bt)
     case BT_STATUS_FIRST_CONNECTED:
         log_info("BT_STATUS_CONNECTED\n");
         bt_status_connect(bt);
+        
+        puts(">>>>>>>>> sssssssssss  111111111\n");
         break;
     case BT_STATUS_FIRST_DISCONNECT:
     case BT_STATUS_SECOND_DISCONNECT:
@@ -782,6 +784,12 @@ int bt_key_event_handler(struct sys_event *event)
 
 #if TCFG_USER_TWS_ENABLE
     case KEY_CHANGE_MODE:
+    if((u32)event->arg == KEY_EVENT_FROM_TWS){
+        ret = true;
+    }else{
+        ret = false;
+    }
+    break;
 #if (TCFG_DEC2TWS_ENABLE)
         ret = false;
 #else

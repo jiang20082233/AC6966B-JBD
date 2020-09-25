@@ -59,7 +59,9 @@ extern struct audio_dac_hdl dac_hdl;
 extern struct audio_adc_hdl adc_hdl;
 OS_SEM dac_sem;
 
-#if AUDIO_OUTPUT_ONLY_DAC
+#if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_DONGLE)
+s16 dac_buff[1 * 1024] SEC(.dac_buff);
+#elif AUDIO_OUTPUT_ONLY_DAC
 s16 dac_buff[4 * 1024] SEC(.dac_buff);
 #endif
 
@@ -106,29 +108,42 @@ static int audio_vol_set(u8 gain_l, u8 gain_r, u8 fade)
     local_irq_disable();
     __this->fade_gain_l = gain_l;
     __this->fade_gain_r = gain_r;
-    #if USER_MIC_MUSIC_VOL_SEPARATE//((TCFG_LINEIN_LR_CH == AUDIO_LIN_DACL_CH)||TCFG_LINEIN_LR_CH == AUDIO_LIN_DACR_CH)
-    // audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(0), gain_l, fade);
-    // audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(1), gain_r, fade);
-    // audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(0), gain_l ? DEFAULT_DIGTAL_VOLUME : 0, fade);
-    // audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(0), gain_r ? DEFAULT_DIGTAL_VOLUME : 0, fade);
-
+    #if USER_MIC_MUSIC_VOL_SEPARATE
+    u32 ch = 0;    
     if(digvol_last && digvol_last_entry){
-        audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(0)|BIT(1), MAX_ANA_VOL, fade);
+        #if (TCFG_AUDIO_DAC_CONNECT_MODE == DAC_OUTPUT_MONO_L)
+            ch = BIT(0);
+        #elif(TCFG_AUDIO_DAC_CONNECT_MODE == DAC_OUTPUT_MONO_L)
+            ch = BIT(1);
+        #else
+            ch = BIT(0)|BIT(1);
+        #endif
+        audio_dac_vol_set(TYPE_DAC_AGAIN,ch, MAX_ANA_VOL, fade);
 
-        if(gain_l == gain_r){
-            audio_dig_vol_set(digvol_last,BIT(0)|BIT(1),gain_l);
-        }else{
-            audio_dig_vol_set(digvol_last,BIT(0),gain_l);
-            audio_dig_vol_set(digvol_last,BIT(1),gain_r);
+        if(ch & BIT(0)){
+            audio_dig_vol_set(digvol_last,BIT(0),gain_l); 
         }
+        if(ch & BIT(1)){
+            audio_dig_vol_set(digvol_last,BIT(1),gain_r); 
+        }
+             
     }
+	#else
+	#if (TCFG_AUDIO_DAC_CONNECT_MODE == DAC_OUTPUT_MONO_L)
+	    audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(0), gain_l, fade);
+	    audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(0), gain_l ? DEFAULT_DIGTAL_VOLUME : 0, fade);
+	#elif (TCFG_AUDIO_DAC_CONNECT_MODE == DAC_OUTPUT_MONO_L)
+	    audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(1), gain_r, fade);
+	    audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(0), gain_l ? DEFAULT_DIGTAL_VOLUME : 0, fade);
+	#else
+	    audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(0), gain_l, fade);
+	    audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(1), gain_r, fade);
+	    audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(0), gain_l ? DEFAULT_DIGTAL_VOLUME : 0, fade);
+	    audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(1), gain_r ? DEFAULT_DIGTAL_VOLUME : 0, fade);
+	#endif	
+	
+	#endif
 
-    #else
-    audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(0), gain_l, fade);
-    audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(1), gain_r, fade);
-    audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(0), gain_l ? DEFAULT_DIGTAL_VOLUME : 0, fade);
-    audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(1), gain_r ? DEFAULT_DIGTAL_VOLUME : 0, fade);
-    #endif
     local_irq_enable();
 
     return 0;

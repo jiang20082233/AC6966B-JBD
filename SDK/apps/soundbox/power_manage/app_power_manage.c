@@ -143,7 +143,8 @@ int app_power_event_handler(struct device_event *dev)
         ui_update_status(STATUS_EXIT_LOWPOWER);
         break;
     case POWER_EVENT_POWER_WARNING:
-        ui_update_status(STATUS_LOWPOWER);
+        puts("POWER_EVENT_POWER_WARNING power manage\n");
+        ui_update_status(STATUS_LOWPOWER);        
         /* tone_play(TONE_LOW_POWER); */
         STATUS *p_tone = get_tone_config();
         tone_play_index(p_tone->lowpower, 0);
@@ -365,10 +366,10 @@ void vbat_check(void *priv)
     static u8 low_voice_first_flag = 1;//进入低电后先提醒一次
     static u8 tp_low_war_cnt = 0;
 
-    u8 detect_cnt = 6;
+    u8 detect_cnt = 20;
 
     if (cur_timer_period == VBAT_TIMER_10_S) {
-        vbat_timer_update(20);
+        vbat_timer_update(100);
         cur_timer_period = VBAT_TIMER_2_MS;
         vbat_check_idle = 0;
     }
@@ -385,7 +386,7 @@ void vbat_check(void *priv)
 
     unit_cnt++;
 
-    // printf("                    power 0ff %d %d\n",app_var.poweroff_tone_v,app_var.warning_tone_v);
+    printf("                    power 0ff %d  %d  %d\n",bat_val,app_var.poweroff_tone_v,app_var.warning_tone_v);
     /* if (bat_val < LOW_POWER_OFF_VAL) { */
     if ((bat_val <= app_var.poweroff_tone_v) || adc_check_vbat_lowpower()) {
         low_off_cnt++;
@@ -393,6 +394,9 @@ void vbat_check(void *priv)
     /* if (bat_val < LOW_POWER_WARN_VAL) { */
     if (bat_val <= app_var.warning_tone_v) {
         low_warn_cnt++;
+    }else{
+        tp_low_war_cnt = 0;
+        low_off_cnt = 0;
     }
 #if TCFG_CHARGE_ENABLE
     if (bat_val >= CHARGE_CCVOL_V) {
@@ -411,14 +415,14 @@ void vbat_check(void *priv)
                 power_normal_cnt = 0;
                 cur_bat_st = VBAT_LOWPOWER;
                 if (low_power_cnt > 6) {
-                    log_info("\n*******Low Power,enter softpoweroff********\n");
+                    log_info("\n*******Low Power,enter softpoweroff******%d**\n",low_power_cnt);
                     low_power_cnt = 0;
-                    sys_timer_del(vbat_timer);
-                    if (lowpower_timer) {
-                        sys_timer_del(lowpower_timer);
-                        lowpower_timer = 0 ;
-                    }
-                    power_event_to_user(POWER_EVENT_POWER_LOW);
+                    // sys_timer_del(vbat_timer);
+                    // if (lowpower_timer) {
+                    //     sys_timer_del(lowpower_timer);
+                    //     lowpower_timer = 0 ;
+                    // }
+                    // power_event_to_user(POWER_EVENT_POWER_LOW);
                 }
             } else if (low_warn_cnt > (detect_cnt / 2)) { //低电提醒
                 low_voice_cnt ++;
@@ -430,9 +434,9 @@ void vbat_check(void *priv)
                     low_voice_first_flag = 0;
                     low_voice_cnt = 0;
                     if (!lowpower_timer) {
-                        // log_info("\n**Low Power,Please Charge Soon!!!**\n");
-                        // power_event_to_user(POWER_EVENT_POWER_WARNING);
-                        // lowpower_timer = sys_timer_add((void *)POWER_EVENT_POWER_WARNING, (void (*)(void *))power_event_to_user, LOW_POWER_WARN_TIME);
+                        log_info("\n**Low Power,Please Charge Soon!!!**\n");
+                        power_event_to_user(POWER_EVENT_POWER_WARNING);
+                        lowpower_timer = sys_timer_add((void *)POWER_EVENT_POWER_WARNING, (void (*)(void *))power_event_to_user, LOW_POWER_WARN_TIME);
                     }
                 }
                 
@@ -443,16 +447,16 @@ void vbat_check(void *priv)
 
                     tp_time = timer_get_ms();
                     tp_low_war_cnt++;
-
+                    printf(">>>>>>>>> power low cnt %d\n",tp_low_war_cnt);
                     if(tp_low_war_cnt>=5){
                         tp_low_war_cnt = 0;
-
+                        printf(">>>>>>>>> power off low\n");
                         sys_timer_del(vbat_timer);
                         power_event_to_user(POWER_EVENT_POWER_LOW);
                     }else{
                         power_event_to_user(POWER_EVENT_POWER_WARNING);
                     }
-                }                
+                }
             } else {
                 power_normal_cnt++;
                 low_voice_cnt = 0;
@@ -488,7 +492,7 @@ void vbat_check(void *priv)
             // } else {
             //     vbat_timer_update(10 * 1000);
             // }
-            vbat_timer_update(200);
+            // vbat_timer_update(200);
 
             cur_timer_period = VBAT_TIMER_10_S;
             vbat_check_idle = 1;

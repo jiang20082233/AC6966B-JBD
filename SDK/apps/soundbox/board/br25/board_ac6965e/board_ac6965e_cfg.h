@@ -33,7 +33,7 @@
 #define TCFG_APP_FM_EN					    1
 #define TCFG_APP_PC_EN					    0//1
 #define TCFG_APP_RTC_EN					    0
-#define TCFG_APP_RECORD_EN				    1
+#define TCFG_APP_RECORD_EN				    0
 #define TCFG_APP_SPDIF_EN                   0
 //*********************************************************************************//
 //                               PCM_DEBUG调试配置                                 //
@@ -46,7 +46,7 @@
 //*********************************************************************************//
 #define TCFG_UART0_ENABLE					0//ENABLE_THIS_MOUDLE                     //串口打印模块使能
 #define TCFG_UART0_RX_PORT					NO_CONFIG_PORT                         //串口接收脚配置（用于打印可以选择NO_CONFIG_PORT）
-#define TCFG_UART0_TX_PORT  				IO_PORTA_05//IO_PORT_DP//IO_PORTA_05                            //串口发送脚配置
+#define TCFG_UART0_TX_PORT  				IO_PORT_DP//IO_PORT_DP//IO_PORTA_05                            //串口发送脚配置
 #define TCFG_UART0_BAUDRATE  				1000000                                //串口波特率配置
 
 #ifdef CONFIG_DEBUG_ENABLE
@@ -378,8 +378,8 @@
 #define TCFG_RDEC1_KEY1_VALUE 				 	3
 
 //RDEC2配置
-#define TCFG_RDEC2_ECODE1_PORT					IO_PORTB_04
-#define TCFG_RDEC2_ECODE2_PORT					IO_PORTB_05
+#define TCFG_RDEC2_ECODE1_PORT					IO_PORTB_09
+#define TCFG_RDEC2_ECODE2_PORT					IO_PORTB_08
 #define TCFG_RDEC2_KEY0_VALUE 				 	4
 #define TCFG_RDEC2_KEY1_VALUE 				 	5
 
@@ -413,7 +413,7 @@ DAC硬件上的连接方式,可选的配置：
     DAC_OUTPUT_LR                   立体声
     DAC_OUTPUT_MONO_LR_DIFF         单声道差分输出
 */
-#define TCFG_AUDIO_DAC_CONNECT_MODE    DAC_OUTPUT_MONO_L
+#define TCFG_AUDIO_DAC_CONNECT_MODE   DAC_OUTPUT_LR// DAC_OUTPUT_MONO_L
 
 /*
 解码后音频的输出方式:
@@ -518,7 +518,7 @@ DAC硬件上的连接方式,可选的配置：
 /*强VDDIO等级配置,可选：
     VDDIOM_VOL_20V    VDDIOM_VOL_22V    VDDIOM_VOL_24V    VDDIOM_VOL_26V
     VDDIOM_VOL_30V    VDDIOM_VOL_30V    VDDIOM_VOL_32V    VDDIOM_VOL_36V*/
-#define TCFG_LOWPOWER_VDDIOM_LEVEL			VDDIOM_VOL_34V    //VDDIO 设置的值要和vbat的压差要大于300mv左右，否则会出现DAC杂音
+#define TCFG_LOWPOWER_VDDIOM_LEVEL			VDDIOM_VOL_32V    //VDDIO 设置的值要和vbat的压差要大于300mv左右，否则会出现DAC杂音
 /*弱VDDIO等级配置，可选：
     VDDIOW_VOL_21V    VDDIOW_VOL_24V    VDDIOW_VOL_28V    VDDIOW_VOL_32V*/
 #define TCFG_LOWPOWER_VDDIOW_LEVEL			VDDIOW_VOL_28V               //弱VDDIO等级配置
@@ -677,7 +677,7 @@ DAC硬件上的连接方式,可选的配置：
 //                                  REC 配置                                       //
 //*********************************************************************************//
 #define RECORDER_MIX_EN						DISABLE//混合录音使能
-#define TCFG_RECORD_FOLDER_DEV_ENABLE       ENABLE//音乐播放录音区分使能
+#define TCFG_RECORD_FOLDER_DEV_ENABLE       DISABLE//ENABLE//音乐播放录音区分使能
 
 
 //*********************************************************************************//
@@ -802,7 +802,7 @@ DAC硬件上的连接方式,可选的配置：
 #define TCFG_ENC_CVSD_ENABLE                ENABLE
 #define TCFG_ENC_MSBC_ENABLE                ENABLE
 #define TCFG_ENC_MP3_ENABLE                 DISABLE
-#define TCFG_ENC_ADPCM_ENABLE               ENABLE
+#define TCFG_ENC_ADPCM_ENABLE               DISABLE
 #define TCFG_ENC_SBC_ENABLE                 DISABLE
 #define TCFG_ENC_OPUS_ENABLE                DISABLE
 #define TCFG_ENC_SPEEX_ENABLE               DISABLE

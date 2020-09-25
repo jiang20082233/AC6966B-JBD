@@ -150,6 +150,7 @@ u32 adc_get_voltage(u32 ch)
 u32 adc_check_vbat_lowpower()
 {
     u32 vbat = adc_get_value(AD_CH_VBAT);
+    // printf(">>>>>   abs %d\n",vbat);
     return __builtin_abs(vbat - 255) < 5;
 }
 
@@ -411,7 +412,7 @@ void _adc_init(u32 sys_lvd_en)
         adc_queue[vbg_queue_ch].value = vbg_adc_value;
     } else {
         vbat_queue_ch = adc_add_sample_ch(AD_CH_VBAT);
-        adc_set_sample_freq(AD_CH_VBAT, 30000);
+        adc_set_sample_freq(AD_CH_VBAT, 1000);
         adc_queue[vbat_queue_ch].value = vbat_adc_value;
     }
 

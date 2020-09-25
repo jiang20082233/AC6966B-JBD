@@ -70,7 +70,7 @@
 #define USER_EQ_MIC_AD_MAX    (950)//962
 #define USER_EQ_MIC_AD_MIN    (590)//599
 #define USER_EQ_MIC_GAIN_MIN  (0)//最小增益
-#define USER_EQ_MIC_GAIN_MAX  (30)//最大增益
+#define USER_EQ_MIC_GAIN_MAX  (10)//最大增益
 
 #define USER_EQ_REV_AD_MAX    (420)//430
 #define USER_EQ_REV_AD_MIN    (50)//62
@@ -105,4 +105,5 @@ void user_eq_mode_sw(void);
 u8 user_record_status(u8 cmd);
 void user_vbat_check_init(void);
 bool user_adkey_mult_irkey(u8 key_type);
+void user_power_low_dow_sys_vol(void);
 #endif
