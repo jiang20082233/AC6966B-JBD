@@ -47,7 +47,7 @@
 #define MAX_ANA_VOL             (30)
 #endif/*TCFG_AUDIO_DAC_CONNECT_MODE*/
 
-#define MAX_COM_VOL             (22)    // 具体数值应小于联合音量等级的数组大小 (combined_vol_list)
+#define MAX_COM_VOL             (30)    // 具体数值应小于联合音量等级的数组大小 (combined_vol_list)
 #define MAX_DIG_VOL             (100)
 
 #if ((SYS_VOL_TYPE == VOL_TYPE_DIGITAL) || (SYS_VOL_TYPE == VOL_TYPE_DIGITAL_HW))

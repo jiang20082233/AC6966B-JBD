@@ -37,6 +37,7 @@ typedef struct pa_internal{
     int (*init)(void *pa);//初始化io口
     void (*io_strl)(void *pa,u8 cmd);//内部 pa 控制总入口        
     void (*service)(void *pa);//服务函数
+    u16 service_id;
 
     //双io控制功放
     void (*mute_2pin)(void *pa,u8 cmd);
@@ -85,4 +86,5 @@ void user_pa_ex_automute(u8 cmd);
 void user_pa_ex_mic(u8 cmd);
 void user_pa_ex_linein(u8 cmd);
 void user_pa_ex_manual(u8 cmd);
+void user_pa_ex_del(void);
 #endif

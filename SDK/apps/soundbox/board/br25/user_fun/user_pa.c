@@ -10,9 +10,9 @@ PA_CTL_IO pa_in_io = {
     .port_abd_and_mute = USER_PA_ABD_MUTE_PORT,
 #else
     /*****************双io配置******************/
-    .port_abd_and_mute = NO_CONFIG_PORT,
-    .port_mute = USER_PA_MUTE_PORT,
-    .port_abd = USER_PA_ABD_PORT,
+    .port_abd_and_mute = NO_CONFIG_PORT,//单io
+    .port_mute = USER_PA_MUTE_PORT,//双io
+    .port_abd = USER_PA_ABD_PORT,//双io
     .port_mute_io_status = USER_PA_MUTE_MODE,
     .port_ab_io_status = USER_PA_ABD_MODE,
 #endif,
@@ -35,6 +35,7 @@ PA_IN_STRL pa_in_fun = {
     .pa_io      = NULL,
     .init       = user_pa_in_pin_init,
     .service    = user_pa_in_service,
+    .service_id = 0,
     .io_strl    = user_pa_in_strl,
 
     //双io控制功放
@@ -189,7 +190,7 @@ void user_pa_in_abd(void *pa,u8 cmd){
         gpio_set_pull_down(pa_ctrl->port_abd,0);
         gpio_set_pull_up(pa_ctrl->port_abd,0);
         gpio_set_die(pa_ctrl->port_abd,1);
-        user_pa_in_abd(pa,PA_CLASS_D);
+        // user_pa_in_abd(pa,PA_CLASS_D);
     }else if(PA_POWER_OFF == cmd){
 
     }
@@ -213,6 +214,7 @@ void user_pa_in_strl(void *pa,u8 cmd){
     void (*mute_strl)(void *pa,u8 cmd) = NULL;
     void (*abd_strl)(void *pa,u8 cmd) = NULL;
 
+    //初始化的时候根据单io还是双io 功放 来注册对应的控制函数
     mute_strl = pa_ctrl->mute;
     abd_strl = pa_ctrl->abd;
 
@@ -297,12 +299,16 @@ void user_pa_in_service(void *pa){
             }
         }
 
-    }else if (app_check_curr_task(APP_MUSIC_TASK)){
+    }
+    #if TCFG_APP_MUSIC_EN
+    else if (app_check_curr_task(APP_MUSIC_TASK)){
         // extern bool user_file_dec_is_pause(void);
         // pa_sys_auto_mute = user_file_dec_is_pause();
         // pa_sys_auto_mute = 0;
         pa_sys_auto_mute = (music_player_get_play_status() == FILE_DEC_STATUS_PLAY)?0:1;
-    }else if(app_check_curr_task(APP_FM_TASK)){
+    }
+    #endif
+    else if(app_check_curr_task(APP_FM_TASK)){
         pa_sys_auto_mute = 0;
     }else if(app_check_curr_task(APP_LINEIN_TASK)){
         pa_sys_auto_mute = pa_ctrl->pa_linein_mute;
@@ -344,7 +350,7 @@ void user_pa_in_service(void *pa){
         ((PA_IN_STRL *)pa)->io_strl(pa,PA_UMUTE);
     }
 
-    sys_hi_timeout_add(pa,((PA_IN_STRL *)pa)->service,pa_sys_auto_mute?100:1000);
+    ((PA_IN_STRL *)pa)->service_id = sys_hi_timeout_add(pa,((PA_IN_STRL *)pa)->service,pa_sys_auto_mute?100:1000);
 }
 
 /*
@@ -422,6 +428,16 @@ void user_pa_ex_io_init(void){
 #endif
 }
 
+void user_pa_ex_del(void){
+#if USER_PA_EN
+    pa_ex_fun.pa_io->port_io_init_ok = 0;
+    if(pa_ex_fun.pa_in->service_id){
+        sys_hi_timeout_del(pa_ex_fun.pa_in->service_id);
+        pa_ex_fun.pa_in->service_id = 0;
+    }
+#endif
+}
+
 void user_pa_ex_init(void){
 #if USER_PA_EN
     if(pa_ex_fun.pa_io->port_io_init_ok){
@@ -431,5 +447,6 @@ void user_pa_ex_init(void){
     }else{
         pa_ex_fun.pa_io->port_io_init_ok = 0;
     }
+    pa_ex_fun.strl(PA_CLASS_D);
 #endif
 }

@@ -18,6 +18,8 @@
 #define TWS_FUNC_ID_ETCH_SYNC		TWS_FUNC_ID('E', 'T', 'C', 'H')
 #define TWS_FUNC_ID_TONE_SYNC  		TWS_FUNC_ID('T', 'O', 'N', 'E')
 #define TWS_FUNC_ID_REVERB_SYNC     TWS_FUNC_ID('R', 'E', 'V', 'E')
+// #define USER_TWS_FUNC_ID_LED_MODE_SYNC   TWS_FUNC_ID('L', 'E', 'D', 'M')
+#define USER_TWS_FUNC_ID_USER_INFO_SYNC   TWS_FUNC_ID('U', 'S', 'E', 'R')
 
 enum {
     DEBUG_LINK_PAGE_STATE = 0,
@@ -85,6 +87,7 @@ enum {
 #if USER_IR_TWS_SYNC_DEL_INFO_EN    
     USER_SYNC_CMD_DEL_TWS_INFO,
 #endif
+    SYNC_CMD_POWER_WARNING,
 };
 
 enum {

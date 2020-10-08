@@ -110,9 +110,9 @@ void user_rgb_send(void *priv){
         if(send_ret<0){
             printf("user rgb spi send data error\n");
         }
-        sys_timeout_add(rgb,user_rgb_send,rgb->spi_scan_time);
+        rgb -> time_id = sys_timeout_add(rgb,user_rgb_send,rgb->spi_scan_time);
     }else{
-        sys_timeout_add(rgb,user_rgb_send,10);
+        rgb -> time_id = sys_timeout_add(rgb,user_rgb_send,10);
     }
 }
 
@@ -148,7 +148,6 @@ void user_rgb_power_off(void *priv){
 
 //初始化
 void user_rgb_init(void *priv){
-    
     #if USER_RGB_EN
     RGB_INFO *rgb = (RGB_INFO *)priv;
     if(!rgb || SPI_MAX_HW_NUM<=(rgb->spi_port)){
@@ -167,6 +166,20 @@ void user_rgb_init(void *priv){
     rgb->init_flag = true;
 
     sys_timeout_add(rgb,user_rgb_send,rgb->spi_scan_time);//打开spi之后不能马上去发送数据 不然rgb会闪烁一下
+    #endif
+}
+
+void user_rgb_del(void *priv){
+    #if USER_RGB_EN
+    RGB_INFO *rgb = (RGB_INFO *)priv;
+    if(!rgb || SPI_MAX_HW_NUM<=(rgb->spi_port)){
+        return;
+    }
+    
+    if(rgb->time_id){
+        sys_timeout_del(rgb->time_id);
+    }
+
     #endif
 }
 

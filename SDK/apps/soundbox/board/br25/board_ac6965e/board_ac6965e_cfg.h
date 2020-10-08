@@ -33,7 +33,7 @@
 #define TCFG_APP_FM_EN					    1
 #define TCFG_APP_PC_EN					    0//1
 #define TCFG_APP_RTC_EN					    0
-#define TCFG_APP_RECORD_EN				    0
+#define TCFG_APP_RECORD_EN				    1
 #define TCFG_APP_SPDIF_EN                   0
 //*********************************************************************************//
 //                               PCM_DEBUG调试配置                                 //
@@ -518,7 +518,7 @@ DAC硬件上的连接方式,可选的配置：
 /*强VDDIO等级配置,可选：
     VDDIOM_VOL_20V    VDDIOM_VOL_22V    VDDIOM_VOL_24V    VDDIOM_VOL_26V
     VDDIOM_VOL_30V    VDDIOM_VOL_30V    VDDIOM_VOL_32V    VDDIOM_VOL_36V*/
-#define TCFG_LOWPOWER_VDDIOM_LEVEL			VDDIOM_VOL_32V    //VDDIO 设置的值要和vbat的压差要大于300mv左右，否则会出现DAC杂音
+#define TCFG_LOWPOWER_VDDIOM_LEVEL			VDDIOM_VOL_30V    //VDDIO 设置的值要和vbat的压差要大于300mv左右，否则会出现DAC杂音
 /*弱VDDIO等级配置，可选：
     VDDIOW_VOL_21V    VDDIOW_VOL_24V    VDDIOW_VOL_28V    VDDIOW_VOL_32V*/
 #define TCFG_LOWPOWER_VDDIOW_LEVEL			VDDIOW_VOL_28V               //弱VDDIO等级配置

@@ -65,6 +65,7 @@ static void connect_and_connectable_switch(void *_sw)
 
 #include "bt_common.h"
 #include "soundbox.h"
+#include "user_fun_cfg.h"
 
 #if TCFG_APP_BT_EN
 
@@ -2043,6 +2044,7 @@ void tws_event_connected(struct bt_event *evt)
         }
 #endif
         bt_tws_sync_volume();
+        user_tws_sync_info();
     }
 #if TCFG_CHARGESTORE_ENABLE
     chargestore_sync_chg_level();//同步充电舱电量
@@ -2538,7 +2540,7 @@ static void tws_event_sync_fun_cmd(struct bt_event *evt)
 
     case SYNC_CMD_MODE_CHANGE:
         tws_event_cmd_mode_change();
-        break;
+        break;   
     case USER_SYNC_CMD_DEL_TWS_INFO:
         puts("USER_SYNC_CMD_DEL_TWS_INFO\n");
         #if USER_IR_TWS_SYNC_DEL_INFO_EN
@@ -2548,6 +2550,8 @@ static void tws_event_sync_fun_cmd(struct bt_event *evt)
         }
         #endif
         break;
+    case SYNC_CMD_POWER_WARNING:
+        break;     
     default :
         break;
     }
@@ -2748,3 +2752,19 @@ int bt_tws_connction_status_event_handler(struct bt_event *evt)
 
 #endif
 #endif
+int user_get_tws_state(void){
+    #if TCFG_APP_BT_EN
+    if(APP_BT_TASK == app_get_curr_task()){
+        #if TCFG_USER_TWS_ENABLE
+        if (gtws.state & BT_TWS_SIBLING_CONNECTED) {
+            return 1;
+        }else{
+            return 0;
+        }
+        #else
+        return -1;
+        #endif
+    }
+    #endif
+    return 0;
+}

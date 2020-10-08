@@ -18,6 +18,7 @@ typedef struct _USER_RGB_SPI_DATA_COLOUR_{
 
 
 typedef struct _USER_RGB_INFO_{
+    u16 time_id;
     bool power_off;
     bool init_flag;
     bool rend_flag;
@@ -42,4 +43,6 @@ void user_rgb_colour_only_set(void *priv,RGB_COLOUR *colour,s16 number);
 void user_rgb_same_colour(void *priv,RGB_COLOUR *colour);
 //清除颜色
 void user_rgb_clear_colour(void *priv);
+//注销定时器
+void user_rgb_del(void *priv);
 #endif

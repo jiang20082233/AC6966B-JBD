@@ -156,7 +156,7 @@ u8 get_tone_vol(void)
 #define USE_CONFIG_CHARGE_SETTING            USE_CONFIG_BIN_FILE        //充电设置
 #define USE_CONFIG_KEY_SETTING               USE_CONFIG_BIN_FILE        //按键消息设置
 #define USE_CONFIG_MIC_TYPE_SETTING          USE_CONFIG_BIN_FILE        //MIC类型设置
-#define USE_CONFIG_LOWPOWER_V_SETTING        1//USE_CONFIG_BIN_FILE        //低电提示设置
+#define USE_CONFIG_LOWPOWER_V_SETTING        0//USE_CONFIG_BIN_FILE        //低电提示设置
 #define USE_CONFIG_AUTO_OFF_SETTING          1//USE_CONFIG_BIN_FILE        //自动关机时间设置
 
 
@@ -330,7 +330,7 @@ void cfg_file_parse(u8 idx)
 #else
         app_var.music_volume = music_volume <= 0 ? default_volume : music_volume;
 #endif
-        app_var.wtone_volume = audio_cfg.tone_vol;
+        app_var.music_volume = app_var.wtone_volume = audio_cfg.max_sys_vol;//audio_cfg.tone_vol;
         app_var.call_volume = app_var.aec_dac_gain;
         app_var.opid_play_vol_sync = app_var.music_volume * 127 / audio_cfg.max_sys_vol;
 

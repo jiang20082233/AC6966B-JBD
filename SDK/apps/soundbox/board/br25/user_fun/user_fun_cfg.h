@@ -31,6 +31,7 @@
 #include "log.h"
 #include "app_task.h"
 #include "classic/tws_api.h"
+#include "bt_tws.h"
 
 
 #include "user_pa.h"
@@ -83,6 +84,15 @@ typedef struct user_power_io_info {
     u32 vol;
 }USER_POWER_INFO;
 
+enum {
+    USER_TWS_SYNC_LED,
+    USER_TWS_SYNC_RGB,
+    USER_TWS_SYNC_DOW_VOL,
+    USER_TWS_SYNC_DOW_VOL_10,
+    USER_TWS_SYNC_DOW_VOL_20,
+    USER_TWS_SYNC_MAX,
+};
+
 extern void mic_effect_set_echo_delay(u32 delay);
 extern u32 mic_effect_get_echo_delay(void);
 extern void audio_mic_set_gain(u8 gain);
@@ -105,5 +115,10 @@ void user_eq_mode_sw(void);
 u8 user_record_status(u8 cmd);
 void user_vbat_check_init(void);
 bool user_adkey_mult_irkey(u8 key_type);
-void user_power_low_dow_sys_vol(void);
+void user_dow_sys_vol_20(void);
+void user_dow_sys_vol_10(void);
+// void user_power_low_dow_sys_vol(u8 vol);
+void user_bt_tws_sync_msg_send(u8 sync_type,u8 value);
+void user_tws_sync_info(void);
+void user_del_time(void);
 #endif

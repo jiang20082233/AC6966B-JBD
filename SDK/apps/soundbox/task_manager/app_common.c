@@ -70,6 +70,7 @@ static void  common_power_on_tone_play_end_callback(void *priv, int flag)
     case IDEX_TONE_POWER_OFF:
         ///提示音播放结束        
         printf(" >>>>> tone \n");
+        user_del_time();
         app_task_switch_to(APP_IDLE_TASK);
         break;
     default:
@@ -262,6 +263,8 @@ int app_common_key_msg_deal(struct sys_event *event)
 
     case KEY_VOL_UP:
         printf("COMMON KEY_VOL_UP\n");
+        // power_event_to_user(POWER_EVENT_POWER_LOW);
+        // break;
         if(tone_get_status()){
             printf(">>>>>>>>>>>>   tone status\n");
             break;
@@ -381,7 +384,11 @@ int app_common_key_msg_deal(struct sys_event *event)
     case KEY_LED_OR_RGB_MODE_CTL:
         puts("KEY_LED_OR_RGB_MODE_CTL\n");
         user_led_io_fun(USER_IO_LED,LED_IO_FLIP);
-        user_rgb_mode_set(USER_RGB_AUTO_SW,NULL);
+        if(APP_IDLE_TASK != app_get_curr_task() && APP_FM_TASK != app_get_curr_task()){
+            user_rgb_mode_set(USER_RGB_AUTO_SW,NULL);
+        }
+        extern void user_tws_sync_info(void);
+        // user_tws_sync_info();
         break;
 
     case KEY_IR_PPOWER:
@@ -389,6 +396,13 @@ int app_common_key_msg_deal(struct sys_event *event)
         #if USER_IR_POWER
         if(APP_IDLE_TASK != app_get_curr_task()){
             user_power_off();
+            
+            if(APP_LINEIN_TASK == app_get_curr_task()){
+                #if TCFG_LINEIN_ENABLE
+                linein_stop();
+                #endif
+            }
+
             int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_POWER_OFF], 1, common_power_on_tone_play_end_callback, (void *)IDEX_TONE_POWER_OFF);
             if (err) {
                 printf(">>> ir power off to idle\n");
@@ -454,6 +468,17 @@ int app_common_key_msg_deal(struct sys_event *event)
             tone_play_by_path(TONE_BT_CONN, USER_TONE_PLAY_MODE?1:0);
         }
         break;
+    case USER_KEY_IO_LOW_POWER_OFF:
+    {
+        // extern void user_key_low_power_off(void);
+        // user_key_low_power_off();
+            printf(">>>>>  LOW_POWER_OFF\n");
+        if (tws_api_get_role() == TWS_ROLE_SLAVE) {
+            printf(">>>>>USER_KEY_IO_LOW_POWER_OFF\n");
+            app_task_put_usr_msg(APP_MSG_USER,2,300,100);
+        }
+    }
+        break;
     default:
         ui_key_msg_post(key_event);
 #ifdef CONFIG_BOARD_AC695X_SOUNDCARD
@@ -473,9 +498,16 @@ int app_power_user_event_handler(struct device_event *dev)
 {
 #if(TCFG_SYS_LVD_EN == 1)
     switch (dev->event) {
+    case POWER_EVENT_POWER_DOW_SYS_VOL:
+        puts("POWER_EVENT_POWER_DOW_SYS_VOL\n");
+        user_dow_sys_vol_20();
+        user_bt_tws_sync_msg_send(USER_TWS_SYNC_DOW_VOL_20,0);
+        break;
     case POWER_EVENT_POWER_WARNING:
         puts("POWER_EVENT_POWER_WARNING app common\n");
-        user_power_low_dow_sys_vol();
+        user_dow_sys_vol_10();
+        user_bt_tws_sync_msg_send(USER_TWS_SYNC_DOW_VOL_10,0);
+        // bt_tws_api_push_cmd(SYNC_CMD_POWER_WARNING, 500);
         ui_update_status(STATUS_LOWPOWER);
         tone_play_by_path(tone_table[IDEX_TONE_LOW_POWER], 1);
         return 0;

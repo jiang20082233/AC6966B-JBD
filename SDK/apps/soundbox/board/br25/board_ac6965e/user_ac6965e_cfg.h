@@ -26,7 +26,7 @@
 
 
 #define USER_AUXR_IN_DACL_OUT   1//linein 右输入 dac只有左输出
-
+#define USER_WAKEUP_EN          0//wakeup_param 软关机是否是能唤醒
 
 
 #endif

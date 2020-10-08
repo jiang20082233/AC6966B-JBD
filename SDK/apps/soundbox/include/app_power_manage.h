@@ -5,8 +5,8 @@
 #include "system/event.h"
 
 #define LOW_POWER_SHUTDOWN      330  //低电直接关机电压
-#define LOW_POWER_OFF_VAL   	350  //低电关机电压
-#define LOW_POWER_WARN_VAL   	360  //低电提醒电压
+#define LOW_POWER_OFF_VAL   	330  //低电关机电压
+#define LOW_POWER_WARN_VAL   	340  //低电提醒电压
 #define LOW_POWER_WARN_TIME   	(60 * 1000)  //低电提醒时间
 
 
@@ -16,6 +16,7 @@ enum {
     POWER_EVENT_POWER_LOW,
     POWER_EVENT_POWER_CHANGE,
     POWER_EVENT_SYNC_TWS_VBAT_LEVEL,
+    POWER_EVENT_POWER_DOW_SYS_VOL,
 };
 
 void app_power_set_tws_sibling_bat_level(u8 vbat, u8 percent);

@@ -1711,10 +1711,6 @@
 		<Unit filename="include_lib/update/uart_update.h" />
 		<Unit filename="include_lib/update/update.h" />
 		<Unit filename="include_lib/update/update_loader_download.h" />
-		<Extensions>
-			<code_completion />
-			<envvars />
-			<debugger />
-		</Extensions>
+		<Extensions />
 	</Project>
 </CodeBlocks_project_file>

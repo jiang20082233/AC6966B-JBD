@@ -82,9 +82,12 @@ extern void bt_drop_a2dp_frame_start(void);
 /*----------------------------------------------------------------------------*/
 void wait_exit_btstack_flag(void *priv)
 {
-    sys_timer_del(app_var.wait_exit_timer);
+    if(app_var.wait_exit_timer){
+        sys_timer_del(app_var.wait_exit_timer);
+    }
     app_var.wait_exit_timer = 0;
     if (priv == NULL) {
+        puts(">>>>>> to power off task\n");
         app_task_switch_to(APP_POWEROFF_TASK);
     } else if (priv == (void *)1) {
         log_info("cpu_reset!!!\n");

@@ -408,11 +408,11 @@ void _adc_init(u32 sys_lvd_en)
     u32 vbg_queue_ch = 0;
     if (vbat_vddio_tieup) {
         vbg_queue_ch = adc_add_sample_ch(AD_CH_LDOREF);
-        adc_set_sample_freq(AD_CH_LDOREF, 30000);
+        adc_set_sample_freq(AD_CH_LDOREF, 30);
         adc_queue[vbg_queue_ch].value = vbg_adc_value;
     } else {
         vbat_queue_ch = adc_add_sample_ch(AD_CH_VBAT);
-        adc_set_sample_freq(AD_CH_VBAT, 1000);
+        adc_set_sample_freq(AD_CH_VBAT, 30);
         adc_queue[vbat_queue_ch].value = vbat_adc_value;
     }
 

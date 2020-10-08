@@ -223,5 +223,14 @@ char ex_dev_detect_init(void *arg)
     }
     return 0;
 }
-
+int ex_dev_detect_dell(void *arg){
+    struct ex_dev_opr *ex_dev = (struct ex_dev_opr *)arg;
+    if (ex_dev->timer) {
+        sys_timer_del(ex_dev->timer);
+        ex_dev->timer = 0;
+        return 0;
+    }else{
+        return -1;
+    }
+}
 

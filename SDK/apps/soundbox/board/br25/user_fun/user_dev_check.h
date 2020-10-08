@@ -35,7 +35,7 @@ typedef struct ex_dev_opr {
 }USER_DEV_CHECK;
 
 char ex_dev_detect_init(void *arg);
-
+int ex_dev_detect_dell(void *arg);
 
 
 // static struct ex_dev_opr spk_dev = {

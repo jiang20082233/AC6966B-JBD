@@ -18,4 +18,5 @@ typedef struct USER_IO3_AD4{
 }IO3_AD4;
 
 void user_4ad_check_init(void (* callback)(u32 *vol));
+void user_4ad_check_del(void);
 #endif

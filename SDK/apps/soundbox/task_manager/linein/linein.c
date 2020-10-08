@@ -341,7 +341,7 @@ void app_linein_task()
             break;
         }
 
-        if (app_task_exitting()) {
+        if (app_task_exitting()) {            
             linein_task_close();
             return;
         }

@@ -41,13 +41,13 @@
 #define USER_IR_POWER           1//遥控器假关机 
 #define USER_BT_TONE_PLAY_GO_INIT  1//BT 播放完提示音再初始化蓝牙模式 避免bt提示音未播放完 被回连提示音打断
 #define USER_MIC_DEFAULT_GAIN       10//default mic 默认音量
-#define USER_RECORD_EN          0//录音使能
+#define USER_RECORD_EN          1//录音使能
 
 #define USER_ADKEY_MAPPING_EN   1//AD KEY 按鍵值映射
 #define USER_TONE_PLAY_ERROR_NO_RETURN  1//使用有回调函数的接口播放 提示音 提示音播放错误 不需要执行回调函数
 
 #define USER_MIC_MUSIC_VOL_SEPARATE  0//music mic 音量分开调节
-#define USER_POWER_LOW_DOW_VOL_EN   20//低电降音量 0：不开启 其他为降到的音量值
+#define USER_POWER_LOW_DOW_VOL_EN   1//低电降音量 0：不开启 
 
 #define USER_TWS_ADD_DELL_TWS_INFO 1//手机连接不能影响tws连接与断开
 

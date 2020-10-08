@@ -21,7 +21,7 @@ const int config_printf_time         = 1;
 
 ///异常中断，asser打印开启
 #ifdef CONFIG_RELEASE_ENABLE
-const int config_asser         = 1;
+const int config_asser         = 0;
 #else
 const int config_asser         = 1;
 #endif

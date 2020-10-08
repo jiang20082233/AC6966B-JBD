@@ -14,6 +14,7 @@
 error 没有开spi
 #endif
 RGB_INFO user_rgb_info={
+    .time_id   = 0,
     .power_off = 0,
     .init_flag = 0,
     .rend_flag = 0,
@@ -519,6 +520,17 @@ u8 user_rgb_mode_set(USER_GRB_MODE mode,void *priv){
     case USER_RGB_POWER_OFF:
         user_rgb_fun_power_off(rgb);
         break;
+    case USER_RGB_MODE_1://节奏渐变 旋转
+    case USER_RGB_MODE_2://对称 升降 
+    case USER_RGB_MODE_3://渐变
+    case USER_RGB_MODE_4://三色 旋转
+    case USER_RGB_MODE_5://渐变 闪烁
+    case USER_RGB_MODE_6://红色 闪烁
+    case USER_RGB_MODE_7://绿色 闪烁
+    case USER_RGB_MODE_8://蓝色 闪烁
+    case USER_RGB_MODE_9://白色 闪烁   
+        rgb->cur_mode = mode;
+        break;     
     default:
         break;
     }
@@ -559,6 +571,22 @@ void user_rgb_fun_init(void){
     if(rgb->info->init_flag){
         user_rgb_mode_scan(rgb);
     }
+#endif
+}
+void user_rgb_fun_del(void){
+#if USER_RGB_EN
+    RGB_FUN *rgb = (RGB_FUN *)P_RGB_FUN;
+    if (!rgb || !rgb->info || !rgb->info->number){
+        printf(">>>>> rgb p error\n");
+        return;
+    }
+    user_rgb_del();
+    if(rgb->info->spi_buff){
+        free(rgb->info->spi_buff);
+    }
+    if(rgb->info->rgb_buff){
+        free(rgb->info->rgb_buff);
+    }  
 #endif
 }
 

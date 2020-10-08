@@ -108,4 +108,13 @@ void user_4ad_check_init(void (* callback)(u32 *vol)){
     }
     #endif
 }
+void user_4ad_check_del(void){
+    #if (defined(USER_3IO_CHECK_4AD_EN) && USER_3IO_CHECK_4AD_EN)
+    user_4ad_io.callback = NULL;
+    if(user_4ad_io.check_id){
+        sys_hi_timeout_del(user_4ad_io.check_id);
+        user_4ad_io.check_id = 0;
+    }
+    #endif
+}
 

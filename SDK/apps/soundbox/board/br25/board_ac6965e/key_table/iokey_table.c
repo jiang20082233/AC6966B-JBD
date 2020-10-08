@@ -16,7 +16,7 @@ const u16 bt_key_io_table[KEY_IO_NUM_MAX][KEY_EVENT_MAX] = {
         /*LONG*/  KEY_LED_OR_RGB_MODE_CTL/*KEY_CALL_HANG_UP*/,
         /*HOLD*/  KEY_NULL,
         /*UP*/	  KEY_NULL,
-        /*DOUBLE*/KEY_CALL_LAST_NO,
+        /*DOUBLE*/KEY_NULL/*KEY_CALL_LAST_NO*/,
         /*TRIBLE*/KEY_NULL
     },
     [1] = {

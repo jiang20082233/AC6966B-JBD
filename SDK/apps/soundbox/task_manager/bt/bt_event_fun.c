@@ -324,7 +324,10 @@ void bt_close_page_scan(void *p)
 {
     /* log_info(">>>%s\n", __func__); */
     bt_wait_phone_connect_control(0);
+    if(app_var.auto_stop_page_scan_timer){
     sys_timer_del(app_var.auto_stop_page_scan_timer);
+        app_var.auto_stop_page_scan_timer = 0;
+    }
 }
 
 
@@ -752,6 +755,7 @@ void sys_enter_soft_poweroff(void *priv)
 
     bt_user_priv_var.emitter_or_receiver = 0;
     if (app_var.goto_poweroff_flag) {
+        puts(">>>>>>>>>>>> got power off error\n");
         return;
     }
 
@@ -818,7 +822,7 @@ void sys_auto_shut_down_enable(void)
 #endif
 
 
-#if TCFG_AUTO_SHUT_DOWN_TIME
+#if 1//TCFG_AUTO_SHUT_DOWN_TIME
     log_debug("sys_auto_shut_down_enable\n");
 
     if (app_var.auto_shut_down_timer == 0) {
@@ -844,7 +848,7 @@ void sys_auto_shut_down_enable(void)
 /*----------------------------------------------------------------------------*/
 void sys_auto_shut_down_disable(void)
 {
-#if TCFG_AUTO_SHUT_DOWN_TIME
+#if 1//TCFG_AUTO_SHUT_DOWN_TIME
     log_debug("sys_auto_shut_down_disable\n");
     if (app_var.auto_shut_down_timer) {
         sys_timeout_del(app_var.auto_shut_down_timer);

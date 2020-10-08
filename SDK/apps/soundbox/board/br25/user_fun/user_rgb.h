@@ -40,6 +40,7 @@ typedef enum{
     USER_RGB_AUTO_SW,//自动切换
     USER_RGB_SYS_VOL,//音量显示
     USER_RGB_EQ_BASS,//BASS状态显示
+    USER_RGB_STATUS,
 }USER_GRB_MODE;
 
 typedef struct _USER_RGB_FUN_{
@@ -61,4 +62,5 @@ void user_rgb_fun_init(void);
 u8   user_rgb_mode_set(USER_GRB_MODE mode,void *priv);
 void user_rgb_display_vol(u8 vol,u16 display_time);
 void user_rgb_display_bass(u8 bass,u16 display_time);
+void user_rgb_fun_del(void);
 #endif

@@ -6,4 +6,5 @@ extern USER_DEV_CHECK user_mic_check;
 bool user_get_mic_status(void);
 u8 user_mic_check_en(u8 cmd);
 void user_mic_check_init(void);
+void user_mic_check_del(void);
 #endif

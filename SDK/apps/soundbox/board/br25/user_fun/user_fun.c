@@ -7,6 +7,125 @@ USER_POWER_INFO user_power_io={
 };
 #endif
 
+//低电降音量
+void user_power_low_dow_sys_vol(u8 vol){
+    // return;
+    #if (defined(USER_POWER_LOW_DOW_VOL_EN) && USER_POWER_LOW_DOW_VOL_EN)
+    puts(">>>>>>>>>>>>> low dow sys vol\n");
+    if(tone_get_status()){
+        return;
+    }
+    if(vol < app_audio_get_volume(APP_AUDIO_STATE_MUSIC)){
+        app_audio_set_volume(APP_AUDIO_STATE_MUSIC, vol, 1);
+        extern int user_get_tws_state(void);
+        if(1 == user_get_tws_state()){
+            bt_tws_sync_volume();
+        }
+    }
+    printf(">>>>>>>>>>>>> low sys vol %d\n",app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
+    #endif
+}
+
+void user_dow_sys_vol_20(void){
+
+    if(tone_get_status()){
+        sys_hi_timeout_add(NULL,user_dow_sys_vol_20,200);
+        return;
+    }
+
+    user_power_low_dow_sys_vol(20);
+}
+
+void user_dow_sys_vol_10(void){
+
+    if(tone_get_status()){
+        sys_hi_timeout_add(NULL,user_dow_sys_vol_10,200);
+        return;
+    }
+    
+    user_power_low_dow_sys_vol(10);
+}
+
+/*----------------------------------------------------------------------------*/
+/**@brief    蓝牙tws tws info同步
+   @param    无
+   @return   无
+   @note
+*/
+/*----------------------------------------------------------------------------*/
+#if TCFG_USER_TWS_ENABLE
+static void bt_tws_user_info_sync(void *_data, u16 len, bool rx)
+{
+    if (rx/*&& len==2*/) {
+        u8 *data = (u8 *)_data;
+        //SYNC LED 
+        if(USER_TWS_SYNC_LED == data[0]){
+            user_led_io_fun(USER_IO_LED,data[1]);
+        }
+        
+        //SYNC RGB 
+        if(USER_TWS_SYNC_RGB == data[0]){
+            user_led_io_fun(USER_IO_LED,data[1]);
+        }
+        
+        
+        // //DOW VOL 
+        // if(USER_TWS_SYNC_DOW_VOL==data[0]){
+        //     // user_dow_sys_vol();
+        // }
+
+        // //DOW VOL 10
+        // if(USER_TWS_SYNC_DOW_VOL_10==data[0]){
+        //     user_dow_sys_vol_10();
+        // }
+
+        // //DOW VOL 20
+        // if(USER_TWS_SYNC_DOW_VOL_20==data[0]){
+        //     user_dow_sys_vol_20();
+        // }
+
+        printf(">>>> tws sync DATA0:%d DATA1:%d\n",data[0],data[1]);
+    }
+
+}
+
+//TWS同步信息
+REGISTER_TWS_FUNC_STUB(app_led_mode_sync_stub) = {
+    .func_id = USER_TWS_FUNC_ID_USER_INFO_SYNC,
+    .func    = bt_tws_user_info_sync,
+};
+
+void user_bt_tws_sync_msg_send(u8 sync_type,u8 value){
+    u8 data[2];
+    if((tws_api_get_tws_state() & TWS_STA_SIBLING_CONNECTED) && (sync_type < USER_TWS_SYNC_MAX)){
+        data[0] = sync_type;
+        data[1] = value;
+        tws_api_send_data_to_sibling(data, 2, USER_TWS_FUNC_ID_USER_INFO_SYNC);          
+    }  
+}
+#endif
+
+void user_tws_sync_info(void){
+    #if TCFG_USER_TWS_ENABLE
+    if(APP_BT_TASK != app_get_curr_task() && (tws_api_get_tws_state() & TWS_STA_SIBLING_CONNECTED)){
+        return;
+    }
+
+    int ret = user_led_io_fun(USER_IO_LED,LED_IO_STATUS);
+    if(-1 != ret){
+        // user_bt_tws_send_led_mode(0,ret);
+        user_bt_tws_sync_msg_send(USER_TWS_SYNC_LED,ret);
+    }
+
+    ret = user_rgb_mode_set(USER_RGB_STATUS,NULL);
+    if(ret){
+        // user_bt_tws_send_led_mode(1,ret);        
+        user_bt_tws_sync_msg_send(USER_TWS_SYNC_RGB,ret);           
+    }
+
+    #endif
+}
+
 //adkey 与 irkey复用时滤波
 bool user_adkey_mult_irkey(u8 key_type){
     u32 static ir_time = 0;
@@ -226,20 +345,7 @@ void user_music_set_file_number(int number){
     #endif
 }
 
-//低电键音量
-void user_power_low_dow_sys_vol(void){
-    // return;
-    #if (defined(USER_POWER_LOW_DOW_VOL_EN) && USER_POWER_LOW_DOW_VOL_EN)
-    puts(">>>>>>>>>>>>> low dow sys vol\n");
-    if(tone_get_status()){
-        sys_hi_timeout_add(NULL,user_power_low_dow_sys_vol,200);
-    }
-    if(USER_POWER_LOW_DOW_VOL_EN < app_audio_get_volume(APP_AUDIO_STATE_MUSIC)){
-        app_audio_set_volume(APP_AUDIO_STATE_MUSIC, USER_POWER_LOW_DOW_VOL_EN, 1);
-    }
-    printf(">>>>>>>>>>>>> low sys vol %d\n",app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
-    #endif
-}
+
 //spi pb6 clk 引脚复用设置
 void user_fun_spi_pb6_mult(void){
     #if (defined(USER_VBAT_CHECK_EN) && USER_VBAT_CHECK_EN)
@@ -314,8 +420,18 @@ void user_sd_power(u8 cmd){
 void user_power_off(void){
     user_led_io_fun(USER_IO_LED,LED_POWER_OFF);
     pa_ex_fun.strl(PA_POWER_OFF);
-    user_sd_power(0);
-    user_rgb_mode_set(USER_RGB_POWER_OFF,NULL);  
+    // user_sd_power(0);
+    user_rgb_mode_set(USER_RGB_POWER_OFF,NULL);
+    
+    user_mic_check_en(0);
+}
+
+//注销 定时器
+void user_del_time(void){
+    user_mic_check_del();
+    user_4ad_check_del();
+    user_pa_ex_del();
+    user_rgb_fun_del();
 }
 
 //开机 io口初始化

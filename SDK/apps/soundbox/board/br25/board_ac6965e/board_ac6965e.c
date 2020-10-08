@@ -736,10 +736,10 @@ const struct low_power_param power_param = {
 
 /************************** PWR config ****************************/
 struct port_wakeup port0 = {
-    .pullup_down_enable = 0,//ENABLE,                            //配置I/O 内部上下拉是否使能
+    .pullup_down_enable = ENABLE,                            //配置I/O 内部上下拉是否使能
     .edge       = FALLING_EDGE,                            //唤醒方式选择,可选：上升沿\下降沿
     .attribute  = BLUETOOTH_RESUME,                        //保留参数
-    .iomap      = IO_PORTB_10,                             //唤醒口选择
+    .iomap      = IO_PORTB_01,//NO_CONFIG_PORT                             //唤醒口选择
 };
 
 const struct sub_wakeup sub_wkup = {
@@ -999,7 +999,9 @@ void board_set_soft_poweroff(void)
 #if (TCFG_SD0_ENABLE || TCFG_SD1_ENABLE)
 	sdpg_config(0);
 #endif
-
+    #if (!USER_WAKEUP_EN)
+    key_wakeup_disable();
+    #endif
     //dac_power_off();
 }
 

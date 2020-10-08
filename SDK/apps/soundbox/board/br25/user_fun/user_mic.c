@@ -86,3 +86,6 @@ bool user_get_mic_status(void){
 void user_mic_check_init(void){
   ex_dev_detect_init(& user_mic_check);
 }
+void user_mic_check_del(void){
+  ex_dev_detect_dell(& user_mic_check);
+}

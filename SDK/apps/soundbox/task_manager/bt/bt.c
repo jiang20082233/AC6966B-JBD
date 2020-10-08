@@ -685,23 +685,21 @@ int bt_key_event_handler(struct sys_event *event)
     static u16 key_old_key =0xfff;
     static u32 key_old_time = 0;
     u32 tp_time = timer_get_ms();
-
-    if((u32)event->arg != KEY_EVENT_FROM_TWS){
-        key_old_time =  tp_time;
-        key_old_key = key_event;
-    }else if((tp_time - key_old_time)<15000 && key_event==key_old_key){
-        key_old_key =0xfff;
-        key_old_time =  tp_time;
-        return ret;
+    // printf(">>>> key old time %d %d %d %d\n",(tp_time - key_old_time),(KEY_EVENT_FROM_TWS == (u32)event->arg),KEY_EVENT_FROM_TWS,(u32)event->arg);
+    if(KEY_EVENT_FROM_TWS == (u32)event->arg){
+        printf("is tws key msg key:%d old key:%d\n",key_event,key_old_key);
+        if((tp_time - key_old_time)<300 && key_event==key_old_key){        
+            key_old_time =  tp_time;
+            key_old_key = key_event;
+            printf("time min return\n");
+            return ret;
+        }        
     }
-
+    key_old_time =  tp_time;
+    key_old_key = key_event;
     #endif
 
     log_debug("bt key_event:%d %d %d %d\n", key_event, key->value, key->event, key->init);
-
-
-
-
 
     if (bt_key_event_filter_after(key_event) == true) {
         return true;
@@ -941,6 +939,10 @@ void app_bt_task()
             if (bt_sys_event_handler((struct sys_event *)(msg + 1)) == false) {
                 app_default_event_deal((struct sys_event *)(&msg[1]));
             }
+            break;
+        case APP_MSG_USER:
+            printf(">>> APP_MSG_USER\n");
+            printf("0:%d 1:%d 2:%d\n",msg[0],msg[1],msg[2]);
             break;
         default:
             break;

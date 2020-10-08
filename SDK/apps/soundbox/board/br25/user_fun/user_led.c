@@ -15,10 +15,10 @@ LED_IO user_led_io={
 #error 请确保 led与rgb 使用的io不为同一个io
 #endif
 
-void user_led_io_fun(void *priv,u8 cmd){
+int user_led_io_fun(void *priv,u8 cmd){
     LED_IO *io = (LED_IO *)priv;
     if(!io){
-        return;
+        return -1;
     }
 
 #if USER_LED_EN
@@ -26,7 +26,7 @@ void user_led_io_fun(void *priv,u8 cmd){
 
     if(!io || io->por == NO_CONFIG_PORT){
         puts("led io strl error\n");
-        return ;
+        return -1;
     }
 
     if(!io->init_ok && cmd != LED_IO_INIT){
@@ -57,6 +57,7 @@ void user_led_io_fun(void *priv,u8 cmd){
         }else{
             user_led_io_fun(io,LED_POWER_OFF);
         }
-    }
-#endif    
+    }//LED_IO_STATUS
+#endif
+    return io->status;
 }

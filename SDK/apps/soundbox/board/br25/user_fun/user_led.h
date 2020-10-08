@@ -9,6 +9,7 @@ enum {
     LED_POWER_ON,
     LED_POWER_OFF,
     LED_IO_FLIP,//IO翻转
+    LED_IO_STATUS,//status
 };
 
 typedef struct USER_LED_IO{
@@ -26,5 +27,5 @@ extern LED_IO user_led_io;
 #else
 #define USER_IO_LED (NULL)
 #endif
-void user_led_io_fun(void *priv,u8 cmd);
+int user_led_io_fun(void *priv,u8 cmd);
 #endif
