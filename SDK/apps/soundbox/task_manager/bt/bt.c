@@ -840,7 +840,30 @@ static int bt_sys_event_handler(struct sys_event *event)
     return ret;
 }
 
+//*----------------------------------------------------------------------------*/
+/**@brief    BT 模式提示音播放结束处理
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
+static void  bt_tone_play_end_callback(void *priv, int flag)
+{
+    u32 index = (u32)priv;
 
+    if (APP_BT_TASK != app_get_curr_task()) {
+        log_error("tone callback task out \n");
+        return;
+    }
+
+    switch (index) {
+    case IDEX_TONE_BT_MODE:
+        ///提示音播放结束， 启动播放器播放
+        break;
+    default:
+        break;
+    }
+}
 
 /*----------------------------------------------------------------------------*/
 /**@brief    蓝牙模式
@@ -856,7 +879,7 @@ void app_bt_task()
     ui_update_status(STATUS_EXIT_LOWPOWER);
 
     if (!__this->cmd_flag) { //蓝牙后台拉回蓝牙模式不播放提示音
-        tone_play_by_path(tone_table[IDEX_TONE_BT_MODE], 1);
+        tone_play_with_callback_by_name(tone_table[IDEX_TONE_BT_MODE], 1, bt_tone_play_end_callback, (void *)IDEX_TONE_BT_MODE);
     }
 
     bt_task_start();

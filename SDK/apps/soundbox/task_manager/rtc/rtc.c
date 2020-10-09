@@ -623,6 +623,30 @@ void rtc_task_start()
     }
 }
 
+//*----------------------------------------------------------------------------*/
+/**@brief    rtc 模式提示音播放结束处理
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
+static void  rtc_tone_play_end_callback(void *priv, int flag)
+{
+    u32 index = (u32)priv;
+
+    if (APP_RTC_TASK != app_get_curr_task()) {
+        log_error("tone callback task out \n");
+        return;
+    }
+
+    switch (index) {
+    case IDEX_TONE_RTC:
+        ///提示音播放结束， 启动播放器播放
+        break;
+    default:
+        break;
+    }
+}
 
 //*----------------------------------------------------------------------------*/
 /**@brief    rtc 主任务
@@ -638,10 +662,10 @@ void app_rtc_task()
 #if (SMART_BOX_EN)
     extern u8 smartbox_rtc_ring_tone(void);
     if (smartbox_rtc_ring_tone()) {
-        tone_play_by_path(tone_table[IDEX_TONE_RTC], 1);
+        tone_play_with_callback_by_name(tone_table[IDEX_TONE_RTC], 1, rtc_tone_play_end_callback, (void *)IDEX_TONE_RTC);
     }
 #else
-    tone_play_by_path(tone_table[IDEX_TONE_RTC], 1);
+    tone_play_with_callback_by_name(tone_table[IDEX_TONE_RTC], 1, rtc_tone_play_end_callback, (void *)IDEX_TONE_RTC);
 #endif
     rtc_task_start();
 

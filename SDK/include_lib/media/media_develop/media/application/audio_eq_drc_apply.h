@@ -18,9 +18,6 @@ struct audio_eq_drc_parm {
     u8 mode_en: 1;          //没离线文件时，是否支持使用默认系数表做eq
     u8 online_en: 1;        //是否支持在线调试 1：支持  0：不支持
     u8 ch_num: 3;           //dac通道数
-    u8 four_ch: 1;          //四声道eq drc是否使能， 1：使能   0：关闭
-    u8 input_four_ch_dat: 1; //输入数据是否是4声道 1：是  0：不是
-    u8 eq_name_four;        //四通道时，RL RR通道的eq_name
     u8 eq_name;             //FL FR通道的eq_name 普通音乐eq 使用song_eq_mode,通话下行eq 使用call_eq_mode
     u16 sr;                 //采样率
 
@@ -53,24 +50,12 @@ typedef struct eq_fade {
 struct audio_eq_drc {
     struct audio_eq *eq;
     struct audio_drc *drc;
-
-    struct audio_eq *four_ch_eq;
-    struct audio_drc *four_ch_drc;
-
     struct eq_fade *fade_cfg;//高低音系数表
-
-    //4路32bit异步输出
-    s16 *four_ch_buf[2];
-    s16 *four_ch_buf_out;
-    u8  four_ch_eq_work;
 
     //2路32bit异步输出
     s16 *eq_out_buf;
-    int eq_out_buf_len;
     int eq_out_points;
     int eq_out_total;
-    u8 eq_async_remain;
-    u8 remain;
     u8 high_bass_dis;
 
     struct audio_eq_drc_parm parm;

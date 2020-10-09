@@ -298,11 +298,7 @@ void app_record_task()
     int res;
     int msg[32];
     record_task_start();
-    int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_RECORD], 1, record_tone_play_end_callback, (void *)IDEX_TONE_RECORD);
-    if (err) {
-        log_e("%s tone play err!!\n");
-    }
-
+    tone_play_with_callback_by_name(tone_table[IDEX_TONE_RECORD], 1, record_tone_play_end_callback, (void *)IDEX_TONE_RECORD);
 
     while (1) {
         app_task_get_msg(msg, ARRAY_SIZE(msg), 1);

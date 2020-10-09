@@ -83,7 +83,6 @@ typedef struct {
 // #define MODE_NUM_MAX  6
 typedef struct {
     CFG_PARM par;
-    // EQ_CFG_SEG *seg;//[EQ_SECTION_MAX];
     EQ_CFG_SEG seg[SECTION_MAX];
 } EQ_CFG_PARAMETER;
 
@@ -186,7 +185,7 @@ typedef struct _eq_parm {
     u8 fade_en: 1;
     u8 file_en: 1;
     u8 stero: 1; //是否左右声道做不同eq
-    u8 four: 1; //是否四声道
+    // u8 four: 1; //是否四声道
     u8 drc: 1; //是否有drc
     u8 tws: 1; //是否tws
     u8 app: 1; //是否手机app在线调试

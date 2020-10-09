@@ -309,6 +309,31 @@ int pc_app_check(void)
     }
     return false;
 }
+//*----------------------------------------------------------------------------*/
+/**@brief    PC 模式提示音播放结束处理
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
+static void  pc_tone_play_end_callback(void *priv, int flag)
+{
+    u32 index = (u32)priv;
+
+    if (APP_PC_TASK != app_get_curr_task()) {
+        log_error("tone callback task out \n");
+        return;
+    }
+
+    switch (index) {
+    case IDEX_TONE_PC:
+        ///提示音播放结束， 启动播放器播放
+        pc_task_start();
+        break;
+    default:
+        break;
+    }
+}
 
 //*----------------------------------------------------------------------------*/
 /**@brief    pc 主任务
@@ -321,8 +346,7 @@ void app_pc_task()
 {
     int res;
     int msg[32];
-    tone_play_by_path(tone_table[IDEX_TONE_PC], 1);
-    pc_task_start();
+    tone_play_with_callback_by_name(tone_table[IDEX_TONE_PC], 1, pc_tone_play_end_callback, (void *)IDEX_TONE_PC);
 
     while (1) {
         app_task_get_msg(msg, ARRAY_SIZE(msg), 1);

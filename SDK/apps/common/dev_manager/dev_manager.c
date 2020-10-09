@@ -16,6 +16,7 @@ struct __dev_manager {
 	struct list_head 	list;
 	OS_MUTEX			mutex;
 	OS_SEM			    sem;
+	u32 				counter;
 };
 static struct __dev_manager dev_mg;
 #define __this	(&dev_mg)
@@ -35,6 +36,13 @@ struct __dev {
 };
 
 
+static u32 __dev_manager_get_time_stamp(void)
+{
+	u32 counter = __this->counter;
+	__this->counter ++;
+	return counter;
+}
+
 int __dev_manager_add(char *logo, u8 need_mount)
 {
 	if (logo == NULL) {
@@ -44,15 +52,6 @@ int __dev_manager_add(char *logo, u8 need_mount)
 	printf("%s add start\n", logo);
 	struct __dev_reg *p = NULL;
 	struct __dev_reg *n;
-#if 0
-	for (i = 0; i < ARRAY_SIZE(dev_reg); i++) {
-		n = (struct __dev_reg *)(dev_reg + i);
-		if (!strcmp(n->logo, logo)) {
-			p = n;
-			break;
-		}
-	}
-#endif
 
 	for(n=(struct __dev_reg *)dev_reg; n->logo != NULL; n++){
 		if (!strcmp(n->logo, logo)) {
@@ -82,10 +81,10 @@ int __dev_manager_add(char *logo, u8 need_mount)
 		}
 		dev->parm = p;
 		dev->valid = (dev->fmnt ? 1 : 0);
-		dev->active_stamp = timer_get_ms();
+		dev->active_stamp = __dev_manager_get_time_stamp();//timer_get_ms();
 		list_add_tail(&dev->entry, &__this->list);
 		os_mutex_post(&__this->mutex);
-		printf("%s, %s add ok, dev->fmnt = %x, dev->bs_fmnt = %x\n", __FUNCTION__, logo, dev->fmnt, dev->bs_fmnt);
+		printf("%s, %s add ok, dev->fmnt = %x, dev->bs_fmnt = %x, %d\n", __FUNCTION__, logo, (int)dev->fmnt, (int)dev->bs_fmnt, dev->active_stamp);
 		if(dev->fmnt == NULL){
 			return DEV_MANAGER_ADD_ERR_MOUNT_FAIL;
 		}
@@ -656,7 +655,7 @@ void dev_manager_set_active(struct __dev *dev)
 {
 	os_mutex_pend(&__this->mutex, 0);
 	if (dev_manager_check(dev)) {
-		dev->active_stamp = timer_get_ms();
+		dev->active_stamp = __dev_manager_get_time_stamp();//timer_get_ms();
 	}
 	os_mutex_post(&__this->mutex);
 }
@@ -677,7 +676,7 @@ void dev_manager_set_active_by_logo(char *logo)
 	os_mutex_pend(&__this->mutex, 0);
 	dev = dev_manager_check_by_logo(logo);
 	if (dev) {
-		dev->active_stamp = timer_get_ms();
+		dev->active_stamp = __dev_manager_get_time_stamp();//timer_get_ms();
 	}
 	os_mutex_post(&__this->mutex);
 }
@@ -976,14 +975,14 @@ static int __dev_manager_unmount(char *logo)
 }
 
 //*----------------------------------------------------------------------------*/
-/**@brief   设备复用时挂载
+/**@brief   设备挂载
    @param
    			logo：逻辑盘符，如：sd0/sd1/udisk0
    @return  0：成功， -1：失败
    @note	慎用
 */
 /*----------------------------------------------------------------------------*/
-int dev_manager_mult_mount(char *logo)
+int dev_manager_mount(char *logo)
 {
 	int ret = __dev_manager_mount(logo);
 	if(ret == 0){
@@ -1000,14 +999,14 @@ int dev_manager_mult_mount(char *logo)
 }
 
 //*----------------------------------------------------------------------------*/
-/**@brief   设备复用时卸载
+/**@brief   设备卸载
    @param
    			logo：逻辑盘符，如：sd0/sd1/udisk0
    @return  0：成功， -1：失败
    @note	慎用
 */
 /*----------------------------------------------------------------------------*/
-int dev_manager_mult_unmount(char *logo)
+int dev_manager_unmount(char *logo)
 {
 #if TCFG_RECORD_FOLDER_DEV_ENABLE
 	char rec_dev_logo[16] = {0};

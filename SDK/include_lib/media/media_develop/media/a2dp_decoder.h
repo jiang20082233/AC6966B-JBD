@@ -20,6 +20,7 @@ struct a2dp_decoder {
     u8 fetch_lock;
     u8 join_tws;
     u8 preempt_state;
+    u8 wait_bt_resume;
     u16 seqn;			// 帧序号
     s16 drop_samples;
     u16 sample_rate;
@@ -49,6 +50,7 @@ void a2dp_decoder_stream_sync_enable(struct a2dp_decoder *dec, void *sync, int s
 void a2dp_decoder_join_tws(struct a2dp_decoder *dec);
 
 
+void a2dp_decoder_resume_form_bluetooeh(struct a2dp_decoder *dec);
 
 
 #endif

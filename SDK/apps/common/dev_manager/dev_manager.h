@@ -74,10 +74,10 @@ int dev_manager_online_check_by_logo(char *logo, u8 valid);
 struct __dev *dev_manager_list_check_by_logo(char *logo);
 //检查链表中没有挂载的设备并重新挂载
 void dev_manager_list_check_mount(void);
-//设备复用时挂载
-int dev_manager_mult_mount(char *logo);
-//设备复用时卸载
-int dev_manager_mult_unmount(char *logo);
+//设备挂载
+int dev_manager_mount(char *logo);
+//设备卸载
+int dev_manager_unmount(char *logo);
 
 //dev_manager初始化
 void dev_manager_init(void);
