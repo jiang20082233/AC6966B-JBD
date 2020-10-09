@@ -39,7 +39,7 @@
 #define USER_EQ_BASS_INDEX      1//BASS 调节第几个索引 USER_EQ_BASS_INDEX不要超出eq 段
 #define USER_EQ_TERBLE_INDEX    8//TERBLE 调节第几个索引 
 #define USER_IR_POWER           1//遥控器假关机 
-#define USER_BT_TONE_PLAY_GO_INIT  1//BT 播放完提示音再初始化蓝牙模式 避免bt提示音未播放完 被回连提示音打断
+#define USER_BT_TONE_PLAY_GO_INIT  0//BT 播放完提示音再初始化蓝牙模式 避免bt提示音未播放完 被回连提示音打断
 #define USER_MIC_DEFAULT_GAIN       10//default mic 默认音量
 #define USER_RECORD_EN          1//录音使能
 

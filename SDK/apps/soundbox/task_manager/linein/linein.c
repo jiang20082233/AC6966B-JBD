@@ -322,11 +322,11 @@ void app_linein_task()
     // audio_linein_ch_combine(1,1);
     err = tone_play_with_callback_by_name(tone_table[IDEX_TONE_LINEIN], 1,
                                           line_tone_play_end_callback, (void *)IDEX_TONE_LINEIN);
-    if (err) { //
-        ///提示音播放失败，直接推送KEY_MUSIC_PLAYER_START启动播放
-        app_task_put_key_msg(KEY_LINEIN_START, 0);
-        linein_vol_set();
-    }
+    // if (err) { //
+    //     ///提示音播放失败，直接推送KEY_MUSIC_PLAYER_START启动播放
+    //     app_task_put_key_msg(KEY_LINEIN_START, 0);
+    //     linein_vol_set();
+    // }
 
     while (1) {
         app_task_get_msg(msg, ARRAY_SIZE(msg), 1);
