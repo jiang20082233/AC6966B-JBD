@@ -209,26 +209,6 @@
 
 EXTERN(
 
-
-
-
-tws_local_media_sync
-tws_afh_sync
-tws_ci_data
-tws_acl_data_sync
-tws_event_sync
-tws_conn_sync
-tws_lmp_slot_sync
-tws_low_latency
-tws_media_sync
-tws_power_balance
-tws_sync_call
-tws_tx_sync
-tws_link_sync
-
-
-
-
 fat_vfs_ops
 
 
@@ -246,6 +226,46 @@ pcm_decoder
 
 
 mp3_decoder
+
+
+
+
+
+
+wma_decoder
+
+
+
+
+
+
+flac_decoder
+
+
+
+ape_decoder
+
+
+
+m4a_decoder
+
+
+
+
+
+
+alac_decoder
+
+
+
+amr_decoder
+
+
+
+dts_decoder
+
+
+
 g729_decoder
 wav_decoder
 );
@@ -953,7 +973,7 @@ SECTIONS
             acl_tx_pool = .;
             *(.bredr_tx_bulk)
 
-            acl_tx_pool_end = acl_tx_pool + (3 * 1024);
+            acl_tx_pool_end = acl_tx_pool + (2 * 1024);
 
 
 
@@ -971,9 +991,9 @@ SECTIONS
 
             tws_bulk_pool = .;
 
-            tws_bulk_pool_end = tws_bulk_pool + (4 * 1024);
 
 
+            tws_bulk_pool_end = tws_bulk_pool;
 
             . = tws_bulk_pool_end;
 

@@ -101,6 +101,11 @@ const int config_mp3_enc_use_layer_3	= 1;
 const int config_mp3_enc_use_layer_3	= 0;
 #endif
 
+#if TCFG_EQ_DIVIDE_ENABLE
+const int config_divide_en = 1;
+#else
+const int config_divide_en = 0;
+#endif
 
 /**
  * @brief Log (Verbose/Info/Debug/Warn/Error)

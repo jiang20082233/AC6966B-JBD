@@ -875,13 +875,12 @@ static int bt_sys_event_handler(struct sys_event *event)
 }
 
 //*----------------------------------------------------------------------------*/
-/**@brief    bt 模式提示音播放结束处理
+/**@brief    BT 模式提示音播放结束处理
    @param
    @return
    @note
 */
 /*----------------------------------------------------------------------------*/
-#if USER_BT_TONE_PLAY_GO_INIT
 static void  bt_tone_play_end_callback(void *priv, int flag)
 {
     u32 index = (u32)priv;
@@ -894,14 +893,16 @@ static void  bt_tone_play_end_callback(void *priv, int flag)
     switch (index) {
     case IDEX_TONE_BT_MODE:
         ///提示音播放结束
+        #if USER_BT_TONE_PLAY_GO_INIT
         puts(">>>>>>> bt statr\n");
         bt_task_start();
+        #endif
         break;
     default:
         break;
     }
 }
-#endif
+
 
 /*----------------------------------------------------------------------------*/
 /**@brief    蓝牙模式
@@ -917,15 +918,17 @@ void app_bt_task()
     ui_update_status(STATUS_EXIT_LOWPOWER);
 
     if (!__this->cmd_flag) { //蓝牙后台拉回蓝牙模式不播放提示音
-        #if USER_BT_TONE_PLAY_GO_INIT
+        
         int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_BT_MODE], 1, bt_tone_play_end_callback, (void *)IDEX_TONE_BT_MODE);
+        #if USER_BT_TONE_PLAY_GO_INIT
         if (err) {
             puts(">>>>>>>>>>>>>>>>>   bt ton play  err\n");
             bt_task_start();
         }
         #else
         puts(">>>>>> no no  no   USER_BT_TONE_PLAY_GO_INIT\n");
-        tone_play_by_path(tone_table[IDEX_TONE_BT_MODE], 1);
+        bt_task_start();
+        // tone_play_by_path(tone_table[IDEX_TONE_BT_MODE], 1);
         #endif
     }else{
         bt_task_start();

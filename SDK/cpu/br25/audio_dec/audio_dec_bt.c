@@ -201,6 +201,19 @@ static void a2dp_dec_out_stream_resume(void *p)
 }
 
 /*----------------------------------------------------------------------------*/
+/**@brief    蓝牙收数激活解码
+   @param
+   @return
+   @note
+*/
+/*----------------------------------------------------------------------------*/
+void a2dp_rx_notice_to_decode(void)
+{
+    if (bt_a2dp_dec) {
+        a2dp_decoder_resume_form_bluetooeh(&bt_a2dp_dec->dec);
+    }
+}
+/*----------------------------------------------------------------------------*/
 /**@brief    开始a2dp解码
    @param
    @return   0: 成功
@@ -729,8 +742,8 @@ static void esco_dec_out_stream_resume(void *p)
 
 /*----------------------------------------------------------------------------*/
 /**@brief    开始esco解码
-   @param
-   @return   0: 成功
+  @param
+  @return   0: 成功
    @note
 */
 /*----------------------------------------------------------------------------*/
@@ -1058,11 +1071,7 @@ void *a2dp_eq_drc_open(u16 sample_rate, u8 ch_num)
 #endif
 #endif
 
-#ifdef DUAL_TO_QUAD_AFTER_MIX
-#if (DUAL_TO_QUAD_AFTER_MIX == 0)
-    effect_parm.four_ch = 1;
-#endif
-#endif
+
 
     if (effect_parm.eq_en) {
         effect_parm.async_en = 1;
@@ -1072,14 +1081,7 @@ void *a2dp_eq_drc_open(u16 sample_rate, u8 ch_num)
     }
 
     effect_parm.eq_name = song_eq_mode;
-    if (effect_parm.four_ch) {
-#if (TCFG_EQ_DIVIDE_ENABLE != 0)
-        effect_parm.divide_en = 1;
-        effect_parm.eq_name_four = rl_eq_mode;
-#else
-        effect_parm.eq_name_four = fr_eq_mode;
-#endif
-    }
+
 
     effect_parm.ch_num = ch_num;
     effect_parm.sr = sample_rate;

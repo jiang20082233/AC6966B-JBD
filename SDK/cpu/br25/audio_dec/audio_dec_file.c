@@ -956,11 +956,6 @@ void *file_eq_drc_open(u16 sample_rate, u8 ch_num)
 #endif
 #endif
 
-#ifdef DUAL_TO_QUAD_AFTER_MIX
-#if (DUAL_TO_QUAD_AFTER_MIX == 0)
-    effect_parm.four_ch = 1;
-#endif
-#endif
 
     if (effect_parm.eq_en) {
         effect_parm.async_en = 1;
@@ -970,14 +965,6 @@ void *file_eq_drc_open(u16 sample_rate, u8 ch_num)
     }
 
     effect_parm.eq_name = song_eq_mode;
-    if (effect_parm.four_ch) {
-#if(defined(TCFG_EQ_DIVIDE_ENABLE) && (TCFG_EQ_DIVIDE_ENABLE != 0))
-        effect_parm.divide_en = 1;
-        effect_parm.eq_name_four = rl_eq_mode;
-#else
-        effect_parm.eq_name_four = fr_eq_mode;
-#endif
-    }
 
     effect_parm.ch_num = ch_num;
     effect_parm.sr = sample_rate;

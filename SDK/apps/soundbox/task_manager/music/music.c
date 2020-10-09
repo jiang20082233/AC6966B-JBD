@@ -291,7 +291,12 @@ void music_player_err_deal(int err)
             if (music_player_get_playing_breakpoint(breakpoint, 1) == true) {
                 breakpoint_vm_write(breakpoint, logo);
             }
-            dev_manager_set_valid_by_logo(logo, 0);///将设备设置为无效设备
+            if (err == MUSIC_PLAYER_ERR_FSCAN) {
+                dev_manager_set_valid_by_logo(logo, 0);///将设备设置为无效设备
+            } else {
+                //针对读错误， 因为时间推到应用层有延时导致下一个模式判断不正常， 此处需要将设备卸载
+                dev_manager_unmount(logo);
+            }
         }
         if (dev_manager_get_total(1) == 0) {
             #if USER_MUSIC_TO_BT
@@ -759,9 +764,9 @@ void app_music_task()
     #endif
 
     int err =  tone_play_with_callback_by_name(tone_table[user_dev_tone_number], 1, music_tone_play_end_callback, (void *)IDEX_TONE_MUSIC);
-    if (err) {
-        music_player_play_start();
-    }
+    // if (err) {
+        // music_player_play_start();
+    // }
 
 
     while (1) {

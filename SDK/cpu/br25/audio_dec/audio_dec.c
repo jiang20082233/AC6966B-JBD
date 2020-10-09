@@ -781,9 +781,6 @@ void *mix_out_eq_drc_open(u16 sample_rate, u8 ch_num)
 #endif
 #endif
     log_i("=====sr %d, ch_num %d\n", sample_rate, ch_num);
-    if (ch_num == 4) {
-        effect_parm.four_ch = 1;
-    }
 
     if (effect_parm.eq_en) {
         effect_parm.async_en = 1;
@@ -793,9 +790,7 @@ void *mix_out_eq_drc_open(u16 sample_rate, u8 ch_num)
     }
 
     effect_parm.eq_name = song_eq_mode;
-    if (effect_parm.four_ch) {
-        effect_parm.eq_name_four = fr_eq_mode;
-    }
+
 
     effect_parm.ch_num = ch_num;
     effect_parm.sr = sample_rate;

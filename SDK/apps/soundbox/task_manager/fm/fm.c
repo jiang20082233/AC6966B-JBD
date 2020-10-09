@@ -220,10 +220,10 @@ void app_fm_task()
     int msg[32];
     fm_app_init();
     int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_FM], 1, fm_tone_play_end_callback, (void *)IDEX_TONE_FM);
-    if (err) {
-        ///提示音播放失败，直接启动播放
-        fm_app_start();
-    }
+//    if (err) {
+//        ///提示音播放失败，直接启动播放
+//        fm_app_start();
+//    }
 
     while (1) {
         app_task_get_msg(msg, ARRAY_SIZE(msg), 1);
