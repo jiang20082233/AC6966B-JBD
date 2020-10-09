@@ -104,7 +104,7 @@ int audio_dac_energy_get(void)
     int audio_energy_detect_energy_get(void *_hdl, u8 ch);
     if (mix_out_automute_hdl) {
         int ret = audio_energy_detect_energy_get(mix_out_automute_hdl, BIT(0));
-        printf(">> energy %d\n",ret);
+        // printf(">> energy %d\n",ret);
         return ret;//audio_energy_detect_energy_get(mix_out_automute_hdl, BIT(0));
     }
 

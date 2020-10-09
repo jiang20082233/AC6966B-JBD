@@ -30,7 +30,7 @@
 #define TCFG_APP_FM_EN					    1
 #define TCFG_APP_PC_EN					    0//1
 #define TCFG_APP_RTC_EN					    0
-#define TCFG_APP_RECORD_EN				    1
+#define TCFG_APP_RECORD_EN				    0
 #define TCFG_APP_SPDIF_EN                   0
 //*********************************************************************************//
 //                               PCM_DEBUG调试配置                                 //
@@ -206,7 +206,7 @@
 //#define KEY_NUM_MAX                        	10
 //#define KEY_NUM                            	3
 #define KEY_IO_NUM_MAX						6
-#define KEY_AD_NUM_MAX						6
+#define KEY_AD_NUM_MAX						10
 #define KEY_IR_NUM_MAX						21
 #define KEY_TOUCH_NUM_MAX					6
 #define KEY_RDEC_NUM_MAX                    6
@@ -473,7 +473,7 @@ DAC硬件上的连接方式,可选的配置：
 // 使能改宏，提示音音量使用music音量
 #define APP_AUDIO_STATE_WTONE_BY_MUSIC      (1)//TONE_MODE_DEFAULE_VOLUME 不为0 APP_AUDIO_STATE_WTONE_BY_MUSIC宏失效
 // 0:提示音不使用默认音量； 1:默认提示音音量值
-#define TONE_MODE_DEFAULE_VOLUME            (28)
+#define TONE_MODE_DEFAULE_VOLUME            (20)
 //*********************************************************************************//
 //                                  充电仓配置  (不支持)                                   //
 //*********************************************************************************//
@@ -534,7 +534,7 @@ DAC硬件上的连接方式,可选的配置：
 /*强VDDIO等级配置,可选：
     VDDIOM_VOL_20V    VDDIOM_VOL_22V    VDDIOM_VOL_24V    VDDIOM_VOL_26V
     VDDIOM_VOL_30V    VDDIOM_VOL_30V    VDDIOM_VOL_32V    VDDIOM_VOL_36V*/
-#define TCFG_LOWPOWER_VDDIOM_LEVEL			VDDIOM_VOL_34V    //VDDIO 设置的值要和vbat的压差要大于300mv左右，否则会出现DAC杂音
+#define TCFG_LOWPOWER_VDDIOM_LEVEL			VDDIOM_VOL_30V    //VDDIO 设置的值要和vbat的压差要大于300mv左右，否则会出现DAC杂音
 /*弱VDDIO等级配置，可选：
     VDDIOW_VOL_21V    VDDIOW_VOL_24V    VDDIOW_VOL_28V    VDDIOW_VOL_32V*/
 #define TCFG_LOWPOWER_VDDIOW_LEVEL			VDDIOW_VOL_28V               //弱VDDIO等级配置
@@ -693,7 +693,7 @@ DAC硬件上的连接方式,可选的配置：
 //                                  REC 配置                                       //
 //*********************************************************************************//
 #define RECORDER_MIX_EN						DISABLE//混合录音使能
-#define TCFG_RECORD_FOLDER_DEV_ENABLE       ENABLE//音乐播放录音区分使能
+#define TCFG_RECORD_FOLDER_DEV_ENABLE       DISABLE//ENABLE//音乐播放录音区分使能
 
 
 //*********************************************************************************//
@@ -818,7 +818,7 @@ DAC硬件上的连接方式,可选的配置：
 #define TCFG_ENC_CVSD_ENABLE                ENABLE
 #define TCFG_ENC_MSBC_ENABLE                ENABLE
 #define TCFG_ENC_MP3_ENABLE                 DISABLE
-#define TCFG_ENC_ADPCM_ENABLE               ENABLE
+#define TCFG_ENC_ADPCM_ENABLE               DISABLE
 #define TCFG_ENC_SBC_ENABLE                 DISABLE
 #define TCFG_ENC_OPUS_ENABLE                DISABLE
 #define TCFG_ENC_SPEEX_ENABLE               DISABLE

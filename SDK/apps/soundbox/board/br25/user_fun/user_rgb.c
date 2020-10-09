@@ -34,6 +34,8 @@ RGB_FUN user_rgb_fun = {
     .cur_colour = {0xff,0x0,0x0},
     .cur_mode = USER_RGB_MODE_MAX,
     .mode_scan_time = 100,
+    .light_number = 0,
+    .dac_energy_scan_id = 0,
 };
 #define P_RGB_FUN (&user_rgb_fun)
 // #else
@@ -49,11 +51,48 @@ u32 random_number(u32 start, u32 end){
     return JL_TIMER0->CNT % (end - start + 1) + start;
 }
 
-int user_audio_dac_energy_get(void){
-    int energy = audio_dac_energy_get();
-    // printf(">>> dac energy %d\n",energy);
-    return energy;
+void user_rgb_dac_energy_get(void * priv){
+    RGB_FUN *rgb = (RGB_FUN *)priv;
+
+    if(!rgb || !rgb->info || !rgb->dac_energy_scan_id || !rgb->info->number){
+        return;
+    }
+
+    if(rgb->dac_energy_scan_id){
+        rgb->dac_energy_scan_id = 0;
+    }
+    rgb->dac_energy_scan_id = sys_hi_timeout_add(rgb,user_rgb_dac_energy_get,rgb->light_number?20:100);
+
+    static u32 dac_energy_max = 0;
+    int fre_cnt = 0;
+    int dac_energy = audio_dac_energy_get();
+
+    if(!(timer_get_sec()%2)){
+        dac_energy_max = 0;
+    }
+
+    if(dac_energy>dac_energy_max){
+        dac_energy_max = dac_energy;
+    }
+
+    if(dac_energy_max){
+        fre_cnt = (rgb->info->number*dac_energy)/dac_energy_max;
+    }else{
+        fre_cnt = 0;
+    }
+
+
+    if(rgb->light_number<fre_cnt && rgb->light_number<rgb->info->number){
+        rgb->light_number++;
+    }else if(rgb->light_number>fre_cnt && rgb->light_number){
+        rgb->light_number--;
+    }
+
+    // printf(">>> dac energy %d\n",rgb->light_number);
+    // rgb->dac_energy = dac_energy;
+
 }
+
 /*
 *r,g,b:基色值
 *umode：模式
@@ -357,8 +396,27 @@ void user_rgb_display_mode_5(void *priv){
         return;
     }
 
-    s16 rand  = random_number(7,20);
-    if(rand%2){
+    u32 tp_time = timer_get_ms();
+    static u32 sys_time_old = 0;
+    u16 tp_freq = 0;
+
+    if(rgb->light_number>rgb->info->number*5/10){
+        tp_freq = 200;
+    }else if(rgb->light_number>rgb->info->number/3){
+        tp_freq = 500;
+    }else if(rgb->light_number>rgb->info->number/4){
+        tp_freq = 1000;
+    }else{
+        tp_freq = 0;
+    }
+    // static u16 rand = 0;
+    if(tp_time-sys_time_old>1000 || tp_freq>rgb->freq){
+        sys_time_old = tp_time;
+        rgb->freq = tp_freq;    
+    }
+
+
+    if(!rgb->freq || ((tp_time%(rgb->freq)) >= ((rgb->freq)/3))){
         user_rgb_same_colour(rgb->info,&rgb->cur_colour);
     }
 }
@@ -373,8 +431,7 @@ void user_rgb_mode_scan(void *priv){
     if(!rgb->interrupt){
         user_rgb_colour_gradient(rgb);
         user_rgb_clear_colour(rgb->info);
-        
-        user_audio_dac_energy_get();
+
 
         switch (rgb->cur_mode){
         case USER_RGB_MODE_1:
@@ -424,7 +481,7 @@ void user_rgb_mode_scan(void *priv){
             }else if(USER_RGB_MODE_9 == rgb->cur_mode){
                 rgb->cur_colour.r = 0xff;
                 rgb->cur_colour.g = 0xff;
-                rgb->cur_colour.b = 0xff;                
+                rgb->cur_colour.b = 0xff;
             }
             user_rgb_display_mode_5(rgb);
             break;
@@ -521,16 +578,16 @@ u8 user_rgb_mode_set(USER_GRB_MODE mode,void *priv){
         user_rgb_fun_power_off(rgb);
         break;
     case USER_RGB_MODE_1://节奏渐变 旋转
-    case USER_RGB_MODE_2://对称 升降 
+    case USER_RGB_MODE_2://对称 升降
     case USER_RGB_MODE_3://渐变
     case USER_RGB_MODE_4://三色 旋转
     case USER_RGB_MODE_5://渐变 闪烁
     case USER_RGB_MODE_6://红色 闪烁
     case USER_RGB_MODE_7://绿色 闪烁
     case USER_RGB_MODE_8://蓝色 闪烁
-    case USER_RGB_MODE_9://白色 闪烁   
+    case USER_RGB_MODE_9://白色 闪烁
         rgb->cur_mode = mode;
-        break;     
+        break;
     default:
         break;
     }
@@ -546,7 +603,7 @@ void user_rgb_fun_init(void){
         printf(">>>>> rgb p error\n");
         return;
     }
-    
+
     rgb->info->spi_buff = malloc(sizeof(SPI_COLOUR)*rgb->info->number);
     if(!rgb->info->spi_buff){
         return;
@@ -571,6 +628,8 @@ void user_rgb_fun_init(void){
     if(rgb->info->init_flag){
         user_rgb_mode_scan(rgb);
     }
+
+    rgb->dac_energy_scan_id = sys_hi_timeout_add(rgb,user_rgb_dac_energy_get,300);
 #endif
 }
 void user_rgb_fun_del(void){
@@ -580,13 +639,19 @@ void user_rgb_fun_del(void){
         printf(">>>>> rgb p error\n");
         return;
     }
-    user_rgb_del();
+
+    if(rgb->dac_energy_scan_id){
+        sys_timeout_del(rgb->dac_energy_scan_id);
+        rgb->dac_energy_scan_id = 0;
+    }
+    user_rgb_del(rgb->info);
+
     if(rgb->info->spi_buff){
         free(rgb->info->spi_buff);
     }
     if(rgb->info->rgb_buff){
         free(rgb->info->rgb_buff);
-    }  
+    }
 #endif
 }
 

@@ -7,9 +7,9 @@
 #define USER_SDK_BUG_4  0//linein 模式下 普通通道进 dac出，播放提示音 有参杂linein声音
 
 #define USER_VBAT_CHECK_EN 1//外部电路检测
-#define USER_LED_EN 0//io led
+#define USER_LED_EN 1//io led
 #define USER_LED_POR    IO_PORTB_07//LED IO
-#define USER_RGB_EN 1//RGB pb7
+#define USER_RGB_EN 0//RGB pb7
 #define USER_RGB_NUMBER 30//rgb 颗数
 #define USER_RGB_LOOP_MODE  USER_RGB_LOOP_MODE_3//循环模式
 #define USER_EQ_LIVE_UPDATE         1//EQ 旋钮实时更新

@@ -653,8 +653,8 @@ DAC硬件上的连接方式,可选的配置：
 #define BT_INBAND_RINGTONE                  0   //是否播放手机自带来电铃声
 #define BT_PHONE_NUMBER                     0   //是否播放来电报号
 #define BT_SYNC_PHONE_RING                  1   //是否TWS同步播放来电铃声
-#define BT_SUPPORT_DISPLAY_BAT              1   //是否使能电量检测
-#define BT_SUPPORT_MUSIC_VOL_SYNC           0//1   //是否使能音量同步
+#define BT_SUPPORT_DISPLAY_BAT              1   //是否使能电量显示
+#define BT_SUPPORT_MUSIC_VOL_SYNC           0   //是否使能音量同步
 
 #define TCFG_BLUETOOTH_BACK_MODE			0	//不支持后台模式
 

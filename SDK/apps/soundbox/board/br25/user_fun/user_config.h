@@ -50,6 +50,7 @@
 #define USER_POWER_LOW_DOW_VOL_EN   1//低电降音量 0：不开启 
 
 #define USER_TWS_ADD_DELL_TWS_INFO 1//手机连接不能影响tws连接与断开
+#define USER_WAKEUP_EN          0//wakeup_param 软关机是否是能唤醒
 
 #if ((EQ_SECTION_MAX<=USER_EQ_BASS_INDEX || EQ_SECTION_MAX<=USER_EQ_TERBLE_INDEX))
 #error "高低音超出总eq段"

@@ -26,7 +26,7 @@ typedef struct _USER_RGB_DISPLAY_DATA_{
 
 typedef enum{
     USER_RGB_MODE_1=1,//节奏渐变 旋转
-    USER_RGB_MODE_2,//对称 升降 
+    USER_RGB_MODE_2,//对称 升降
     USER_RGB_MODE_3,//渐变
     USER_RGB_MODE_4,//三色 旋转
     USER_RGB_MODE_5,//渐变 闪烁
@@ -55,6 +55,9 @@ typedef struct _USER_RGB_FUN_{
     USER_GRB_MODE cur_mode;//当前模式
     u16 mode_scan_time;//模式扫描时间
     RGB_COLOUR cur_colour;//当前颜色
+    int light_number;//dac_energy;//dac 能量 映射到点亮灯的颗数
+    u16 freq;//单色rgb闪烁频率
+    u16 dac_energy_scan_id;//dac能量扫描 time id
 }RGB_FUN;
 
 
