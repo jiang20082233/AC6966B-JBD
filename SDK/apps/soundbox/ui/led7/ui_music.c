@@ -193,7 +193,7 @@ static void ui_music_main(void *hd, void *private) //主界面显示
         int sencond = file_dec_get_cur_time();
         ui_led7_show_music_time(hd, sencond);
         led7_show_music_dev(hd);
-        // printf("sec = %d \n", sencond);
+        printf("sec = %d \n", sencond);
     } else if (file_dec_is_pause()) {
         led7_show_pause(hd);
     } else {

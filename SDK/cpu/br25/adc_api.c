@@ -150,7 +150,6 @@ u32 adc_get_voltage(u32 ch)
 u32 adc_check_vbat_lowpower()
 {
     u32 vbat = adc_get_value(AD_CH_VBAT);
-    // printf(">>>>>   abs %d\n",vbat);
     return __builtin_abs(vbat - 255) < 5;
 }
 

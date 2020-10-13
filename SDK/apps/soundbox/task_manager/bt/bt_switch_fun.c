@@ -84,10 +84,10 @@ void wait_exit_btstack_flag(void *priv)
 {
     if(app_var.wait_exit_timer){
         sys_timer_del(app_var.wait_exit_timer);
+		app_var.wait_exit_timer = 0;
     }
     app_var.wait_exit_timer = 0;
     if (priv == NULL) {
-        puts(">>>>>> to power off task\n");
         app_task_switch_to(APP_POWEROFF_TASK);
     } else if (priv == (void *)1) {
         log_info("cpu_reset!!!\n");
@@ -766,8 +766,25 @@ void bt_task_start()
     sys_key_event_enable();
     sys_auto_shut_down_enable();
     sys_auto_sniff_controle(1, NULL);
-}
 
+#if USER_BT_VBAT_DISPLAY
+    __set_disable_sco_flag(1);
+#endif    
+    // __change_hci_class_type(BD_CLASS_WEARABLE_HEADSET);//耳机 电量
+    // __change_hci_class_type(BD_CLASS_HANDS_FREE);//扬声器与电视 无电量
+    // __change_hci_class_type(BD_CLASS_MICROPHONE);//耳机 无电量
+    // __change_hci_class_type(BD_CLASS_LOUDSPEAKER);//蓝牙耳机 无电量
+    // __change_hci_class_type(BD_CLASS_HEADPHONES);//耳机 电量
+    // __change_hci_class_type(BD_CLASS_CAR_AUDIO);//扬声器与电视 无电量
+    // __change_hci_class_type(BD_CLASS_HIFI_AUDIO);//耳机 无电量
+    // __change_hci_class_type(BD_CLASS_PHONEBOOK);//耳机 无电量    
+}
+u8 user_get_bt_init_ok(void){
+    if(__this->init_ok){
+        return 1;
+    }
+    return 0;
+}
 /*----------------------------------------------------------------------------*/
 /**@brief  蓝牙模式退出
    @param

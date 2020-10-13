@@ -72,6 +72,9 @@ static void key_driver_scan(void *_scan_para)
     /* } */
 
     if (cur_key_value != NO_KEY) {
+        extern void user_down_sys_vol_cnt(u8 vol);
+        user_down_sys_vol_cnt(0xff);
+        
         is_key_active = 35;      //35*10Ms
     } else if (is_key_active) {
         is_key_active --;

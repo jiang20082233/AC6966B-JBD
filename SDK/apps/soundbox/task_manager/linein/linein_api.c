@@ -66,7 +66,6 @@ int linein_volume_set(u8 vol)
     app_audio_set_volume(APP_AUDIO_STATE_MUSIC, vol, 1);
     log_info("linein vol: %d", __this->volume);
     __this->volume = vol;
-    //user_rgb_display_vol(__this->volume,4);
 
 #if (TCFG_DEC2TWS_ENABLE)
     bt_tws_sync_volume();
@@ -79,6 +78,7 @@ int linein_volume_set(u8 vol)
         audio_linein_mute(1);
     }
 #endif
+
     return true;
 }
 
@@ -130,7 +130,6 @@ static inline void __linein_way_dac_analog_start()
     } else {
         ASSERT(0, "linein ch err\n");
     }
-    printf(">>>> %d music vol\n",app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
     linein_volume_set(app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
 
 }
@@ -316,7 +315,6 @@ u8 linein_get_status(void)
     return __this->onoff;
 }
 
-#include "user_config.h"
 void linein_vol_set(void){
     #if USER_SDK_BUG_2
     if (TCFG_LINEIN_LR_CH == AUDIO_LIN_DACL_CH) {

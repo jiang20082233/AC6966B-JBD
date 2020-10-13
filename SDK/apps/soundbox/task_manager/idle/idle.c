@@ -387,7 +387,7 @@ static void idle_app_close_module()
 #if (TCFG_PC_ENABLE || TCFG_UDISK_ENABLE)
     extern void usb_detect_timer_del();
     extern u32 usb_otg_online(const usb_dev usb_id);
-    extern int mult_usb_mount_offline(usb_dev usb_id);
+    extern int usb_mount_offline(usb_dev usb_id);
     extern void usb_pause();
     extern int dev_manager_del(char *logo);
     usb_detect_timer_del();
@@ -395,6 +395,7 @@ static void idle_app_close_module()
     if (usb_otg_online(0) == HOST_MODE) {
 #if TCFG_UDISK_ENABLE
         dev_manager_del("udisk0");
+        extern u32 usb_host_unmount(const usb_dev id);
         usb_host_unmount(0);
         usb_h_sie_close(0);
 
@@ -414,6 +415,7 @@ static void idle_app_close_module()
         gpio_set_pull_down(IO_PORT_DM, 1);
         gpio_set_direction(IO_PORT_DM, 1);
 
+        extern int mult_usb_mount_offline(usb_dev usb_id);
         mult_usb_mount_offline(0);
 #endif
     } else if (usb_otg_online(0) == SLAVE_MODE) {
@@ -479,9 +481,8 @@ void app_idle_task()
     int res;
     int msg[32];
 
-    // user_power_off();
     idle_app_start();
-    printf(">>>>>>>>>>   task idle init ok\n");
+
     while (1) {
         app_task_get_msg(msg, ARRAY_SIZE(msg), 1);
 

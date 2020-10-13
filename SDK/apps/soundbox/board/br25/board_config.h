@@ -4,17 +4,10 @@
 /*
  *  板级配置选择
  */
-// #ifndef IO_PORT_DM
-// #define IO_GROUP_NUM 		16
-// #define IO_PORTD_07 				(IO_GROUP_NUM * 3 + 7)
-// #define IO_MAX_NUM 					(IO_PORTD_07+1)
-// #define USB_IO_OFFSET               5
-// #define IO_PORT_DP                  (IO_MAX_NUM + USB_IO_OFFSET)
-// #define IO_PORT_DM                  (IO_MAX_NUM + USB_IO_OFFSET + 1)
-// #endif
 
-#define CONFIG_BOARD_AC6966B
-// #define CONFIG_BOARD_AC6965E
+
+// #define CONFIG_BOARD_AC6966B
+#define CONFIG_BOARD_AC6965E
 // #define CONFIG_BOARD_AC696X_DEMO
 // #define CONFIG_BOARD_AC6969D_DEMO
 // #define CONFIG_BOARD_AC696X_LIGHTER
@@ -36,6 +29,7 @@
 #include "user_config.h"
 #include "board_ac6966b/user_ac6966b_cfg.h"
 #include "board_ac6965e/user_ac6965e_cfg.h"
+#include "board_ac6969d_demo/user_ac6969d_cfg.h"
 #define  DUT_AUDIO_DAC_LDO_VOLT   							DACVDD_LDO_2_90V
 
 #endif

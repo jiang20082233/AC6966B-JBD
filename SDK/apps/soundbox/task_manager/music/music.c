@@ -143,7 +143,6 @@ static int music_player_scandisk_break(void)
                 ///设备上下线底层推出的设备逻辑盘符是跟跟音乐设备一致的（音乐/录音设备, 详细看接口注释）
                 int str_len   = 0;
                 logo = music_player_get_phy_dev(&str_len);
-                printf("........00000\n");
                 ///响应设备插拔打断
                 if (event->u.dev.event == DEVICE_EVENT_OUT) {
                     log_i("__func__ = %s logo=%s evt_logo=%s %d\n", __FUNCTION__, logo, evt_logo, str_len);
@@ -245,7 +244,7 @@ void music_player_err_deal(int err)
     case MUSIC_PLAYER_ERR_NULL:
         break;
     case MUSIC_PLAYER_ERR_POINT:
-    case MUSIC_PLAYER_ERR_NO_RAM:  
+    case MUSIC_PLAYER_ERR_NO_RAM:
         msg = KEY_MUSIC_PLAYER_QUIT;//退出音乐模式
         break;
     case MUSIC_PLAYER_ERR_DECODE_FAIL:
@@ -301,7 +300,10 @@ void music_player_err_deal(int err)
         if (dev_manager_get_total(1) == 0) {
             #if USER_MUSIC_TO_BT
                 puts(">>> user goto bt mode\n");
-                msg = USER_MSG_TO_BT_MODE;
+                if(APP_MUSIC_TASK == app_get_curr_task()){
+                    msg = USER_MSG_TO_BT_MODE;
+                }
+                
                 break;
             #endif
             msg = KEY_MUSIC_PLAYER_QUIT;///没有设备在线， 退出音乐模式
@@ -392,10 +394,8 @@ static int music_key_event_opr(struct sys_event *event)
             }
         }
         if (true == breakpoint_vm_read(breakpoint, logo)) {
-        puts(">>> play ccccccc 0\n");
             err = music_player_play_by_breakpoint(logo, breakpoint);
         } else {
-        puts(">>> play ccccccc 1\n");
             err = music_player_play_first_file(logo);
         }
         break;
@@ -566,7 +566,6 @@ static int music_key_event_opr(struct sys_event *event)
 /*----------------------------------------------------------------------------*/
 static int music_sys_event_handler(struct sys_event *event)
 {
-    // printf(">>>>>>>>>>> music type %d arg %d %d\n",event->type,(u32)event->arg,AUDIO_DEC_EVENT_END);
     int err = 0;
     char *logo = NULL;
     char *evt_logo = NULL;

@@ -34,6 +34,7 @@ void user_dow_sys_vol_20(void){
     }
 
     user_power_low_dow_sys_vol(20);
+    user_bt_tws_sync_msg_send(USER_TWS_SYNC_DOW_VOL_20,0);
 }
 
 void user_dow_sys_vol_10(void){
@@ -44,6 +45,7 @@ void user_dow_sys_vol_10(void){
     }
     
     user_power_low_dow_sys_vol(10);
+    user_bt_tws_sync_msg_send(USER_TWS_SYNC_DOW_VOL_10,0);
 }
 
 /*----------------------------------------------------------------------------*/

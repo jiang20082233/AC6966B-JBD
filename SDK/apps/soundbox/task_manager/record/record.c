@@ -114,13 +114,13 @@ static void record_mic_stop(void)
 static void record_key_pp()
 {
     if (recorder_is_encoding()) {
-        printf("mic record stop && replay\n");
+        log_i("mic record stop && replay\n");
         record_mic_stop();
         record_file_play();
     } else {
         record_file_close();
         record_mic_start();
-        printf("mic record start\n");
+        log_i("mic record start\n");
     }
 }
 
@@ -142,7 +142,6 @@ static void  record_tone_play_end_callback(void *priv, int flag)
     case IDEX_TONE_DI:
     case IDEX_TONE_RECORD:
         log_i("IDEX_TONE_RECORD end\n");
-        // record_key_pp();
         break;
     }
 }

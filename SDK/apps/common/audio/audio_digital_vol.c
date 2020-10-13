@@ -21,7 +21,6 @@ void *digvol_last_entry = NULL;
 #define  L_sat(b,a)       __asm__ volatile("%0=sat16(%1)(s)":"=&r"(b) : "r"(a));
 #define  L_sat32(b,a,n)       __asm__ volatile("%0=%1>>%2(s)":"=&r"(b) : "r"(a),"r"(n));
 
-
 typedef struct {
     u8 bg_dvol_fade_out;
     struct list_head dvol_head;

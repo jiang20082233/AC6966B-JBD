@@ -72,7 +72,6 @@ static int power_on_init(void)
     return 0;
 #endif
 #if TCFG_APP_BT_EN
-    puts(">>>>>>>>>>>>>>>> power on to btbtbt mode\n");
     app_task_switch_to(APP_BT_TASK);
 #else
     app_task_switch_to(APP_MUSIC_TASK);

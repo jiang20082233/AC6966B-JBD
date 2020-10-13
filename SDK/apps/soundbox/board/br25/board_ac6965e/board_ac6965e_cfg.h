@@ -33,7 +33,7 @@
 #define TCFG_APP_FM_EN					    1
 #define TCFG_APP_PC_EN					    0//1
 #define TCFG_APP_RTC_EN					    0
-#define TCFG_APP_RECORD_EN				    1
+#define TCFG_APP_RECORD_EN				    0
 #define TCFG_APP_SPDIF_EN                   0
 //*********************************************************************************//
 //                               PCM_DEBUG调试配置                                 //
@@ -46,7 +46,7 @@
 //*********************************************************************************//
 #define TCFG_UART0_ENABLE					0//ENABLE_THIS_MOUDLE                     //串口打印模块使能
 #define TCFG_UART0_RX_PORT					NO_CONFIG_PORT                         //串口接收脚配置（用于打印可以选择NO_CONFIG_PORT）
-#define TCFG_UART0_TX_PORT  				IO_PORT_DP//IO_PORT_DP//IO_PORTA_05                            //串口发送脚配置
+#define TCFG_UART0_TX_PORT  				IO_PORTA_05//IO_PORT_DP//IO_PORTA_05                            //串口发送脚配置
 #define TCFG_UART0_BAUDRATE  				1000000                                //串口波特率配置
 
 #ifdef CONFIG_DEBUG_ENABLE
@@ -378,8 +378,8 @@
 #define TCFG_RDEC1_KEY1_VALUE 				 	3
 
 //RDEC2配置
-#define TCFG_RDEC2_ECODE1_PORT					IO_PORTB_09
-#define TCFG_RDEC2_ECODE2_PORT					IO_PORTB_08
+#define TCFG_RDEC2_ECODE1_PORT					IO_PORTB_04
+#define TCFG_RDEC2_ECODE2_PORT					IO_PORTB_05
 #define TCFG_RDEC2_KEY0_VALUE 				 	4
 #define TCFG_RDEC2_KEY1_VALUE 				 	5
 
@@ -413,7 +413,7 @@ DAC硬件上的连接方式,可选的配置：
     DAC_OUTPUT_LR                   立体声
     DAC_OUTPUT_MONO_LR_DIFF         单声道差分输出
 */
-#define TCFG_AUDIO_DAC_CONNECT_MODE   DAC_OUTPUT_LR// DAC_OUTPUT_MONO_L
+#define TCFG_AUDIO_DAC_CONNECT_MODE   DAC_OUTPUT_MONO_L// DAC_OUTPUT_MONO_L
 
 /*
 解码后音频的输出方式:
@@ -613,7 +613,7 @@ DAC硬件上的连接方式,可选的配置：
 //*********************************************************************************//
 //                                  系统配置                                         //
 //*********************************************************************************//
-#define TCFG_AUTO_SHUT_DOWN_TIME		    0   //没有蓝牙连接自动关机时间
+#define TCFG_AUTO_SHUT_DOWN_TIME		    (180)   //没有蓝牙连接自动关机时间
 #define TCFG_SYS_LVD_EN						1   //电量检测使能
 #define TCFG_POWER_ON_NEED_KEY				0	  //是否需要按按键开机配置
 #define TWFG_APP_POWERON_IGNORE_DEV         4000//上电忽略挂载设备，0时不忽略，非0则n毫秒忽略
@@ -631,7 +631,7 @@ DAC硬件上的连接方式,可选的配置：
 #define TCFG_BT_SNIFF_ENABLE                0   //bt sniff 功能使能
 
 #define USER_SUPPORT_PROFILE_SPP    0
-#define USER_SUPPORT_PROFILE_HFP    1
+#define USER_SUPPORT_PROFILE_HFP    0
 #define USER_SUPPORT_PROFILE_A2DP   1
 #define USER_SUPPORT_PROFILE_AVCTP  1
 #define USER_SUPPORT_PROFILE_HID    1
@@ -653,7 +653,7 @@ DAC硬件上的连接方式,可选的配置：
 #define BT_INBAND_RINGTONE                  0   //是否播放手机自带来电铃声
 #define BT_PHONE_NUMBER                     0   //是否播放来电报号
 #define BT_SYNC_PHONE_RING                  1   //是否TWS同步播放来电铃声
-#define BT_SUPPORT_DISPLAY_BAT              1   //是否使能电量显示
+#define BT_SUPPORT_DISPLAY_BAT              0   //是否使能电量显示
 #define BT_SUPPORT_MUSIC_VOL_SYNC           0   //是否使能音量同步
 
 #define TCFG_BLUETOOTH_BACK_MODE			0	//不支持后台模式

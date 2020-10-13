@@ -325,8 +325,6 @@ static int bt_connction_status_event_handler(struct bt_event *bt)
     case BT_STATUS_FIRST_CONNECTED:
         log_info("BT_STATUS_CONNECTED\n");
         bt_status_connect(bt);
-        
-        puts(">>>>>>>>> sssssssssss  111111111\n");
         break;
     case BT_STATUS_FIRST_DISCONNECT:
     case BT_STATUS_SECOND_DISCONNECT:
@@ -688,10 +686,10 @@ int bt_key_event_handler(struct sys_event *event)
     // printf(">>>> key old time %d %d %d %d\n",(tp_time - key_old_time),(KEY_EVENT_FROM_TWS == (u32)event->arg),KEY_EVENT_FROM_TWS,(u32)event->arg);
     if(KEY_EVENT_FROM_TWS == (u32)event->arg){
         printf("is tws key msg key:%d old key:%d\n",key_event,key_old_key);
-        if((tp_time - key_old_time)<300 && key_event==key_old_key){        
+        if((tp_time - key_old_time)<170 && key_event==key_old_key && KEY_DRIVER_TYPE_IR == key->type){        
             key_old_time =  tp_time;
             key_old_key = key_event;
-            printf("time min return\n");
+            printf("time min return key type %d\n",key->type);
             return ret;
         }        
     }
@@ -755,9 +753,6 @@ int bt_key_event_handler(struct sys_event *event)
         log_info("    KEY_LOW_LANTECY \n");
         bt_key_low_lantecy();
         break;
-    // case KEY_USER_TWS:
-    //     puts("KEY_USER_TWS\n");
-    //     break;
     case  KEY_NULL:
         log_info("    KEY_NULL \n");
         ret = false;
@@ -903,7 +898,6 @@ static void  bt_tone_play_end_callback(void *priv, int flag)
     }
 }
 
-
 /*----------------------------------------------------------------------------*/
 /**@brief    蓝牙模式
    @param
@@ -913,6 +907,8 @@ static void  bt_tone_play_end_callback(void *priv, int flag)
 /*----------------------------------------------------------------------------*/
 void app_bt_task()
 {
+    __this->wait_exit = 0;//从其他模式进bt 会初始化两次
+    
     int res;
     int msg[32];
     ui_update_status(STATUS_EXIT_LOWPOWER);

@@ -212,7 +212,6 @@ void app_task_switch_next()
         if (i == cur_index) {
             return;
         }
-        // puts(">>>>>>>>>>>>>>> totototototo002222 \n");
         if (app_task_switch_to(app_task_list[i])) {
             return;
         }
@@ -325,7 +324,13 @@ u8 app_check_curr_task(u8 app)
 int user_app_goto_bt(void){
     #if TCFG_APP_BT_EN
     puts(">>>>>>>   app go to bt mdoe\n");
-    return app_task_switch_to(APP_BT_TASK/*app_task_list[0]*/);
+    
+    if(APP_BT_TASK != app_get_curr_task()){
+        puts(">>>>  to bt mode\n");
+        return app_task_switch_to(APP_BT_TASK/*app_task_list[0]*/);
+    }else{
+        app_task_switch_next();
+    }
     #endif
     return true;
 }

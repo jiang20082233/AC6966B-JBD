@@ -23,7 +23,12 @@
 #include "dev_manager.h"
 #include "fm/fm_manage.h"
 #include "asm/power/p33.h"
+#include "norflash.h"
+#include "asm/spi.h"
 #include "ui_manage.h"
+#include "spi/nor_fs.h"
+
+#include "user_fun_cfg.h"
 
 #define LOG_TAG_CONST       BOARD
 #define LOG_TAG             "[BOARD]"
@@ -146,6 +151,7 @@ struct dac_platform_data dac_data = {
     .ldo_isel       = 3,
     .ldo_fb_isel    = 3,
     .lpf_isel       = 0x8,
+    .zero_cross_detect = 1,
 };
 #endif
 
@@ -176,7 +182,7 @@ struct adc_platform_data adc_data = {
     0:2.3v  1:2.5v  2:2.7v  3:3.0v */
 	.mic_ldo_vsel  = 2,
 /*MIC电容隔直模式使用内部mic偏置(PA2)*/
-	.mic_bias_inside = 1,
+	//.mic_bias_inside = 1,
 /*保持内部mic偏置输出*/
 	.mic_bias_keep = 0,
 
@@ -255,28 +261,28 @@ const struct adkey_platform_data adkey_data = {
     .ad_channel = TCFG_ADKEY_AD_CHANNEL,                      //AD通道值
     .extern_up_en = TCFG_ADKEY_EXTERN_UP_ENABLE,              //是否使用外接上拉电阻
     .ad_value = {                                             //根据电阻算出来的电压值
-        TCFG_ADKEY_VOLTAGE0,
-        TCFG_ADKEY_VOLTAGE1,
-        TCFG_ADKEY_VOLTAGE2,
-        TCFG_ADKEY_VOLTAGE3,
-        //TCFG_ADKEY_VOLTAGE4,
-        //TCFG_ADKEY_VOLTAGE5,
-        //TCFG_ADKEY_VOLTAGE6,
-        //TCFG_ADKEY_VOLTAGE7,
-        //TCFG_ADKEY_VOLTAGE8,
-        //TCFG_ADKEY_VOLTAGE9,
+        TCFG_ADKEY_VOLTAGE0(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE1(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE2(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE3(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE4(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE5(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE6(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE7(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE8(TCFG_ADKEY_VDDIO),
+        TCFG_ADKEY_VOLTAGE9(TCFG_ADKEY_VDDIO),
     },
     .key_value = {                                             //AD按键各个按键的键值
         TCFG_ADKEY_VALUE0,
         TCFG_ADKEY_VALUE1,
         TCFG_ADKEY_VALUE2,
         TCFG_ADKEY_VALUE3,
-        //TCFG_ADKEY_VALUE4,
-        //TCFG_ADKEY_VALUE5,
-        //TCFG_ADKEY_VALUE6,
-        //TCFG_ADKEY_VALUE7,
-        //TCFG_ADKEY_VALUE8,
-        //TCFG_ADKEY_VALUE9,
+        TCFG_ADKEY_VALUE4,
+        TCFG_ADKEY_VALUE5,
+        TCFG_ADKEY_VALUE6,
+        TCFG_ADKEY_VALUE7,
+        TCFG_ADKEY_VALUE8,
+        TCFG_ADKEY_VALUE9,
     },
 };
 #endif
@@ -761,7 +767,7 @@ void board_init()
     adc_init();
     cfg_file_parse(0);
 
-
+    user_fun_io_init();
 #if TCFG_CHARGE_ENABLE
     extern int charge_init(const struct dev_node *node, void *arg);
     charge_init(NULL, (void *)&charge_data);
@@ -784,7 +790,7 @@ void board_init()
     	power_set_mode(TCFG_LOWPOWER_POWER_SEL);
 	}
 
-    //针对硅mic要输出1给mic供电
+    //针对硅mic要输出1给mic供电(按实际使用情况配置)
     /* if(!adc_data.mic_capless){ */
         /* gpio_set_pull_up(IO_PORTA_04, 0); */
         /* gpio_set_pull_down(IO_PORTA_04, 0); */
@@ -849,7 +855,9 @@ void board_set_soft_poweroff(void)
 #if (TCFG_SD0_ENABLE || TCFG_SD1_ENABLE)
 	sdpg_config(0);
 #endif
-
+    #if (!USER_WAKEUP_EN)
+    key_wakeup_disable();
+    #endif
     //dac_power_off();
 }
 

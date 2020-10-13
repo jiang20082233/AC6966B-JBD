@@ -31,6 +31,7 @@ u8 user_adkey_mapping(u8 key){
     u8 tp = key;    
 #if (defined(USER_ADKEY_MAPPING_EN) && USER_ADKEY_MAPPING_EN)    
 
+    #ifdef CONFIG_BOARD_AC6966B
     u8 ad_key_table[][2]={
         {0,3},//mode、tws
         {2,5},//LED OFF、RGB mode
@@ -39,6 +40,17 @@ u8 user_adkey_mapping(u8 key){
         {7,1},//-
         {8,0},//pp
     };
+    #endif
+    #ifdef CONFIG_BOARD_AC6969D_DEMO
+    u8 ad_key_table[][2]={
+        {0,3},//mode、tws
+        //{2,5},//LED OFF、RGB mode
+        //{4,4},//eq
+        {1,2},//+
+        {3,1},//-
+        {2,0},//pp
+    };
+    #endif
 
     // printf(">>>>>> key %d\n",key);tp = NO_KEY;
 

@@ -724,7 +724,6 @@ int music_player_play_first_file(char *logo)
     if (logo == NULL) {
         music_player_stop(0);
         if (dev_manager_online_check(__this->dev, 1) == 0) {
-            puts(">>>>>>> dev error 0\n");
             return MUSIC_PLAYER_ERR_DEV_OFFLINE;
         }
         ///没有指定设备不需要找设备， 不需要扫描
@@ -732,19 +731,16 @@ int music_player_play_first_file(char *logo)
         music_player_stop(1);
         __this->dev = dev_manager_find_spec(logo, 1);
         if (__this->dev == NULL) {
-            puts(">>>>>>> dev error 1\n");
             return MUSIC_PLAYER_ERR_DEV_NOFOUND;
         }
         __this->fsn = dev_manager_scan_disk(__this->dev, NULL, scan_parm, cycle_mode, __this->parm.cb->fsn_break);
     }
     if (__this->fsn == NULL) {
-            puts(">>>>>>> dev error 2\n");
         return MUSIC_PLAYER_ERR_FSCAN;
     }
     ///get file
     __this->file = file_manager_select(__this->fsn, FSEL_FIRST_FILE, 0);
     if (__this->file == NULL) {
-            puts(">>>>>>> dev error 3\n");
         return MUSIC_PLAYER_ERR_FILE_NOFOUND;
     }
     ///start decoder
@@ -754,7 +750,6 @@ int music_player_play_first_file(char *logo)
         dev_manager_set_active(__this->dev);
         log_i("[%s %d] ok\n", __FUNCTION__, __LINE__);
     }
-            puts(">>>>>>> dev error 4\n");
     return err;
 }
 //*----------------------------------------------------------------------------*/

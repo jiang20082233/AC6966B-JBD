@@ -15,11 +15,11 @@
 
 #define LOG_TAG_CONST       USER_CFG
 #define LOG_TAG             "[USER_CFG]"
-// #define LOG_ERROR_ENABLE
-// #define LOG_DEBUG_ENABLE
-// #define LOG_INFO_ENABLE
-// #define LOG_DUMP_ENABLE
-// #define LOG_CLI_ENABLE
+#define LOG_ERROR_ENABLE
+#define LOG_DEBUG_ENABLE
+#define LOG_INFO_ENABLE
+#define LOG_DUMP_ENABLE
+#define LOG_CLI_ENABLE
 #include "debug.h"
 
 void lp_winsize_init(struct lp_ws_t *lp);

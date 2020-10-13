@@ -25,7 +25,7 @@
 #include "application/audio_vocal_remove.h"
 #include "audio_dongle_codec.h"
 
-
+#include "user_fun_cfg.h"
 #if TCFG_USER_TWS_ENABLE
 #include "bt_tws.h"
 #endif
@@ -103,9 +103,7 @@ int audio_dac_energy_get(void)
 #if AUDIO_OUTPUT_AUTOMUTE
     int audio_energy_detect_energy_get(void *_hdl, u8 ch);
     if (mix_out_automute_hdl) {
-        int ret = audio_energy_detect_energy_get(mix_out_automute_hdl, BIT(0));
-        // printf(">> energy %d\n",ret);
-        return ret;//audio_energy_detect_energy_get(mix_out_automute_hdl, BIT(0));
+        return audio_energy_detect_energy_get(mix_out_automute_hdl, BIT(0));
     }
 
     return (-1);
@@ -627,7 +625,7 @@ int audio_dec_init()
 #endif
 
     #if USER_MIC_MUSIC_VOL_SEPARATE
-    
+
     audio_dig_vol_param digvol_last_param = {
         .vol_start = 30,
         .vol_max = 30,
@@ -865,11 +863,10 @@ void mix_out_high_bass_dis(u32 cmd, u8 dis)
 }
 
 #if AUDIO_OUTPUT_AUTOMUTE
-#include "user_fun_cfg.h"
+
 void audio_mix_out_automute_mute(u8 mute)
 {
     printf(">>>>>>>>>>>>>>>>>>>> %s\n", mute ? ("MUTE") : ("UNMUTE"));
-    user_pa_ex_automute(mute);
 }
 
 /* #define AUDIO_E_DET_UNMUTE      (0x00) */

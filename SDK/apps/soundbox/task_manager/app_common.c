@@ -70,6 +70,7 @@ static void  common_power_on_tone_play_end_callback(void *priv, int flag)
     case IDEX_TONE_POWER_OFF:
         ///提示音播放结束        
         printf(" >>>>> tone \n");
+        user_power_off();
         user_del_time();
         app_task_switch_to(APP_IDLE_TASK);
         break;
@@ -122,7 +123,10 @@ static void  bt_tws_tone_play_end_callback(void *priv, int flag){
 }
 u16 user_max_tone_paly_id = 0;
 static void user_tone_play_max(void *priv){
-    user_max_tone_paly_id = 0;
+    if(user_max_tone_paly_id){
+        sys_hi_timeout_del(user_max_tone_paly_id);
+        user_max_tone_paly_id = 0;
+    }
     // extern void user_music_player_play_start(void);
     // user_music_player_play_start();
     puts(">>>>>>>>>>>>>>    tone USER_KEY_MUSIC_PLAYER_START\n");
@@ -287,10 +291,6 @@ int app_common_key_msg_deal(struct sys_event *event)
         if (app_audio_get_volume(APP_AUDIO_STATE_MUSIC) == app_audio_get_max_volume()) {
             if (tone_get_status() == 0) {
 #if TCFG_MAX_VOL_PROMPT
-                // if(app_get_curr_task() == APP_MUSIC_TASK){
-                //     puts("max tone player stop\n");
-                //     music_player_stop(0);
-                // }
                 tone_play_by_path(tone_table[IDEX_TONE_MAX_VOL], USER_TONE_PLAY_MODE?1:0);
                 // tone_play_with_callback_by_name(TONE_MAX_VOL,USER_TONE_PLAY_MODE?1:0,max_tone_play_end_callback,(void *)IDEX_TONE_MAX_VOL);
 #endif
@@ -328,7 +328,7 @@ int app_common_key_msg_deal(struct sys_event *event)
 
     case  KEY_EQ_MODE:
 #if(TCFG_EQ_ENABLE == 1)
-        user_eq_mode_sw();
+        user_eq_mode_sw();//eq_mode_sw();
 #endif
         break;
 #if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_BT)
@@ -394,8 +394,7 @@ int app_common_key_msg_deal(struct sys_event *event)
     case KEY_IR_PPOWER:
         puts("KEY_IR_PPOWER\n");
         #if USER_IR_POWER
-        if(APP_IDLE_TASK != app_get_curr_task()){
-            user_power_off();
+        if(APP_IDLE_TASK != app_get_curr_task()){            
             
             if(APP_LINEIN_TASK == app_get_curr_task()){
                 #if TCFG_LINEIN_ENABLE
@@ -406,6 +405,7 @@ int app_common_key_msg_deal(struct sys_event *event)
             int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_POWER_OFF], 1, common_power_on_tone_play_end_callback, (void *)IDEX_TONE_POWER_OFF);
             if (err) {
                 printf(">>> ir power off to idle\n");
+                user_power_off();
                 app_task_switch_to(APP_IDLE_TASK);
             }
         }
@@ -444,7 +444,7 @@ int app_common_key_msg_deal(struct sys_event *event)
     case USER_KEY_RECORD_START:
         log_info("    USER_KEY_RECORD_START \n");
         #if (USER_RECORD_EN && TCFG_APP_RECORD_EN)
-        if(APP_RECORD_TASK != app_get_curr_task()){
+        if(APP_RECORD_TASK != app_get_curr_task() && user_get_mic_status()){
             user_record_status(1);
             app_task_switch_to(APP_RECORD_TASK);
         }
@@ -500,13 +500,13 @@ int app_power_user_event_handler(struct device_event *dev)
     switch (dev->event) {
     case POWER_EVENT_POWER_DOW_SYS_VOL:
         puts("POWER_EVENT_POWER_DOW_SYS_VOL\n");
-        user_dow_sys_vol_20();
-        user_bt_tws_sync_msg_send(USER_TWS_SYNC_DOW_VOL_20,0);
+        // user_dow_sys_vol_20();
+        
         break;
     case POWER_EVENT_POWER_WARNING:
         puts("POWER_EVENT_POWER_WARNING app common\n");
-        user_dow_sys_vol_10();
-        user_bt_tws_sync_msg_send(USER_TWS_SYNC_DOW_VOL_10,0);
+        // user_dow_sys_vol_10();
+        // user_bt_tws_sync_msg_send(USER_TWS_SYNC_DOW_VOL_10,0);
         // bt_tws_api_push_cmd(SYNC_CMD_POWER_WARNING, 500);
         ui_update_status(STATUS_LOWPOWER);
         tone_play_by_path(tone_table[IDEX_TONE_LOW_POWER], 1);
@@ -641,7 +641,16 @@ static void app_common_device_event_handler(struct sys_event *event)
                 {
 
                     printf(">>>>>>>>>>>>>%s %d \n", __FUNCTION__, __LINE__);
-                    app_task_switch_to(app);
+                    extern u8 user_get_bt_init_ok(void);
+                    if(APP_BT_TASK == app_get_curr_task()){
+                        if(user_get_bt_init_ok()){
+                            app_task_switch_to(app);
+                        }else{
+                            // sys_timeout_add();
+                        }
+                    }else{
+                        app_task_switch_to(app);
+                    }
                 }
             }
         }

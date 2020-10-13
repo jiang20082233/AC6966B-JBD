@@ -647,7 +647,7 @@ DAC硬件上的连接方式,可选的配置：
 #define TCFG_BT_SNIFF_ENABLE                0   //bt sniff 功能使能
 
 #define USER_SUPPORT_PROFILE_SPP    0
-#define USER_SUPPORT_PROFILE_HFP    1
+#define USER_SUPPORT_PROFILE_HFP    0
 #define USER_SUPPORT_PROFILE_A2DP   1
 #define USER_SUPPORT_PROFILE_AVCTP  1
 #define USER_SUPPORT_PROFILE_HID    1
@@ -669,7 +669,7 @@ DAC硬件上的连接方式,可选的配置：
 #define BT_INBAND_RINGTONE                  0   //是否播放手机自带来电铃声
 #define BT_PHONE_NUMBER                     0   //是否播放来电报号
 #define BT_SYNC_PHONE_RING                  1   //是否TWS同步播放来电铃声
-#define BT_SUPPORT_DISPLAY_BAT              1   //是否使能电量显示
+#define BT_SUPPORT_DISPLAY_BAT              0   //是否使能电量显示
 #define BT_SUPPORT_MUSIC_VOL_SYNC           0   //是否使能音量同步
 
 #define TCFG_BLUETOOTH_BACK_MODE			0	//不支持后台模式

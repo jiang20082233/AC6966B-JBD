@@ -606,26 +606,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="apps/soundbox/board/br25/board_ac6965e/user_ac6965e_cfg.h" />
-		<Unit filename="apps/soundbox/board/br25/board_ac6966b/board_ac6966b.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="apps/soundbox/board/br25/board_ac6966b/board_ac6966b_cfg.h" />
-		<Unit filename="apps/soundbox/board/br25/board_ac6966b/key_table/adkey_table.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="apps/soundbox/board/br25/board_ac6966b/key_table/iokey_table.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="apps/soundbox/board/br25/board_ac6966b/key_table/irkey_table.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="apps/soundbox/board/br25/board_ac6966b/key_table/rdec_key_table.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="apps/soundbox/board/br25/board_ac6966b/key_table/touch_key_table.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="apps/soundbox/board/br25/board_ac6966b/user_ac6966b_cfg.h" />
 		<Unit filename="apps/soundbox/board/br25/board_ac6969d_demo/board_ac6969d_demo.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -775,7 +755,6 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="apps/soundbox/board/br25/user_fun/user_rgb_dev.h" />
-		<Unit filename="apps/soundbox/board/br25/user_fun/新建文本文档.txt" />
 		<Unit filename="apps/soundbox/common/dev_status.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -1711,6 +1690,10 @@
 		<Unit filename="include_lib/update/uart_update.h" />
 		<Unit filename="include_lib/update/update.h" />
 		<Unit filename="include_lib/update/update_loader_download.h" />
-		<Extensions />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+		</Extensions>
 	</Project>
 </CodeBlocks_project_file>

@@ -12,35 +12,47 @@
 const u16 bt_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
     //单击             //长按          //hold         //抬起            //双击                //三击
     [0] = {
-        KEY_CHANGE_MODE, KEY_POWEROFF,		KEY_POWEROFF_HOLD,	KEY_NULL,		KEY_NULL,			KEY_NULL
+        KEY_MUSIC_PP, KEY_NULL,		KEY_NULL,	KEY_NULL,		KEY_CALL_LAST_NO,			KEY_NULL
     },
     [1] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+        KEY_MUSIC_NEXT,		KEY_VOL_UP,			KEY_VOL_UP,			KEY_VOL_UP,		KEY_NULL,			KEY_NULL
     },
     [2] = {
-        KEY_MUSIC_PP,	KEY_CALL_HANG_UP,	KEY_NULL,			KEY_NULL,		KEY_CALL_LAST_NO,	KEY_NULL
+        KEY_MUSIC_PREV,	KEY_VOL_DOWN,	KEY_VOL_DOWN,			KEY_VOL_DOWN,		KEY_NULL,	KEY_NULL
     },
     [3] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+        KEY_CHANGE_MODE,		KEY_USER_TWS,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
     },
     [4] = {
-        KEY_MUSIC_PREV,	KEY_VOL_DOWN,		KEY_VOL_DOWN,		KEY_NULL,		KEY_NULL,			KEY_NULL
+        KEY_EQ_MODE,	KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,			KEY_NULL
     },
     [5] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+        KEY_LED_OR_RGB_MODE_CTL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
     },
-    [6] = {
-        KEY_MUSIC_NEXT,	KEY_VOL_UP,			KEY_VOL_UP,			KEY_NULL,		KEY_REVERB_OPEN,	KEY_NULL
-    },
-    [7] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
-    },
-    [8] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
-    },
-    [9] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
-    },
+    // [6] = {
+    //     KEY_MUSIC_NEXT,	KEY_VOL_UP,			KEY_VOL_UP,			KEY_NULL,		KEY_REVERB_OPEN,	KEY_NULL
+    // },
+    // [7] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [8] = {
+    //     KEY_EQ_MODE,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [9] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [10] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [11] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [12] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [13] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
 };
 #endif
 
@@ -51,35 +63,47 @@ const u16 bt_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
 const u16 fm_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
     //单击             //长按          //hold         //抬起            //双击                //三击
     [0] = {
-        KEY_CHANGE_MODE,	KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_FM_SCAN_ALL_DOWN,	KEY_NULL
+        KEY_FM_SCAN_ALL, KEY_NULL,		KEY_NULL,	KEY_NULL,		KEY_CALL_LAST_NO,			KEY_NULL
     },
     [1] = {
-        KEY_NULL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_FM_NEXT_STATION,		KEY_VOL_UP,			KEY_VOL_UP,			KEY_VOL_UP,		KEY_NULL,			KEY_NULL
     },
     [2] = {
-        KEY_MUSIC_PP,		KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_FM_SCAN_ALL_DOWN,	KEY_NULL
+        KEY_FM_PREV_STATION,	KEY_VOL_DOWN,	KEY_VOL_DOWN,			KEY_VOL_DOWN,		KEY_NULL,	KEY_NULL
     },
     [3] = {
-        KEY_NULL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_CHANGE_MODE,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
     },
     [4] = {
-        KEY_FM_PREV_STATION, KEY_VOL_DOWN,	KEY_VOL_DOWN,	KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_NULL,	KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,			KEY_NULL
     },
     [5] = {
         KEY_NULL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
     },
-    [6] = {
-        KEY_FM_NEXT_STATION, KEY_VOL_UP,		KEY_VOL_UP,		KEY_NULL,		KEY_NULL,				KEY_NULL
-    },
-    [7] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
-    },
-    [8] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
-    },
-    [9] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
-    },
+    // [6] = {
+    //     KEY_FM_NEXT_STATION, KEY_VOL_UP,		KEY_VOL_UP,		KEY_NULL,		KEY_REVERB_OPEN,				KEY_NULL
+    // },
+    // [7] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [8] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [9] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [10] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [11] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [12] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [13] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
 };
 #endif
 
@@ -90,35 +114,47 @@ const u16 fm_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
 const u16 linein_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
     //单击             //长按          //hold         //抬起            //双击                //三击
     [0] = {
-        KEY_CHANGE_MODE,	KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_MUSIC_PP, KEY_NULL,		KEY_NULL,	KEY_NULL,		KEY_CALL_LAST_NO,			KEY_NULL
     },
     [1] = {
-        KEY_NULL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_NULL,		KEY_VOL_UP,			KEY_VOL_UP,			KEY_VOL_UP,		KEY_NULL,			KEY_NULL
     },
     [2] = {
-        KEY_MUSIC_PP,		KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_NULL,	KEY_VOL_DOWN,	KEY_VOL_DOWN,			KEY_VOL_DOWN,		KEY_NULL,	KEY_NULL
     },
     [3] = {
-        KEY_NULL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_CHANGE_MODE,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
     },
     [4] = {
-        KEY_NULL,			KEY_VOL_DOWN,	KEY_VOL_DOWN,	KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_NULL,	KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,			KEY_NULL
     },
     [5] = {
-        KEY_NULL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_LED_OR_RGB_MODE_CTL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
     },
-    [6] = {
-        KEY_NULL,			KEY_VOL_UP,		KEY_VOL_UP,		KEY_NULL,		KEY_NULL,				KEY_NULL
-    },
-    [7] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
-    },
-    [8] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
-    },
-    [9] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
-    },
+    // [6] = {
+    //     KEY_NULL,			KEY_VOL_UP,		KEY_VOL_UP,		KEY_NULL,		KEY_REVERB_OPEN,				KEY_NULL
+    // },
+    // [7] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [8] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [9] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [10] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [11] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [12] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [13] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
 };
 #endif
 
@@ -129,35 +165,47 @@ const u16 linein_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
 const u16 music_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
     //单击             //长按          //hold         //抬起            //双击                //三击
     [0] = {
-        KEY_CHANGE_MODE,					KEY_NULL,				KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL
+        KEY_MUSIC_PP, USER_KEY_RECORD_START,		KEY_NULL,	KEY_NULL,		KEY_CALL_LAST_NO,			KEY_NULL
     },
     [1] = {
-        KEY_MUSIC_CHANGE_REPEAT,			KEY_NULL,				KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL
+        KEY_MUSIC_NEXT,		KEY_VOL_UP,			KEY_VOL_UP,			KEY_VOL_UP,		KEY_NULL,			KEY_NULL
     },
     [2] = {
-        KEY_MUSIC_PP,						KEY_MUSIC_CHANGE_DEV,	KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL
+        KEY_MUSIC_PREV,	KEY_VOL_DOWN,	KEY_VOL_DOWN,			KEY_VOL_DOWN,		KEY_NULL,	KEY_NULL
     },
     [3] = {
-        KEY_MUSIC_PLAYE_NEXT_FOLDER,		KEY_NULL,				KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL
+        KEY_CHANGE_MODE,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
     },
     [4] = {
-        KEY_MUSIC_PREV,						KEY_VOL_DOWN,			KEY_VOL_DOWN,	KEY_NULL,		KEY_NULL,		KEY_NULL
+        KEY_EQ_MODE,	KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,			KEY_NULL
     },
     [5] = {
-        KEY_MUSIC_PLAYE_PREV_FOLDER,		KEY_NULL,				KEY_MUSIC_FR,	KEY_NULL,		KEY_NULL,		KEY_NULL
+        KEY_LED_OR_RGB_MODE_CTL,		KEY_NULL,				KEY_MUSIC_FR,	KEY_NULL,		KEY_NULL,		KEY_NULL
     },
-    [6] = {
-        KEY_MUSIC_NEXT,						KEY_VOL_UP,				KEY_VOL_UP,		KEY_NULL,		KEY_NULL,		KEY_NULL
-    },
-    [7] = {
-        KEY_MUSIC_PLAYE_REC_FOLDER_SWITCH,	KEY_NULL,				KEY_MUSIC_FF,	KEY_NULL,		KEY_NULL,		KEY_NULL
-    },
-    [8] = {
-        KEY_NULL,							KEY_NULL,				KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL
-    },
-    [9] = {
-        KEY_NULL,							KEY_NULL,				KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL
-    },
+    // [6] = {
+    //     KEY_MUSIC_NEXT,						KEY_VOL_UP,				KEY_VOL_UP,		KEY_NULL,		KEY_REVERB_OPEN,		KEY_NULL
+    // },
+    // [7] = {
+    //     KEY_MUSIC_PLAYE_REC_FOLDER_SWITCH,	KEY_NULL,				KEY_MUSIC_FF,	KEY_NULL,		KEY_NULL,		KEY_NULL
+    // },
+    // [8] = {
+    //     KEY_EQ_MODE,							KEY_NULL,				KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL
+    // },
+    // [9] = {
+    //     KEY_NULL,							KEY_NULL,				KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL
+    // },
+    // [10] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [11] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [12] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [13] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
 };
 #endif
 
@@ -168,7 +216,7 @@ const u16 music_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
 const u16 pc_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
     //单击             //长按          //hold         //抬起            //双击                //三击
     [0] = {
-        KEY_CHANGE_MODE,	KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_CHANGE_MODE, KEY_POWEROFF,		KEY_POWEROFF_HOLD,	KEY_NULL,		KEY_NULL,			KEY_NULL
     },
     [1] = {
         KEY_NULL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
@@ -183,7 +231,7 @@ const u16 pc_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
         KEY_MUSIC_PREV,		KEY_VOL_DOWN,	KEY_VOL_DOWN,	KEY_NULL,		KEY_NULL,				KEY_NULL
     },
     [5] = {
-        KEY_NULL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_LED_OR_RGB_MODE_CTL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
     },
     [6] = {
         KEY_MUSIC_NEXT,		KEY_VOL_UP,		KEY_VOL_UP,		KEY_NULL,		KEY_REVERB_OPEN,		KEY_NULL
@@ -197,6 +245,18 @@ const u16 pc_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
     [9] = {
         KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
     },
+    // [10] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [11] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [12] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [13] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
 };
 #endif
 
@@ -207,13 +267,13 @@ const u16 pc_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
 const u16 record_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
     //单击             //长按          //hold         //抬起            //双击                //三击
     [0] = {
-        KEY_CHANGE_MODE,	KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_ENC_START, KEY_CHANGE_MODE,		KEY_NULL,	KEY_NULL,		KEY_NULL,			KEY_NULL
     },
     [1] = {
-        KEY_NULL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_CHANGE_MODE,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
     },
     [2] = {
-        KEY_MUSIC_PP,		KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_CHANGE_MODE,		KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
     },
     [3] = {
         KEY_NULL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
@@ -224,18 +284,30 @@ const u16 record_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
     [5] = {
         KEY_NULL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
     },
-    [6] = {
-        KEY_NULL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_ENC_START,			KEY_NULL
-    },
-    [7] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
-    },
-    [8] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
-    },
-    [9] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
-    },
+    // [6] = {
+    //     KEY_NULL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [7] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [8] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [9] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [10] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [11] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [12] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [13] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
 };
 #endif
 
@@ -246,7 +318,7 @@ const u16 record_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
 const u16 rtc_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
     //单击             //长按          //hold         //抬起            //双击                //三击
     [0] = {
-        KEY_CHANGE_MODE,	KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_CHANGE_MODE, KEY_POWEROFF,		KEY_POWEROFF_HOLD,	KEY_NULL,		KEY_NULL,			KEY_NULL
     },
     [1] = {
         KEY_NULL,			KEY_NULL,		KEY_NULL,		KEY_NULL,		KEY_NULL,				KEY_NULL
@@ -275,6 +347,18 @@ const u16 rtc_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
     [9] = {
         KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
     },
+    // [10] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [11] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [12] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [13] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
 };
 #endif
 
@@ -285,13 +369,13 @@ const u16 rtc_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
 const u16 spdif_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
     //单击             //长按          //hold         //抬起            //双击                //三击
     [0] = {
-        KEY_MUSIC_PP,		KEY_POWEROFF,	KEY_POWEROFF_HOLD,	KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_CHANGE_MODE, KEY_POWEROFF,		KEY_POWEROFF_HOLD,	KEY_NULL,		KEY_NULL,			KEY_NULL
     },
     [1] = {
         KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL,		KEY_NULL,				KEY_NULL
     },
     [2] = {
-        KEY_CHANGE_MODE,	KEY_NULL,		KEY_NULL,			KEY_NULL,		KEY_SPDIF_SW_SOURCE,	KEY_NULL
+        KEY_MUSIC_PP,		KEY_POWEROFF,	KEY_POWEROFF_HOLD,	KEY_NULL,		KEY_NULL,				KEY_NULL
     },
     [3] = {
         KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL,		KEY_NULL,				KEY_NULL
@@ -300,7 +384,7 @@ const u16 spdif_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
         KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL,		KEY_SPDIF_SW_SOURCE,	KEY_NULL
     },
     [5] = {
-        KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL,		KEY_NULL,				KEY_NULL
+        KEY_LED_OR_RGB_MODE_CTL,			KEY_NULL,		KEY_NULL,			KEY_NULL,		KEY_NULL,				KEY_NULL
     },
     [6] = {
         KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL,		KEY_SPDIF_SW_SOURCE,	KEY_NULL
@@ -314,6 +398,18 @@ const u16 spdif_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
     [9] = {
         KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
     },
+    // [10] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [11] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [12] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [13] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
 };
 #endif
 
@@ -340,17 +436,29 @@ const u16 idle_key_ad_table[KEY_AD_NUM_MAX][KEY_EVENT_MAX] = {
     [5] = {
         KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,	    KEY_NULL,			KEY_NULL
     },
-    [6] = {
-        KEY_NULL,		KEY_NULL,		    KEY_NULL,			KEY_NULL,		KEY_NULL,	        KEY_NULL
-    },
-    [7] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
-    },
-    [8] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
-    },
-    [9] = {
-        KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
-    },
+    // [6] = {
+    //     KEY_NULL,		KEY_NULL,		    KEY_NULL,			KEY_NULL,		KEY_NULL,	        KEY_NULL
+    // },
+    // [7] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [8] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [9] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [10] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [11] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [12] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
+    // [13] = {
+    //     KEY_NULL,		KEY_NULL,			KEY_NULL,			KEY_NULL,		KEY_NULL,			KEY_NULL
+    // },
 };
 #endif

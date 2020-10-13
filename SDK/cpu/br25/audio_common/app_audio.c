@@ -1255,107 +1255,7 @@ int app_audio_output_channel_set(u8 channel)
 #endif
     return 0;
 }
-#if 0
-#define ABS(x)                      (x > 0 ? x : (-x))
-int audio_sample_rate = 16000;  //根据当前DAC设置采样率，不设就默认16000
-static s32 average_db = 0;
-static s32 normalizatinon_db = 0;
 
-//16bit 变化范围是96分贝
-static const int energy_2_db_table[] = {
-    0,1,1,1,1,1,2,2,2,3,3,3,4,5,5,6,
-    7,7,8,10,11,12,14,15,17,19,22,25,28,31,35,39,
-    44,50,56,63,70,79,89,100,112,125,141,158,177,199,223,251,
-    281,316,354,398,446,501,562,630,707,794,891,1000,1122,1258,1412,1584,
-    1778,1995,2238,2511,2818,3162,3548,3981,4466,5011,5623,6309,7079,7943,8912,10000,
-    11220,12589,14125,15848,17782,19952,22387,25118,28183,31622,35481,39810,44668,50118,56234,63095,70794,79432,89125,
-};
-
-//20*log(x)/log(10)
-int audio_output_data_db_calc(s16 *data, u16 len,u8 channels)
-{
-    static s32 sum[4] = {0,0,0,0};
-    static s32 data_cnt = 0;
-    int average_value;
-    s32 value;
-    s32 calc_point = audio_sample_rate/50; //多少时间计算一次能量
-
-    u8 direction = 0xff;
-    u8 cnt = 0;
-    int index = 0;
-    
-    len = len / 2;
-    for(index = 0; index < len; index+=channels) {
-        //计算数值总和
-        switch (channels)
-        {
-        case 4:
-            sum[3] +=  ABS(data[index+3]);
-        case 3:
-            sum[2] +=  ABS(data[index+2]);
-        case 2:
-            sum[1] +=  ABS(data[index+1]);
-        case 1:
-            sum[0] +=  ABS(data[index]);
-            break;
-        default:
-            sum[0] +=  ABS(data[index]);
-            break;
-        }
-        //printf("%d\n",ABS(data[index]));
-        data_cnt++;
-        if(data_cnt>=calc_point) {
-            average_value = (sum[0]+sum[1]+sum[2]+sum[3])/(channels*calc_point);
-            //db 查表取值
-            value = average_db;
-            while (1) {
-                cnt++;
-                if (average_value>energy_2_db_table[value]) {
-                    value++;
-                    if(direction == 0) {
-                        break;
-                    }
-                    direction = 1;
-                } else if (average_value<energy_2_db_table[value]) {
-                    value--;
-                    if(direction == 1) {
-                        break;
-                    }
-                    direction = 0;
-                } else {
-                    break;
-                }
-            }
-            //更新db值
-            average_db = value;
-            //归一化
-            //log(32768)*20 = 90.30899869
-            normalizatinon_db = average_db*100/89;
-            //printf("db:%d\n",average_db);
-            sum[0] = 0;
-            sum[1] = 0;
-            sum[2] = 0;
-            sum[3] = 0;
-            data_cnt = 0;
-        }
-    }
-    printf(">>>>%d energy %d\n",channels,normalizatinon_db);
-    return normalizatinon_db;
-}
-
-u32 data_energy_value(/*u8 channel,*/void * buffer,int len,u16 packey_cnt){
-    u32 res = 0;
-    u32 digital_energy = 0;
-    s16 *buf=buffer;
-
-    for(u32 i = 0;i<len;i++){
-        res += ABS(buf[i]);
-    }
-    digital_energy = res/len;
-    printf(">>>> energy %d\n",digital_energy);
-    return digital_energy;
-}
-#endif
 /*******************************************************
 * Function name	: app_audio_output_write
 * Description	: 向音频输出设备写入需要输出的音频数据
@@ -1373,6 +1273,7 @@ int app_audio_output_write(void *buf, int len)
 #endif
     return 0;
 }
+
 
 /*******************************************************
 * Function name	: app_audio_output_start

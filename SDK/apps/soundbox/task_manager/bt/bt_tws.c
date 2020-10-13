@@ -602,9 +602,7 @@ void bt_open_tws_wait_pair_all_way()
 /*----------------------------------------------------------------------------*/
 void bt_open_tws_wait_pair()
 {
-        puts(">>>>>>>>>>>>  bt_open_tws_wait_pair\n");
     if (gtws.state & BT_TWS_UNPAIRED) {
-        puts(">>>>>>>>>>>> BT_TWS_UNPAIREDBT_TWS_UNPAIRED BT_TWS_UNPAIRED\n");
         bt_tws_delete_pair_timer();
         tws_open_tws_wait_pair(bt_get_tws_device_indicate(NULL), bt_get_local_name());
     }
@@ -770,13 +768,11 @@ int bt_tws_start_search_and_pair()
     }
 
     if (check_tws_le_aa()) {
-        puts(">>>>>>>> check tws  aa\n");
         return 0;
     }
 
 #if (CONFIG_TWS_USE_COMMMON_ADDR && !USER_TWS_ADD_DELL_TWS_INFO)
     if (tws_api_get_tws_state() & TWS_STA_PHONE_CONNECTED) {
-        puts(">>>>>>>> check tws  aa\n")
         return 0;
     }
 #endif
@@ -787,10 +783,8 @@ int bt_tws_start_search_and_pair()
     CONFIG_TWS_CHANNEL_SELECT == CONFIG_TWS_RIGHT_START_PAIR || \
     CONFIG_TWS_CHANNEL_SELECT == CONFIG_TWS_MASTER_AS_LEFT
     tws_api_set_local_channel('U');
-    puts(">>>>>>>>>>>>>>>> eeeeeeeee\n");
 #endif
     bt_tws_search_and_pair();
-    puts(">>>>>>>>>>>>>>>> rrrrrrrr\n");
     return 1;
 #endif
 
@@ -825,7 +819,6 @@ u8  bt_tws_remove_tws_pair()
 #endif
 
     if (gtws.state & BT_TWS_SIBLING_CONNECTED) {
-        puts(">>>>>>>>   BT_TWS_SIBLING_CONNECTED tws remove\n");
         tws_remove_tws_pairs();
         return 1;
     }
@@ -843,12 +836,10 @@ u8  bt_tws_remove_tws_pair()
 void  bt_tws_search_or_remove_pair()
 {
     if (bt_tws_remove_tws_pair()) {
-        puts(">>>>>>>>>>>>>>>> kkkkkllll\n");
         return;
     }
-    puts(">>>>>>>>>>>>>>>> ddddddddddd\n");
+
     bt_tws_start_search_and_pair();
-        
 }
 
 
@@ -1428,7 +1419,6 @@ int bt_tws_phone_connected()
 
 #else
         if (get_call_status() == BT_CALL_HANGUP) {  ///不在通话状态，开启tws 被搜索链接状态
-            puts(">>>>>>>>>>>>  no call\n");
             bt_open_tws_wait_pair();
         }
 #endif
@@ -1439,8 +1429,6 @@ int bt_tws_phone_connected()
     if (!(gtws.state & BT_TWS_SIBLING_CONNECTED)) { ///tws 已经配对，但是没哟链接，开启被链接
         bt_tws_wait_sibling_connect(0);
         return 0;
-    }else{
-
     }
 
     /*
@@ -1454,13 +1442,11 @@ int bt_tws_phone_connected()
         state = tws_api_get_tws_state();
         if (state & (/*TWS_STA_SBC_OPEN |*/ TWS_STA_ESCO_OPEN) ||
             (get_call_status() != BT_CALL_HANGUP)) {
-            puts(">>>>>>>>>>>>>>   push return\n");
             return 1;
         }
 
         /* log_info("[SYNC] TONE SYNC"); */
         bt_tws_api_push_cmd(SYNC_CMD_PHONE_CONN_TONE, TWS_SYNC_TIME_DO);
-        puts(">>>>>>>>>>>>>>   push SYNC_CMD_PHONE_CONN_TONE\n");
     }
 
     return 1;
@@ -2025,9 +2011,8 @@ void tws_event_connected(struct bt_event *evt)
         } else {
             bt_tws_api_push_cmd(SYNC_CMD_LED_PHONE_CONN_STATUS, TWS_SYNC_TIME_DO - 500);
         }
-        printf(">>>>>>>>>>>>>>>>  ccccccccc %d %d %d\n",get_call_status(),BT_CALL_HANGUP,!(state & TWS_STA_SBC_OPEN));
         if (bt_get_exit_flag() || ((get_call_status() == BT_CALL_HANGUP) /*&& !(state & TWS_STA_SBC_OPEN)*/ /*在播歌也需要播放提示音*/)) {  //通话状态不播提示音
-            printf("[SYNC] TONE SYNC");
+            log_info("[SYNC] TONE SYNC");
             bt_tws_api_push_cmd(SYNC_CMD_TWS_CONN_TONE, TWS_SYNC_TIME_DO / 2);
         }
 #if BT_SYNC_PHONE_RING

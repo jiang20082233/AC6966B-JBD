@@ -175,7 +175,6 @@ static int linein_key_msg_deal(struct sys_event *event)
     return ret;
 }
 
-
 //*----------------------------------------------------------------------------*/
 /**@brief    音乐播放结束回调函数
    @param    无
@@ -249,7 +248,6 @@ static void linein_task_close(void)
 static int linein_sys_event_handler(struct sys_event *event)
 {
     int ret = TRUE;
-    printf(">>>>>>>>>>> lienin type %d arg %d %d\n",event->type,(u32)event->arg,AUDIO_DEC_EVENT_END);
     switch (event->type) {
     case SYS_KEY_EVENT:
         return linein_key_msg_deal(event);
@@ -314,19 +312,15 @@ void app_linein_task()
 
     linein_app_init();//初始化时钟和开启ui
 
-    // void audio_linein_ch_combine(u8 LR_2_L, u8 LR_2_R);
     #if (defined(USER_AUXR_IN_DACL_OUT) && USER_AUXR_IN_DACL_OUT)
     audio_linein_ch_combine(1,0);
     #endif
-
-    // audio_linein_ch_combine(1,1);
     err = tone_play_with_callback_by_name(tone_table[IDEX_TONE_LINEIN], 1,
                                           line_tone_play_end_callback, (void *)IDEX_TONE_LINEIN);
-    // if (err) { //
-    //     ///提示音播放失败，直接推送KEY_MUSIC_PLAYER_START启动播放
-    //     app_task_put_key_msg(KEY_LINEIN_START, 0);
-    //     linein_vol_set();
-    // }
+//    if (err) { //
+//        ///提示音播放失败，直接推送KEY_MUSIC_PLAYER_START启动播放
+//        app_task_put_key_msg(KEY_LINEIN_START, 0);
+//    }
 
     while (1) {
         app_task_get_msg(msg, ARRAY_SIZE(msg), 1);
@@ -341,7 +335,7 @@ void app_linein_task()
             break;
         }
 
-        if (app_task_exitting()) {            
+        if (app_task_exitting()) {
             linein_task_close();
             return;
         }

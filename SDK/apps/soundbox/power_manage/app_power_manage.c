@@ -125,22 +125,6 @@ void tws_sync_bat_level(void)
 static u8 lowpower_timer;
 void power_event_to_user(u8 event)
 {
-                    // if(vbat_timer){
-                    //     sys_timer_del(vbat_timer);
-                    //     vbat_timer = 0;
-                    // }
-                    
-                    // if (lowpower_timer) {
-                    //     sys_timer_del(lowpower_timer);
-                    //     lowpower_timer = 0 ;
-                    // }
-    // extern int user_get_tws_state(void);
-    // if(user_get_tws_state()){
-    //     // bt_tws_api_push_cmd(SYNC_CMD_POWER_WARNING, 500);
-    //     app_task_put_key_msg();
-    //     return;
-    // }
-
     struct sys_event e;
     e.type = SYS_DEVICE_EVENT;
     e.arg  = (void *)DEVICE_EVENT_FROM_POWER;
@@ -172,9 +156,7 @@ int app_power_event_handler(struct device_event *dev)
         extern u8 adv_tws_both_in_charge_box(u8 type);
         adv_tws_both_in_charge_box(1);
 #endif
-        puts(">>>>>>>>>>>>>>>>>>>>nnnnn\n");
         soft_poweroff_mode(1);  ///强制关机
-        puts(">>>>>> power off\n");
         sys_enter_soft_poweroff(NULL);
 #else
         void app_entry_idle() ;
@@ -261,7 +243,7 @@ u16 get_vbat_level(void)
     // vbat_tp = user_get_vbat_level(vbat_tp);
     // printf(">>>>>>>>>> vbat vol %04d\n",vbat_tp);
     //return 370;     //debug
-    return vbat_tp;
+    return (adc_get_voltage(AD_CH_VBAT) * 4 / 10);
 }
 
 __attribute__((weak)) u8 remap_calculate_vbat_percent(u16 bat_val)
@@ -380,6 +362,26 @@ void vbat_timer_delete(void)
     }
 }
 
+//降音量
+extern u32 timer_get_sec(void);
+void user_down_sys_vol_cnt(u8 vol){
+    static u32 down_sys_vol_time = 0;
+    u32 down_sys_vol_tp_time = timer_get_sec();
+
+    if(0xff == vol){//更新时间
+        down_sys_vol_time = timer_get_sec();
+        return ;
+    }
+
+    if((down_sys_vol_tp_time - down_sys_vol_time)>=5){
+        down_sys_vol_time = timer_get_sec();
+        if(20==vol){
+            user_dow_sys_vol_20();
+        }else if(10==vol){
+            user_dow_sys_vol_10();
+        }
+    }
+}
 static u8 cur_bat_st = VBAT_NORMAL;
 
 void vbat_check(void *priv)
@@ -397,6 +399,7 @@ void vbat_check(void *priv)
     static u8 low_voice_first_flag = 1;//进入低电后先提醒一次
     static u8 tp_low_war_cnt = 0;
 
+    u8 down_sys_vol_flag = 0;
     u8 detect_cnt = 60;
 
     if (cur_timer_period == VBAT_TIMER_10_S) {
@@ -439,10 +442,6 @@ void vbat_check(void *priv)
         low_warn_cnt = 0;
         low_off_cnt = 0;
     }
-
-
-
-
 #if TCFG_CHARGE_ENABLE
     if (bat_val >= CHARGE_CCVOL_V) {
         charge_ccvol_v_cnt++;
@@ -475,6 +474,7 @@ void vbat_check(void *priv)
                         sys_timer_del(lowpower_timer);
                         lowpower_timer = 0 ;
                     }
+                    user_down_sys_vol_cnt(10);
                     power_event_to_user(POWER_EVENT_POWER_LOW);
                 }
             } else if (low_warn_cnt > (detect_cnt / 2)) { //低电提醒
@@ -488,17 +488,19 @@ void vbat_check(void *priv)
                     low_voice_cnt = 0;
                     if (!lowpower_timer) {
                         log_info("\n**Low Power,Please Charge Soon!!!**\n");
-                        power_event_to_user(POWER_EVENT_POWER_WARNING);
+                        // power_event_to_user(POWER_EVENT_POWER_WARNING);
                         // lowpower_timer = sys_timer_add((void *)POWER_EVENT_POWER_WARNING, (void (*)(void *))power_event_to_user, LOW_POWER_WARN_TIME);
                     }
                 }
                 
-                //20s 播一次 5次之后关机
-                extern u32 timer_get_ms(void);
-                static u32 tp_time = 0;
-                if((timer_get_ms()-tp_time)>20000){
+                user_down_sys_vol_cnt(10);
 
-                    tp_time = timer_get_ms();
+                //20s 播一次 5次之后关机
+                
+                static u32 tone_warn_time = 0;
+                if((timer_get_sec()-tone_warn_time)>20){
+                    tone_warn_time = timer_get_sec();
+
                     tp_low_war_cnt++;
                     printf(">>>>>>>>> power low cnt %d\n",tp_low_war_cnt);
                     if(tp_low_war_cnt>=5){
@@ -519,11 +521,7 @@ void vbat_check(void *priv)
                 low_voice_cnt = 0;
                 low_power_cnt = 0;
 
-                static u32 tp_time = 0;
-                if((timer_get_ms()-tp_time)>5000){
-                    tp_time = timer_get_ms();
-                    power_event_to_user(POWER_EVENT_POWER_DOW_SYS_VOL);
-                }
+                user_down_sys_vol_cnt(20);
 
             } else {
                 power_normal_cnt++;

@@ -1,3 +1,5 @@
+
+
 #include "system/includes.h"
 #include "media/includes.h"
 
@@ -755,7 +757,6 @@ void sys_enter_soft_poweroff(void *priv)
 
     bt_user_priv_var.emitter_or_receiver = 0;
     if (app_var.goto_poweroff_flag) {
-        puts(">>>>>>>>>>>> got power off error\n");
         return;
     }
 
@@ -822,7 +823,7 @@ void sys_auto_shut_down_enable(void)
 #endif
 
 
-#if 1//TCFG_AUTO_SHUT_DOWN_TIME
+#if TCFG_AUTO_SHUT_DOWN_TIME
     log_debug("sys_auto_shut_down_enable\n");
 
     if (app_var.auto_shut_down_timer == 0) {
@@ -834,6 +835,7 @@ void sys_auto_shut_down_enable(void)
             /* log_debug("cur_app:%s, return", app->name); */
         }
     } else {//在切换到蓝牙任务APP_STA_START中，current_app为空
+        sys_auto_shut_down_disable();
         app_var.auto_shut_down_timer = sys_timeout_add(NULL, sys_enter_soft_poweroff, (app_var.auto_off_time * 1000));
     }
 #endif
@@ -848,7 +850,7 @@ void sys_auto_shut_down_enable(void)
 /*----------------------------------------------------------------------------*/
 void sys_auto_shut_down_disable(void)
 {
-#if 1//TCFG_AUTO_SHUT_DOWN_TIME
+#if TCFG_AUTO_SHUT_DOWN_TIME
     log_debug("sys_auto_shut_down_disable\n");
     if (app_var.auto_shut_down_timer) {
         sys_timeout_del(app_var.auto_shut_down_timer);
@@ -1174,7 +1176,6 @@ void bt_status_connect(struct bt_event *bt)
     }
 
     if (bt_tws_phone_connected()) {
-        puts(">>>>>>>>> sssssssssss  9999\n");
         return ;
     }
 #else
@@ -1196,7 +1197,6 @@ void bt_status_connect(struct bt_event *bt)
     if (get_call_status() == BT_CALL_HANGUP) {
         bt_tone_play_index(IDEX_TONE_BT_CONN, 1, NULL);
     }
-        puts(">>>>>>>>> sssssssssss  3333\n");
 }
 
 /*----------------------------------------------------------------------------*/

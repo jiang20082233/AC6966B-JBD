@@ -247,7 +247,7 @@ void user_pa_in_strl(void *pa,u8 cmd){
     }else if(PA_POWER_OFF == cmd){
         puts(">>>PA STL  PA_POWER_OFF\n");
 
-        abd_strl(pa_ctrl->pa_io,PA_MUTE);
+        mute_strl(pa_ctrl->pa_io,PA_MUTE);
         *pa_power_off = 1;
 
     }else if(PA_INIT == cmd){

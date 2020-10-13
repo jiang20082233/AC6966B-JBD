@@ -20,10 +20,11 @@
 
 #define USER_PA_EN  1//功放总开关
 
-#define USER_SDK_BUG_1  1//使用tone_play_with_callback_by_name该接口播放提示音 有概率出现没有声音出来 之后也没有声音。主要是解码没唤醒导致
+#define USER_SDK_BUG_1  0//使用tone_play_with_callback_by_name该接口播放提示音 有概率出现没有声音出来 之后也没有声音。主要是解码没唤醒导致
 #define USER_SDK_BUG_2  1//linein 模式下 采用dac L进 dac R出的方式，进linein之后声音小
+#define USER_SDK_BUG_5  1//bt、FM模式提示音为MP3异常
 
-#define USER_BT_VBAT_DISPLAY    1//手机电量显示 但不要通话功能  需要打开电量显示宏BT_SUPPORT_DISPLAY_BAT 与通话协议宏USER_SUPPORT_PROFILE_HFP
+#define USER_BT_VBAT_DISPLAY    0//手机电量显示 但不要通话功能  需要打开电量显示宏 BT_SUPPORT_DISPLAY_BAT 与通话协议宏 USER_SUPPORT_PROFILE_HFP
 #define USER_FM_MODE_SYS_VOL    20//进FM 大于此音量设置为此音量 退出时恢复
 
 #define USER_FIRST_BOOT_VOL     (SYS_MAX_VOL*2/3)//first boot 第一次上电开机音量
@@ -39,7 +40,7 @@
 #define USER_EQ_BASS_INDEX      1//BASS 调节第几个索引 USER_EQ_BASS_INDEX不要超出eq 段
 #define USER_EQ_TERBLE_INDEX    8//TERBLE 调节第几个索引 
 #define USER_IR_POWER           1//遥控器假关机 
-#define USER_BT_TONE_PLAY_GO_INIT  0//BT 播放完提示音再初始化蓝牙模式 避免bt提示音未播放完 被回连提示音打断
+#define USER_BT_TONE_PLAY_GO_INIT  1//BT 播放完提示音再初始化蓝牙模式 避免bt提示音未播放完 被回连提示音打断
 #define USER_MIC_DEFAULT_GAIN       10//default mic 默认音量
 #define USER_RECORD_EN          1//录音使能
 
