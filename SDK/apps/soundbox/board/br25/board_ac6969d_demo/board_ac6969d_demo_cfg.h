@@ -1,8 +1,10 @@
+// #include "includes.h"
 #include "user_gpio.h"
 #ifndef CONFIG_BOARD_AC6969D_DEMO_CFG_H
 #define CONFIG_BOARD_AC6969D_DEMO_CFG_H
 
 #ifdef CONFIG_BOARD_AC6969D_DEMO
+// #include "gpio.h"
 
 #define CONFIG_SDFILE_ENABLE
 #define CONFIG_FLASH_SIZE       (1024 * 1024)
@@ -45,7 +47,7 @@
 //*********************************************************************************//
 #define TCFG_UART0_ENABLE					0//ENABLE_THIS_MOUDLE                     //串口打印模块使能
 #define TCFG_UART0_RX_PORT					NO_CONFIG_PORT                         //串口接收脚配置（用于打印可以选择NO_CONFIG_PORT）
-#define TCFG_UART0_TX_PORT  				IO_PORT_DP//IO_PORT_DP//IO_PORTA_05                            //串口发送脚配置
+#define TCFG_UART0_TX_PORT  				IO_PORTA_05//IO_PORT_DP//IO_PORTA_05                            //串口发送脚配置
 #define TCFG_UART0_BAUDRATE  				1000000                                //串口波特率配置
 
 #ifdef CONFIG_DEBUG_ENABLE
@@ -137,11 +139,16 @@
 #define TCFG_OTG_MODE                       (TCFG_OTG_MODE_HOST|TCFG_OTG_MODE_SLAVE|TCFG_OTG_MODE_CHARGE|OTG_DET_DP_ONLY)
 
 #undef USB_DEVICE_CLASS_CONFIG
+#if TCFG_SD0_SD1_USE_THE_SAME_HW //开启了双卡的可以使能读卡器存续设备
+#define     USB_DEVICE_CLASS_CONFIG (MASSSTORAGE_CLASS|SPEAKER_CLASS|MIC_CLASS|HID_CLASS)
+#else
 #define     USB_DEVICE_CLASS_CONFIG (SPEAKER_CLASS|MIC_CLASS|HID_CLASS)
+#endif
 
 #undef TCFG_SD0_DET_MODE
 #define TCFG_SD0_DET_MODE					SD_CLK_DECT
-#define TCFG_USB_SD_MULTIPLEX_IO            IO_PORTC_03
+#define TCFG_USB_SD_MULTIPLEX_IO            IO_PORTC_03//IO_PORTB_03
+
 #endif
 
 //*********************************************************************************//

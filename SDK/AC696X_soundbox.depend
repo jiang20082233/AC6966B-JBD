@@ -6181,13 +6181,13 @@
 	"generic/typedef.h"
 	"generic/list.h"
 
-1602591978 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\include\app_config.h
+1602668097 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\include\app_config.h
 	"board_config.h"
 	"usb_common_def.h"
 	"btcontroller_mode.h"
 	"user_cfg_id.h"
 
-1602584280 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_config.h
+1602658736 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_config.h
 	"board_ac6966b/board_ac6966b_cfg.h"
 	"board_ac6965e/board_ac6965e_cfg.h"
 	"board_ac696x_demo/board_ac696x_demo_cfg.h"
@@ -6208,7 +6208,7 @@
 
 1601359722 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\common\usb\usb_std_class_def.h
 
-1602584121 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6969d_demo\board_ac6969d_demo_cfg.h
+1602646738 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6969d_demo\board_ac6969d_demo_cfg.h
 	"user_gpio.h"
 	"usb_std_class_def.h"
 	"app_config.h"
@@ -9591,7 +9591,7 @@
 	"key_event_deal.h"
 	"audio_recorder_mix.h"
 
-1602591226 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\task_manager\bt\bt.c
+1602666152 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\task_manager\bt\bt.c
 	"system/includes.h"
 	"media/includes.h"
 	"app_config.h"
@@ -10587,7 +10587,7 @@
 	"system/includes.h"
 	"media/includes.h"
 
-1602553110 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\cpu\br25\audio_dec\audio_dec.c
+1602667822 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\cpu\br25\audio_dec\audio_dec.c
 	"asm/includes.h"
 	"media/includes.h"
 	"system/includes.h"
@@ -11205,7 +11205,7 @@
 1601359722 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\cpu\br25\ui_driver\ui_common.c
 	"includes.h"
 
-1602580467 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6965e\board_ac6965e_cfg.h
+1602643397 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6965e\board_ac6965e_cfg.h
 	"user_gpio.h"
 	"usb_std_class_def.h"
 	"app_config.h"
@@ -11214,7 +11214,7 @@
 
 1602591802 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_config.h
 
-1602224184 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6965e\user_ac6965e_cfg.h
+1602643373 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6965e\user_ac6965e_cfg.h
 
 1602224184 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6965e\board_ac6965e.c
 	"app_config.h"
@@ -11343,7 +11343,7 @@
 1602569159 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_mic.c
 	"user_fun_cfg.h"
 
-1602571885 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_pa.c
+1602667883 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_pa.c
 	"user_fun_cfg.h"
 
 1602224184 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_rgb.c
@@ -11352,7 +11352,7 @@
 1602224184 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_rgb_dev.c
 	"user_fun_cfg.h"
 
-1602471175 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_fun.c
+1602643378 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_fun.c
 	"user_fun_cfg.h"
 
 1602509951 source:f:\2020\jbd\jbd[ac696x]\source_code - error - ¸±±¾\sdk\apps\common\audio\audio_digital_vol.c

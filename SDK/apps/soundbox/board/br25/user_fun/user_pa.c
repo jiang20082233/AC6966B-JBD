@@ -296,6 +296,8 @@ void user_pa_in_service(void *pa){
             //防止切歌时开关功放
             if(BT_MUSIC_STATUS_STARTING == a2dp_get_status()){
                 pa_sys_auto_mute = 0;
+            }else if(BT_MUSIC_STATUS_SUSPENDING == a2dp_get_status()){
+                pa_sys_auto_mute = 1;
             }
         }
 

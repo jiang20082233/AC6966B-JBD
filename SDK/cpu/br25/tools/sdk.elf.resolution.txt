@@ -3307,6 +3307,7 @@ obj\Release\cpu\br25\audio_dec\audio_dec.o
 -r=obj\Release\cpu\br25\audio_dec\audio_dec.o,audio_eq_drc_parm_update,l
 -r=obj\Release\cpu\br25\audio_dec\audio_dec.o,mix_out_high_bass_dis,pl
 -r=obj\Release\cpu\br25\audio_dec\audio_dec.o,audio_mix_out_automute_mute,pl
+-r=obj\Release\cpu\br25\audio_dec\audio_dec.o,user_pa_ex_automute,l
 -r=obj\Release\cpu\br25\audio_dec\audio_dec.o,mix_out_automute_handler,pl
 -r=obj\Release\cpu\br25\audio_dec\audio_dec.o,app_audio_output_channel_get,l
 -r=obj\Release\cpu\br25\audio_dec\audio_dec.o,mix_out_automute_skip,pl

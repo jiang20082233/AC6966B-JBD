@@ -683,18 +683,22 @@ int bt_key_event_handler(struct sys_event *event)
     static u16 key_old_key =0xfff;
     static u32 key_old_time = 0;
     u32 tp_time = timer_get_ms();
-    // printf(">>>> key old time %d %d %d %d\n",(tp_time - key_old_time),(KEY_EVENT_FROM_TWS == (u32)event->arg),KEY_EVENT_FROM_TWS,(u32)event->arg);
-    if(KEY_EVENT_FROM_TWS == (u32)event->arg){
-        printf("is tws key msg key:%d old key:%d\n",key_event,key_old_key);
-        if((tp_time - key_old_time)<170 && key_event==key_old_key && KEY_DRIVER_TYPE_IR == key->type){        
-            key_old_time =  tp_time;
-            key_old_key = key_event;
-            printf("time min return key type %d\n",key->type);
-            return ret;
-        }        
+    if(KEY_DRIVER_TYPE_IR == key->type){
+        printf(">>>> key old time %d %d %d %d\n",(tp_time - key_old_time),(KEY_EVENT_FROM_TWS == (u32)event->arg),key_old_key,key_event);
+        if((KEY_EVENT_FROM_TWS == (u32)event->arg)){
+            printf("is tws key msg key:%d old key:%d\n",key_event,key_old_key);
+            if((tp_time - key_old_time)<100 /*&& key_event==key_old_key */ ){        
+                key_old_time =  tp_time;
+                key_old_key = key_event;
+                printf("time min return key type %d\n",key->type);
+                return ret;
+            }
+            
+            key_old_key = key_event; 
+        }
+        key_old_time =  tp_time;
     }
-    key_old_time =  tp_time;
-    key_old_key = key_event;
+
     #endif
 
     log_debug("bt key_event:%d %d %d %d\n", key_event, key->value, key->event, key->init);
