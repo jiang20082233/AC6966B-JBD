@@ -363,7 +363,12 @@ struct eq_seg_info user_eq_tab_custom[] = {
 #endif
 
 const EQ_CFG_SEG *eq_type_tab[EQ_MODE_MAX] = {
-    eq_tab_normal, eq_tab_rock, eq_tab_pop, eq_tab_classic, eq_tab_jazz, eq_tab_country, eq_tab_custom
+    #if USER_EQ_FILE_ADD_EQ_TABLE
+    user_eq_tab_custom,
+    #else
+    eq_tab_normal,
+    #endif
+    eq_tab_rock, eq_tab_pop, eq_tab_classic, eq_tab_jazz, eq_tab_country, eq_tab_custom
 };
 #endif
 

@@ -133,9 +133,9 @@ void app_poweron_task()
     UI_SHOW_MENU(MENU_POWER_UP, 0, 0, NULL);
 
     int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_POWER_ON], 1, tone_play_end_callback, (void *)IDEX_TONE_POWER_ON);
-    /* if (err) { //提示音没有,播放失败，直接init流程 */
-    /* power_on_init(); */
-    /* } */
+    if (err) { //提示音没有,播放失败，直接init流程 */
+        power_on_init();
+    } 
 
 
     while (1) {

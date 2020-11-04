@@ -74,8 +74,8 @@ struct logbuf {
 #define log_c(x)
 #endif
 
-#define r_printf(x, ...)  log_i("\e[31m\e[1m" x "\e[0m", ## __VA_ARGS__)
-#define g_printf(x, ...)  log_i("\e[32m\e[1m" x "\e[0m", ## __VA_ARGS__)
+#define r_printf(x, ...)  printf("\e[31m\e[1m" x "\e[0m", ## __VA_ARGS__)
+#define g_printf(x, ...)  printf("\e[32m\e[1m" x "\e[0m", ## __VA_ARGS__)
 #define y_printf(x, ...)  log_i("\e[33m\e[1m" x "\e[0m", ## __VA_ARGS__)
 #define r_f_printf(x, ...)  log_i("\e[31m\e[5m\e[1m" x "\e[0m", ## __VA_ARGS__)
 #define g_f_printf(x, ...)  log_i("\e[32m\e[5m\e[1m" x "\e[0m", ## __VA_ARGS__)

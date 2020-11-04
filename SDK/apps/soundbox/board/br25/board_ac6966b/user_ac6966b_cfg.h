@@ -14,11 +14,9 @@
 #define USER_RGB_LOOP_MODE  USER_RGB_LOOP_MODE_3//循环模式
 #define USER_EQ_LIVE_UPDATE         1//EQ 旋钮实时更新
 
-#define USER_PA_MODE    USER_PA_PIN_1
-
-#define USER_PA_ABD_MUTE_PORT IO_PORTA_02//单线功放
-#define USER_PA_MUTE_PORT   IO_PORTB_06//双线功放 mute引脚
-#define USER_PA_ABD_PORT    IO_PORTB_04//双线功放 adb引脚
+// #define USER_PA_MODE    USER_PA_PIN_2
+#define USER_PA_MUTE_PORT   IO_PORTA_02//单双线复用功放 mute引脚 单线时做ab、mute切换
+#define USER_PA_ABD_PORT    IO_PORTA_03//单双线复用功放 adb引脚  单线时开机输出高电平 客户通用pcb需要
 #define USER_PA_ABD_MODE    USER_PA_AB_L//ab 类 为 高、低
 #define USER_PA_MUTE_MODE   USER_PA_MUTE_H//mute 为 高、低
 

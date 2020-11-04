@@ -162,8 +162,8 @@ void user_eq_mode_sw(void){
     #if USER_EQ_FILE_ADD_EQ_TABLE
         static int user_eq_mode = 0;
         user_eq_mode++;
-        if(user_eq_mode>EQ_MODE_CUSTOM){
-            user_eq_mode = 0;
+        if(user_eq_mode>EQ_MODE_COUNTRY){
+            user_eq_mode = EQ_MODE_NORMAL;
         }
         printf(">>>> eq mode %d\n",user_eq_mode);
         
@@ -172,12 +172,14 @@ void user_eq_mode_sw(void){
         int tp_terble = (eq_tab_custom[USER_EQ_TERBLE_INDEX].gain)>>20;
         #endif
 
-        if(user_eq_mode<EQ_MODE_CUSTOM){
-            memcpy(eq_tab_custom,eq_type_tab[user_eq_mode],sizeof(EQ_CFG_SEG)*SECTION_MAX);
-        }else{
-            memcpy(eq_tab_custom,user_eq_tab_custom,sizeof(EQ_CFG_SEG)*SECTION_MAX);
-        }
+        // if(user_eq_mode<EQ_MODE_CUSTOM){
+        //     memcpy(eq_tab_custom,eq_type_tab[user_eq_mode],sizeof(EQ_CFG_SEG)*SECTION_MAX);
+        // }else{
+        //     memcpy(eq_tab_custom,user_eq_tab_custom,sizeof(EQ_CFG_SEG)*SECTION_MAX);
+        // }
 
+        memcpy(eq_tab_custom,eq_type_tab[user_eq_mode],sizeof(EQ_CFG_SEG)*SECTION_MAX);
+        
         #if USER_EQ_LIVE_UPDATE
         eq_tab_custom[USER_EQ_BASS_INDEX].gain = tp_bass<<20;
         eq_tab_custom[USER_EQ_TERBLE_INDEX].gain = tp_terble<<20;
@@ -240,7 +242,9 @@ void user_bass_terble_updata(u32 bass_ad,u32 terble_ad){
 }
 
 void user_mic_vol_updata(u32 vol){
+#if (defined(TCFG_MIC_EFFECT_ENABLE) && TCFG_MIC_EFFECT_ENABLE)
     static int mic_old =0;
+    static int mic_effect_dvol = -1;
     //ad 512 无效
     if((512+20) > vol || !user_get_mic_status() || user_record_status(0xff)){
         return;
@@ -248,6 +252,10 @@ void user_mic_vol_updata(u32 vol){
     
     s32 mic_vol = ((vol-USER_EQ_MIC_AD_MIN)*(USER_EQ_MIC_GAIN_MAX-USER_EQ_MIC_GAIN_MIN))/(USER_EQ_MIC_AD_MAX-USER_EQ_MIC_AD_MIN);
     mic_vol += USER_EQ_MIC_GAIN_MIN;
+
+    if(vol < USER_EQ_MIC_AD_MIN){
+        mic_vol = 0;
+    }
         
     if(mic_old!=mic_vol ){
         mic_old = mic_vol;
@@ -255,9 +263,19 @@ void user_mic_vol_updata(u32 vol){
         #if USER_MIC_MUSIC_VOL_SEPARATE
         mic_effect_set_dvol(mic_old);
         #else
+        if(mic_old <= 0){
+            mic_effect_dvol = mic_effect_get_dvol();
+            mic_effect_set_dvol(0);
+        }else{
+            if(mic_effect_dvol >= 0){
+                mic_effect_dvol = -1;
+                mic_effect_set_dvol(mic_effect_dvol);
+            }
+        }
         audio_mic_set_gain(mic_old);
         #endif
     }
+#endif
 }
 
 void user_mic_reverb_updata(u32 vol){
@@ -420,8 +438,9 @@ void user_sd_power(u8 cmd){
 
 //关机
 void user_power_off(void){
+    UI_SHOW_MENU(MENU_CLEAR_WIN, 5000, 0, NULL);
     user_led_io_fun(USER_IO_LED,LED_POWER_OFF);
-    pa_ex_fun.strl(PA_POWER_OFF);
+    user_pa_ex_strl(PA_POWER_OFF);
     // user_sd_power(0);
     user_rgb_mode_set(USER_RGB_POWER_OFF,NULL);
     
@@ -438,14 +457,14 @@ void user_del_time(void){
 
 //开机 io口初始化
 void user_fun_io_init(void){
-    pa_ex_fun.pa_io_init();
+    user_pa_ex_io_init();
     user_sd_power(1);
     user_vbat_check_init();
 }
 
 //开机 功能初始化
 void user_fun_init(void){
-    pa_ex_fun.pa_fun_init();
+    user_pa_ex_init();
 
     user_4ad_check_init(user_4ad_fun_features);
 

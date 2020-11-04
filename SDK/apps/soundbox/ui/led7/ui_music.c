@@ -79,7 +79,11 @@ static void led7_show_pause(void *hd)
     dis->lock(1);
     dis->clear();
     dis->setXY(0, 0);
-    dis->show_string((u8 *)" PAU");
+
+    int sencond = file_dec_get_cur_time();
+    u8 tp_show_string[4]={0};
+    sprintf(tp_show_string,"%02d:%02d",sencond / 60 % 60,sencond % 60);
+    dis->show_string(tp_show_string);
     dis->show_icon(LED7_PAUSE);
     dis->lock(0);
 }

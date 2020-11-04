@@ -88,9 +88,11 @@ void mic_callback_fun(void *priv){
   if(APP_IDLE_TASK == app_get_curr_task() || APP_FM_TASK == app_get_curr_task()){
     enable = 0;
   }else if(APP_BT_TASK == app_get_curr_task()){
+  #if 0//对箱时需要单箱插mic有声音
     if(!(tws_api_get_tws_state() & TWS_STA_SIBLING_DISCONNECTED)){
       enable = 0;
     }
+  #endif
   }
 
   if(1 == user_record_status(0xff)){

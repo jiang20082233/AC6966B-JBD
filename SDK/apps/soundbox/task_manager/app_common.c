@@ -440,16 +440,29 @@ int app_common_key_msg_deal(struct sys_event *event)
 
         }
         break;
-
     case USER_KEY_RECORD_START:
-        log_info("    USER_KEY_RECORD_START \n");
-        #if (USER_RECORD_EN && TCFG_APP_RECORD_EN)
-        if(APP_RECORD_TASK != app_get_curr_task() && user_get_mic_status()){
-            user_record_status(1);
+    case KEY_TO_REC_MODE:
+        printf("KEY_TO_REC_MODE\n");
+        if(user_get_mic_status() && (dev_manager_get_total(0) > 0)){
+            printf("11111KEY_TO_REC_MODE\n");
+            music_player_pp();
+#if TCFG_MIC_EFFECT_ENABLE
+            if (mic_effect_get_status()) {
+                mic_effect_stop();
+            }
+#endif
             app_task_switch_to(APP_RECORD_TASK);
         }
-        #endif
         break;
+//    case USER_KEY_RECORD_START:
+//        log_info("    USER_KEY_RECORD_START \n");
+//        #if (USER_RECORD_EN && TCFG_APP_RECORD_EN)
+//        if(APP_RECORD_TASK != app_get_curr_task()){
+//            user_record_status(1);
+//            app_task_switch_to(APP_RECORD_TASK);
+//        }
+//        #endif
+//        break;
 #if TCFG_USER_TWS_ENABLE
     case KEY_USER_TWS:
         log_info("    KEY_USER_TWS \n");

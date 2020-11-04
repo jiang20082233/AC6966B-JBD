@@ -325,12 +325,22 @@ void app_audio_set_volume(u8 state, s8 volume, u8 fade)
 
 void app_audio_volume_init(void)
 {
-    #if USER_MIC_MUSIC_VOL_SEPARATE
-    audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(0)|BIT(1), MAX_ANA_VOL, 1);
-    audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(0)|BIT(1), DEFAULT_DIGTAL_VOLUME, 1);  
-
+    #if USER_POWERON_MEMORY_MUSIC_VOL
+        u8 music_volume = 0;
+        syscfg_read(CFG_MUSIC_VOL, &music_volume, 1);
+        if(music_volume > 0){
+            r_printf("music_volume == %d\n",music_volume);
+            app_audio_set_volume(APP_AUDIO_STATE_MUSIC, music_volume, 1);
+        }else{
+            app_audio_set_volume(APP_AUDIO_STATE_MUSIC, app_var.music_volume, 1);
+        }
     #else
-    app_audio_set_volume(APP_AUDIO_STATE_MUSIC, app_var.music_volume, 1);
+        #if USER_MIC_MUSIC_VOL_SEPARATE
+        audio_dac_vol_set(TYPE_DAC_AGAIN, BIT(0)|BIT(1), MAX_ANA_VOL, 1);
+        audio_dac_vol_set(TYPE_DAC_DGAIN, BIT(0)|BIT(1), DEFAULT_DIGTAL_VOLUME, 1);  
+        #else
+        app_audio_set_volume(APP_AUDIO_STATE_MUSIC, app_var.music_volume, 1);
+        #endif
     #endif
 }
 

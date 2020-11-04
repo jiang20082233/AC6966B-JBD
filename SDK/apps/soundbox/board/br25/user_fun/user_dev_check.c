@@ -106,7 +106,7 @@ int ex_dev_io_sample_detect(void *arg)
     struct ex_dev_opr *dev = (struct ex_dev_opr *)arg;
     ex_dev_io_start(dev);
 
-    u8 cur_stu;
+    static  u8 cur_stu;
     if (dev->ad_channel == (u8)NO_CONFIG_PORT) {
         cur_stu = gpio_read(dev->port) ? false : true;
     } else {
@@ -116,7 +116,9 @@ int ex_dev_io_sample_detect(void *arg)
             // printf("user ad name %s %d\n",dev->dev_name,tp);
             cur_stu = tp > dev->ad_vol ? false : true;
         } else {
-            cur_stu = dev->stu;
+            // linein模式插mic不起作用
+            // cur_stu = dev->stu;
+            
         }
         adc_exit_occupy_mode();
         /* printf("\n<%d>\n", adc_get_voltage(linein_dev->ad_channel)); */

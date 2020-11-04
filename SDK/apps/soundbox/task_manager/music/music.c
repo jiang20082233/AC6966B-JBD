@@ -763,9 +763,9 @@ void app_music_task()
     #endif
 
     int err =  tone_play_with_callback_by_name(tone_table[user_dev_tone_number], 1, music_tone_play_end_callback, (void *)IDEX_TONE_MUSIC);
-    // if (err) {
-        // music_player_play_start();
-    // }
+    if (err) {
+        music_player_play_start();
+    }
 
 
     while (1) {

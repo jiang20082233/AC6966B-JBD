@@ -7,7 +7,7 @@
 
 
 #ifdef CONFIG_RELEASE_ENABLE
-#define LIB_DEBUG    1
+#define LIB_DEBUG    0
 #else
 #define LIB_DEBUG    1
 #endif

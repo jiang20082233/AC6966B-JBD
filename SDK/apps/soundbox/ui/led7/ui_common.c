@@ -9,7 +9,7 @@ static void led7_show_hi(void *hd)
     dis->lock(1);
     dis->clear();
     dis->setXY(0, 0);
-    dis->show_string((u8 *)" HI");
+    dis->show_string((u8 *)"Lod");
     dis->lock(0);
 }
 
@@ -44,6 +44,17 @@ static void led7_show_bt(void *hd)
     dis->clear();
     dis->setXY(0, 0);
     dis->show_string((u8 *)" bt");
+    dis->lock(0);
+}
+
+static void led7_clear_win(void *hd)
+{
+
+    LCD_API *dis = (LCD_API *)hd;
+    dis->lock(1);
+    dis->clear();
+    dis->setXY(0, 0);
+    dis->show_string((u8 *)"    ");
     dis->lock(0);
 }
 
@@ -146,6 +157,9 @@ void ui_common(void *hd, void *private, u8 menu, u32 arg)//公共显示
         break;
     case MENU_SET_EQ:
         user_led7_eq(hd, arg);        
+        break;
+    case MENU_CLEAR_WIN:
+        led7_clear_win(hd);        
         break;
     default:
         break;

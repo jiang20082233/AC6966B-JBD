@@ -5,8 +5,10 @@
 #define USER_DEV_SD0	"sd0"
 #define USER_DEV_SD1	"sd1"
 
-#define USER_PA_PIN_1 1//单io功放
-#define USER_PA_PIN_2 2//双io功放
+#define USER_PA_MODE_1 1//双io功放
+#define USER_PA_MODE_2 2//单io功放 电压
+#define USER_PA_MODE_3 3//单io功放 脉冲
+#define USER_PA_MODE_AUTO 3//自动检测
 
 #define USER_PA_MUTE_H    1//高mute
 #define USER_PA_MUTE_L    0//低mute
@@ -19,6 +21,7 @@
 #define USER_RGB_LOOP_MODE_3    3//单色闪烁循环
 
 #define USER_PA_EN  1//功放总开关
+#define USER_PA_CLASS USER_PA_MODE_2//功放类型
 
 #define USER_SDK_BUG_1  0//使用tone_play_with_callback_by_name该接口播放提示音 有概率出现没有声音出来 之后也没有声音。主要是解码没唤醒导致
 #define USER_SDK_BUG_2  1//linein 模式下 采用dac L进 dac R出的方式，进linein之后声音小
@@ -44,6 +47,7 @@
 #define USER_MIC_DEFAULT_GAIN       10//default mic 默认音量
 #define USER_RECORD_EN          1//录音使能
 
+#define USER_POWERON_MEMORY_MUSIC_VOL      1//保存music vol
 #define USER_ADKEY_MAPPING_EN   1//AD KEY 按鍵值映射
 #define USER_TONE_PLAY_ERROR_NO_RETURN  1//使用有回调函数的接口播放 提示音 提示音播放错误 不需要执行回调函数
 

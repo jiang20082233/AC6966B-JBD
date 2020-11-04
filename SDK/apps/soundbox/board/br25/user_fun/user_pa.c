@@ -5,17 +5,12 @@ extern int tone_get_status();
 // extern void delay_2ms(u32 delay_time);
 
 PA_CTL_IO pa_in_io = {
-#if (USER_PA_MODE == USER_PA_PIN_1)
-    /*****************单io配置******************/
-    .port_abd_and_mute = USER_PA_ABD_MUTE_PORT,
-#else
-    /*****************双io配置******************/
-    .port_abd_and_mute = NO_CONFIG_PORT,//单io
+
+    /*******单、双io功放复用mute、abd引脚配置*******/
     .port_mute = USER_PA_MUTE_PORT,//双io
     .port_abd = USER_PA_ABD_PORT,//双io
     .port_mute_io_status = USER_PA_MUTE_MODE,
     .port_ab_io_status = USER_PA_ABD_MODE,
-#endif,
 
     .pa_mute_status = 0xff,
     .pa_class_status = 0xff,
@@ -31,8 +26,8 @@ PA_IN_STRL pa_in_fun = {
     //最终调用控制功放
     // void (*mute)(void *pa,u8 cmd);
     // void (*abd)(void *pa,u8 cmd);
-
-    .pa_io      = NULL,
+    .pa_mode    = PA_MODE_MAX,
+    .pa_io      = &pa_in_io,//NULL,
     .init       = user_pa_in_pin_init,
     .service    = user_pa_in_service,
     .service_id = 0,
@@ -45,51 +40,37 @@ PA_IN_STRL pa_in_fun = {
     .abd_and_mute   =  user_pa_in_abd_and_mute,
 };
 
-PA_EX_STRL pa_ex_fun = {
-    .pa_io  = &pa_in_io,
-    .pa_in  = &pa_in_fun,
-
-    .pa_io_init = user_pa_ex_io_init,
-    .pa_fun_init = user_pa_ex_init,
-    .strl = user_pa_ex_strl,
-
-    .mic  = user_pa_ex_mic,
-    .manual = user_pa_ex_manual,
-    .linein = user_pa_ex_linein,
-    .automute = user_pa_ex_automute,
-
-};
 
 void user_pa_ex_automute(u8 cmd){
     if(0xff == cmd){
-        pa_ex_fun.pa_io->pa_sys_automute = !pa_ex_fun.pa_io->pa_sys_automute;
+        pa_in_fun.pa_io->pa_sys_automute = !pa_in_fun.pa_io->pa_sys_automute;
     }else{
-        pa_ex_fun.pa_io->pa_sys_automute = cmd?1:0;
+        pa_in_fun.pa_io->pa_sys_automute = cmd?1:0;
     }
 }
 
 
 void user_pa_ex_mic(u8 cmd){
     if(0xff == cmd){
-        pa_ex_fun.pa_io->pa_mic_online = !pa_ex_fun.pa_io->pa_mic_online;
+        pa_in_fun.pa_io->pa_mic_online = !pa_in_fun.pa_io->pa_mic_online;
     }else{
-        pa_ex_fun.pa_io->pa_mic_online = cmd?1:0;
+        pa_in_fun.pa_io->pa_mic_online = cmd?1:0;
     }
 }
 
 void user_pa_ex_linein(u8 cmd){
     if(0xff == cmd){
-        pa_ex_fun.pa_io->pa_linein_mute = !pa_ex_fun.pa_io->pa_linein_mute;
+        pa_in_fun.pa_io->pa_linein_mute = !pa_in_fun.pa_io->pa_linein_mute;
     }else{
-        pa_ex_fun.pa_io->pa_linein_mute = cmd?1:0;
+        pa_in_fun.pa_io->pa_linein_mute = cmd?1:0;
     }
 }
 
 void user_pa_ex_manual(u8 cmd){
     if(0xff == cmd){
-        pa_ex_fun.pa_io->pa_manual_mute = !pa_ex_fun.pa_io->pa_manual_mute;
+        pa_in_fun.pa_io->pa_manual_mute = !pa_in_fun.pa_io->pa_manual_mute;
     }else{
-        pa_ex_fun.pa_io->pa_manual_mute = cmd?1:0;
+        pa_in_fun.pa_io->pa_manual_mute = cmd?1:0;
     }
 }
 
@@ -98,15 +79,17 @@ void user_pa_in_abd_and_mute(void *pa,u8 cmd){
     PA_CTL_IO *pa_ctrl = (PA_CTL_IO *)pa;
     puts(">> user_abd_mute\n");
 
-    if((!pa_ctrl) || (NO_CONFIG_PORT == pa_ctrl->port_abd_and_mute || !pa_ctrl->port_io_init_ok))return;
+    if((!pa_ctrl) || ((NO_CONFIG_PORT == pa_ctrl->port_mute) || (NO_CONFIG_PORT == pa_ctrl->port_abd) || !pa_ctrl->port_io_init_ok))return;
 
+    //mute脚来控制功放 a、b、mute切换
+    //abd脚开机高电平 客户做通用pcb 需要
     if(PA_MUTE == cmd){
         puts(">> PA_MUTE\n");
-        gpio_set_direction(pa_ctrl->port_abd_and_mute,0);
-        gpio_set_pull_down(pa_ctrl->port_abd_and_mute,0);
-        gpio_set_pull_up(pa_ctrl->port_abd_and_mute,0);
-        gpio_set_die(pa_ctrl->port_abd_and_mute,1);
-        gpio_set_output_value(pa_ctrl->port_abd_and_mute,0);
+        gpio_set_direction(pa_ctrl->port_mute,0);
+        gpio_set_pull_down(pa_ctrl->port_mute,0);
+        gpio_set_pull_up(pa_ctrl->port_mute,0);
+        gpio_set_die(pa_ctrl->port_mute,1);
+        gpio_set_output_value(pa_ctrl->port_mute,0);
     }else if(PA_UMUTE == cmd){
         if(app_check_curr_task(APP_FM_TASK)){
             user_pa_in_abd_and_mute(pa_ctrl,PA_CLASS_AB);
@@ -115,23 +98,31 @@ void user_pa_in_abd_and_mute(void *pa,u8 cmd){
         }
     }else if(PA_CLASS_AB == cmd){
         puts(">> PA_CLASS_AB\n");
-        gpio_set_direction(pa_ctrl->port_abd_and_mute,1);
-        gpio_set_pull_down(pa_ctrl->port_abd_and_mute,0);
-        gpio_set_pull_up(pa_ctrl->port_abd_and_mute,1);
+        gpio_set_direction(pa_ctrl->port_mute,1);
+        gpio_set_pull_down(pa_ctrl->port_mute,0);
+        gpio_set_pull_up(pa_ctrl->port_mute,1);
     }else if(PA_CLASS_D == cmd){
         puts(">> PA_CLASS_D\n");
-        gpio_set_direction(pa_ctrl->port_abd_and_mute,0);
-        gpio_set_pull_down(pa_ctrl->port_abd_and_mute,0);
-        gpio_set_pull_up(pa_ctrl->port_abd_and_mute,0);
-        gpio_set_die(pa_ctrl->port_abd_and_mute,1);
-        gpio_set_output_value(pa_ctrl->port_abd_and_mute,1);
+        gpio_set_direction(pa_ctrl->port_mute,0);
+        gpio_set_pull_down(pa_ctrl->port_mute,0);
+        gpio_set_pull_up(pa_ctrl->port_mute,0);
+        gpio_set_die(pa_ctrl->port_mute,1);
+        gpio_set_output_value(pa_ctrl->port_mute,1);
     }else if(PA_INIT == cmd){
         puts(">> pa PA_INIT\n");
-        gpio_set_direction(pa_ctrl->port_abd_and_mute,0);
-        gpio_set_pull_down(pa_ctrl->port_abd_and_mute,0);
-        gpio_set_pull_up(pa_ctrl->port_abd_and_mute,0);
-        gpio_set_die(pa_ctrl->port_abd_and_mute,1);
-        gpio_set_output_value(pa_ctrl->port_abd_and_mute,0);
+        //abd脚开机高电平
+        gpio_set_direction(pa_ctrl->port_abd,0);
+        gpio_set_pull_down(pa_ctrl->port_abd,0);
+        gpio_set_pull_up(pa_ctrl->port_abd,0);
+        gpio_set_die(pa_ctrl->port_abd,1);
+        gpio_set_output_value(pa_ctrl->port_abd,1);
+
+        //mute功放
+        gpio_set_direction(pa_ctrl->port_mute,0);
+        gpio_set_pull_down(pa_ctrl->port_mute,0);
+        gpio_set_pull_up(pa_ctrl->port_mute,0);
+        gpio_set_die(pa_ctrl->port_mute,1);
+        gpio_set_output_value(pa_ctrl->port_mute,0);        
     }
 }
 
@@ -218,7 +209,7 @@ void user_pa_in_strl(void *pa,u8 cmd){
     mute_strl = pa_ctrl->mute;
     abd_strl = pa_ctrl->abd;
 
-    if(!pa_ctrl || *pa_power_off || !pa_ctrl->pa_io->port_io_init_ok || !mute_strl || !abd_strl || !pa_ex_fun.pa_io->port_io_init_ok){
+    if(!pa_ctrl || *pa_power_off || !pa_ctrl->pa_io->port_io_init_ok || !mute_strl || !abd_strl || !pa_in_fun.pa_io->port_io_init_ok){
         return;
     }
 
@@ -356,20 +347,99 @@ void user_pa_in_service(void *pa){
 }
 
 /*
+检测单双线功放
+可以指定功放类型 
+*/
+int user_pa_set_mode(void *pa){
+    PA_IN_STRL *pa_ctrl = (PA_IN_STRL *)pa;
+    PA_CTL_IO *pa_info = pa_ctrl->pa_io;
+
+    if(!pa_ctrl || !pa_info || (NO_CONFIG_PORT == pa_info->port_mute) || (NO_CONFIG_PORT == pa_info->port_abd)){
+        puts("user check pa mode error\n");
+        return -1;
+    }
+
+    gpio_set_direction(pa_info->port_mute,1);
+    gpio_set_pull_down(pa_info->port_mute,0);
+    gpio_set_pull_up(pa_info->port_mute,0);
+    gpio_set_die(pa_info->port_mute,1);
+
+    gpio_set_direction(pa_info->port_abd,1);
+    gpio_set_pull_down(pa_info->port_abd,0);
+    gpio_set_pull_up(pa_info->port_abd,0);
+    gpio_set_die(pa_info->port_abd,1);
+
+    delay(60);
+    //单双io类型检测
+    if(gpio_read(pa_info->port_abd)){
+        pa_ctrl->pa_mode = PA_MODE_1;//双线 
+        puts(">>>>>> pa mode pin 2\n");
+    }else{
+        pa_ctrl->pa_mode = PA_MODE_2;//单线
+        puts(">>>>>> pa mode pin 1\n");
+    }
+
+    if(USER_PA_MODE_2 == USER_PA_CLASS){
+        pa_ctrl->pa_mode = PA_MODE_2;        
+    }else if(USER_PA_MODE_1 == USER_PA_CLASS){
+        pa_ctrl->pa_mode = PA_MODE_1;//双线 
+    }
+
+    if(USER_PA_MODE_1 == USER_PA_CLASS){
+        pa_ctrl->pa_mode = PA_MODE_1;        
+    }
+
+    //功放 mute abd控制方式检测
+    if(PA_MODE_1 == pa_ctrl->pa_mode){//双线        
+        if(gpio_read(pa_info->port_mute)){
+            pa_info->port_mute_io_status = USER_PA_MUTE_H;//高mute
+        }else{
+            pa_info->port_mute_io_status = USER_PA_MUTE_L;//低mute
+        }
+
+        pa_info->port_ab_io_status = USER_PA_AB_L;//高ab类
+    }else if(PA_MODE_2 == pa_ctrl->pa_mode){//单线
+        gpio_set_direction(pa_info->port_mute,0);
+        gpio_set_output_value(pa_info->port_mute,1);
+        delay(60);
+        if(gpio_read(pa_info->port_abd)){
+            pa_ctrl->pa_mode = PA_MODE_2;//电压控制
+        }else{
+            pa_ctrl->pa_mode = PA_MODE_3;//脉冲控制  
+        }
+    }
+
+    if(USER_PA_MODE_1 == USER_PA_CLASS){
+        pa_ctrl->pa_mode = PA_MODE_1;        
+    }else if(USER_PA_MODE_2 == USER_PA_CLASS){
+        pa_ctrl->pa_mode = PA_MODE_2;
+    }else if(USER_PA_MODE_3 == USER_PA_CLASS){
+        pa_ctrl->pa_mode = PA_MODE_3;        
+    }
+
+    printf(">>>>>>>>  pa mode %d ab%d mute%d\n",pa_ctrl->pa_mode,pa_info->port_ab_io_status,pa_info->port_mute_io_status);
+    return 0;
+}
+/*
 1.通过判断单io功放引脚是否赋值来确定 功放是单io功放还是双io功放
 2.初始化io
 */
 int user_pa_in_pin_init(void *pa){
     PA_IN_STRL *pa_ctrl = (PA_IN_STRL *)pa;
 
-    if(!pa_ctrl || !(pa_ctrl->pa_io)){
+    user_pa_set_mode(pa);
+
+    if((PA_MODE_MAX == pa_ctrl->pa_mode) || !pa_ctrl || !(pa_ctrl->pa_io) \
+    || (NO_CONFIG_PORT == pa_ctrl->pa_io->port_mute) || (NO_CONFIG_PORT == pa_ctrl->pa_io->port_abd)\
+    ){
         puts("pa in init error\n");
         pa_ctrl->pa_io->port_io_init_ok = 0;
         return -1;
     }
 
-    //单io控制条件不满足
-    if(NO_CONFIG_PORT != pa_ctrl->pa_io->port_abd_and_mute){
+    
+    if(PA_MODE_2 == pa_ctrl->pa_mode){
+        //单io控制条件不满足 
         if(!pa_ctrl->abd_and_mute){
             puts("pa 2 pin error\n");
             pa_ctrl->pa_io->port_io_init_ok = 0;
@@ -378,15 +448,19 @@ int user_pa_in_pin_init(void *pa){
 
         pa_ctrl->mute = pa_ctrl->abd_and_mute;
         pa_ctrl->abd = pa_ctrl->abd_and_mute;
-    }else if( (NO_CONFIG_PORT != pa_ctrl->pa_io->port_mute) || (NO_CONFIG_PORT != pa_ctrl->pa_io->port_abd) ){
+    }else if(PA_MODE_1 == pa_ctrl->pa_mode){
         //双io控制条件不满足
-        if( (!pa_ctrl->abd_2pin) || (!pa_ctrl->mute_2pin)|| (NO_CONFIG_PORT == pa_ctrl->pa_io->port_mute) || (NO_CONFIG_PORT == pa_ctrl->pa_io->port_abd)){
+        if( (!pa_ctrl->abd_2pin) || (!pa_ctrl->mute_2pin)){
             puts("pa 1 pin error\n");
             pa_ctrl->pa_io->port_io_init_ok = 0;
             return -1;
         }
         pa_ctrl->mute = pa_ctrl->mute_2pin;
         pa_ctrl->abd = pa_ctrl->abd_2pin;
+    }else{
+        puts("pa in init error ii\n");
+        pa_ctrl->pa_io->port_io_init_ok = 0;
+        return -1;
     }
 
     pa_ctrl->io_strl(pa,PA_INIT);
@@ -408,8 +482,8 @@ void user_pa_ex_io_init(void){
 
     puts("pa io init\n");
 
-    if(pa_ex_fun.pa_io){
-        pa_in_fun.pa_io = pa_ex_fun.pa_io;
+    if(pa_in_fun.pa_io){
+        pa_in_fun.pa_io = pa_in_fun.pa_io;
     }else{
         puts("pa ex io init io error\n");
         for(;;){;}
@@ -417,38 +491,37 @@ void user_pa_ex_io_init(void){
 
 #if USER_PA_EN
 
-    if(pa_in_fun.init && 0==pa_in_fun.init(&pa_in_fun)){
-        pa_ex_fun.pa_io->port_io_init_ok = 1;
+    // if(pa_in_fun.init && 0==pa_in_fun.init(&pa_in_fun)){
+    if(0 == user_pa_in_pin_init(&pa_in_fun)){
+        pa_in_fun.pa_io->port_io_init_ok = 1;
     }else{
         puts("pa ex io init fun error\n");
         for(;;){;}
     }
 
-    if(pa_ex_fun.strl){
-        pa_ex_fun.strl(PA_INIT);
-    }
+    user_pa_ex_strl(PA_INIT);
 #endif
 }
 
 void user_pa_ex_del(void){
 #if USER_PA_EN
-    pa_ex_fun.pa_io->port_io_init_ok = 0;
-    if(pa_ex_fun.pa_in->service_id){
-        sys_hi_timeout_del(pa_ex_fun.pa_in->service_id);
-        pa_ex_fun.pa_in->service_id = 0;
+    pa_in_fun.pa_io->port_io_init_ok = 0;
+    if(pa_in_fun.service_id){
+        sys_hi_timeout_del(pa_in_fun.service_id);
+        pa_in_fun.service_id = 0;
     }
 #endif
 }
 
 void user_pa_ex_init(void){
 #if USER_PA_EN
-    if(pa_ex_fun.pa_io->port_io_init_ok){
-        pa_ex_fun.pa_io->port_io_init_ok = 2;
+    if(pa_in_fun.pa_io->port_io_init_ok){
+        pa_in_fun.pa_io->port_io_init_ok = 2;
         user_pa_dac_pupu();
         pa_in_fun.service(&pa_in_fun);
     }else{
-        pa_ex_fun.pa_io->port_io_init_ok = 0;
+        pa_in_fun.pa_io->port_io_init_ok = 0;
     }
-    pa_ex_fun.strl(PA_CLASS_D);
+    user_pa_ex_strl(PA_CLASS_D);
 #endif
 }

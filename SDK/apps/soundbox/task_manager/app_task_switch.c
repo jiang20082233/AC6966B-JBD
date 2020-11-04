@@ -139,7 +139,8 @@ static int app_task_switch_check(u8 app_task)
         break;
 #if TCFG_APP_RECORD_EN
     case APP_RECORD_TASK:
-        ret = record_app_check();
+        // ret = record_app_check();
+        ret =TRUE;
         break;
 #endif
     default:
@@ -206,6 +207,12 @@ void app_task_switch_next()
     }
 
     for (i = cur_index ;;) { //遍历一圈
+        #if TCFG_APP_RECORD_EN
+        if(app_task_list[i] == APP_FM_TASK){
+            i++;   //切模式的时候跳过录音模式
+        }
+		#endif
+
         if (++i >= ARRAY_SIZE(app_task_list)) {
             i = 0;
         }
