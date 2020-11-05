@@ -138,6 +138,6 @@ void led7_show_null(void); //清除所有显示(数字,字符串和图标)
 void led7_clear_string(void); //清除显示数字和字母
 void led7_clear_icon(UI_LED7_ICON icon); //清除显示单个图标
 void led7_clear_all_icon(void); //清除显示所有图标
-
+u32 user_led_flash_time(u8 cmd,u32 set_time);//获取led闪烁时间或者设置闪烁时间
 
 #endif	/*	_LED_H_	*/

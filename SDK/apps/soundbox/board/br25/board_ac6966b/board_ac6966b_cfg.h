@@ -818,7 +818,7 @@ DAC硬件上的连接方式,可选的配置：
 #define TCFG_ENC_CVSD_ENABLE                ENABLE
 #define TCFG_ENC_MSBC_ENABLE                ENABLE
 #define TCFG_ENC_MP3_ENABLE                 DISABLE
-#define TCFG_ENC_ADPCM_ENABLE               DISABLE
+#define TCFG_ENC_ADPCM_ENABLE               ENABLE
 #define TCFG_ENC_SBC_ENABLE                 DISABLE
 #define TCFG_ENC_OPUS_ENABLE                DISABLE
 #define TCFG_ENC_SPEEX_ENABLE               DISABLE

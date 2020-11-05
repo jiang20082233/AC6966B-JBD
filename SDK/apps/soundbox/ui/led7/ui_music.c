@@ -114,7 +114,18 @@ static void led7_show_repeat_mode(void *hd, u32 val)
     dis->show_string((u8 *)playmodestr[mode]);
     dis->lock(0);
 }
+static void led7_music_show_folder(void *hd, u32 arg){
+    LCD_API *dis = (LCD_API *)hd;
+    dis->lock(1);
+    dis->clear();
+    dis->setXY(0, 0);
 
+    u8 tp_show_string[4]={0};
+    sprintf(tp_show_string,"F%03d",arg);
+    dis->show_string(tp_show_string);
+
+    dis->lock(0);
+}
 
 static void led7_fm_show_freq(void *hd, u32 arg)
 {
@@ -200,6 +211,7 @@ static void ui_music_main(void *hd, void *private) //主界面显示
         printf("sec = %d \n", sencond);
     } else if (file_dec_is_pause()) {
         led7_show_pause(hd);
+        led7_show_music_dev(hd);
     } else {
         printf("!!! %s %d\n", __FUNCTION__, __LINE__);
 
@@ -223,6 +235,10 @@ static int ui_music_user(void *hd, void *private, u8 menu, u32 arg)//子界面�
         break;
     case MENU_MUSIC_REPEATMODE:
         led7_show_repeat_mode(hd, arg);
+        break;
+    case MENU_MUSIC_FOLDER:
+        led7_music_show_folder(hd, arg);
+        led7_show_music_dev(hd);
         break;
     case MENU_RECODE_ERR:
         user_led7_show_err(hd);

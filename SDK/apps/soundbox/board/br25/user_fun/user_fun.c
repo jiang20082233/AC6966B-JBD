@@ -7,6 +7,26 @@ USER_POWER_INFO user_power_io={
 };
 #endif
 
+
+
+//设置低电图标 显示、取消；获取低电图标显示状态
+bool user_low_power_show(u8 cmd){
+    static bool low_power_icon = 0;
+
+    if(0 == cmd || 1 == cmd){
+        low_power_icon = cmd?1:0;
+        if(low_power_icon){
+            led7_flash_icon(LED7_CHARGE);
+        }else{
+            led7_clear_icon(LED7_CHARGE);
+        }
+    }
+    
+    return low_power_icon;
+}
+
+
+
 //低电降音量
 void user_power_low_dow_sys_vol(u8 vol){
     // return;
@@ -378,23 +398,36 @@ void user_fun_spi_pb6_mult(void){
 
 void user_vbat_check_init(void){
     #if (defined(USER_VBAT_CHECK_EN) && USER_VBAT_CHECK_EN)
-    adc_add_sample_ch(user_power_io.ch);          //注意：初始化AD_KEY之前，先初始化ADC
     user_fun_spi_pb6_mult();
+    adc_add_sample_ch(user_power_io.ch);          //注意：初始化AD_KEY之前，先初始化ADC
+    // if(timer_get_ms()>3000){
+    //     adc_set_sample_freq(user_power_io.ch,10);
+    // }
     #endif
     return;
 }
 
 u16 user_fun_get_vbat(void){
-    u16 tp = 0;
+    static u16 tp = 0;
     #if (defined(USER_VBAT_CHECK_EN) && USER_VBAT_CHECK_EN)
     u32 vddio_m = 0;
-    user_power_io.vol = adc_get_value(user_power_io.ch);
-    vddio_m = (TCFG_LOWPOWER_VDDIOM_LEVEL<=3)?(220+TCFG_LOWPOWER_VDDIOM_LEVEL*20):(300+(TCFG_LOWPOWER_VDDIOM_LEVEL-VDDIOM_VOL_30V)*20);
+    u32 tp_ad = adc_get_value(user_power_io.ch);
 
-    // printf("user vbat >>>> %d %dV\n",user_power_io.vol,(vddio_m*2*user_power_io.vol)/0x3ffL);
-    user_power_io.vol = (vddio_m*2*user_power_io.vol)/0x3ffL;
+    // static u32 vbat_scan_time = 0;
+    // if(timer_get_ms()>3000 && timer_get_ms()-vbat_scan_time>30){
+    //     vbat_scan_time = timer_get_ms();
+    //     adc_remove_sample_ch(user_power_io.ch);
+    //     user_vbat_check_init();
+    // }else{
+    //     return tp;
+    // }
+
+    vddio_m  = 220+(TCFG_LOWPOWER_VDDIOM_LEVEL-VDDIOM_VOL_22V)*20;
+
+    // printf("user vbat >>>> ad:%d vbat:%dV\n",tp_ad,(vddio_m*2*tp_ad)/0x3ffL);
+    user_power_io.vol = (vddio_m*2*tp_ad)/0x3ffL;
     tp = user_power_io.vol;
-    
+
     #endif
     return tp;
 }
@@ -445,6 +478,7 @@ void user_power_off(void){
     user_rgb_mode_set(USER_RGB_POWER_OFF,NULL);
     
     user_mic_check_en(0);
+    user_low_power_show(0);
 }
 
 //注销 定时器

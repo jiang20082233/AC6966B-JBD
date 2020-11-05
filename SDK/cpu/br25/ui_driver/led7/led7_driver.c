@@ -15,7 +15,7 @@
 #define led7_error(...)
 #endif
 
-
+#include "user_fun_cfg.h"
 //#define  UI_LED7_TRUE_TABLE1
 //#define  UI_LED7_TRUE_TABLE2
 #define  UI_LED7_TRUE_TABLE3
@@ -90,6 +90,7 @@ void led7_show_icon(UI_LED7_ICON icon)
 /*----------------------------------------------------------------------------*/
 void led7_flash_icon(UI_LED7_ICON icon)
 {
+    user_led_flash_time(1,0);
     __this->led7_var.bFlashIcon |= icon;
     __this->led7_var.bShowIcon &= (~icon); //stop display
 }
@@ -124,6 +125,13 @@ void led7_clear_all_icon(void)
     __this->flash_time = jiffies_to_msecs(jiffies);
 }
 
+//获取或者设置闪烁时间
+u32 user_led_flash_time(u8 cmd,u32 set_time){
+    if(1 == cmd){
+         __this->flash_time = set_time;
+    }
+    return __this->flash_time;
+}
 
 /*----------------------------------------------------------------------------*/
 /**@brief   led7_drv 显示坐标设置
@@ -218,6 +226,7 @@ void led7_show_char(u8 chardata)
 /*----------------------------------------------------------------------------*/
 void led7_flash_char_start(u8 index)
 {
+    user_led_flash_time(1,0);
     if (index < 4) {
         __this->led7_var.bFlashChar |= BIT(index);
     }
@@ -544,6 +553,11 @@ static void __led7_scan(void *param)
     }
 
     if (!cnt && !__this->lock) {
+        if(user_low_power_show(0xff)){
+            user_low_power_show(1);
+        }else{
+            user_low_power_show(0);
+        }
         __ui_led7_update_bShowbuf1();
     }
 

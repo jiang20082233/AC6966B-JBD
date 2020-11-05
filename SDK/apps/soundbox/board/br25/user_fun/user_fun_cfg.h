@@ -99,6 +99,7 @@ extern void audio_mic_set_gain(u8 gain);
 extern const EQ_CFG_SEG *eq_type_tab[EQ_MODE_MAX];
 extern struct eq_seg_info eq_tab_custom[];
 extern int audio_dac_energy_get(void);
+extern u32 adc_set_sample_freq(u32 ch, u32 ms);
 
 #if USER_EQ_FILE_ADD_EQ_TABLE
 extern struct eq_seg_info user_eq_tab_custom[];
@@ -117,6 +118,7 @@ void user_vbat_check_init(void);
 bool user_adkey_mult_irkey(u8 key_type);
 void user_dow_sys_vol_20(void);
 void user_dow_sys_vol_10(void);
+bool user_low_power_show(u8 cmd);
 // void user_power_low_dow_sys_vol(u8 vol);
 void user_bt_tws_sync_msg_send(u8 sync_type,u8 value);
 void user_tws_sync_info(void);

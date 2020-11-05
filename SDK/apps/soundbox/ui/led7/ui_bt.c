@@ -2,7 +2,7 @@
 #include "ui/ui_api.h"
 #include "fm_emitter/fm_emitter_manage.h"
 #include "btstack/avctp_user.h"
-
+#include "user_fun_cfg.h"
 #if (TCFG_APP_BT_EN)
 
 #if (TCFG_UI_ENABLE&&(CONFIG_UI_STYLE == STYLE_JL_LED7))
@@ -14,7 +14,16 @@ static void led7_show_bt(void *hd)
     dis->lock(1);
     dis->clear();
     dis->setXY(0, 0);
-    dis->show_string((u8 *)" bt");
+    dis->show_string((u8 *)"blue");
+    
+    if (!((BT_STATUS_CONNECTING == get_bt_connect_status()) ||
+        (BT_STATUS_TAKEING_PHONE == get_bt_connect_status()) ||
+        (BT_STATUS_PLAYING_MUSIC == get_bt_connect_status()))) {        
+        for(int i = 0;i<4;i++){
+            led7_flash_char_start(i);
+        }
+    }
+    
     dis->lock(0);
 }
 
@@ -94,7 +103,7 @@ static void ui_bt_main(void *hd, void *private) //主界面显示
     if (BT_STATUS_TAKEING_PHONE == get_bt_connect_status()) {
         led7_show_call(hd);
     } else {
-        led7_show_bt(hd);
+        led7_show_bt(hd);                
     }
 #endif
 }

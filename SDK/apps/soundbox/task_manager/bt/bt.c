@@ -100,6 +100,7 @@
 #define LOG_CLI_ENABLE
 #include "debug.h"
 
+#include "user_fun_cfg.h"
 
 #if TCFG_APP_BT_EN
 

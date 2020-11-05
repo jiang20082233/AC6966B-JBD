@@ -1064,6 +1064,9 @@ obj\Release\apps\soundbox\board\br25\user_fun\user_dev_check.o
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_dev_check.o,adc_get_value,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_dev_check.o,puts,l
 obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_low_power_show,pl
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,led7_flash_icon,l
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,led7_clear_icon,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_power_low_dow_sys_vol,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,puts,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,tone_get_status,l
@@ -1884,7 +1887,6 @@ obj\Release\apps\soundbox\power_manage\app_power_manage.o
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,user_get_vbat_level,pl
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,get_vbat_level,pl
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,user_fun_get_vbat,l
--r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,adc_get_voltage,l
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,remap_calculate_vbat_percent,pl
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,get_vbat_value,pl
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,get_vbat_percent,pl
@@ -1902,6 +1904,7 @@ obj\Release\apps\soundbox\power_manage\app_power_manage.o
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,sys_timer_del,l
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,user_down_sys_vol_cnt,pl
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,timer_get_sec,l
+-r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,user_low_power_show,l
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,user_dow_sys_vol_20,l
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,user_dow_sys_vol_10,l
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,app_audio_get_volume,l
@@ -2918,6 +2921,7 @@ obj\Release\apps\soundbox\task_manager\music\music.o
 -r=obj\Release\apps\soundbox\task_manager\music\music.o,music_player_play_next,l
 -r=obj\Release\apps\soundbox\task_manager\music\music.o,music_player_play_folder_prev,l
 -r=obj\Release\apps\soundbox\task_manager\music\music.o,music_player_play_folder_next,l
+-r=obj\Release\apps\soundbox\task_manager\music\music.o,music_player_get_dir_cur,l
 -r=obj\Release\apps\soundbox\task_manager\music\music.o,music_player_get_dev_next,l
 -r=obj\Release\apps\soundbox\task_manager\music\music.o,music_player_play_devcie_next,l
 -r=obj\Release\apps\soundbox\task_manager\music\music.o,music_player_play_by_number,l
@@ -3114,6 +3118,7 @@ obj\Release\apps\soundbox\ui\lcd\ui_sys_param_api.o
 obj\Release\apps\soundbox\ui\led7\ui_bt.o
 -r=obj\Release\apps\soundbox\ui\led7\ui_bt.o,ui_set_auto_reflash,l
 -r=obj\Release\apps\soundbox\ui\led7\ui_bt.o,get_bt_connect_status,l
+-r=obj\Release\apps\soundbox\ui\led7\ui_bt.o,led7_flash_char_start,l
 -r=obj\Release\apps\soundbox\ui\led7\ui_bt.o,free,l
 -r=obj\Release\apps\soundbox\ui\led7\ui_bt.o,bt_main,pl
 obj\Release\apps\soundbox\ui\led7\ui_common.o
@@ -3954,6 +3959,7 @@ obj\Release\cpu\br25\audio_enc\audio_enc.o
 -r=obj\Release\cpu\br25\audio_enc\audio_enc.o,audio_enc_init,pl
 -r=obj\Release\cpu\br25\audio_enc\audio_enc.o,cvsd_encoder_init,l
 -r=obj\Release\cpu\br25\audio_enc\audio_enc.o,msbc_encoder_init,l
+-r=obj\Release\cpu\br25\audio_enc\audio_enc.o,adpcm_encoder_init,l
 -r=obj\Release\cpu\br25\audio_enc\audio_enc.o,audio_adc_init,l
 -r=obj\Release\cpu\br25\audio_enc\audio_enc.o,lmp_private_send_esco_packet,l
 -r=obj\Release\cpu\br25\audio_enc\audio_enc.o,puts,l
@@ -4736,6 +4742,7 @@ obj\Release\cpu\br25\ui_driver\lcd_seg\lcd_seg3x9_driver.o
 obj\Release\cpu\br25\ui_driver\led7\led7_driver.o
 -r=obj\Release\cpu\br25\ui_driver\led7\led7_driver.o,led7_show_icon,pl
 -r=obj\Release\cpu\br25\ui_driver\led7\led7_driver.o,led7_flash_icon,pl
+-r=obj\Release\cpu\br25\ui_driver\led7\led7_driver.o,user_led_flash_time,pl
 -r=obj\Release\cpu\br25\ui_driver\led7\led7_driver.o,led7_clear_icon,pl
 -r=obj\Release\cpu\br25\ui_driver\led7\led7_driver.o,led7_clear_all_icon,pl
 -r=obj\Release\cpu\br25\ui_driver\led7\led7_driver.o,led7_setX,pl
@@ -4760,6 +4767,7 @@ obj\Release\cpu\br25\ui_driver\led7\led7_driver.o
 -r=obj\Release\cpu\br25\ui_driver\led7\led7_driver.o,gpio_set_direction,l
 -r=obj\Release\cpu\br25\ui_driver\led7\led7_driver.o,putchar,l
 -r=obj\Release\cpu\br25\ui_driver\led7\led7_driver.o,get_vm_statu,l
+-r=obj\Release\cpu\br25\ui_driver\led7\led7_driver.o,user_low_power_show,l
 -r=obj\Release\cpu\br25\ui_driver\led7\led7_driver.o,gpio_direction_output,l
 -r=obj\Release\cpu\br25\ui_driver\led7\led7_driver.o,jiffies,l
 -r=obj\Release\cpu\br25\ui_driver\led7\led7_driver.o,jiffies_unit,l
@@ -13879,6 +13887,23 @@ include_lib/liba/br25/media.a.llvm.929658.msbc_encoder_hw.c
 -r=include_lib/liba/br25/media.a.llvm.929658.msbc_encoder_hw.c,audio_hwaccel_begin,
 -r=include_lib/liba/br25/media.a.llvm.929658.msbc_encoder_hw.c,audio_hwaccel_end,
 -r=include_lib/liba/br25/media.a.llvm.929658.msbc_encoder_hw.c,msbc_encoder,pl
+include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c
+-r=include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c,adpcm_encoder_open,pl
+-r=include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c,zalloc,l
+-r=include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c,get_msenadpcm_ops,l
+-r=include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c,log_print,l
+-r=include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c,adpcm_enc_input_data,pl
+-r=include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c,audio_encoder_get_frame,l
+-r=include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c,adpcm_enc_output_data,pl
+-r=include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c,audio_encoder_put_output_buff,l
+-r=include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c,adpcm_encode_start,pl
+-r=include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c,malloc,l
+-r=include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c,adpcm_encoder_set_fmt,pl
+-r=include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c,adpcm_encoder_run,pl
+-r=include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c,adpcm_encoder_close,pl
+-r=include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c,free,l
+-r=include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c,adpcm_encoder_init,pl
+-r=include_lib/liba/br25/media.a.llvm.954338.adpcm_encoder.c,adpcm_encoder,pl
 include_lib/liba/br25/media.a.llvm.967746.cvsd_encoder.c
 -r=include_lib/liba/br25/media.a.llvm.967746.cvsd_encoder.c,cvsd_encoder_open,pl
 -r=include_lib/liba/br25/media.a.llvm.967746.cvsd_encoder.c,log_print,l

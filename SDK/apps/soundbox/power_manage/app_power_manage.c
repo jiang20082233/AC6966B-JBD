@@ -243,7 +243,7 @@ u16 get_vbat_level(void)
     // vbat_tp = user_get_vbat_level(vbat_tp);
     // printf(">>>>>>>>>> vbat vol %04d\n",vbat_tp);
     //return 370;     //debug
-    return (adc_get_voltage(AD_CH_VBAT) * 4 / 10);
+    return vbat_tp;
 }
 
 __attribute__((weak)) u8 remap_calculate_vbat_percent(u16 bat_val)
@@ -368,13 +368,15 @@ void user_down_sys_vol_cnt(u8 vol){
     static u32 down_sys_vol_time = 0;
     u32 down_sys_vol_tp_time = timer_get_sec();
 
+    user_low_power_show(1);
+
     if(0xff == vol){//更新时间
-        down_sys_vol_time = timer_get_sec();
+        down_sys_vol_time = down_sys_vol_tp_time;
         return ;
     }
 
     if((down_sys_vol_tp_time - down_sys_vol_time)>=5){
-        down_sys_vol_time = timer_get_sec();
+        down_sys_vol_time = down_sys_vol_tp_time;
         if(20==vol){
             user_dow_sys_vol_20();
         }else if(10==vol){
@@ -416,7 +418,7 @@ void vbat_check(void *priv)
 
     cur_battery_level = battery_value_to_phone_level(bat_val);
 
-    /* printf("bv:%d, bl:%d , check_vbat:%d\n", bat_val, cur_battery_level, adc_check_vbat_lowpower()); */
+    // printf("bv:%d, bl:%d , check_vbat:%d\n", bat_val, cur_battery_level, adc_check_vbat_lowpower());
 
     unit_cnt++;
 
@@ -524,6 +526,8 @@ void vbat_check(void *priv)
                 user_down_sys_vol_cnt(20);
 
             } else {
+                user_low_power_show(0);
+                
                 power_normal_cnt++;
                 low_voice_cnt = 0;
                 low_power_cnt = 0;

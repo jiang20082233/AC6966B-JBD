@@ -27,7 +27,7 @@
 #include "ui/ui_style.h"
 #endif
 
-
+#include "user_fun_cfg.h"
 static void  lcd_ui_power_on()
 {
 #if (TCFG_SPI_LCD_ENABLE)

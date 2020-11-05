@@ -444,6 +444,9 @@ static int music_key_event_opr(struct sys_event *event)
     case KEY_MUSIC_PLAYE_NEXT_FOLDER:
         log_i("KEY_MUSIC_PLAYE_NEXT_FOLDER\n");
         err = music_player_play_folder_next();
+        printf(">>>>>>>>>> cur folder number %d\n",music_player_get_dir_cur());
+        UI_SHOW_MENU(MENU_MUSIC_FOLDER, 1000, music_player_get_dir_cur(), NULL);
+        
         break;
     case  KEY_MUSIC_CHANGE_DEV:
         log_i("KEY_MUSIC_CHANGE_DEV\n");
