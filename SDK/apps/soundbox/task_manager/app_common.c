@@ -450,6 +450,7 @@ int app_common_key_msg_deal(struct sys_event *event)
     case USER_KEY_RECORD_START:
     case KEY_TO_REC_MODE:
         printf("KEY_TO_REC_MODE\n");
+#if TCFG_APP_RECORD_EN
         if(user_get_mic_status() && dev_manager_get_total(0)){
             printf("11111KEY_TO_REC_MODE\n");
             // music_player_pp();
@@ -461,6 +462,7 @@ int app_common_key_msg_deal(struct sys_event *event)
 #endif
             app_task_switch_to(APP_RECORD_TASK);
         }
+#endif
         break;
 //    case USER_KEY_RECORD_START:
 //        log_info("    USER_KEY_RECORD_START \n");

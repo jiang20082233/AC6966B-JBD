@@ -31,7 +31,7 @@
 #define USER_FM_MODE_SYS_VOL    20//进FM 大于此音量设置为此音量 退出时恢复
 
 #define USER_FIRST_BOOT_VOL     (SYS_MAX_VOL*2/3)//first boot 第一次上电开机音量
-#define USER_POWER_ON_VOL       USER_FIRST_BOOT_VOL//每次开机音量 0或者注释 为系统默认
+#define USER_POWER_ON_VOL       0//USER_FIRST_BOOT_VOL//每次开机音量 0或者注释 为系统默认
 #define USER_TONE_PLAY_MODE     1//1:打断方式播放提示音 0:嵌入方式播放提示音
 #define USER_MUSIC_TO_BT        1//music 下只有一个设备时 拔出设备 跳到bt模式
 #define USER_USB_OR_SD	        USER_DEV_USB//进music模式优先设备

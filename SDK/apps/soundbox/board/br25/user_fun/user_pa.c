@@ -100,7 +100,7 @@ void user_pa_in_abd_and_mute(void *pa,u8 cmd){
         puts(">> PA_CLASS_AB\n");
         gpio_set_direction(pa_ctrl->port_mute,1);
         gpio_set_pull_down(pa_ctrl->port_mute,0);
-        gpio_set_pull_up(pa_ctrl->port_mute,1);
+        gpio_set_pull_up(pa_ctrl->port_mute,0);
     }else if(PA_CLASS_D == cmd){
         puts(">> PA_CLASS_D\n");
         gpio_set_direction(pa_ctrl->port_mute,0);
