@@ -1026,9 +1026,7 @@ obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,gpio_set_pull_up,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,user_4ad_check_init,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,user_4ad_check_del,pl
--r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,usr_timeout_del,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,gpio_set_output_value,l
--r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,user_4ad_io,pl
 obj\Release\apps\soundbox\board\br25\user_fun\user_dev_check.o
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_dev_check.o,ex_dev_io_start,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_dev_check.o,gpio_set_pull_down,l
@@ -1117,6 +1115,7 @@ obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,adc_get_value,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_fm_vol_set,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_sd_power,pl
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,sdpg_config,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_power_off,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_pa_ex_strl,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_mic_check_en,l

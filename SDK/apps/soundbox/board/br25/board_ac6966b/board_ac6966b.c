@@ -471,7 +471,7 @@ LED7_PLATFORM_DATA_BEGIN(led7_data)
     .pin_cfg.pin7.pin[3] = IO_PORTB_03,
     .pin_cfg.pin7.pin[2] = IO_PORTB_05,
     .pin_cfg.pin7.pin[1] = IO_PORTB_04,
-    .pin_cfg.pin7.pin[0] = IO_PORTA_00,
+    .pin_cfg.pin7.pin[0] = IO_PORTA_05,
 LED7_PLATFORM_DATA_END()
 
 const struct ui_devices_cfg ui_cfg_data = {
