@@ -119,6 +119,8 @@ bool user_adkey_mult_irkey(u8 key_type);
 void user_dow_sys_vol_20(void);
 void user_dow_sys_vol_10(void);
 bool user_low_power_show(u8 cmd);
+void user_led7_flash_lowpower(void);
+u8 user_eq_init_ok(u8 cmd);
 // void user_power_low_dow_sys_vol(u8 vol);
 void user_bt_tws_sync_msg_send(u8 sync_type,u8 value);
 void user_tws_sync_info(void);

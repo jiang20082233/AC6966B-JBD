@@ -2183,7 +2183,7 @@ void tws_event_connection_detach(struct bt_event *evt)
     if ((gtws.state & BT_TWS_SIBLING_CONNECTED) && (!app_var.goto_poweroff_flag)) {
 #if CONFIG_TWS_POWEROFF_SAME_TIME
         extern u8 poweroff_sametime_flag;
-        if (!app_var.goto_poweroff_flag && !poweroff_sametime_flag && !phone_link_connection && (reason != TWS_DETACH_BY_REMOVE_PAIRS)) { /*关机不播断开提示音*/
+        if (!app_var.goto_poweroff_flag && !poweroff_sametime_flag &&/* !phone_link_connection &&*/ (reason != TWS_DETACH_BY_REMOVE_PAIRS)) { /*关机不播断开提示音*/
             tone_play_by_path(tone_table[IDEX_TONE_TWS_DISCONN], 1);
         }
 #else

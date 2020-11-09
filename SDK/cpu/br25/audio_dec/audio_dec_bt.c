@@ -17,6 +17,7 @@
 #include "aec_user.h"
 #include "audio_enc.h"
 #include "bt_tws.h"
+#include "user_fun_cfg.h"
 
 #if TCFG_ESCO_PLC
 #include "PLC.h"
@@ -1062,7 +1063,7 @@ void *a2dp_eq_drc_open(u16 sample_rate, u8 ch_num)
 
 #if TCFG_BT_MUSIC_EQ_ENABLE
     effect_parm.eq_en = 1;
-
+    user_eq_init_ok(1);
 #if TCFG_DRC_ENABLE
 #if TCFG_BT_MUSIC_DRC_ENABLE
     effect_parm.drc_en = 1;

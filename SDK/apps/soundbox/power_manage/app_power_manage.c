@@ -368,8 +368,6 @@ void user_down_sys_vol_cnt(u8 vol){
     static u32 down_sys_vol_time = 0;
     u32 down_sys_vol_tp_time = timer_get_sec();
 
-    user_low_power_show(1);
-
     if(0xff == vol){//更新时间
         down_sys_vol_time = down_sys_vol_tp_time;
         return ;
@@ -383,6 +381,9 @@ void user_down_sys_vol_cnt(u8 vol){
             user_dow_sys_vol_10();
         }
     }
+
+    user_low_power_show(1);
+    puts(">>>>>>>>  low power set 3\n");
 }
 static u8 cur_bat_st = VBAT_NORMAL;
 
@@ -443,6 +444,8 @@ void vbat_check(void *priv)
         tp_low_war_cnt = 0;
         low_warn_cnt = 0;
         low_off_cnt = 0;
+
+        user_low_power_show(0);      
     }
 #if TCFG_CHARGE_ENABLE
     if (bat_val >= CHARGE_CCVOL_V) {
@@ -526,7 +529,6 @@ void vbat_check(void *priv)
                 user_down_sys_vol_cnt(20);
 
             } else {
-                user_low_power_show(0);
                 
                 power_normal_cnt++;
                 low_voice_cnt = 0;

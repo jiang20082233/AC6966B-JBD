@@ -30,7 +30,7 @@
 #define TCFG_APP_FM_EN					    1
 #define TCFG_APP_PC_EN					    0//1
 #define TCFG_APP_RTC_EN					    0
-#define TCFG_APP_RECORD_EN				    1
+#define TCFG_APP_RECORD_EN				    0
 #define TCFG_APP_SPDIF_EN                   0
 //*********************************************************************************//
 //                               PCM_DEBUG调试配置                                 //
@@ -817,7 +817,7 @@ DAC硬件上的连接方式,可选的配置：
 //*********************************************************************************//
 #define TCFG_ENC_CVSD_ENABLE                ENABLE
 #define TCFG_ENC_MSBC_ENABLE                ENABLE
-#define TCFG_ENC_MP3_ENABLE                 DISABLE
+#define TCFG_ENC_MP3_ENABLE                 ENABLE
 #define TCFG_ENC_ADPCM_ENABLE               ENABLE
 #define TCFG_ENC_SBC_ENABLE                 DISABLE
 #define TCFG_ENC_OPUS_ENABLE                DISABLE

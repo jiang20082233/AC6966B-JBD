@@ -43,7 +43,7 @@ static void led7_show_bt(void *hd)
     dis->lock(1);
     dis->clear();
     dis->setXY(0, 0);
-    dis->show_string((u8 *)" bt");
+    dis->show_string((u8 *)"blue");
     dis->lock(0);
 }
 

@@ -275,7 +275,7 @@ static int idle_key_event_opr(struct sys_event *event)
     int key_event = event->u.key.event;
     int key_value = event->u.key.value;
 
-    log_info("key_event:%d \n", key_event);
+    printf("key_event:%d \n", key_event);
 
     switch (key_event) {
     case KEY_POWER_ON:
@@ -482,7 +482,7 @@ void app_idle_task()
     int msg[32];
 
     idle_app_start();
-
+    printf(">>>>>>>>   app idle task\n");
     while (1) {
         app_task_get_msg(msg, ARRAY_SIZE(msg), 1);
 

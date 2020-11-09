@@ -553,11 +553,8 @@ static void __led7_scan(void *param)
     }
 
     if (!cnt && !__this->lock) {
-        if(user_low_power_show(0xff)){
-            user_low_power_show(1);
-        }else{
-            user_low_power_show(0);
-        }
+        user_led7_flash_lowpower();
+        
         __ui_led7_update_bShowbuf1();
     }
 

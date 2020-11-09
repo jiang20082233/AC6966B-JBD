@@ -227,6 +227,7 @@ char ex_dev_detect_init(void *arg)
 }
 int ex_dev_detect_dell(void *arg){
     struct ex_dev_opr *ex_dev = (struct ex_dev_opr *)arg;
+    ex_dev->enable = 0;
     if (ex_dev->timer) {
         sys_timer_del(ex_dev->timer);
         ex_dev->timer = 0;

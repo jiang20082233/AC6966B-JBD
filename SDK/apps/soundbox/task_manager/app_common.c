@@ -57,6 +57,18 @@ extern void bt_tws_sync_volume();
 
 extern void reverb_eq_cal_coef(u8 filtN, int gainN, u8 sw);
 extern u8 app_common_key_event_get(struct key_event *key);
+
+static void user_ir_power_off(void *priv){
+    u32 user_power_timer_ = (u32)priv;
+
+    if(tone_get_status() && (timer_get_ms-user_power_timer_<10000)){
+        sys_hi_timeout_add(priv,user_ir_power_off,100);
+        return;
+    }
+    user_del_time();
+    app_task_switch_to(APP_IDLE_TASK);        
+}
+
 static void  common_power_on_tone_play_end_callback(void *priv, int flag)
 {
     u32 index = (u32)priv;
@@ -70,9 +82,6 @@ static void  common_power_on_tone_play_end_callback(void *priv, int flag)
     case IDEX_TONE_POWER_OFF:
         ///提示音播放结束        
         printf(" >>>>> tone \n");
-        user_power_off();
-        user_del_time();
-        app_task_switch_to(APP_IDLE_TASK);
         break;
     default:
         break;
@@ -395,19 +404,17 @@ int app_common_key_msg_deal(struct sys_event *event)
         puts("KEY_IR_PPOWER\n");
         #if USER_IR_POWER
         if(APP_IDLE_TASK != app_get_curr_task()){            
-            
+            user_power_off();
+
+            sys_hi_timeout_add((void *)(timer_get_ms()),user_ir_power_off,200);
+
             if(APP_LINEIN_TASK == app_get_curr_task()){
                 #if TCFG_LINEIN_ENABLE
                 linein_stop();
                 #endif
             }
+            tone_play_by_path(TONE_POWER_OFF,1);
 
-            int err =  tone_play_with_callback_by_name(tone_table[IDEX_TONE_POWER_OFF], 1, common_power_on_tone_play_end_callback, (void *)IDEX_TONE_POWER_OFF);
-            if (err) {
-                printf(">>> ir power off to idle\n");
-                user_power_off();
-                app_task_switch_to(APP_IDLE_TASK);
-            }
         }
         #endif
         break;
@@ -443,9 +450,10 @@ int app_common_key_msg_deal(struct sys_event *event)
     case USER_KEY_RECORD_START:
     case KEY_TO_REC_MODE:
         printf("KEY_TO_REC_MODE\n");
-        if(user_get_mic_status() && (dev_manager_get_total(0) > 0)){
+        if(user_get_mic_status() && dev_manager_get_total(0)){
             printf("11111KEY_TO_REC_MODE\n");
-            music_player_pp();
+            // music_player_pp();
+            music_player_stop(1);
 #if TCFG_MIC_EFFECT_ENABLE
             if (mic_effect_get_status()) {
                 mic_effect_stop();

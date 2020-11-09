@@ -22,6 +22,7 @@
 #include "clock_cfg.h"
 #include "dev_manager.h"
 
+#include "user_fun_cfg.h"
 #if TCFG_FM_ENABLE
 
 
@@ -591,7 +592,7 @@ void *fm_eq_drc_open(u16 sample_rate, u8 ch_num)
 
 #if TCFG_FM_MODE_EQ_ENABLE
     effect_parm.eq_en = 1;
-
+    user_eq_init_ok(1);
 #if TCFG_DRC_ENABLE
 #if TCFG_FM_MODE_DRC_ENABLE
     effect_parm.drc_en = 1;

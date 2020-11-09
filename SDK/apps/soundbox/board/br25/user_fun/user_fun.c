@@ -11,20 +11,40 @@ USER_POWER_INFO user_power_io={
 
 //设置低电图标 显示、取消；获取低电图标显示状态
 bool user_low_power_show(u8 cmd){
-    static bool low_power_icon = 0;
+    static u8 low_power_icon = 0;
+
+    //获取状态 开机过滤时间 关机状态返回
+    if(0xff == cmd || timer_get_sec()<=5 || 0x55 == low_power_icon || low_power_icon == cmd){
+        return low_power_icon;
+    }
+
+    //关机设置
+    if(0x55 == low_power_icon || 0x55 == cmd){
+        low_power_icon = cmd;
+        // led7_clear_icon(LED7_CHARGE);
+        led7_clear_all_icon();
+        return 0;
+    }
+
 
     if(0 == cmd || 1 == cmd){
-        low_power_icon = cmd?1:0;
-        if(low_power_icon){
-            led7_flash_icon(LED7_CHARGE);
-        }else{
-            led7_clear_icon(LED7_CHARGE);
-        }
+        low_power_icon = cmd;
+        printf(">>>>>     low power icon %d\n",low_power_icon);
     }
     
-    return low_power_icon;
+    return low_power_icon?1:0;
 }
-
+void user_led7_flash_lowpower(void){
+    bool ret = user_low_power_show(0xff);
+    if(1 == ret){
+        led7_flash_icon(LED7_CHARGE);
+    }else if(0 == ret){
+        led7_clear_icon(LED7_CHARGE);
+    }else if(0x55 == ret){
+        led7_clear_icon(LED7_CHARGE);
+        led7_clear_all_icon();
+    }
+}
 
 
 //低电降音量
@@ -177,10 +197,30 @@ u8 user_record_status(u8 cmd){
     }
     #endif
     return user_record_status;//USER_KEY_RECORD_START
-} 
+}
+
+/*
+cmd:    1、其他值
+    1：已启用 其他：获取状态
+ret：   1：已启用 0：为启用过
+*/
+u8 user_eq_init_ok(u8 cmd){
+    static u8 sys_init_ok_flag = 0;
+
+    if(1 == cmd){
+        sys_init_ok_flag = cmd;
+    }
+
+    return sys_init_ok_flag;
+}
 void user_eq_mode_sw(void){
     #if USER_EQ_FILE_ADD_EQ_TABLE
         static int user_eq_mode = 0;
+
+        if(!user_eq_init_ok(0xff)){
+            return;
+        }
+
         user_eq_mode++;
         if(user_eq_mode>EQ_MODE_COUNTRY){
             user_eq_mode = EQ_MODE_NORMAL;
@@ -230,7 +270,8 @@ void user_bass_terble_updata(u32 bass_ad,u32 terble_ad){
     s32 bass  = bass_ad,terble = terble_ad;
 
     //无效值
-    if((512-20) < bass_ad || (512+20) > terble_ad  || user_record_status(0xff)){
+    if((512-20) < bass_ad || (512+20) > terble_ad  || user_record_status(0xff) || \
+    !user_eq_init_ok(0xff) || timer_get_sec()<6 || APP_RECORD_TASK == app_get_curr_task()){
         return;
     }
 
@@ -359,7 +400,7 @@ void user_music_set_file_number(int number){
         sys_timeout_del(auto_time_id);
     }
 
-    if((tp>music_player_get_file_total()) || !tp || tp/10000){
+    if((tp>music_player_get_file_total()) || /*!tp ||*/ tp/10000){
         filenum = 0;
         #if TCFG_UI_ENABLE
         ui_set_tmp_menu(MENU_RECODE_ERR, 3000, 0, NULL);
@@ -471,14 +512,15 @@ void user_sd_power(u8 cmd){
 
 //关机
 void user_power_off(void){
+    user_low_power_show(0x55);
     UI_SHOW_MENU(MENU_CLEAR_WIN, 5000, 0, NULL);
+
     user_led_io_fun(USER_IO_LED,LED_POWER_OFF);
     user_pa_ex_strl(PA_POWER_OFF);
     // user_sd_power(0);
     user_rgb_mode_set(USER_RGB_POWER_OFF,NULL);
     
     user_mic_check_en(0);
-    user_low_power_show(0);
 }
 
 //注销 定时器
@@ -511,4 +553,5 @@ void user_fun_init(void){
     user_mic_check_init();
 
     user_rgb_fun_init();
+    user_low_power_show(0);
 }
