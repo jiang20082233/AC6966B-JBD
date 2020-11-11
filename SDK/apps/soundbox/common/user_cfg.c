@@ -330,11 +330,14 @@ void cfg_file_parse(u8 idx)
 #else
         app_var.music_volume = music_volume <= 0 ? default_volume : music_volume;
 #endif
-        app_var.music_volume = app_var.wtone_volume = audio_cfg.max_sys_vol;//audio_cfg.tone_vol;
+        app_var.wtone_volume = audio_cfg.tone_vol;
+        // app_var.music_volume = app_var.wtone_volume = audio_cfg.max_sys_vol;//audio_cfg.tone_vol;
         app_var.call_volume = app_var.aec_dac_gain;
         app_var.opid_play_vol_sync = app_var.music_volume * 127 / audio_cfg.max_sys_vol;
 
-        log_info("max vol:%d default vol:%d tone vol:%d vol_sync:%d\n", audio_cfg.max_sys_vol, default_volume, audio_cfg.tone_vol, app_var.opid_play_vol_sync);
+        printf("max vol:%d default vol:%d tone vol:%d vol_sync:%d\n", audio_cfg.max_sys_vol, default_volume, audio_cfg.tone_vol, app_var.opid_play_vol_sync);
+        printf(">>>>>>>>>>>  app_var music:%d default:%d",app_var.music_volume
+        ,default_volume);
     }
 
 #if (USE_CONFIG_CHARGE_SETTING) && (TCFG_CHARGE_ENABLE)

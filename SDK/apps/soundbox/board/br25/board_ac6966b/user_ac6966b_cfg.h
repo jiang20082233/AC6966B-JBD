@@ -23,7 +23,8 @@
 #define USER_SD_POWER_SWITCH_EN 1//SD 电源开关
 #define USER_SD_POWER_IO IO_PORTA_00//与sd pg引脚绑定的引脚 没有选NO_CONFIG_PORT
 #define USER_3IO_CHECK_4AD_EN 0//3IO检测4路ad
+#define USER_SYS_VOL_CHECK_EN 1//旋钮控制系统音量 ad检测
 
-
+#define USER_CHARGE_WAKE_UP 1//充电唤醒
 #endif
 #endif

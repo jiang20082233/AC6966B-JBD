@@ -6181,7 +6181,7 @@
 	"generic/typedef.h"
 	"generic/list.h"
 
-1604889868 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\include\app_config.h
+1604976634 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\include\app_config.h
 	"board_config.h"
 	"usb_common_def.h"
 	"btcontroller_mode.h"
@@ -8613,7 +8613,7 @@
 	"audio_config.h"
 	"tone_player.h"
 
-1604029072 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\common\user_cfg.c
+1604906253 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\common\user_cfg.c
 	"app_config.h"
 	"user_cfg.h"
 	"fs.h"
@@ -9519,7 +9519,7 @@
 	"btstack/avctp_user.h"
 	"pitchshifter/pitchshifter_api.h"
 
-1604656205 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\task_manager\app_common.c
+1604906253 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\task_manager\app_common.c
 	"common/app_common.h"
 	"app_task.h"
 	"app_main.h"
@@ -9953,7 +9953,7 @@
 	"fm/fm_manage.h"
 	"fm/fm_rw.h"
 
-1604564027 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\task_manager\idle\idle.c
+1604910346 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\task_manager\idle\idle.c
 	"system/includes.h"
 	"media/includes.h"
 	"app_config.h"
@@ -10107,7 +10107,7 @@
 	"system/includes.h"
 	"usb/device/msd.h"
 
-1602509248 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\task_manager\power_off\power_off.c
+1604910328 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\task_manager\power_off\power_off.c
 	"common/power_off.h"
 	"bt_tws.h"
 	<stdlib.h>
@@ -11220,7 +11220,7 @@
 
 1602224184 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_gpio.h
 
-1604461481 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_config.h
+1604910766 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_config.h
 
 1604460270 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6965e\user_ac6965e_cfg.h
 
@@ -11255,7 +11255,7 @@
 	"debug.h"
 	"asm/ctmu.h"
 
-1604649521 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_fun_cfg.h
+1604975290 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_fun_cfg.h
 	"typedef.h"
 	"timer.h"
 	"string.h"
@@ -11291,7 +11291,7 @@
 
 1604471749 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_pa.h
 
-1602224184 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_ad.h
+1604922177 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_ad.h
 
 1602224184 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_led.h
 
@@ -11339,7 +11339,7 @@
 	"board_config.h"
 	"app_task.h"
 
-1602224184 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_ad.c
+1604922402 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_ad.c
 	"user_fun_cfg.h"
 
 1604565567 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_dev_check.c
@@ -11351,7 +11351,7 @@
 1604036739 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_mic.c
 	"user_fun_cfg.h"
 
-1604471833 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_pa.c
+1604906253 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_pa.c
 	"user_fun_cfg.h"
 
 1602224184 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_rgb.c
@@ -11360,7 +11360,7 @@
 1604136455 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_rgb_dev.c
 	"user_fun_cfg.h"
 
-1604887265 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_fun.c
+1604976617 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_fun.c
 	"user_fun_cfg.h"
 
 1602509951 source:f:\2020\jbd\jbd[ac696x]\source_code - error - 副本\sdk\apps\common\audio\audio_digital_vol.c
@@ -17091,15 +17091,15 @@
 1601359722 source:f:\2020\jbd\jbd[ac696x]\source_code - error - 副本\sdk\cpu\br25\ui_driver\ui_common.c
 	"includes.h"
 
-1604887294 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6966b\board_ac6966b_cfg.h
+1604906253 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6966b\board_ac6966b_cfg.h
 	"usb_std_class_def.h"
 	"app_config.h"
 
-1604893642 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6966b\user_ac6966b_cfg.h
+1604921169 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6966b\user_ac6966b_cfg.h
 
 1604893630 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6969d_demo\user_ac6969d_cfg.h
 
-1604565716 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6966b\board_ac6966b.c
+1604910827 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\board_ac6966b\board_ac6966b.c
 	"gpio.h"
 	"app_config.h"
 	"system/includes.h"
@@ -17165,4 +17165,5861 @@
 	"key_driver.h"
 	"app_config.h"
 	"app_task.h"
+
+1602509951 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\audio\audio_digital_vol.c
+	"audio_digital_vol.h"
+	"user_fun_cfg.h"
+	"application/audio_dig_vol.h"
+
+1602509944 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\audio\audio_digital_vol.h
+	"generic/typedef.h"
+	"os/os_type.h"
+	"os/os_api.h"
+	"generic/list.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\typedef.h
+	"asm/cpu.h"
+	"generic/errno-base.h"
+	"string.h"
+	"strings.h"
+	"system/malloc.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\cpu.h
+	"br25.h"
+	"csfr.h"
+	"asm/irq.h"
+	"generic/printf.h"
+	"system/generic/log.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\br25.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\csfr.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\irq.h
+	"asm/hwi.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\hwi.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\printf.h
+	<stdarg.h>
+	"typedef.h"
+
+1604037181 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\log.h
+	"system/generic/printf.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\errno-base.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\malloc.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\os\os_type.h
+	"FreeRTOS/FreeRTOS.h"
+	"FreeRTOS/semphr.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\os\freertos\freertos.h
+	"FreeRTOSConfig.h"
+	"projdefs.h"
+	"portable.h"
+	<reent.h>
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\os\freertos\freertosconfig.h
+	"pi32v2/portmacro.h"
+	"pi32_lto/portmacro.h"
+	"q32s/portmacro.h"
+	"printf.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\os\freertos\pi32v2\portmacro.h
+	"asm/cpu.h"
+	<stdint.h>
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\os\freertos\pi32_lto\portmacro.h
+	"asm/cpu.h"
+	<stdint.h>
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\os\freertos\q32s\portmacro.h
+	"asm/cpu.h"
+	<stdint.h>
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\os\freertos\projdefs.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\os\freertos\portable.h
+	"deprecated_definitions.h"
+	"portmacro.h"
+	"mpu_wrappers.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\os\freertos\deprecated_definitions.h
+	"..\..\Source\portable\owatcom\16bitdos\pc\portmacro.h"
+	"..\..\Source\portable\owatcom\16bitdos\flsh186\portmacro.h"
+	"../portable/GCC/ATMega323/portmacro.h"
+	"../portable/IAR/ATMega323/portmacro.h"
+	"../../Source/portable/MPLAB/PIC24_dsPIC/portmacro.h"
+	"../../Source/portable/MPLAB/PIC24_dsPIC/portmacro.h"
+	"../../Source/portable/MPLAB/PIC18F/portmacro.h"
+	"../../Source/portable/MPLAB/PIC32MX/portmacro.h"
+	"libFreeRTOS/Include/portmacro.h"
+	"../../Source/portable/SDCC/Cygnal/portmacro.h"
+	"../../Source/portable/GCC/ARM7_LPC2000/portmacro.h"
+	"portmacro.h"
+	"../../Source/portable/GCC/ARM7_LPC23xx/portmacro.h"
+	"..\..\Source\portable\IAR\MSP430\portmacro.h"
+	"../../Source/portable/GCC/MSP430F449/portmacro.h"
+	"../../Source/portable/Rowley/MSP430F449/portmacro.h"
+	"..\..\Source\portable\RVDS\ARM7_LPC21xx\portmacro.h"
+	"../../Source/portable/GCC/ARM7_AT91SAM7S/portmacro.h"
+	"..\..\Source\portable\IAR\AtmelSAM7S64\portmacro.h"
+	"..\..\Source\portable\IAR\AtmelSAM9XE\portmacro.h"
+	"..\..\Source\portable\IAR\LPC2000\portmacro.h"
+	"..\..\Source\portable\IAR\STR71x\portmacro.h"
+	"..\..\Source\portable\IAR\STR75x\portmacro.h"
+	"..\..\Source\portable\GCC\STR75x\portmacro.h"
+	"..\..\Source\portable\IAR\STR91x\portmacro.h"
+	"../../Source/portable/GCC/H8S2329/portmacro.h"
+	"../../Source/portable/GCC/ARM7_AT91FR40008/portmacro.h"
+	"../../Source/portable/RVDS/ARM_CM3/portmacro.h"
+	"../../Source/portable/GCC/ARM_CM3/portmacro.h"
+	"../../Source/portable/GCC/ARM_CM3/portmacro.h"
+	"../../Source/portable/IAR/ARM_CM3/portmacro.h"
+	"../../Source/portable/IAR/ARM_CM3/portmacro.h"
+	"../../Source/portable/CodeWarrior/HCS12/portmacro.h"
+	"../../Source/portable/GCC/MicroBlaze/portmacro.h"
+	"..\..\Source\portable\Paradigm\Tern_EE\small\portmacro.h"
+	"../../Source/portable/GCC/HCS12/portmacro.h"
+	"../../Source/portable/GCC/MCF5235/portmacro.h"
+	"../../../Source/portable/GCC/ColdFire_V2/portmacro.h"
+	"../../Source/portable/CodeWarrior/ColdFire_V2/portmacro.h"
+	"../../Source/portable/GCC/PPC405_Xilinx/portmacro.h"
+	"../../Source/portable/GCC/PPC440_Xilinx/portmacro.h"
+	"..\..\Source\portable\Softune\MB96340\portmacro.h"
+	"frconfig.h"
+	"..\portable\BCC\16BitDOS\PC\prtmacro.h"
+	"frconfig.h"
+	"..\portable\BCC\16BitDOS\flsh186\prtmacro.h"
+	"portmacro.h"
+	"portmacro.h"
+	"portmacro.h"
+	"portmacro.h"
+	"../../Source/portable/IAR/V850ES/portmacro.h"
+	"../../Source/portable/IAR/V850ES/portmacro.h"
+	"../../Source/portable/IAR/V850ES/portmacro.h"
+	"../../Source/portable/IAR/V850ES/portmacro.h"
+	"../../Source/portable/IAR/V850ES/portmacro.h"
+	"../../Source/portable/IAR/78K0R/portmacro.h"
+	"../../Source/portable/IAR/78K0R/portmacro.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\os\freertos\mpu_wrappers.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\os\freertos\semphr.h
+	"queue.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\os\freertos\queue.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\os\os_api.h
+	"generic/typedef.h"
+	"os/os_cpu.h"
+	"os/os_error.h"
+	"os/os_type.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\os\os_cpu.h
+	"asm/cpu.h"
+	"jiffies.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\jiffies.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\os\os_error.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\list.h
+
+1604649521 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_fun_cfg.h
+	"typedef.h"
+	"timer.h"
+	"string.h"
+	"gpio.h"
+	"cpu.h"
+	"app_task.h"
+	"board_config.h"
+	"app_config.h"
+	"app_action.h"
+	"audio_dec.h"
+	"btstack/avctp_user.h"
+	"app_main.h"
+	"media/file_decoder.h"
+	"music/music_player.h"
+	"key_event_deal.h"
+	"ui/style_led7.h"
+	"ui/ui_api.h"
+	"mic_effect.h"
+	"application/audio_eq.h"
+	"audio_config.h"
+	"asm/spi.h"
+	"log.h"
+	"app_task.h"
+	"classic/tws_api.h"
+	"bt_tws.h"
+	"user_pa.h"
+	"user_ad.h"
+	"user_led.h"
+	"user_rgb_dev.h"
+	"user_rgb.h"
+	"user_mic.h"
+	"user_dev_check.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\timer.h
+	"typedef.h"
+	"generic/list.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\gpio.h
+	"asm/gpio.h"
+
+1602509618 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\gpio.h
+	"user_gpio.h"
+	"typedef.h"
+
+1602224184 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_gpio.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\cpu.h
+	<asm/cpu.h>
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\app_task.h
+	"system/task.h"
+	"app_msg.h"
+	"system/event.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\task.h
+	"os/os_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\app_msg.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\event.h
+	"generic/typedef.h"
+	"generic/list.h"
+	"generic/rect.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\rect.h
+	"typedef.h"
+
+1604041224 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_config.h
+	"board_ac6966b/board_ac6966b_cfg.h"
+	"board_ac6965e/board_ac6965e_cfg.h"
+	"board_ac696x_demo/board_ac696x_demo_cfg.h"
+	"board_ac6969d_demo/board_ac6969d_demo_cfg.h"
+	"board_ac696x_lighter/board_ac696x_lighter_cfg.h"
+	"board_ac696x_tws_box/board_ac696x_tws_box.h"
+	"board_ac696x_tws/board_ac696x_tws.h"
+	"board_ac696x_smartbox/board_ac696x_smartbox.h"
+	"board_ac6082_demo/board_ac6082_demo_cfg.h"
+	"user_config.h"
+	"board_ac6966b/user_ac6966b_cfg.h"
+	"board_ac6965e/user_ac6965e_cfg.h"
+	"board_ac6969d_demo/user_ac6969d_cfg.h"
+
+1604906253 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6966b\board_ac6966b_cfg.h
+	"usb_std_class_def.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\usb_std_class_def.h
+
+1604907117 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\app_config.h
+	"board_config.h"
+	"usb_common_def.h"
+	"btcontroller_mode.h"
+	"user_cfg_id.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\usb_common_def.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btctrler\btcontroller_mode.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\user_cfg_id.h
+
+1602643397 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6965e\board_ac6965e_cfg.h
+	"user_gpio.h"
+	"usb_std_class_def.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_demo\board_ac696x_demo_cfg.h
+	"usb_std_class_def.h"
+	"app_config.h"
+
+1602646738 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6969d_demo\board_ac6969d_demo_cfg.h
+	"user_gpio.h"
+	"usb_std_class_def.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_lighter\board_ac696x_lighter_cfg.h
+	"usb_std_class_def.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_tws_box\board_ac696x_tws_box.h
+	"usb_std_class_def.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_tws\board_ac696x_tws.h
+	"usb_std_class_def.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_smartbox\board_ac696x_smartbox.h
+	"usb_std_class_def.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6082_demo\board_ac6082_demo_cfg.h
+	"usb_std_class_def.h"
+	"app_config.h"
+
+1604910766 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_config.h
+
+1604921169 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6966b\user_ac6966b_cfg.h
+
+1604460270 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6965e\user_ac6965e_cfg.h
+
+1604893630 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6969d_demo\user_ac6969d_cfg.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\app_action.h
+	"app_config.h"
+	"system/app_core.h"
+	"system/task.h"
+	"common/user_msg.h"
+	"bt_tws.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\app_core.h
+	"typedef.h"
+	"generic/list.h"
+	"system/event.h"
+
+1602506747 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\common\user_msg.h
+
+1602508195 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\bt\bt_tws.h
+	"classic/tws_api.h"
+	"classic/tws_event.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btctrler\classic\tws_api.h
+	"typedef.h"
+	"classic/tws_event.h"
+	"classic/tws_local_media_sync.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btctrler\classic\tws_event.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btctrler\classic\tws_local_media_sync.h
+	"generic/list.h"
+	"generic/typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec.h
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"asm/audio_src.h"
+	"audio_digital_vol.h"
+	"application/audio_eq_drc_apply.h"
+	"audio_dec_bt.h"
+	"audio_dec_file.h"
+	"audio_dec_fm.h"
+	"audio_dec_linein.h"
+	"audio_dec_pc.h"
+	"audio_dec_spdif.h"
+	"audio_dec_record.h"
+	"audio_dec_tone.h"
+	"localtws/localtws.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\includes.h
+	"asm/cpu.h"
+	"asm/crc16.h"
+	"asm/clock.h"
+	"asm/uart.h"
+	"asm/uart_dev.h"
+	"asm/gpio.h"
+	"asm/spiflash.h"
+	"asm/csfr.h"
+	"asm/power_interface.h"
+	"asm/efuse.h"
+	"asm/wdt.h"
+	"asm/debug.h"
+	"asm/charge.h"
+	"asm/power/p33.h"
+	"asm/timer.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\crc16.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\clock.h
+	"typedef.h"
+	"clock_hw.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\clock_hw.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\uart.h
+	"device/uart.h"
+	"device/device.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\device\uart.h
+	"typedef.h"
+	"device/device.h"
+	"generic/ioctl.h"
+	"system/task.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\device\device.h
+	"generic/typedef.h"
+	"generic/list.h"
+	"generic/atomic.h"
+	"device/ioctl_cmds.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\atomic.h
+	"cpu.h"
+	"irq.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\irq.h
+	"asm/irq.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\device\ioctl_cmds.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\ioctl.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\uart_dev.h
+	"typedef.h"
+	"os/os_api.h"
+	"jiffies.h"
+	"irq.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\spiflash.h
+	"device/device.h"
+	"device/spiflash.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\device\spiflash.h
+	"typedef.h"
+	"generic/list.h"
+	"generic/ioctl.h"
+	"device/device.h"
+	"system/task.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\power_interface.h
+	"generic/typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\efuse.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\wdt.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\debug.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\charge.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\power\p33.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\timer.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\includes.h
+	"media/audio_decoder.h"
+	"media/audio_encoder.h"
+	"media/mixer.h"
+	"media/automute.h"
+	"effectrs_sync.h"
+	"audio_resample.h"
+	"asm/cpu_includes.h"
+	"asm/dac.h"
+	"asm/audio_adc.h"
+	"asm/audio_src.h"
+	"asm/audio_spdif.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\audio_decoder.h
+	"generic/typedef.h"
+	"generic/list.h"
+	"media/audio_base.h"
+	"media/audio_stream.h"
+	"media/prevent_task_fill.h"
+	"os/os_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\audio_base.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\audio_stream.h
+	"generic/includes.h"
+	"media/audio_base.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\includes.h
+	"errno-base.h"
+	"typedef.h"
+	"ascii.h"
+	"atomic.h"
+	"ioctl.h"
+	"cpu.h"
+	"gpio.h"
+	"irq.h"
+	"jiffies.h"
+	"list.h"
+	"printf.h"
+	"rect.h"
+	"version.h"
+	"lbuf.h"
+	"lbuf_lite.h"
+	"circular_buf.h"
+	"index.h"
+	"debug_lite.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\ascii.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\version.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\lbuf.h
+	"typedef.h"
+	"list.h"
+	"system/spinlock.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\spinlock.h
+	"typedef.h"
+	"cpu.h"
+	"irq.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\lbuf_lite.h
+	"typedef.h"
+	"list.h"
+	"system/spinlock.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\circular_buf.h
+	"typedef.h"
+	"system/spinlock.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\index.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\generic\debug_lite.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\prevent_task_fill.h
+	"generic/typedef.h"
+	"generic/list.h"
+	"system/includes.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\includes.h
+	"init.h"
+	"event.h"
+	"malloc.h"
+	"spinlock.h"
+	"task.h"
+	"timer.h"
+	"wait.h"
+	"app_core.h"
+	"app_msg.h"
+	"database.h"
+	"fs/fs.h"
+	"power_manage.h"
+	"syscfg_id.h"
+	"bank_switch.h"
+	"generic/includes.h"
+	"device/includes.h"
+	"asm/includes.h"
+	"device/sdio_host_init.h"
+	"crypto_toolbox/crypto.h"
+	"crypto_toolbox/Crypto_hash.h"
+	"crypto_toolbox/hmac.h"
+	"crypto_toolbox/sha256.h"
+	"crypto_toolbox/bigint.h"
+	"crypto_toolbox/bigint_impl.h"
+	"crypto_toolbox/ecdh.h"
+	"crypto_toolbox/micro-ecc/uECC_new.h"
+	"crypto_toolbox/micro-ecc/uECC.h"
+	"crypto_toolbox/aes_cmac.h"
+	"crypto_toolbox/rijndael.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\init.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\wait.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\database.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\fs\fs.h
+	"generic/typedef.h"
+	"generic/list.h"
+	"generic/ioctl.h"
+	"generic/atomic.h"
+	"system/task.h"
+	"system/malloc.h"
+	"system/sys_time.h"
+	"stdarg.h"
+	"fs_file_name.h"
+	"sdfile.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\sys_time.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\fs\fs_file_name.h
+	"generic/typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\fs\sdfile.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\power_manage.h
+	"generic/typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\syscfg_id.h
+	"typedef.h"
+
+1602508255 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\bank_switch.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\device\includes.h
+	"device.h"
+	"ioctl_cmds.h"
+	"key_driver.h"
+	"iokey.h"
+	"irkey.h"
+	"adkey.h"
+	"slidekey.h"
+	"touch_key.h"
+	"rdec_key.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\device\key_driver.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\device\iokey.h
+	"typedef.h"
+	"device/device.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\device\irkey.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\device\adkey.h
+	"typedef.h"
+	"asm/adc_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\adc_api.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\device\slidekey.h
+	"typedef.h"
+	"device/device.h"
+	"asm/adc_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\device\touch_key.h
+	"typedef.h"
+	"asm/plcnt.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\plcnt.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\device\rdec_key.h
+	"typedef.h"
+	"asm/rdec.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\rdec.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\device\sdio_host_init.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\crypto_toolbox\crypto.h
+	"endian.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\crypto_toolbox\endian.h
+	"generic/typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\crypto_toolbox\crypto_hash.h
+	"generic/typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\crypto_toolbox\hmac.h
+	"crypto.h"
+	"sha256.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\crypto_toolbox\sha256.h
+	"crypto.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\crypto_toolbox\bigint.h
+	"bigint_impl.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\crypto_toolbox\bigint_impl.h
+	"generic/typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\crypto_toolbox\ecdh.h
+	"bigint_impl.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\crypto_toolbox\micro-ecc\uecc_new.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\crypto_toolbox\micro-ecc\uecc.h
+	<stdint.h>
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\crypto_toolbox\aes_cmac.h
+	<stdint.h>
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\crypto_toolbox\rijndael.h
+	<stdint.h>
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\audio_encoder.h
+	"generic/typedef.h"
+	"generic/list.h"
+	"generic/circular_buf.h"
+	"media/audio_base.h"
+	"os/os_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\mixer.h
+	"generic/typedef.h"
+	"generic/list.h"
+	"media/audio_stream.h"
+	"application/audio_buf_sync.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_buf_sync.h
+	"asm/includes.h"
+	"generic/includes.h"
+	"system/includes.h"
+	"asm/cpu_includes.h"
+	"asm/audio_src.h"
+	"media/audio_decoder.h"
+	"media/audio_encoder.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\asm\cpu_includes.h
+	"asm/audio_adc.h"
+	"asm/audio_linein.h"
+	"asm/audio_src.h"
+	"dac.h"
+	"asm/hw_eq.h"
+	"asm/audio_sync.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\asm\audio_adc.h
+	"generic/typedef.h"
+	"generic/list.h"
+	"generic/atomic.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\asm\audio_linein.h
+	"generic/typedef.h"
+	"asm/audio_adc.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\asm\audio_src.h
+	"media/audio_stream.h"
+	"audio_resample.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\audio_resample.h
+	"typedef.h"
+	"media/audio_stream.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\asm\dac.h
+	"generic/typedef.h"
+	"generic/atomic.h"
+	"os/os_api.h"
+	"media/audio_stream.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\asm\hw_eq.h
+	"generic/typedef.h"
+	"generic/list.h"
+	"os/os_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\asm\audio_sync.h
+	"media/audio_stream.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\automute.h
+	"generic/typedef.h"
+	"generic/list.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\effectrs_sync.h
+	"generic/typedef.h"
+	"generic/list.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\asm\audio_spdif.h
+	"generic/typedef.h"
+	"generic/list.h"
+
+1604029073 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_eq_drc_apply.h
+	"typedef.h"
+	"asm/hw_eq.h"
+	"application/audio_eq.h"
+	"application/audio_drc.h"
+	"application/eq_config.h"
+	"media/audio_stream.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_eq.h
+	"typedef.h"
+	"asm/hw_eq.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_drc.h
+	"typedef.h"
+	"sw_drc.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\sw_drc.h
+	"generic/typedef.h"
+	"generic/list.h"
+	"os/os_api.h"
+
+1604029073 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\eq_config.h
+	"typedef.h"
+	"asm/hw_eq.h"
+	"spinlock.h"
+	"application/audio_eq.h"
+	"application/audio_drc.h"
+	"math.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_bt.h
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"media/audio_decoder.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_file.h
+	"asm/includes.h"
+	"media/includes.h"
+	"media/file_decoder.h"
+	"system/includes.h"
+	"media/audio_decoder.h"
+	"app_config.h"
+	"music/music_decrypt.h"
+	"music/music_id3.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\file_decoder.h
+	"media/includes.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\music\music_decrypt.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\music\music_id3.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_fm.h
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"media/audio_decoder.h"
+	"mic_effect.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\mic_effect.h
+	"system/includes.h"
+	"audio_mic/effect_reg.h"
+	"audio_mic/effect_cfg.h"
+	"app_config.h"
+	"application/audio_pemafrow.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\effect_reg.h
+	"system/includes.h"
+	"audio_mic/mic_stream.h"
+	"effect_cfg.h"
+	"application/audio_eq.h"
+	"effect_reg_echo.h"
+	"effect_reg_reverb.h"
+	"application/audio_howling.h"
+	"application/audio_pitch.h"
+	"application/audio_noisegate.h"
+	"application/audio_echo_reverb.h"
+	"application/audio_dig_vol.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\mic_stream.h
+	"system/includes.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\effect_cfg.h
+	"generic/typedef.h"
+	"system/includes.h"
+	"audio_mic/mic_stream.h"
+	"application/audio_noisegate.h"
+	"application/audio_eq.h"
+	"application/audio_howling.h"
+	"application/audio_pitch.h"
+	"application/audio_echo_reverb.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_noisegate.h
+	"media/audio_stream.h"
+	"asm/noisegate_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\asm\noisegate_api.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_howling.h
+	"asm/howling_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\asm\howling_api.h
+	"asm/howling_pitchshifter_api.h"
+	"media/audio_stream.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\asm\howling_pitchshifter_api.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_pitch.h
+	"pitchshifter/pitchshifter_api.h"
+	"mono2stereo/reverb_mono2stero_api.h"
+	"media/audio_stream.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\pitchshifter\pitchshifter_api.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\mono2stereo\reverb_mono2stero_api.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_echo_reverb.h
+	"asm/reverb_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\asm\reverb_api.h
+	"media/audio_stream.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\effect_reg_echo.h
+	"effect_cfg.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\effect_reg_reverb.h
+	"effect_cfg.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_dig_vol.h
+	"application/audio_dig_vol.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_pemafrow.h
+	"asm/pemafrow_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\asm\pemafrow_api.h
+	"media/audio_stream.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_linein.h
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"media/audio_decoder.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_pc.h
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"media/audio_decoder.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_spdif.h
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"media/audio_decoder.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_record.h
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"media/audio_decoder.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_tone.h
+	"asm/includes.h"
+	"media/includes.h"
+	"media/file_decoder.h"
+	"system/includes.h"
+	"media/audio_decoder.h"
+	"application/audio_dec_app.h"
+	"tone_player.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_dec_app.h
+	"asm/includes.h"
+	"media/includes.h"
+	"media/audio_stream.h"
+	"system/includes.h"
+
+1602506963 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\tone_player.h
+	"app_config.h"
+	"audio_config.h"
+
+1602510040 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_config.h
+	"generic/typedef.h"
+	"app_config.h"
+	"board_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\localtws\localtws.h
+	"application/audio_localtws.h"
+	"media/localtws_decoder.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_localtws.h
+	"asm/includes.h"
+	"system/includes.h"
+	"media/mixer.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\localtws_decoder.h
+	"media/includes.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\avctp_user.h
+	"typedef.h"
+	"btstack_typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\btstack_typedef.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\app_main.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\music\music_player.h
+	"system/app_core.h"
+	"system/includes.h"
+	"server/server_core.h"
+	"media/audio_decoder.h"
+	"dev_manager/dev_manager.h"
+	"file_operate/file_manager.h"
+	"audio_dec/audio_dec_file.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\server\server_core.h
+	"generic/typedef.h"
+	"system/task.h"
+	"spinlock.h"
+	"list.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\dev_manager\dev_manager.h
+	"system/includes.h"
+	"typedef.h"
+	"system/fs/fs.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\file_operate\file_manager.h
+	"system/includes.h"
+	"typedef.h"
+	"system/fs/fs.h"
+
+1604037676 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\key_event_deal.h
+	"typedef.h"
+	"system/event.h"
+
+1604547080 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\ui\style_led7.h
+	"ui/ui_common.h"
+	"ui/led7/led7_driver.h"
+	"ui/lcd_seg/lcd_seg3x9_driver.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\ui\ui_common.h
+	"typedef.h"
+
+1604543735 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\ui\led7\led7_driver.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\ui\lcd_seg\lcd_seg3x9_driver.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\ui\ui_api.h
+	"app_config.h"
+	"ui/lcd_spi/lcd_drive.h"
+	"ui/ui.h"
+	"ui/ui_style.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\ui\lcd_spi\lcd_drive.h
+	"asm/spi.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\spi.h
+	"typedef.h"
+	"generic/ioctl.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\ui.h
+	"window.h"
+	"ui_button.h"
+	"ui_grid.h"
+	"ui_time.h"
+	"ui_camera.h"
+	"ui_pic.h"
+	"ui_text.h"
+	"ui_battery.h"
+	"ui_browser.h"
+	"ui_slider.h"
+	"ui_number.h"
+	"ui_watch.h"
+	"ui_progress.h"
+	"ui_progress_multi.h"
+	<stdarg.h>
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\window.h
+	"ui/layer.h"
+	"ui/ui_core.h"
+	"ui/control.h"
+	"list.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\layer.h
+	"ui/layout.h"
+	"ui/control.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\layout.h
+	"ui/ui_core.h"
+	"ui/control.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\ui_core.h
+	"typedef.h"
+	"rect.h"
+	"system/event.h"
+	"fs/fs.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\control.h
+	"ui/ui_core.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\ui_button.h
+	"ui/control.h"
+	"ui/ui_core.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\ui_grid.h
+	"ui/ui_core.h"
+	"ui/control.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\ui_time.h
+	"ui/control.h"
+	"ui/ui_core.h"
+	"ui/p.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\p.h
+	"ui/ui_core.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\ui_camera.h
+	"ui/control.h"
+	"ui/ui_core.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\ui_pic.h
+	"ui/ui_core.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\ui_text.h
+	"ui/ui_core.h"
+	"ui/control.h"
+	"font/font_all.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\font\font_all.h
+	"generic/typedef.h"
+	"font/font_sdfs.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\font\font_sdfs.h
+	"generic/typedef.h"
+	"fs/fs.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\ui_battery.h
+	"ui/control.h"
+	"list.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\ui_browser.h
+	"ui/ui_core.h"
+	"ui/control.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\ui_slider.h
+	"ui/ui_core.h"
+	"ui/control.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\ui_number.h
+	"ui/control.h"
+	"ui/ui_core.h"
+	"ui/p.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\ui_watch.h
+	"ui/control.h"
+	"ui/ui_core.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\ui_progress.h
+	"ui/control.h"
+	"ui/ui_core.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\ui_progress_multi.h
+	"ui/control.h"
+	"ui/ui_core.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\ui\ui_style.h
+	"ui/style_led7.h"
+	"ui/style_jl01.h"
+	"ui/style_jl02.h"
+
+1604471749 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_pa.h
+
+1604922177 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_ad.h
+
+1602224184 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_led.h
+
+1602224184 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_rgb_dev.h
+
+1602224184 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_rgb.h
+
+1602224184 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_mic.h
+	"user_dev_check.h"
+
+1602224184 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_dev_check.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\audio\decode\decode.c
+	"application/audio_dec_app.h"
+	"app_config.h"
+	"audio_config.h"
+	"app_main.h"
+	"tone_player.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\audio\encode\encode_write_file.c
+	"encode_write.h"
+	"file_operate/file_bs_deal.h"
+	"audio_enc.h"
+	"media/audio_base.h"
+	"dev_manager.h"
+	"app_config.h"
+	"spi/nor_fs.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\audio\encode\encode_write.h
+	"app_config.h"
+	"system/includes.h"
+	"system/os/os_cpu.h"
+	"system/fs/fs.h"
+	"dev_manager.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\file_operate\file_bs_deal.h
+	"fs/fs.h"
+	"storage_dev/storage_dev.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\storage_dev\storage_dev.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_enc\audio_enc.h
+	"generic/typedef.h"
+	"media/includes.h"
+	"mic_effect.h"
+	"loud_speaker.h"
+	"audio_enc_file.h"
+	"audio_enc_recoder.h"
+	"audio_recorder_mix.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\loud_speaker.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_enc\audio_enc_file.h
+	"media/audio_encoder.h"
+	"dev_manager.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_enc\audio_enc_recoder.h
+	"media/audio_encoder.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_enc\audio_recorder_mix.h
+	"system/includes.h"
+	"media/includes.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\spi\nor_fs.h
+	"typedef.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\audio\sine_make.c
+	"system/includes.h"
+	"tone_player.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\audio\uartpcmsender.c
+	"app_config.h"
+	"system/includes.h"
+	"asm/uart_dev.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\bt_common\bt_test_api.c
+	"typedef.h"
+	"app_config.h"
+	"task.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\debug.h
+	"asm/cpu.h"
+	"generic/typedef.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\charge_box\chargeic_manage.c
+	"chargeIc_manage.h"
+	"device/device.h"
+	"app_config.h"
+	"app_main.h"
+	"user_cfg.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\charge_box\chargeic_manage.h
+	"printf.h"
+	"cpu.h"
+	"asm/iic_hw.h"
+	"asm/iic_soft.h"
+	"timer.h"
+	"app_config.h"
+	"event.h"
+	"system/includes.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\iic_hw.h
+	"system/generic/typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\iic_soft.h
+	"generic/typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\user_cfg.h
+	"typedef.h"
+	"app_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\charge_box\chgbox_box.c
+	"app_config.h"
+	"system/includes.h"
+	"chgbox_box.h"
+	"user_cfg.h"
+	"device/vm.h"
+	"app_task.h"
+	"app_main.h"
+	"chargeIc_manage.h"
+	"chgbox_ctrl.h"
+	"device/chargebox.h"
+	"asm/power/p33.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\charge_box\chgbox_box.h
+	"typedef.h"
+	"system/event.h"
+	"device/chargebox.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\device\chargebox.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\device\vm.h
+	"ioctl.h"
+	"device/device.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\charge_box\chgbox_ctrl.h
+	"event.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\charge_box\chgbox_ctrl.c
+	"system/includes.h"
+	"app_config.h"
+	"app_task.h"
+	"chargeIc_manage.h"
+	"chgbox_ctrl.h"
+	"chgbox_box.h"
+	"chgbox_det.h"
+	"chgbox_wireless.h"
+	"key_event_deal.h"
+	"device/chargebox.h"
+	"chgbox_ui.h"
+	"chgbox_handshake.h"
+	"asm/pwm_led.h"
+	"le_smartbox_module.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\charge_box\chgbox_det.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\charge_box\chgbox_wireless.h
+	"device/wireless_charge.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\device\wireless_charge.h
+	"asm/includes.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\charge_box\chgbox_ui.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\charge_box\chgbox_handshake.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\pwm_led.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\bt_manage\bt_trans_data\le_smartbox_module.h
+	<stdint.h>
+	"bt_common.h"
+	"ble_user.h"
+	"btstack/btstack_typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\include\bt_common.h
+	<stdint.h>
+	"app_config.h"
+	"lib_profile_cfg.h"
+	"bt_profile_cfg.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\config\include\bt_profile_cfg.h
+	"app_config.h"
+	"btcontroller_modules.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btctrler\btcontroller_modules.h
+	"hci_transport.h"
+	"btcontroller_mode.h"
+	"ble/hci_ll.h"
+	"classic/hci_lmp.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btctrler\hci_transport.h
+	"generic/typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btctrler\ble\hci_ll.h
+	<stdint.h>
+	<stdlib.h>
+	<stdarg.h>
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btctrler\classic\hci_lmp.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\third_party\common\ble_user.h
+	"typedef.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\charge_box\chgbox_det.c
+	"gpio.h"
+	"system/event.h"
+	"app_config.h"
+	"chgbox_det.h"
+	"chgbox_box.h"
+	"chgbox_ctrl.h"
+	"system/timer.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\charge_box\chgbox_handshake.c
+	"gpio.h"
+	"app_config.h"
+	"system/includes.h"
+	"chgbox_ctrl.h"
+	"asm/adc_api.h"
+	"chgbox_box.h"
+	"device/chargebox.h"
+	"chgbox_handshake.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\charge_box\chgbox_ui.c
+	"typedef.h"
+	"asm/pwm_led.h"
+	"system/includes.h"
+	"chgbox_ctrl.h"
+	"chargeIc_manage.h"
+	"chgbox_ui.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\charge_box\chgbox_wireless.c
+	"gpio.h"
+	"app_config.h"
+	"system/includes.h"
+	"device/wireless_charge.h"
+	"chgbox_ctrl.h"
+	"asm/adc_api.h"
+	"chgbox_box.h"
+	"device/chargebox.h"
+	"chgbox_wireless.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\charge_box\ic_self.c
+	"chargeIc_manage.h"
+	"chgbox_ctrl.h"
+	"ic_self.h"
+	"app_config.h"
+	"app_main.h"
+	"chgbox_box.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\charge_box\ic_self.h
+	"typedef.h"
+	"os/os_type.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\config\app_config.c
+	"system/includes.h"
+	"app_config.h"
+	"config/config_interface.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\config\config_interface.h
+	"config/config_transport.h"
+	"config/config_target.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\config\config_transport.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\config\config_target.h
+	"typedef.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\config\bt_profile_config.c
+	"system/includes.h"
+	"app_config.h"
+	"btcontroller_config.h"
+	"btstack/bt_profile_config.h"
+	"bt_common.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btctrler\port\br25\btcontroller_config.h
+	"btcontroller_modules.h"
+	"ble/ll_config.h"
+	"classic/lmp_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btctrler\ble\ll_config.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btctrler\classic\lmp_config.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\bt_profile_config.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\config\ci_transport_uart.c
+	"system/includes.h"
+	"config/config_interface.h"
+	"system/event.h"
+	"app_online_cfg.h"
+	"asm/uart_dev.h"
+	"app_config.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\app_online_cfg.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\debug\debug.c
+	"app_config.h"
+	"typedef.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\debug\debug_lite.c
+	"app_config.h"
+	"typedef.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\dev_manager\dev_manager.c
+	"dev_manager.h"
+	"dev_reg.h"
+	"app_config.h"
+	"dev_multiplex_api.h"
+	"spi/nor_fs.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\dev_manager\dev_reg.h
+	"system/includes.h"
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\user_api\dev_multiplex_api.h
+	"generic/typedef.h"
+	"app_config.h"
+	"usb/host/usb_host.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\device\usb\host\usb_host.h
+	"system/task.h"
+	"device/device.h"
+	"asm/usb.h"
+	"usb/ch9.h"
+	"usb/usb_phy.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\usb.h
+	"typedef.h"
+	"generic/ioctl.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\device\usb\ch9.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\device\usb\usb_phy.h
+	"typedef.h"
+	"asm/usb.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\dev_manager\dev_reg.c
+	"dev_reg.h"
+	"app_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\dev_manager\dev_update.c
+	"dev_update.h"
+	"dev_manager.h"
+	"update/update.h"
+	"update/update_loader_download.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\dev_manager\dev_update.h
+	"typedef.h"
+	"system/includes.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\update\update.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\update\update_loader_download.h
+	"typedef.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\detection.c
+	"system/includes.h"
+	"app_config.h"
+	"app_action.h"
+	"gpio.h"
+	"app_main.h"
+	"update.h"
+	"user_cfg.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm\bk1080\bk1080.c
+	"app_config.h"
+	"system/includes.h"
+	"fm/fm_manage.h"
+	"BK1080.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\fm\fm_manage.h
+	"printf.h"
+	"cpu.h"
+	"asm/iic_hw.h"
+	"asm/iic_soft.h"
+	"timer.h"
+	"app_config.h"
+	"event.h"
+	"system/includes.h"
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm\bk1080\bk1080.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm\fm_inside\fm_inside.c
+	"app_config.h"
+	"system/includes.h"
+	"fm/fm_manage.h"
+	"asm/fm_inside_api.h"
+	"asm/dac.h"
+	"audio_config.h"
+	"media/audio_base.h"
+	"overlay_code.h"
+	"clock_cfg.h"
+	"fm_inside.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\fm_inside_api.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\overlay_code.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\clock_cfg.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm\fm_inside\fm_inside.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm\fm_manage.c
+	"app_config.h"
+	"system/includes.h"
+	"fm/fm_manage.h"
+	"rda5807/RDA5807.h"
+	"bk1080/BK1080.h"
+	"qn8035/QN8035.h"
+	"fm_inside/fm_inside.h"
+	"asm/audio_linein.h"
+	"audio_config.h"
+	"audio_dec/audio_dec_fm.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm\rda5807\rda5807.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm\qn8035\qn8035.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm\qn8035\qn8035.c
+	"app_config.h"
+	"system/includes.h"
+	"fm/fm_manage.h"
+	"QN8035.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm\rda5807\rda5807.c
+	"app_config.h"
+	"system/includes.h"
+	"fm/fm_manage.h"
+	"RDA5807.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm_emitter\ac3433\ac3433.c
+	"app_config.h"
+	"system/includes.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"ac3433.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\fm_emitter\fm_emitter_manage.h
+	"printf.h"
+	"cpu.h"
+	"asm/iic_hw.h"
+	"asm/iic_soft.h"
+	"timer.h"
+	"app_config.h"
+	"event.h"
+	"system/includes.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm_emitter\ac3433\ac3433.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm_emitter\fm_emitter_manage.c
+	"app_config.h"
+	"circular_buf.h"
+	"system/includes.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"ac3433/ac3433.h"
+	"qn8007/qn8007.h"
+	"qn8027/qn8027.h"
+	"fm_inside/fm_emitter_inside.h"
+	"audio_config.h"
+	"audio_digital_vol.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm_emitter\qn8007\qn8007.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm_emitter\qn8027\qn8027.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm_emitter\fm_inside\fm_emitter_inside.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm_emitter\fm_inside\fm_emitter_inside.c
+	"app_config.h"
+	"system/includes.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"fm_emitter_inside.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm_emitter\qn8007\qn8007.c
+	"app_config.h"
+	"system/includes.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"qn8007.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\fm_emitter\qn8027\qn8027.c
+	"app_config.h"
+	"system/includes.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"qn8027.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\gsensor\da230.c
+	"gSensor/EPMotion.h"
+	"gSensor/da230.h"
+	"gSensor/gSensor_manage.h"
+	"app_config.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\gsensor\epmotion.h
+	"mira_std.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\gsensor\mira_std.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\gsensor\da230.h
+	"typedef.h"
+	"mira_std.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\gsensor\gsensor_manage.h
+	"printf.h"
+	"cpu.h"
+	"asm/iic_hw.h"
+	"asm/iic_soft.h"
+	"timer.h"
+	"app_config.h"
+	"event.h"
+	"system/includes.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\gsensor\gsensor_manage.c
+	"gSensor/gSensor_manage.h"
+	"device/device.h"
+	"app_config.h"
+	"debug.h"
+	"key_event_deal.h"
+	"btstack/avctp_user.h"
+	"app_main.h"
+	"tone_player.h"
+	"user_cfg.h"
+	"bt_tws.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\gsensor\sc7a20.c
+	"gSensor/SC7A20.h"
+	"gSensor/gSensor_manage.h"
+	"app_config.h"
+	"gSensor/SC7A20.h"
+	"math.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\gsensor\sc7a20.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\device\norflash\norflash.c
+	"norflash.h"
+	"app_config.h"
+	"asm/clock.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\include\norflash.h
+	"device/device.h"
+	"ioctl_cmds.h"
+	"asm/spi.h"
+	"printf.h"
+	"gpio.h"
+	"device_drive.h"
+	"malloc.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\device\device_drive.h
+	"typedef.h"
+	"errno-base.h"
+	"ioctl.h"
+	"os/os_api.h"
+	<pthread.h>
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\file_operate\file_api.c
+	"app_config.h"
+	"system/includes.h"
+	"system/os/os_cpu.h"
+	"file_operate/file_bs_deal.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\file_operate\file_bs_deal.c
+	"file_bs_deal.h"
+	"uart.h"
+	"dev_manager.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\file_operate\file_manager.c
+	"file_manager.h"
+	"app_config.h"
+
+1604029072 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\key\adkey.c
+	"board_config.h"
+	"key_driver.h"
+	"adkey.h"
+	"gpio.h"
+	"system/event.h"
+	"app_config.h"
+	"user_fun_cfg.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\key\adkey_rtcvdd.c
+	"includes.h"
+	"key_driver.h"
+	"adkey.h"
+	"gpio.h"
+	"system/event.h"
+	"app_config.h"
+	"asm/power/p33.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\key\ctmu_touch_key.c
+	"key_driver.h"
+	"app_config.h"
+	"asm/ctmu.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\ctmu.h
+	"typedef.h"
+
+1602508875 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\key\iokey.c
+	"key_driver.h"
+	"iokey.h"
+	"gpio.h"
+	"system/event.h"
+	"app_config.h"
+	"asm/clock.h"
+
+1604029072 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\key\irkey.c
+	"key_driver.h"
+	"irkey.h"
+	"gpio.h"
+	"asm/irflt.h"
+	"app_config.h"
+	"user_fun_cfg.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\irflt.h
+
+1602509456 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\key\key_driver.c
+	"device/key_driver.h"
+	"system/event.h"
+	"system/init.h"
+	"iokey.h"
+	"adkey.h"
+	"slidekey.h"
+	"irkey.h"
+	"touch_key.h"
+	"system/timer.h"
+	"asm/power_interface.h"
+	"app_config.h"
+	"rdec_key.h"
+	"irSensor/ir_manage.h"
+	"debug.h"
+	"asm/ctmu.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\key\rdec_key.c
+	"key_driver.h"
+	"gpio.h"
+	"system/event.h"
+	"app_config.h"
+	"audio_config.h"
+	"rdec_key.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\key\slidekey.c
+	"key_driver.h"
+	"slidekey.h"
+	"gpio.h"
+	"system/event.h"
+	"app_config.h"
+	"asm/clock.h"
+	"app_action.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\key\touch_key.c
+	"touch_key.h"
+	"key_driver.h"
+	"app_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\music\breakpoint.c
+	"breakpoint.h"
+	"app_config.h"
+	"vm.h"
+	"system/syscfg_id.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\music\breakpoint.h
+	"system/includes.h"
+	"media/audio_decoder.h"
+	"music/music_player.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\music\music_decrypt.c
+	"system/app_core.h"
+	"system/includes.h"
+	"app_config.h"
+	"music/music_decrypt.h"
+	"system/fs/fs.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\music\music_id3.c
+	"system/app_core.h"
+	"system/includes.h"
+	"app_config.h"
+	"music/music_id3.h"
+	"system/fs/fs.h"
+	"debug.h"
+
+1604029072 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\music\music_player.c
+	"music/music_player.h"
+	"key_event_deal.h"
+	"app_config.h"
+	"audio_enc.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\ancs_client_demo\le_ancs_client.c
+	"system/app_core.h"
+	"system/includes.h"
+	"app_config.h"
+	"app_action.h"
+	"btstack/btstack_task.h"
+	"btstack/bluetooth.h"
+	"user_cfg.h"
+	"vm.h"
+	"btcontroller_modules.h"
+	"bt_common.h"
+	"3th_profile_api.h"
+	"le_ancs_client.h"
+	"le_common.h"
+	"rcsp_bluetooth.h"
+	"JL_rcsp_api.h"
+	"btstack/btstack_event.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\btstack_task.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\bluetooth.h
+	"typedef.h"
+	"le/ble_data_types.h"
+	"le/ble_api.h"
+	"le/le_user.h"
+	"le/att.h"
+	"le/gatt.h"
+	"le/sm.h"
+	"third_party/baidu/dma_protobuf.h"
+	"third_party/baidu/dueros_dma.h"
+	"third_party/baidu/dueros_dma_pb.h"
+	"third_party/baidu/dueros_platform.h"
+	"btstack_event.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\le\ble_data_types.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\le\ble_api.h
+	"typedef.h"
+	"btstack/btstack_typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\le\le_user.h
+	"typedef.h"
+	"btstack/btstack_typedef.h"
+	"ble_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\le\att.h
+	"typedef.h"
+	"btstack/btstack_typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\le\gatt.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\le\sm.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\third_party\baidu\dma_protobuf.h
+	<string.h>
+	<stdint.h>
+	<limits.h>
+	<stddef.h>
+	<stdint.h>
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\third_party\baidu\dueros_dma.h
+	<string.h>
+	<stdint.h>
+	"btstack/third_party/baidu/dueros_dma_pb.h"
+	"btstack/third_party/baidu/dueros_platform.h"
+	"typedef.h"
+	"btstack/frame_queque.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\third_party\baidu\dueros_dma_pb.h
+	<string.h>
+	<stdint.h>
+	"dma_protobuf.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\third_party\baidu\dueros_platform.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\frame_queque.h
+	<string.h>
+	<stdint.h>
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\btstack_event.h
+	"btstack/btstack_typedef.h"
+	<stdint.h>
+	"le/gatt.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\common\3th_profile_api.h
+	<string.h>
+	<stdint.h>
+	"le_common.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\le_common.h
+	"typedef.h"
+	<stdint.h>
+	"btstack/bluetooth.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\ancs_client_demo\le_ancs_client.h
+	<stdint.h>
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\rcsp_bluetooth.h
+	"typedef.h"
+	"le_common.h"
+	"spp_user.h"
+	"system/event.h"
+	"rcsp_msg.h"
+	"ble_user.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\third_party\common\spp_user.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\rcsp_msg.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\third_party\rcsp\jl_rcsp_api.h
+	"typedef.h"
+	"uart.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\common\3th_profile_api.c
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	"typedef.h"
+	"3th_profile_api.h"
+	"bt_tws.h"
+	"key_event_deal.h"
+	"system/timer.h"
+	"btstack/frame_queque.h"
+	"bt_common.h"
+	"btstack/third_party/baidu/dueros_dma.h"
+	"btstack/avctp_user.h"
+	"os/os_api.h"
+	"dma_deal.h"
+	"tm_gma_deal.h"
+	"gma.h"
+	"tm_tws_ota.h"
+	"rcsp_adv_tws_ota.h"
+	"smartbox_update_tws.h"
+	"update_tws.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_update\smartbox_update_tws.h
+	"app_config.h"
+	"system/event.h"
+	"update_loader_download.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\include\update_tws.h
+	"app_config.h"
+	"system/event.h"
+	"update_loader_download.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\common\custom_cfg.c
+	"board_config.h"
+	"custom_cfg.h"
+	"app_config.h"
+	"rcsp_user_update.h"
+	"rcsp_bluetooth.h"
+	"rcsp_adv_user_update.h"
+	"rcsp_adv_bluetooth.h"
+	"smartbox_adv_bluetooth.h"
+	"app_config.h"
+	"fs.h"
+	"uart.h"
+	<string.h>
+	"flash_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\common\custom_cfg.h
+	"typedef.h"
+	<string.h>
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\rcsp_updata\rcsp_adv_user_update.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_rcsp_protocol\rcsp_adv_bluetooth.h
+	"app_config.h"
+	"typedef.h"
+	"system/event.h"
+	"le_common.h"
+	"ble_user.h"
+	"spp_user.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting_opt\smartbox_adv_bluetooth.h
+	"typedef.h"
+	"system/event.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\hid_user.c
+	"app_config.h"
+	"app_action.h"
+	"system/includes.h"
+	"spp_user.h"
+	"string.h"
+	"circular_buf.h"
+	"spp_trans_data.h"
+	"bt_common.h"
+	"btstack/avctp_user.h"
+	"circular_buf.h"
+	"hid_user.h"
+	"standard_hid.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\trans_data_demo\spp_trans_data.h
+	"typedef.h"
+	"bt_common.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\hid_user.h
+	"typedef.h"
+	"bt_common.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\include\standard_hid.h
+	"typedef.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_app_setting\adv_bt_name_setting.c
+	"app_config.h"
+	"user_cfg.h"
+	"syscfg_id.h"
+	"user_cfg_id.h"
+	"le_rcsp_adv_module.h"
+	"adv_bt_name_setting.h"
+	"adv_setting_common.h"
+	"rcsp_adv_tws_sync.h"
+	"rcsp_adv_opt.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\bt_trans_data\le_rcsp_adv_module.h
+	<stdint.h>
+	"bt_common.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_app_setting\adv_bt_name_setting.h
+	"le_rcsp_adv_module.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_app_setting\adv_setting_common.h
+	"typedef.h"
+	"event.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_rcsp_protocol\rcsp_adv_tws_sync.h
+	"classic/tws_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_rcsp_protocol\rcsp_adv_opt.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_app_setting\adv_key_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"user_cfg_id.h"
+	"key_event_deal.h"
+	"le_rcsp_adv_module.h"
+	"adv_key_setting.h"
+	"adv_setting_common.h"
+	"rcsp_adv_tws_sync.h"
+	"rcsp_adv_opt.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_app_setting\adv_key_setting.h
+	"le_rcsp_adv_module.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_app_setting\adv_led_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"user_cfg_id.h"
+	"asm/pwm_led.h"
+	"user_cfg.h"
+	"ui_manage.h"
+	"le_rcsp_adv_module.h"
+	"adv_led_setting.h"
+	"adv_setting_common.h"
+	"rcsp_adv_tws_sync.h"
+	"rcsp_adv_opt.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\ui_manage.h
+	"typedef.h"
+	"asm/pwm_led.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_app_setting\adv_led_setting.h
+	"le_rcsp_adv_module.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_app_setting\adv_mic_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"user_cfg_id.h"
+	"le_rcsp_adv_module.h"
+	"adv_mic_setting.h"
+	"adv_setting_common.h"
+	"rcsp_adv_tws_sync.h"
+	"rcsp_adv_opt.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_app_setting\adv_mic_setting.h
+	"le_rcsp_adv_module.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_app_setting\adv_time_stamp_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"user_cfg_id.h"
+	"rcsp_adv_bluetooth.h"
+	"JL_rcsp_protocol.h"
+	"le_rcsp_adv_module.h"
+	"adv_time_stamp_setting.h"
+	"adv_setting_common.h"
+	"rcsp_adv_tws_sync.h"
+	"rcsp_adv_opt.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\third_party\rcsp\jl_rcsp_protocol.h
+	"typedef.h"
+	"JL_rcsp_packet.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\third_party\rcsp\jl_rcsp_packet.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_app_setting\adv_time_stamp_setting.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_app_setting\adv_work_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"user_cfg_id.h"
+	"le_rcsp_adv_module.h"
+	"adv_work_setting.h"
+	"adv_setting_common.h"
+	"rcsp_adv_tws_sync.h"
+	"rcsp_adv_opt.h"
+	"os/os_api.h"
+	"btstack/avctp_user.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_app_setting\adv_work_setting.h
+	"le_rcsp_adv_module.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_rcsp_protocol\rcsp_adv_opt.c
+	"app_config.h"
+	"syscfg_id.h"
+	"user_cfg_id.h"
+	"le_rcsp_adv_module.h"
+	"rcsp_adv_bluetooth.h"
+	"rcsp_adv_opt.h"
+	"adv_setting_common.h"
+	"rcsp_adv_tws_sync.h"
+	"adv_time_stamp_setting.h"
+	"adv_bt_name_setting.h"
+	"adv_key_setting.h"
+	"adv_led_setting.h"
+	"adv_mic_setting.h"
+	"adv_work_setting.h"
+	"adv_eq_setting.h"
+	"adv_high_low_vol.h"
+	"bt_tws.h"
+	"btstack/avctp_user.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_app_setting\adv_eq_setting.h
+	"le_rcsp_adv_module.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_app_setting\adv_high_low_vol.h
+	"le_rcsp_adv_module.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\adv_rcsp_protocol\rcsp_adv_tws_sync.c
+	"app_config.h"
+	"rcsp_adv_tws_sync.h"
+	"adv_setting_common.h"
+	"rcsp_adv_opt.h"
+	"adv_time_stamp_setting.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\rcsp_updata\rcsp_adv_user_update.c
+	"app_config.h"
+	"rcsp_adv_user_update.h"
+	"uart.h"
+	"system/timer.h"
+	"update.h"
+	"custom_cfg.h"
+	"btstack/avctp_user.h"
+	"JL_rcsp_packet.h"
+	"JL_rcsp_protocol.h"
+	"rcsp_adv_bluetooth.h"
+	"le_rcsp_adv_module.h"
+	"update_loader_download.h"
+	"classic/tws_api.h"
+	"syscfg_id.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\le_client_demo.c
+	"system/app_core.h"
+	"system/includes.h"
+	"app_config.h"
+	"app_action.h"
+	"btstack/btstack_task.h"
+	"btstack/bluetooth.h"
+	"user_cfg.h"
+	"vm.h"
+	"btcontroller_modules.h"
+	"bt_common.h"
+	"le_client_demo.h"
+	"le_common.h"
+	"ble_user.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\le_client_demo.h
+	<stdint.h>
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\trans_data_demo\le_trans_data.c
+	"system/app_core.h"
+	"system/includes.h"
+	"app_config.h"
+	"app_action.h"
+	"btstack/btstack_task.h"
+	"btstack/bluetooth.h"
+	"user_cfg.h"
+	"vm.h"
+	"btcontroller_modules.h"
+	"bt_common.h"
+	"3th_profile_api.h"
+	"le_trans_data.h"
+	"le_common.h"
+	"rcsp_bluetooth.h"
+	"JL_rcsp_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\trans_data_demo\le_trans_data.h
+	<stdint.h>
+	"app_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\trans_data_demo\spp_trans_data.c
+	"app_config.h"
+	"app_action.h"
+	"system/includes.h"
+	"spp_user.h"
+	"string.h"
+	"circular_buf.h"
+	"spp_trans_data.h"
+	"bt_common.h"
+	"btstack/avctp_user.h"
+	"spp_trans_data.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\ui\lcd\lcd_ui_api.c
+	"includes.h"
+	"ui/ui_api.h"
+	"ui/ui.h"
+	"typedef.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\ui\led7\led7_ui_api.c
+	"app_config.h"
+	"includes.h"
+	"ui/ui_api.h"
+	"clock_cfg.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\update\norflash_update.c
+	"app_config.h"
+	"typedef.h"
+	"fs.h"
+	"norflash.h"
+	"spi/nor_fs.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\update\uart_update.c
+	"app_config.h"
+	"typedef.h"
+	"update_loader_download.h"
+	"os/os_api.h"
+	"system/task.h"
+	"update.h"
+	"gpio.h"
+	"uart_update.h"
+	"asm/uart_dev.h"
+	"asm/clock.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\update\uart_update.h
+	"typedef.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\update\uart_update_master.c
+	"app_config.h"
+	"typedef.h"
+	"update_loader_download.h"
+	"os/os_api.h"
+	"system/task.h"
+	"update.h"
+	"gpio.h"
+	"uart_update.h"
+	"asm/uart_dev.h"
+	"asm/clock.h"
+	"timer.h"
+	"system/fs/fs.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\update\update.c
+	"update.h"
+	"update_loader_download.h"
+	"asm/crc16.h"
+	"asm/wdt.h"
+	"os/os_api.h"
+	"app_config.h"
+	"cpu.h"
+	"syscfg_id.h"
+	"vm.h"
+	"btcontroller_modules.h"
+	"uart_update.h"
+	"ui/ui_api.h"
+	"rcsp_user_update.h"
+	"rcsp_adv_user_update.h"
+	"custom_cfg.h"
+	"update_tws.h"
+	"system/debug.h"
+	"tone_player.h"
+	"audio_config.h"
+	"asm/pwm_led.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\device\descriptor.c
+	"usb/device/usb_stack.h"
+	"usb/device/descriptor.h"
+	"usb/device/uac_audio.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\device\usb\device\usb_stack.h
+	"typedef.h"
+	"asm/usb.h"
+	"usb/ch9.h"
+	"usb/usb_phy.h"
+	"usb/otg.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\device\usb\otg.h
+	"asm/usb.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\device\usb\device\descriptor.h
+	"asm/usb.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\device\usb\device\uac_audio.h
+	"asm/usb.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\device\hid.c
+	"os/os_api.h"
+	"usb/device/usb_stack.h"
+	"usb/device/hid.h"
+	"usb_config.h"
+	"app_config.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\device\usb\device\hid.h
+	"typedef.h"
+	"asm/usb.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\usb_config.h
+	"typedef.h"
+	"asm/usb.h"
+	"usb/device/usb_stack.h"
+	"usb/host/usb_host.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\device\msd.c
+	"system/includes.h"
+	"usb/device/usb_stack.h"
+	"usb/device/msd.h"
+	"usb/scsi.h"
+	"usb_config.h"
+	"device/device.h"
+	"dev_manager.h"
+	"app_config.h"
+	"debug.h"
+	"system/includes.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\device\usb\device\msd.h
+	"asm/usb.h"
+	"usb_stack.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\device\usb\scsi.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\device\msd_upgrade.c
+	"system/includes.h"
+	"usb/device/msd.h"
+	"usb/scsi.h"
+	"usb_config.h"
+	"app_config.h"
+	"cpu.h"
+	"asm/debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\device\task_pc.c
+	"system/app_core.h"
+	"system/includes.h"
+	"server/server_core.h"
+	"app_config.h"
+	"app_action.h"
+	"app_task.h"
+	"os/os_api.h"
+	"device/sdmmc.h"
+	"usb/usb_config.h"
+	"usb/device/usb_stack.h"
+	"usb/device/hid.h"
+	"usb/device/msd.h"
+	"audio_config.h"
+	"app_charge.h"
+	"media/audio_base.h"
+	"asm/charge.h"
+	"dev_multiplex_api.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\device\sdmmc.h
+	"generic/typedef.h"
+	"generic/ioctl.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\app_charge.h
+	"typedef.h"
+	"system/event.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\device\uac1.c
+	"system/includes.h"
+	"usb_config.h"
+	"usb/device/usb_stack.h"
+	"usb/device/uac_audio.h"
+	"app_config.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\device\uac_stream.c
+	"app_config.h"
+	"system/includes.h"
+	"printf.h"
+	"usb/usb_config.h"
+	"usb/device/usb_stack.h"
+	"usb/device/uac_audio.h"
+	"uac_stream.h"
+	"audio_config.h"
+	"usb_config.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\device\uac_stream.h
+	"typedef.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\device\usb_device.c
+	"usb/device/usb_stack.h"
+	"usb_config.h"
+	"usb/device/msd.h"
+	"usb/scsi.h"
+	"usb/device/hid.h"
+	"usb/device/uac_audio.h"
+	"irq.h"
+	"init.h"
+	"gpio.h"
+	"app_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\device\user_setup.c
+	"usb/device/usb_stack.h"
+	"usb_config.h"
+	"usb/device/msd.h"
+	"usb/scsi.h"
+	"usb/device/hid.h"
+	"usb/device/uac_audio.h"
+	"irq.h"
+	"init.h"
+	"gpio.h"
+	"app_config.h"
+	"debug.h"
+
+1602506850 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\host\usb_bulk_transfer.c
+	<string.h>
+	"jiffies.h"
+	"gpio.h"
+	"usb_config.h"
+	"usb_bulk_transfer.h"
+	"usb_ctrl_transfer.h"
+	"usb_storage.h"
+	"usb/host/usb_host.h"
+	"usb/usb_phy.h"
+	"app_config.h"
+	"device_drive.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\host\usb_bulk_transfer.h
+	"typedef.h"
+	"device/device.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\host\usb_ctrl_transfer.h
+	"usb/ch9.h"
+	"usb/usb_phy.h"
+	"device/device.h"
+	"usb_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\host\usb_storage.h
+	"system/task.h"
+	"device/device.h"
+	"usb/scsi.h"
+	"usb_bulk_transfer.h"
+	"usb/host/usb_host.h"
+
+1602506844 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\host\usb_ctrl_transfer.c
+	"gpio.h"
+	"usb/host/usb_host.h"
+	"usb_ctrl_transfer.h"
+	"app_config.h"
+	"device_drive.h"
+	"gpio.h"
+	"usb/scsi.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\host\usb_host.c
+	"includes.h"
+	"app_config.h"
+	"device_drive.h"
+	"usb_config.h"
+	"usb/host/usb_host.h"
+	"usb/usb_phy.h"
+	"usb_ctrl_transfer.h"
+	"usb_storage.h"
+	"adb.h"
+	"aoa.h"
+	"hid.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\host\adb.h
+	"system/task.h"
+	"device/device.h"
+	"usb/scsi.h"
+	"usb_bulk_transfer.h"
+	"usb/host/usb_host.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\host\aoa.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\host\hid.h
+	"system/task.h"
+	"device/device.h"
+	"usb/scsi.h"
+	"usb_bulk_transfer.h"
+	"usb/host/usb_host.h"
+
+1602506838 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\host\usb_storage.c
+	"gpio.h"
+	"asm/includes.h"
+	"system/timer.h"
+	"device/ioctl_cmds.h"
+	"usb/host/usb_host.h"
+	"usb_ctrl_transfer.h"
+	"usb_bulk_transfer.h"
+	"device_drive.h"
+	"usb_storage.h"
+	"usb_config.h"
+	"app_config.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\usb_config.c
+	"usb_config.h"
+	"usb/scsi.h"
+	"irq.h"
+	"init.h"
+	"gpio.h"
+	"app_config.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\usb\usb_host_config.c
+	"usb_config.h"
+	"usb/scsi.h"
+	"irq.h"
+	"init.h"
+	"gpio.h"
+	"app_config.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\aec\br25\audio_aec.c
+	"system/includes.h"
+	"app_config.h"
+	"audio_config.h"
+	"aec_user.h"
+	"media/includes.h"
+	"commproc.h"
+	"application/audio_eq_drc_apply.h"
+	"circular_buf.h"
+	"clock_cfg.h"
+	"debug.h"
+	"string.h"
+	"asm/crc16.h"
+	"app_main.h"
+	"tone_player.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\aec_user.h
+	"generic/typedef.h"
+	"user_cfg.h"
+	"commproc.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\commproc.h
+	"generic/typedef.h"
+
+1602510136 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\app_main.c
+	"system/includes.h"
+	"app_config.h"
+	"asm/pwm_led.h"
+	"tone_player.h"
+	"ui_manage.h"
+	"app_main.h"
+	"app_task.h"
+	"asm/charge.h"
+	"app_power_manage.h"
+	"app_charge.h"
+	"user_cfg.h"
+	"power_on.h"
+	"bt.h"
+	"soundcard/peripheral.h"
+	"user_fun_cfg.h"
+	"debug.h"
+
+1602508424 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\app_power_manage.h
+	"typedef.h"
+	"system/event.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\power_on.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\bt\bt.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\soundcard\peripheral.h
+	"generic/typedef.h"
+	"app_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6082_demo\board_ac6082_demo.c
+	"app_config.h"
+	"system/includes.h"
+	"media/includes.h"
+	"asm/sdmmc.h"
+	"asm/chargestore.h"
+	"asm/charge.h"
+	"asm/pwm_led.h"
+	"asm/rtc.h"
+	"tone_player.h"
+	"audio_config.h"
+	"asm/iic_hw.h"
+	"asm/iic_soft.h"
+	"gSensor/gSensor_manage.h"
+	"key_event_deal.h"
+	"user_cfg.h"
+	"linein/linein_dev.h"
+	"usb/otg.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"dev_manager.h"
+	"fm/fm_manage.h"
+	"asm/power/p33.h"
+	"norflash.h"
+	"asm/spi.h"
+	"ui_manage.h"
+	"spi/nor_fs.h"
+	"debug.h"
+	"asm/ctmu.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\sdmmc.h
+	"device/sdmmc.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\chargestore.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\rtc.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\linein\linein_dev.h
+	"typedef.h"
+	"device/device.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6082_demo\key_table\adkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6082_demo\key_table\iokey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6082_demo\key_table\irkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6082_demo\key_table\rdec_key_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6082_demo\key_table\touch_key_table.c
+	"board_config.h"
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"app_task.h"
+
+1602224184 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6965e\board_ac6965e.c
+	"app_config.h"
+	"system/includes.h"
+	"media/includes.h"
+	"asm/sdmmc.h"
+	"asm/chargestore.h"
+	"asm/charge.h"
+	"asm/pwm_led.h"
+	"asm/rtc.h"
+	"tone_player.h"
+	"audio_config.h"
+	"asm/iic_hw.h"
+	"asm/iic_soft.h"
+	"gSensor/gSensor_manage.h"
+	"key_event_deal.h"
+	"user_cfg.h"
+	"linein/linein_dev.h"
+	"usb/otg.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"dev_manager.h"
+	"fm/fm_manage.h"
+	"asm/power/p33.h"
+	"norflash.h"
+	"asm/spi.h"
+	"ui_manage.h"
+	"spi/nor_fs.h"
+	"user_fun_cfg.h"
+	"debug.h"
+	"asm/ctmu.h"
+
+1602224184 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6965e\key_table\adkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1602224184 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6965e\key_table\iokey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1602224184 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6965e\key_table\irkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1602224184 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6965e\key_table\rdec_key_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1602224184 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6965e\key_table\touch_key_table.c
+	"board_config.h"
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"app_task.h"
+
+1604889045 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6966b\key_table\adkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1602224184 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6966b\key_table\iokey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1602224184 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6966b\key_table\irkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1602224184 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6966b\key_table\rdec_key_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1602224184 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6966b\key_table\touch_key_table.c
+	"board_config.h"
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"app_task.h"
+
+1602573038 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6969d_demo\board_ac6969d_demo.c
+	"app_config.h"
+	"system/includes.h"
+	"media/includes.h"
+	"asm/sdmmc.h"
+	"asm/chargestore.h"
+	"asm/charge.h"
+	"asm/pwm_led.h"
+	"asm/rtc.h"
+	"tone_player.h"
+	"audio_config.h"
+	"asm/iic_hw.h"
+	"asm/iic_soft.h"
+	"gSensor/gSensor_manage.h"
+	"key_event_deal.h"
+	"user_cfg.h"
+	"linein/linein_dev.h"
+	"usb/otg.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"dev_manager.h"
+	"fm/fm_manage.h"
+	"asm/power/p33.h"
+	"norflash.h"
+	"asm/spi.h"
+	"ui_manage.h"
+	"spi/nor_fs.h"
+	"user_fun_cfg.h"
+	"debug.h"
+	"asm/ctmu.h"
+
+1602574359 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6969d_demo\key_table\adkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359721 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6969d_demo\key_table\iokey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359721 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6969d_demo\key_table\irkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359721 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6969d_demo\key_table\rdec_key_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359721 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6969d_demo\key_table\touch_key_table.c
+	"board_config.h"
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_demo\board_ac696x_demo.c
+	"app_config.h"
+	"system/includes.h"
+	"media/includes.h"
+	"asm/sdmmc.h"
+	"asm/chargestore.h"
+	"asm/charge.h"
+	"asm/pwm_led.h"
+	"asm/rtc.h"
+	"tone_player.h"
+	"audio_config.h"
+	"asm/iic_hw.h"
+	"asm/iic_soft.h"
+	"gSensor/gSensor_manage.h"
+	"key_event_deal.h"
+	"user_cfg.h"
+	"linein/linein_dev.h"
+	"usb/otg.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"dev_manager.h"
+	"fm/fm_manage.h"
+	"asm/power/p33.h"
+	"norflash.h"
+	"asm/spi.h"
+	"ui_manage.h"
+	"spi/nor_fs.h"
+	"debug.h"
+	"asm/ctmu.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_demo\key_table\adkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_demo\key_table\iokey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_demo\key_table\irkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_demo\key_table\rdec_key_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_demo\key_table\touch_key_table.c
+	"board_config.h"
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_lighter\board_ac696x_lighter.c
+	"app_config.h"
+	"system/includes.h"
+	"media/includes.h"
+	"asm/sdmmc.h"
+	"asm/chargestore.h"
+	"asm/charge.h"
+	"asm/pwm_led.h"
+	"asm/rtc.h"
+	"tone_player.h"
+	"audio_config.h"
+	"asm/iic_hw.h"
+	"asm/iic_soft.h"
+	"gSensor/gSensor_manage.h"
+	"key_event_deal.h"
+	"user_cfg.h"
+	"linein/linein_dev.h"
+	"usb/otg.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"dev_manager.h"
+	"fm/fm_manage.h"
+	"asm/power/p33.h"
+	"ui_manage.h"
+	"debug.h"
+	"asm/ctmu.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_lighter\key_table\adkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_lighter\key_table\iokey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_lighter\key_table\irkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_lighter\key_table\rdec_key_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_lighter\key_table\touch_key_table.c
+	"board_config.h"
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_smartbox\board_ac696x_smartbox.c
+	"app_config.h"
+	"system/includes.h"
+	"media/includes.h"
+	"asm/sdmmc.h"
+	"asm/chargestore.h"
+	"asm/charge.h"
+	"asm/pwm_led.h"
+	"asm/rtc.h"
+	"tone_player.h"
+	"audio_config.h"
+	"asm/iic_hw.h"
+	"asm/iic_soft.h"
+	"gSensor/gSensor_manage.h"
+	"key_event_deal.h"
+	"user_cfg.h"
+	"linein/linein_dev.h"
+	"usb/otg.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"dev_manager.h"
+	"fm/fm_manage.h"
+	"asm/power/p33.h"
+	"norflash.h"
+	"asm/spi.h"
+	"ui_manage.h"
+	"color_led_app.h"
+	"debug.h"
+	"asm/ctmu.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\ui\color_led\color_led_app.h
+	"color_led_driver.h"
+	"color_led.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\ui\color_led\color_led_driver.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\ui\color_led\color_led.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_smartbox\key_table\adkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_smartbox\key_table\iokey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_smartbox\key_table\irkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_smartbox\key_table\rdec_key_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_smartbox\key_table\touch_key_table.c
+	"board_config.h"
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_tws\board_ac696x_tws.c
+	"app_config.h"
+	"system/includes.h"
+	"media/includes.h"
+	"asm/sdmmc.h"
+	"asm/chargestore.h"
+	"asm/charge.h"
+	"asm/pwm_led.h"
+	"asm/rtc.h"
+	"tone_player.h"
+	"audio_config.h"
+	"asm/iic_hw.h"
+	"asm/iic_soft.h"
+	"gSensor/gSensor_manage.h"
+	"key_event_deal.h"
+	"user_cfg.h"
+	"linein/linein_dev.h"
+	"usb/otg.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"dev_manager.h"
+	"fm/fm_manage.h"
+	"asm/power/p33.h"
+	"ui_manage.h"
+	"debug.h"
+	"asm/ctmu.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_tws\key_table\adkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_tws\key_table\iokey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_tws\key_table\irkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_tws\key_table\rdec_key_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_tws\key_table\touch_key_table.c
+	"board_config.h"
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_tws_box\board_ac696x_tws_box.c
+	"app_config.h"
+	"system/includes.h"
+	"media/includes.h"
+	"asm/sdmmc.h"
+	"asm/chargestore.h"
+	"asm/charge.h"
+	"asm/pwm_led.h"
+	"asm/rtc.h"
+	"tone_player.h"
+	"audio_config.h"
+	"asm/iic_hw.h"
+	"asm/iic_soft.h"
+	"gSensor/gSensor_manage.h"
+	"key_event_deal.h"
+	"user_cfg.h"
+	"linein/linein_dev.h"
+	"usb/otg.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"dev_manager.h"
+	"fm/fm_manage.h"
+	"asm/power/p33.h"
+	"ui_manage.h"
+	"debug.h"
+	"asm/ctmu.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_tws_box\key_table\adkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_tws_box\key_table\iokey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_tws_box\key_table\irkey_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_tws_box\key_table\rdec_key_table.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac696x_tws_box\key_table\touch_key_table.c
+	"board_config.h"
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"app_task.h"
+
+1604922402 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_ad.c
+	"user_fun_cfg.h"
+
+1604565567 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_dev_check.c
+	"user_fun_cfg.h"
+
+1604892973 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_fun.c
+	"user_fun_cfg.h"
+
+1602224184 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_led.c
+	"user_fun_cfg.h"
+
+1604036739 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_mic.c
+	"user_fun_cfg.h"
+
+1602224184 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_rgb.c
+	"user_fun_cfg.h"
+
+1604136455 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_rgb_dev.c
+	"user_fun_cfg.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\common\dev_status.c
+	"common/dev_status.h"
+	"dev_manager.h"
+	"dev_update.h"
+	"app_config.h"
+	"dev_multiplex_api.h"
+	"smartbox/smartbox.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\common\dev_status.h
+	"typedef.h"
+	"system/includes.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\smartbox\smartbox.h
+	"typedef.h"
+	"app_config.h"
+	"smartbox/config.h"
+	"smartbox/function.h"
+	"browser/browser.h"
+	"smartbox/cmd_user.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\smartbox\config.h
+	"typedef.h"
+	"app_config.h"
+	"le_common.h"
+	"spp_user.h"
+	"ble_user.h"
+	"app_task.h"
+	"btstack_3th_protocol_user.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\third_party\common\btstack_3th_protocol_user.h
+	"spp_config.h"
+	"ble_config.h"
+	"JL_rcsp_api.h"
+	"JL_rcsp_protocol.h"
+	"JL_rcsp_packet.h"
+	"attr.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\third_party\common\spp_config.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\third_party\common\ble_config.h
+	"typedef.h"
+	"ble_user.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\third_party\rcsp\attr.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\smartbox\function.h
+	"typedef.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\browser\browser.h
+	"typedef.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\smartbox\cmd_user.h
+	"typedef.h"
+	"JL_rcsp_protocol.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\common\init.c
+	"app_config.h"
+	"system/includes.h"
+	"asm/charge.h"
+	"app_power_manage.h"
+	"update.h"
+	"app_main.h"
+	"app_charge.h"
+	"chgbox_ctrl.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\common\task_table.c
+	"system/includes.h"
+	"app_config.h"
+
+1602506944 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\common\tone_table.c
+	"app_config.h"
+	"audio_config.h"
+	"tone_player.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\font\fontinit.c
+	"font/font_all.h"
+	"font/language_list.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\font\language_list.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\log_config\app_config.c
+	"system/includes.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\log_config\lib_btctrler_config.c
+	"app_config.h"
+	"system/includes.h"
+	"btcontroller_config.h"
+	"bt_common.h"
+
+1602509448 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\log_config\lib_driver_config.c
+	"app_config.h"
+	"system/includes.h"
+
+1604029072 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\log_config\lib_media_config.c
+	"app_config.h"
+	"system/includes.h"
+
+1602509434 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\log_config\lib_system_config.c
+	"app_config.h"
+	"system/includes.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\log_config\lib_update_config.c
+	"app_config.h"
+	"system/includes.h"
+	"update_loader_download.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\power_manage\app_charge.c
+	"app_config.h"
+	"asm/charge.h"
+	"asm/pwm_led.h"
+	"asm/power_interface.h"
+	"ui_manage.h"
+	"system/event.h"
+	"system/app_core.h"
+	"system/includes.h"
+	"app_action.h"
+	"asm/wdt.h"
+	"app_power_manage.h"
+	"app_chargestore.h"
+	"btstack/avctp_user.h"
+	"app_action.h"
+	"app_main.h"
+	"bt_tws.h"
+	"usb/otg.h"
+	"bt_common.h"
+	"app_task.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\app_chargestore.h
+	"typedef.h"
+	"system/event.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\power_manage\app_chargestore.c
+	"init.h"
+	"app_config.h"
+	"system/includes.h"
+	"asm/charge.h"
+	"asm/chargestore.h"
+	"user_cfg.h"
+	"app_chargestore.h"
+	"device/vm.h"
+	"btstack/avctp_user.h"
+	"app_power_manage.h"
+	"app_action.h"
+	"app_main.h"
+	"app_charge.h"
+	"classic/tws_api.h"
+	"update.h"
+	"bt_ble.h"
+	"bt_tws.h"
+	"app_action.h"
+	"bt_common.h"
+	"le_rcsp_adv_module.h"
+	"app_task.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\bt\bt_ble.h
+	"typedef.h"
+
+1604643183 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\power_manage\app_power_manage.c
+	"system/includes.h"
+	"app_power_manage.h"
+	"app_main.h"
+	"app_config.h"
+	"app_action.h"
+	"asm/charge.h"
+	"ui_manage.h"
+	"tone_player.h"
+	"asm/adc_api.h"
+	"btstack/avctp_user.h"
+	"user_cfg.h"
+	"bt.h"
+	"asm/charge.h"
+	"user_fun_cfg.h"
+	"bt_tws.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\browser\browser.c
+	"browser/browser.h"
+	"smartbox/smartbox.h"
+	"dev_manager.h"
+	"music_player.h"
+	"music/music.h"
+	"file_operate/file_bs_deal.h"
+	"smartbox/event.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\music\music.h
+	"system/app_core.h"
+	"system/includes.h"
+	"server/server_core.h"
+	"media/audio_decoder.h"
+	"music_player.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\smartbox\event.h
+	"typedef.h"
+	"app_config.h"
+	"common/user_msg.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\bt_manage\bt_trans_data\le_smartbox_adv.c
+	"system/app_core.h"
+	"system/includes.h"
+	"app_config.h"
+	"app_action.h"
+	"btstack/btstack_task.h"
+	"btstack/bluetooth.h"
+	"user_cfg.h"
+	"vm.h"
+	"app_power_manage.h"
+	"btcontroller_modules.h"
+	"rcsp_adv_bluetooth.h"
+	"bt_common.h"
+	"3th_profile_api.h"
+	"btstack/avctp_user.h"
+	"app_chargestore.h"
+	"le_common.h"
+	"le_rcsp_adv_module.h"
+	"btcrypt.h"
+	"custom_cfg.h"
+	"smartbox_music_info_setting.h"
+	"smartbox/config.h"
+	"classic/tws_api.h"
+	"le_smartbox_module.h"
+	"smartbox_bt_manage.h"
+	"smartbox_rcsp_manage.h"
+	"bt/bt_tws.h"
+	"btstack_3th_protocol_user.h"
+	"asm/charge.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\jl_rcsp\btcrypt.h
+	<string.h>
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\smartbox_music_info_setting.h
+	"le_smartbox_module.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\bt_manage\smartbox_bt_manage.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_rcsp_manage.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\bt_manage\bt_trans_data\le_smartbox_module.c
+	"system/app_core.h"
+	"system/includes.h"
+	"app_config.h"
+	"app_action.h"
+	"btstack/btstack_task.h"
+	"btstack/bluetooth.h"
+	"user_cfg.h"
+	"vm.h"
+	"app_power_manage.h"
+	"btcontroller_modules.h"
+	"rcsp_adv_bluetooth.h"
+	"bt_common.h"
+	"3th_profile_api.h"
+	"btstack/avctp_user.h"
+	"app_chargestore.h"
+	"le_common.h"
+	"le_rcsp_adv_module.h"
+	"btcrypt.h"
+	"custom_cfg.h"
+	"smartbox_music_info_setting.h"
+	"smartbox/config.h"
+	"le_smartbox_adv.h"
+	"le_smartbox_module.h"
+	"classic/tws_api.h"
+	"btstack_3th_protocol_user.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\bt_manage\bt_trans_data\le_smartbox_adv.h
+	<stdint.h>
+	"bt_common.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\bt_manage\smartbox_bt_manage.c
+	"app_config.h"
+	"soundbox.h"
+	"app_main.h"
+	"le_rcsp_adv_module.h"
+	"rcsp_adv_bluetooth.h"
+	"rcsp_bluetooth.h"
+	"adv_mic_setting.h"
+	"smartbox_update_tws.h"
+	"3th_profile_api.h"
+	"adv_time_stamp_setting.h"
+	"btstack/avctp_user.h"
+	"btstack/btstack_task.h"
+	"bt_tws.h"
+	"smartbox_bt_manage.h"
+	"le_smartbox_adv.h"
+	"le_smartbox_module.h"
+	"smartbox/config.h"
+	"btstack_3th_protocol_user.h"
+	"smartbox/smartbox.h"
+	"smartbox_update.h"
+	"smartbox/function.h"
+	"smartbox_setting_sync.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\soundbox.h
+	"app_config.h"
+	"system/includes.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_update\smartbox_update.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting_opt\smartbox_setting_sync.h
+	"classic/tws_api.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\cmd_data_deal\cmd_recieve.c
+	"smartbox/config.h"
+	"smartbox/smartbox.h"
+	"smartbox/function.h"
+	"smartbox/feature.h"
+	"smartbox/switch_device.h"
+	"smartbox/event.h"
+	"btstack/avctp_user.h"
+	"app_task.h"
+	"app_action.h"
+	"smartbox_adv_bluetooth.h"
+	"smartbox_update.h"
+	"fs.h"
+	"btstack_3th_protocol_user.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\smartbox\feature.h
+	"typedef.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\smartbox\switch_device.h
+	"typedef.h"
+	"app_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\cmd_data_deal\cmd_recieve_no_respone.c
+	"smartbox/config.h"
+	"smartbox/event.h"
+	"btstack_3th_protocol_user.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\cmd_data_deal\cmd_respone.c
+	"smartbox/config.h"
+	"smartbox/event.h"
+	"smartbox_update.h"
+	"btstack_3th_protocol_user.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\cmd_data_deal\cmd_user.c
+	"smartbox/cmd_user.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\cmd_data_deal\command.c
+	"smartbox/config.h"
+	"smartbox/command.h"
+	"btstack/avctp_user.h"
+	"app_task.h"
+	"smartbox/event.h"
+	"system/timer.h"
+	"btstack_3th_protocol_user.h"
+	"le_smartbox_module.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\smartbox\command.h
+	"typedef.h"
+	"app_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\cmd_data_deal\data_recieve.c
+	"smartbox/config.h"
+	"smartbox/event.h"
+	"btstack_3th_protocol_user.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\cmd_data_deal\data_recieve_no_respone.c
+	"smartbox/config.h"
+	"smartbox/event.h"
+	"btstack_3th_protocol_user.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\cmd_data_deal\data_respone.c
+	"smartbox/config.h"
+	"smartbox/event.h"
+	"btstack_3th_protocol_user.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\config.c
+	"smartbox/config.h"
+	"le_common.h"
+	"smartbox/event.h"
+	"le_smartbox_adv.h"
+	"le_smartbox_module.h"
+	"btstack_3th_protocol_user.h"
+	"custom_cfg.h"
+	"smartbox_adv_bluetooth.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\event.c
+	"smartbox/event.h"
+	"smartbox/smartbox.h"
+	"btstack/btstack_task.h"
+	"btstack/avctp_user.h"
+	"smartbox/config.h"
+	"app_task.h"
+	"smartbox/function.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"app_action.h"
+	"key_event_deal.h"
+	"music/music.h"
+	"btstack_3th_protocol_user.h"
+	"ui/ui_api.h"
+	"audio_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\feature.c
+	"smartbox/config.h"
+	"smartbox/feature.h"
+	"btstack/avctp_user.h"
+	"app_task.h"
+	"smartbox/event.h"
+	"custom_cfg.h"
+	"btstack_3th_protocol_user.h"
+	"app_main.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\func_cmd\bt_func.c
+	"smartbox/func_cmd/bt_func.h"
+	"smartbox/func_cmd_common.h"
+	"smartbox/function.h"
+	"smartbox/config.h"
+	"smartbox/event.h"
+	"app_task.h"
+	"app_action.h"
+	"le_smartbox_module.h"
+	"smartbox_music_info_setting.h"
+	"btstack_3th_protocol_user.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\smartbox\func_cmd\bt_func.h
+	"typedef.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\smartbox\func_cmd_common.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\func_cmd\fm_func.c
+	"smartbox/func_cmd/fm_func.h"
+	"smartbox/func_cmd_common.h"
+	"smartbox/function.h"
+	"smartbox/config.h"
+	"smartbox/event.h"
+	"app_task.h"
+	"fm/fm_api.h"
+	"fm/fm_rw.h"
+	"app_action.h"
+	"key_event_deal.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\smartbox\func_cmd\fm_func.h
+	"typedef.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\fm\fm_api.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\fm\fm_rw.h
+	"fm/fm_manage.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\func_cmd\linein_func.c
+	"smartbox/func_cmd/linein_func.h"
+	"smartbox/func_cmd_common.h"
+	"smartbox/function.h"
+	"smartbox/config.h"
+	"smartbox/event.h"
+	"app_action.h"
+	"app_msg.h"
+	"key_event_deal.h"
+	"linein/linein.h"
+	"tone_player.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\smartbox\func_cmd\linein_func.h
+	"typedef.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\linein\linein.h
+	"system/event.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\func_cmd\music_func.c
+	"smartbox/func_cmd/music_func.h"
+	"smartbox/func_cmd_common.h"
+	"smartbox/smartbox.h"
+	"music/music_player.h"
+	"smartbox/function.h"
+	"smartbox/config.h"
+	"app_task.h"
+	"key_event_deal.h"
+	"music/music.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\smartbox\func_cmd\music_func.h
+	"typedef.h"
+	"app_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\func_cmd\rtc_func.c
+	"smartbox/func_cmd/rtc_func.h"
+	"smartbox/func_cmd_common.h"
+	"smartbox/function.h"
+	"smartbox/config.h"
+	"smartbox/event.h"
+	"app_task.h"
+	"rtc/alarm.h"
+	"app_action.h"
+	"tone_player.h"
+	"smartbox_music_info_setting.h"
+	"btstack/avctp_user.h"
+	"JL_rcsp_packet.h"
+	"key_event_deal.h"
+	"linein/linein.h"
+	"music_player.h"
+	"app_msg.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\smartbox\func_cmd\rtc_func.h
+	"typedef.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\rtc\alarm.h
+	"typedef.h"
+	"system/includes.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\function.c
+	"smartbox/config.h"
+	"smartbox/function.h"
+	"smartbox/smartbox.h"
+	"btstack/avctp_user.h"
+	"app_task.h"
+	"smartbox/event.h"
+	"smartbox/smartbox.h"
+	"app_main.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"audio_config.h"
+	"smartbox/func_cmd_common.h"
+	"app_action.h"
+	"application/audio_eq_drc_apply.h"
+	"audio_eq.h"
+	"le_smartbox_module.h"
+	"smartbox_setting_opt.h"
+	"dev_manager.h"
+	"btstack_3th_protocol_user.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting_opt\smartbox_setting_opt.h
+	"system/includes.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox.c
+	"smartbox/smartbox.h"
+	<stdlib.h>
+	<string.h>
+	<unistd.h>
+	"string.h"
+	"system/timer.h"
+	"app_core.h"
+	"spp_user.h"
+	"app_config.h"
+	"app_task.h"
+	"system/task.h"
+	"smartbox/config.h"
+	"smartbox/event.h"
+	"btstack_rcsp_user.h"
+	"btstack_3th_protocol_user.h"
+	"smartbox_rcsp_manage.h"
+	"smartbox_setting_opt.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\third_party\rcsp\btstack_rcsp_user.h
+	"typedef.h"
+	"JL_rcsp_api.h"
+	"JL_rcsp_packet.h"
+	"JL_rcsp_protocol.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_rcsp_manage.c
+	"app_config.h"
+	"soundbox.h"
+	"app_main.h"
+	"adv_mic_setting.h"
+	"smartbox_update_tws.h"
+	"3th_profile_api.h"
+	"adv_time_stamp_setting.h"
+	"btstack/avctp_user.h"
+	"btstack/btstack_task.h"
+	"bt_tws.h"
+	"smartbox_bt_manage.h"
+	"smartbox_rcsp_manage.h"
+	"le_smartbox_module.h"
+	"smartbox/config.h"
+	"btstack_3th_protocol_user.h"
+	"ble_user.h"
+	"smartbox_setting_opt.h"
+	"smartbox_adv_bluetooth.h"
+	"smartbox/function.h"
+	"smartbox_music_info_setting.h"
+	"smartbox_update.h"
+	"JL_rcsp_protocol.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\adv_bt_name_setting.c
+	"app_config.h"
+	"user_cfg.h"
+	"syscfg_id.h"
+	"le_smartbox_module.h"
+	"adv_bt_name_setting.h"
+	"smartbox_adv_common.h"
+	"smartbox_setting_sync.h"
+	"smartbox_setting_opt.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\adv_bt_name_setting.h
+	"le_rcsp_adv_module.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\smartbox_adv_common.h
+	"typedef.h"
+	"event.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\adv_key_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"key_event_deal.h"
+	"le_smartbox_module.h"
+	"adv_key_setting.h"
+	"smartbox_adv_common.h"
+	"smartbox_setting_sync.h"
+	"smartbox_setting_opt.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\adv_key_setting.h
+	"le_rcsp_adv_module.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\adv_led_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"asm/pwm_led.h"
+	"user_cfg.h"
+	"ui_manage.h"
+	"le_smartbox_module.h"
+	"adv_led_setting.h"
+	"smartbox_adv_common.h"
+	"smartbox_setting_sync.h"
+	"smartbox_setting_opt.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\adv_led_setting.h
+	"le_rcsp_adv_module.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\adv_mic_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"le_smartbox_module.h"
+	"adv_mic_setting.h"
+	"smartbox_adv_common.h"
+	"smartbox_setting_sync.h"
+	"smartbox_setting_opt.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\adv_mic_setting.h
+	"le_rcsp_adv_module.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\adv_time_stamp_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"le_smartbox_module.h"
+	"adv_time_stamp_setting.h"
+	"smartbox_adv_common.h"
+	"smartbox_setting_sync.h"
+	"smartbox_setting_opt.h"
+	"smartbox_adv_bluetooth.h"
+	"smartbox_bt_manage.h"
+	"smartbox_rcsp_manage.h"
+	"btstack_3th_protocol_user.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\adv_time_stamp_setting.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\adv_work_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"le_smartbox_module.h"
+	"adv_work_setting.h"
+	"smartbox_adv_common.h"
+	"smartbox_setting_sync.h"
+	"smartbox_setting_opt.h"
+	"os/os_api.h"
+	"btstack/avctp_user.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\adv_work_setting.h
+	"le_rcsp_adv_module.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\smartbox_eq_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"le_smartbox_module.h"
+	"smartbox_eq_setting.h"
+	"smartbox_setting_sync.h"
+	"smartbox_setting_opt.h"
+	"application/audio_eq_drc_apply.h"
+	"audio_eq.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\smartbox_eq_setting.h
+	"le_rcsp_adv_module.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\smartbox_high_low_vol_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"smartbox_high_low_vol.h"
+	"smartbox_setting_sync.h"
+	"smartbox_setting_opt.h"
+	"le_smartbox_module.h"
+	"audio_dec.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\smartbox_high_low_vol.h
+	"le_rcsp_adv_module.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\smartbox_misc_setting\smartbox_misc_drc_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"smartbox_misc_setting.h"
+	"le_smartbox_module.h"
+	"audio_dec.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\smartbox_misc_setting\smartbox_misc_setting.h
+	"system/includes.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\smartbox_misc_setting\smartbox_misc_reverbration_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"smartbox_setting_opt.h"
+	"smartbox_misc_setting.h"
+	"le_smartbox_module.h"
+	"mic_effect.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\smartbox_misc_setting\smartbox_misc_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"smartbox_misc_setting.h"
+	"smartbox_setting_sync.h"
+	"smartbox_setting_opt.h"
+	"le_smartbox_module.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\smartbox_music_info_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"le_smartbox_module.h"
+	"smartbox_setting_sync.h"
+	"smartbox_setting_opt.h"
+	"smartbox_music_info_setting.h"
+	"btstack/avctp_user.h"
+	"bt_tws.h"
+	"smartbox_setting_opt.h"
+	"smartbox_adv_bluetooth.h"
+	"smartbox_bt_manage.h"
+	"smartbox/config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\smartbox_vol_setting.c
+	"app_config.h"
+	"syscfg_id.h"
+	"smartbox_vol_setting.h"
+	"smartbox_setting_sync.h"
+	"smartbox_setting_opt.h"
+	"le_smartbox_module.h"
+	"smartbox/config.h"
+	"smartbox/function.h"
+	"key_event_deal.h"
+	"audio_config.h"
+	"bt/vol_sync.h"
+	"app_task.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting\smartbox_vol_setting.h
+	"le_rcsp_adv_module.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\bt\vol_sync.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting_opt\smartbox_adv_bluetooth.c
+	"app_config.h"
+	"le_smartbox_module.h"
+	"smartbox_adv_bluetooth.h"
+	"smartbox_setting_opt.h"
+	"smartbox_setting_sync.h"
+	"smartbox_adv_common.h"
+	"smartbox_setting_opt.h"
+	"custom_cfg.h"
+	"smartbox_bt_manage.h"
+	"btstack_3th_protocol_user.h"
+	"btstack/avctp_user.h"
+	"smartbox_rcsp_manage.h"
+	"smartbox_music_info_setting.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting_opt\smartbox_setting_opt.c
+	"app_config.h"
+	"smartbox_setting_opt.h"
+	"smartbox_setting_sync.h"
+	"btstack/avctp_user.h"
+	"bt_tws.h"
+	"smartbox_bt_manage.h"
+	"smartbox_rcsp_manage.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_setting_opt\smartbox_setting_sync.c
+	"app_config.h"
+	"smartbox_setting_sync.h"
+	"smartbox_adv_common.h"
+	"smartbox_setting_opt.h"
+	"adv_time_stamp_setting.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_update\rcsp_ch_loader_download.c
+	"app_config.h"
+	"update.h"
+	"uart.h"
+	"update_loader_download.h"
+	"system/fs/fs.h"
+	"smartbox_update.h"
+	"JL_rcsp_protocol.h"
+	"classic/tws_api.h"
+	<string.h>
+	"smartbox_update_tws.h"
+	"bt_tws.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_update\smartbox_update.c
+	"app_config.h"
+	"smartbox_update.h"
+	"uart.h"
+	"system/timer.h"
+	"update.h"
+	"custom_cfg.h"
+	"btstack/avctp_user.h"
+	"smartbox_rcsp_manage.h"
+	"smartbox_bt_manage.h"
+	"update_loader_download.h"
+	"btstack_3th_protocol_user.h"
+	"le_smartbox_module.h"
+	"classic/tws_api.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\smartbox_update\smartbox_update_tws.c
+	<stdlib.h>
+	<stdint.h>
+	<string.h>
+	"generic/circular_buf.h"
+	"os/os_api.h"
+	"update_loader_download.h"
+	"system/task.h"
+	"system/timer.h"
+	"init.h"
+	"smartbox_update_tws.h"
+	"dual_bank_updata_api.h"
+	"bt_tws.h"
+	"app_config.h"
+	"btstack/avctp_user.h"
+	"update.h"
+	"app_main.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\update\dual_bank_updata_api.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\smartbox\switch_device.c
+	"smartbox/config.h"
+	"smartbox/feature.h"
+	"btstack/avctp_user.h"
+	"app_task.h"
+	"smartbox/event.h"
+	"smartbox_rcsp_manage.h"
+	"smartbox_bt_manage.h"
+	"smartbox_update.h"
+	"btstack_3th_protocol_user.h"
+	"app_main.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\soundcard\lamp.c
+	"soundcard/lamp.h"
+	"system/device/vm.h"
+	"asm/rtc.h"
+	"asm/power/p33.h"
+	"asm/gpio.h"
+	"soundcard/soundcard.h"
+	"system/timer.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\soundcard\lamp.h
+	"generic/typedef.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\soundcard\soundcard.h
+	"generic/typedef.h"
+	"app_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\soundcard\notice.c
+	"soundcard/notice.h"
+	"tone_player.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\soundcard\notice.h
+	"generic/typedef.h"
+	"app_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\soundcard\peripheral.c
+	"soundcard/peripheral.h"
+	"soundcard/lamp.h"
+	"asm/audio_linein.h"
+	"audio_dec.h"
+	"common/user_msg.h"
+	"os/os_api.h"
+	"app_task.h"
+	"asm/rtc.h"
+	"asm/power/p33.h"
+	"asm/gpio.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\soundcard\soundcard.c
+	"soundcard/soundcard.h"
+	"soundcard/lamp.h"
+	"soundcard/peripheral.h"
+	"common/user_msg.h"
+	"system/timer.h"
+	"os/os_api.h"
+	"asm/audio_linein.h"
+	"key_event_deal.h"
+	"soundcard/notice.h"
+	"app_task.h"
+	"btstack/avctp_user.h"
+	"audio_dec.h"
+	"btstack/avctp_user.h"
+	"pitchshifter/pitchshifter_api.h"
+
+1604041595 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\app_task_switch.c
+	"app_config.h"
+	"app_task.h"
+	"app_msg.h"
+	"key_driver.h"
+	"key_event_deal.h"
+	"audio_recorder_mix.h"
+
+1604546377 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\bt\bt.c
+	"system/includes.h"
+	"media/includes.h"
+	"app_config.h"
+	"app_task.h"
+	"btstack/avctp_user.h"
+	"btstack/btstack_task.h"
+	"btstack/bluetooth.h"
+	"btstack/btstack_error.h"
+	"btctrler/btctrler_task.h"
+	"classic/hci_lmp.h"
+	"bt/bt_tws.h"
+	"bt/bt_ble.h"
+	"bt/bt.h"
+	"bt/vol_sync.h"
+	"bt/bt_emitter.h"
+	"bt_common.h"
+	"aec_user.h"
+	"math.h"
+	"spp_user.h"
+	"app_chargestore.h"
+	"app_charge.h"
+	"app_main.h"
+	"app_power_manage.h"
+	"user_cfg.h"
+	"asm/pwm_led.h"
+	"asm/timer.h"
+	"asm/hwi.h"
+	"cpu.h"
+	"ui/ui_api.h"
+	"ui_manage.h"
+	"ui/ui_style.h"
+	"key_event_deal.h"
+	"clock_cfg.h"
+	"gSensor/gSensor_manage.h"
+	"soundcard/soundcard.h"
+	"audio_dec.h"
+	"tone_player.h"
+	"dac.h"
+	"debug.h"
+	"user_fun_cfg.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\btstack_error.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btctrler\btctrler_task.h
+	"typedef.h"
+	"system/task.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\bt\bt_emitter.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\bt\bt_ble.c
+	"system/app_core.h"
+	"system/includes.h"
+	"app_config.h"
+	"app_task.h"
+	"btstack/btstack_task.h"
+	"user_cfg.h"
+	"vm.h"
+	"app_power_manage.h"
+	"btcontroller_modules.h"
+	"app_chargestore.h"
+	"btstack/avctp_user.h"
+	"bt_common.h"
+	"le_common.h"
+	"bt/bt_ble.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\bt\bt_emitter.c
+	"system/app_core.h"
+	"system/includes.h"
+	"app_config.h"
+	"app_task.h"
+	"btstack/btstack_task.h"
+	"btcontroller_modules.h"
+	"btstack/avctp_user.h"
+	"classic/hci_lmp.h"
+	"bt/bt.h"
+	"bt/bt_emitter.h"
+	"user_cfg.h"
+	"vm.h"
+	"app_main.h"
+	"common/app_common.h"
+	"key_event_deal.h"
+	"rcsp_bluetooth.h"
+	"media/includes.h"
+	"audio_config.h"
+	"audio_digital_vol.h"
+	"audio_enc.h"
+	"audio_sbc_codec.h"
+	"debug.h"
+	"audio_dec.h"
+	"clock_cfg.h"
+	"media/pcm_decoder.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\common\app_common.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_enc\audio_sbc_codec.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\pcm_decoder.h
+	"media/includes.h"
+
+1602509858 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\bt\bt_event_fun.c
+	"system/includes.h"
+	"media/includes.h"
+	"app_config.h"
+	"app_task.h"
+	"btstack/avctp_user.h"
+	"btstack/btstack_task.h"
+	"btstack/bluetooth.h"
+	"btstack/btstack_error.h"
+	"btctrler/btctrler_task.h"
+	"classic/hci_lmp.h"
+	"bt/bt_tws.h"
+	"bt/bt_ble.h"
+	"bt/bt.h"
+	"bt/vol_sync.h"
+	"bt/bt_emitter.h"
+	"bt_common.h"
+	"aec_user.h"
+	"soundbox.h"
+	"math.h"
+	"spp_user.h"
+	"app_chargestore.h"
+	"app_charge.h"
+	"app_main.h"
+	"app_power_manage.h"
+	"user_cfg.h"
+	"asm/pwm_led.h"
+	"asm/timer.h"
+	"asm/hwi.h"
+	"cpu.h"
+	"ui/ui_api.h"
+	"ui_manage.h"
+	"ui/ui_style.h"
+	"key_event_deal.h"
+	"clock_cfg.h"
+	"gSensor/gSensor_manage.h"
+	"soundcard/soundcard.h"
+	"audio_dec.h"
+	"tone_player.h"
+	"dac.h"
+	"audio_recorder_mix.h"
+	"debug.h"
+
+1602509846 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\bt\bt_key_fun.c
+	"system/includes.h"
+	"media/includes.h"
+	"app_config.h"
+	"app_task.h"
+	"btstack/avctp_user.h"
+	"btstack/btstack_task.h"
+	"btstack/bluetooth.h"
+	"btstack/btstack_error.h"
+	"btctrler/btctrler_task.h"
+	"classic/hci_lmp.h"
+	"bt/bt_tws.h"
+	"bt/bt_ble.h"
+	"bt/bt.h"
+	"bt/vol_sync.h"
+	"bt/bt_emitter.h"
+	"bt_common.h"
+	"aec_user.h"
+	"math.h"
+	"spp_user.h"
+	"app_chargestore.h"
+	"app_charge.h"
+	"app_main.h"
+	"app_power_manage.h"
+	"user_cfg.h"
+	"asm/pwm_led.h"
+	"asm/timer.h"
+	"asm/hwi.h"
+	"cpu.h"
+	"ui/ui_api.h"
+	"ui_manage.h"
+	"ui/ui_style.h"
+	"key_event_deal.h"
+	"clock_cfg.h"
+	"gSensor/gSensor_manage.h"
+	"soundcard/soundcard.h"
+	"audio_dec.h"
+	"tone_player.h"
+	"dac.h"
+	"user_fun_cfg.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\bt\bt_product_test.c
+	"system/includes.h"
+	"media/includes.h"
+	"app_config.h"
+	"app_task.h"
+	"btstack/avctp_user.h"
+	"btstack/btstack_task.h"
+	"btstack/bluetooth.h"
+	"btstack/btstack_error.h"
+	"btctrler/btctrler_task.h"
+	"classic/hci_lmp.h"
+	"bt/bt_tws.h"
+	"bt/bt_ble.h"
+	"bt/bt.h"
+	"bt/vol_sync.h"
+	"bt/bt_emitter.h"
+	"bt_common.h"
+	"aec_user.h"
+	"math.h"
+	"spp_user.h"
+	"app_chargestore.h"
+	"app_charge.h"
+	"app_main.h"
+	"app_power_manage.h"
+	"user_cfg.h"
+	"asm/pwm_led.h"
+	"asm/timer.h"
+	"asm/hwi.h"
+	"cpu.h"
+	"ui/ui_api.h"
+	"ui_manage.h"
+	"ui/ui_style.h"
+	"key_event_deal.h"
+	"clock_cfg.h"
+	"gSensor/gSensor_manage.h"
+	"soundcard/soundcard.h"
+	"audio_dec.h"
+	"tone_player.h"
+	"dac.h"
+	"debug.h"
+	"asm/uart_dev.h"
+
+1602591249 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\bt\bt_switch_fun.c
+	"system/includes.h"
+	"media/includes.h"
+	"app_config.h"
+	"app_task.h"
+	"btstack/avctp_user.h"
+	"btstack/btstack_task.h"
+	"btstack/bluetooth.h"
+	"btstack/btstack_error.h"
+	"btctrler/btctrler_task.h"
+	"classic/hci_lmp.h"
+	"bt/bt_tws.h"
+	"bt/bt_ble.h"
+	"bt/bt.h"
+	"bt/vol_sync.h"
+	"bt/bt_emitter.h"
+	"bt_common.h"
+	"aec_user.h"
+	"soundbox.h"
+	"math.h"
+	"spp_user.h"
+	"app_chargestore.h"
+	"app_charge.h"
+	"app_main.h"
+	"app_power_manage.h"
+	"user_cfg.h"
+	"asm/pwm_led.h"
+	"asm/timer.h"
+	"asm/hwi.h"
+	"cpu.h"
+	"ui/ui_api.h"
+	"ui_manage.h"
+	"ui/ui_style.h"
+	"key_event_deal.h"
+	"clock_cfg.h"
+	"gSensor/gSensor_manage.h"
+	"soundcard/soundcard.h"
+	"audio_dec.h"
+	"tone_player.h"
+	"dac.h"
+	"debug.h"
+
+1604644694 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\bt\bt_tws.c
+	"system/includes.h"
+	"media/includes.h"
+	"device/vm.h"
+	"tone_player.h"
+	"app_config.h"
+	"app_task.h"
+	"user_cfg.h"
+	"btcontroller_config.h"
+	"btstack/avctp_user.h"
+	"btstack/btstack_task.h"
+	"classic/hci_lmp.h"
+	"bt/bt_tws.h"
+	"classic/tws_pair.h"
+	"bt/bt_ble.h"
+	"bt/bt.h"
+	"asm/pwm_led.h"
+	"asm/charge.h"
+	"app_charge.h"
+	"ui_manage.h"
+	"app_chargestore.h"
+	"app_online_cfg.h"
+	"app_main.h"
+	"app_power_manage.h"
+	"audio_config.h"
+	"audio_dec.h"
+	"tone_player.h"
+	"bt_common.h"
+	"soundbox.h"
+	"user_fun_cfg.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btctrler\classic\tws_pair.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\bt\vol_sync.c
+	"typedef.h"
+	"app_main.h"
+	"app_config.h"
+	"bt/vol_sync.h"
+	"tone_player.h"
+
+1604471479 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\fm\fm.c
+	"media/includes.h"
+	"system/includes.h"
+	"app_config.h"
+	"app_task.h"
+	"app_action.h"
+	"tone_player.h"
+	"app_main.h"
+	"ui_manage.h"
+	"vm.h"
+	"key_event_deal.h"
+	"asm/pwm_led.h"
+	"user_cfg.h"
+	"ui/ui_api.h"
+	"clock_cfg.h"
+	"includes.h"
+	"fm/fm_api.h"
+	"fm/fm_manage.h"
+	"fm/fm_rw.h"
+	"user_fun_cfg.h"
+	"debug.h"
+
+1602509681 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\fm\fm_api.c
+	"system/includes.h"
+	"media/includes.h"
+	"app_config.h"
+	"app_task.h"
+	"tone_player.h"
+	"app_main.h"
+	"ui_manage.h"
+	"vm.h"
+	"key_event_deal.h"
+	"asm/pwm_led.h"
+	"user_cfg.h"
+	"fm/fm.h"
+	"fm/fm_manage.h"
+	"fm/fm_rw.h"
+	"ui/ui_api.h"
+	"clock_cfg.h"
+	"includes.h"
+	"fm/fm_api.h"
+	"bt/bt_tws.h"
+	"ui/ui_style.h"
+	"audio_dec/audio_dec_fm.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\fm\fm.h
+	"system/event.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\fm\fm_rw.c
+	"system/includes.h"
+	"syscfg_id.h"
+	"fm/fm.h"
+	"fm/fm_manage.h"
+	"fm/fm_rw.h"
+
+1604910346 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\idle\idle.c
+	"system/includes.h"
+	"media/includes.h"
+	"app_config.h"
+	"app_task.h"
+	"tone_player.h"
+	"asm/charge.h"
+	"app_charge.h"
+	"app_main.h"
+	"ui_manage.h"
+	"vm.h"
+	"app_chargestore.h"
+	"user_cfg.h"
+	"ui/ui_api.h"
+	"key_event_deal.h"
+	"user_fun_cfg.h"
+	"debug.h"
+	"usb/otg.h"
+	"usb/host/usb_host.h"
+	"asm/power/p33.h"
+
+1604373755 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\linein\linein.c
+	"system/app_core.h"
+	"system/includes.h"
+	"server/server_core.h"
+	"app_config.h"
+	"app_task.h"
+	"media/includes.h"
+	"tone_player.h"
+	"audio_dec_linein.h"
+	"asm/audio_linein.h"
+	"asm/pwm_led.h"
+	"asm/charge.h"
+	"app_charge.h"
+	"app_main.h"
+	"app_online_cfg.h"
+	"app_power_manage.h"
+	"app_chargestore.h"
+	"gSensor/gSensor_manage.h"
+	"ui_manage.h"
+	"vm.h"
+	"linein/linein_dev.h"
+	"linein/linein.h"
+	"key_event_deal.h"
+	"user_cfg.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"clock_cfg.h"
+	"bt.h"
+	"bt_tws.h"
+	"user_fun_cfg.h"
+	"debug.h"
+
+1604029073 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\linein\linein_api.c
+	"system/includes.h"
+	"app_config.h"
+	"app_task.h"
+	"media/includes.h"
+	"tone_player.h"
+	"audio_dec_linein.h"
+	"asm/audio_linein.h"
+	"app_main.h"
+	"ui_manage.h"
+	"vm.h"
+	"linein/linein_dev.h"
+	"linein/linein.h"
+	"key_event_deal.h"
+	"user_cfg.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"clock_cfg.h"
+	"bt.h"
+	"bt_tws.h"
+	"application/audio_output_dac.h"
+	"debug.h"
+	"user_fun_cfg.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_output_dac.h
+	"typedef.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\linein\linein_dev.c
+	"app_config.h"
+	"system/event.h"
+	"system/init.h"
+	"system/timer.h"
+	"asm/power_interface.h"
+	"asm/adc_api.h"
+	"linein/linein.h"
+	"linein/linein_dev.h"
+	"gpio.h"
+	"asm/sdmmc.h"
+	"debug.h"
+
+1604547327 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\music\music.c
+	"music/music.h"
+	"music_player.h"
+	"system/includes.h"
+	"app_config.h"
+	"app_task.h"
+	"app_main.h"
+	"clock_cfg.h"
+	"app_action.h"
+	"breakpoint.h"
+	"key_event_deal.h"
+	"tone_player.h"
+	"dev_multiplex_api.h"
+	"ui/ui_api.h"
+	"bt/bt.h"
+	"smartbox/smartbox.h"
+	"ui_manage.h"
+	"audio_dec.h"
+	"common/dev_status.h"
+	"user_fun_cfg.h"
+	"debug.h"
+
+1604029073 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\pc\pc.c
+	"system/app_core.h"
+	"system/includes.h"
+	"server/server_core.h"
+	"media/includes.h"
+	"app_config.h"
+	"app_task.h"
+	"tone_player.h"
+	"asm/charge.h"
+	"asm/usb.h"
+	"app_charge.h"
+	"app_main.h"
+	"app_online_cfg.h"
+	"app_power_manage.h"
+	"ui_manage.h"
+	"app_chargestore.h"
+	"key_event_deal.h"
+	"os/os_api.h"
+	"usb/usb_config.h"
+	"usb/device/usb_stack.h"
+	"usb/device/hid.h"
+	"usb/device/msd.h"
+	"uac_stream.h"
+	"pc/pc.h"
+	"user_cfg.h"
+	"device/sdmmc.h"
+	"pc/usb_msd.h"
+	"ui/ui_api.h"
+	"clock_cfg.h"
+	"dev_multiplex_api.h"
+	"usb/otg.h"
+	"bt_tws.h"
+	"clock_cfg.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\pc\pc.h
+	"system/event.h"
+	"music/music_player.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\pc\usb_msd.h
+	"system/includes.h"
+	"usb/device/msd.h"
+
+1604910328 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\power_off\power_off.c
+	"common/power_off.h"
+	"bt_tws.h"
+	<stdlib.h>
+	"app_config.h"
+	"app_task.h"
+	"system/includes.h"
+	"media/includes.h"
+	"app_power_manage.h"
+	"app_chargestore.h"
+	"btstack/avctp_user.h"
+	"app_main.h"
+	"ui/ui_api.h"
+	"ui_manage.h"
+	"tone_player.h"
+	"user_cfg.h"
+	"bt_tws.h"
+	"bt.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\common\power_off.h
+	"generic/typedef.h"
+	"app_config.h"
+	"event.h"
+
+1604650561 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\power_on\power_on.c
+	"system/includes.h"
+	"media/includes.h"
+	"app_config.h"
+	"tone_player.h"
+	"asm/charge.h"
+	"app_charge.h"
+	"app_main.h"
+	"ui_manage.h"
+	"vm.h"
+	"app_chargestore.h"
+	"user_cfg.h"
+	"ui/ui_api.h"
+	"app_task.h"
+	"key_event_deal.h"
+	"debug.h"
+	"ui/ui_style.h"
+	"user_fun_cfg.h"
+	"timer.h"
+	"dev_manager.h"
+
+1604656393 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\record\record.c
+	"system/app_core.h"
+	"system/includes.h"
+	"server/server_core.h"
+	"media/includes.h"
+	"app_config.h"
+	"app_task.h"
+	"tone_player.h"
+	"asm/charge.h"
+	"app_charge.h"
+	"app_main.h"
+	"app_online_cfg.h"
+	"app_power_manage.h"
+	"gSensor/gSensor_manage.h"
+	"ui_manage.h"
+	"vm.h"
+	"app_chargestore.h"
+	"key_event_deal.h"
+	"asm/pwm_led.h"
+	"user_cfg.h"
+	"record/record.h"
+	"audio_enc.h"
+	"audio_dec.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"clock_cfg.h"
+	"dev_manager.h"
+	"user_fun_cfg.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\record\record.h
+	"generic/typedef.h"
+	"app_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\rtc\alarm_api.c
+	"system/includes.h"
+	"rtc/alarm.h"
+	"common/app_common.h"
+	"system/timer.h"
+	"app_main.h"
+	"tone_player.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\rtc\alarm_user.c
+	"system/includes.h"
+	"rtc/alarm.h"
+	"common/app_common.h"
+	"system/timer.h"
+	"app_main.h"
+	"tone_player.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\rtc\rtc.c
+	"app_config.h"
+	"key_event_deal.h"
+	"system/includes.h"
+	"tone_player.h"
+	"app_task.h"
+	"tone_player.h"
+	"media/includes.h"
+	"system/sys_time.h"
+	"ui/ui_api.h"
+	"rtc/alarm.h"
+	"rtc/rtc_ui.h"
+	"clock_cfg.h"
+	"ui/ui_style.h"
+	"ui_manage.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\rtc\rtc_ui.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\rtc\rtc_simulate.c
+	"app_config.h"
+	"rtc/alarm.h"
+	"app_action.h"
+	"system/includes.h"
+	"clock_cfg.h"
+	"ioctl_cmds.h"
+	"system/sys_time.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\spdif\hdmi_cec_drv.c
+	"spdif/hdmi_cec.h"
+	"spdif/hdmi_cec_api.h"
+	"app_config.h"
+	"asm/clock.h"
+	"app_config.h"
+	"gpio.h"
+	"system/timer.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\spdif\hdmi_cec.h
+	"typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\spdif\hdmi_cec_api.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\spdif\spdif.c
+	"app_config.h"
+	"key_event_deal.h"
+	"system/includes.h"
+	"tone_player.h"
+	"app_task.h"
+	"tone_player.h"
+	"media/includes.h"
+	"asm/audio_spdif.h"
+	"clock_cfg.h"
+	"ui/ui_api.h"
+	"ui_manage.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\task_key.c
+	"key_event_deal.h"
+	"key_driver.h"
+	"app_config.h"
+	"board_config.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\third_party_profile\ancs_client_demo\ancs_client_demo.c
+	"app_config.h"
+	"btstack/avctp_user.h"
+	"btstack/btstack_task.h"
+	"bt_tws.h"
+	"app_main.h"
+	"event.h"
+	"3th_profile_api.h"
+	"spp_user.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\third_party_profile\trans_data_demo\trans_data_demo.c
+	"app_config.h"
+	"btstack/avctp_user.h"
+	"btstack/btstack_task.h"
+	"bt_tws.h"
+	"app_main.h"
+	"event.h"
+	"spp_trans_data.h"
+	"3th_profile_api.h"
+	"spp_user.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\color_led\color_led_app.c
+	"system/includes.h"
+	"app_config.h"
+	"user_cfg.h"
+	"color_led_app.h"
+	"color_led_table.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\ui\color_led\color_led_table.h
+	"color_led_app.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\color_led\color_led_table.c
+	"system/includes.h"
+	"app_config.h"
+	"user_cfg.h"
+	"color_led_app.h"
+	"color_led_table.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\color_led\driver\color_led.c
+	"system/includes.h"
+	"app_config.h"
+	"user_cfg.h"
+	"color_led_app.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\color_led\driver\color_led_driver.c
+	"system/includes.h"
+	"app_config.h"
+	"user_cfg.h"
+	"color_led_driver.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\lcd\lyrics_api.c
+	"lyrics_api.h"
+	"ui/lyrics.h"
+	"system/fs/fs.h"
+	"app_config.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\lcd\lyrics_api.h
+	"ui/lyrics.h"
+	"ui/ui.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\ui\lyrics.h
+	"typedef.h"
+	"system/fs/fs.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\lcd\style_02\bt_action.c
+	"ui/ui.h"
+	"app_config.h"
+	"ui/ui_style.h"
+	"app_task.h"
+	"system/timer.h"
+	"key_event_deal.h"
+	"audio_config.h"
+	"jiffies.h"
+	"btstack/avctp_user.h"
+	"app_power_manage.h"
+	"asm/charge.h"
+	"application/audio_eq_drc_apply.h"
+	"audio_eq.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\lcd\style_02\clock_action.c
+	"ui/ui.h"
+	"app_config.h"
+	"ui/ui_style.h"
+	"app_task.h"
+	"system/timer.h"
+	"key_event_deal.h"
+	"audio_config.h"
+	"jiffies.h"
+	"system/timer.h"
+	"system/includes.h"
+	"rtc/alarm.h"
+	"app_power_manage.h"
+	"asm/charge.h"
+	"application/audio_eq_drc_apply.h"
+	"audio_eq.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\lcd\style_02\fm_action.c
+	"ui/ui.h"
+	"app_config.h"
+	"ui/ui_style.h"
+	"app_task.h"
+	"system/timer.h"
+	"key_event_deal.h"
+	"audio_config.h"
+	"jiffies.h"
+	"fm/fm_api.h"
+	"fm/fm_rw.h"
+	"app_power_manage.h"
+	"asm/charge.h"
+	"application/audio_eq_drc_apply.h"
+	"audio_eq.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\lcd\style_02\main_action.c
+	"ui/ui.h"
+	"app_config.h"
+	"ui/ui_style.h"
+	"app_task.h"
+	"system/timer.h"
+	"app_power_manage.h"
+	"asm/charge.h"
+
+1604029073 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\lcd\style_02\music_action.c
+	"ui/ui.h"
+	"app_config.h"
+	"ui/ui_style.h"
+	"app_task.h"
+	"system/timer.h"
+	"key_event_deal.h"
+	"audio_config.h"
+	"jiffies.h"
+	"app_power_manage.h"
+	"asm/charge.h"
+	"../lyrics_api.h"
+	"application/audio_eq_drc_apply.h"
+	"audio_eq.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\lcd\style_02\system_action.c
+	"ui/ui.h"
+	"app_config.h"
+	"ui/ui_style.h"
+	"app_task.h"
+	"system/timer.h"
+	"font/language_list.h"
+	"res/resfile.h"
+	"app_power_manage.h"
+	"asm/charge.h"
+	"../ui_sys_param_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\system\ui\res\resfile.h
+	"typedef.h"
+	"fs/fs.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\lcd\ui_sys_param_api.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\lcd\ui_sys_param_api.c
+	"ui/ui.h"
+	"app_config.h"
+	"ui/ui_style.h"
+	"app_action.h"
+	"system/timer.h"
+	"font/language_list.h"
+	"res/resfile.h"
+	"syscfg_id.h"
+
+1604559379 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\led7\ui_bt.c
+	"includes.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"btstack/avctp_user.h"
+	"user_fun_cfg.h"
+
+1604655619 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\led7\ui_common.c
+	"includes.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\led7\ui_fm.c
+	"ui/ui_api.h"
+	"fm/fm_manage.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\led7\ui_fm_emitter.c
+	"common/fm_emitter_led7_ui.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\common\fm_emitter_led7_ui.h
+	"generic/typedef.h"
+	"app_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\led7\ui_idle.c
+	"includes.h"
+	"ui/ui_api.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\led7\ui_linein.c
+	"system/includes.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+
+1604547301 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\led7\ui_music.c
+	"ui/ui_api.h"
+	"music/music_ui.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"audio_dec.h"
+	"audio_dec_file.h"
+	"music/music_player.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\task_manager\music\music_ui.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\led7\ui_pc.c
+	"ui/ui_api.h"
+	"system/includes.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\led7\ui_record.c
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"audio_enc/audio_enc.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\led7\ui_rtc.c
+	"ui/ui_api.h"
+	"system/includes.h"
+	"system/sys_time.h"
+	"rtc/rtc_ui.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\led\pwm_led_api.c
+	"ui_manage.h"
+	"asm/pwm_led.h"
+	"system/includes.h"
+	"app_config.h"
+	"user_cfg.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\ui\led\pwm_led_para_table.c
+	"ui_manage.h"
+	"asm/pwm_led.h"
+	"system/includes.h"
+	"app_config.h"
+	"user_cfg.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\user_api\app_pwmled_api.c
+	"generic/gpio.h"
+	"asm/includes.h"
+	"asm/pwm_led.h"
+	"system/timer.h"
+	"board_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\user_api\app_record_api.c
+	"generic/gpio.h"
+	"asm/includes.h"
+	"system/timer.h"
+	"board_config.h"
+	"record/record.h"
+	"dev_manager.h"
+	"media/audio_base.h"
+	"audio_enc.h"
+	"tone_player.h"
+	"audio_dec.h"
+	"clock_cfg.h"
+	"effect_reg.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\user_api\app_special_play_api.c
+	"generic/gpio.h"
+	"asm/includes.h"
+	"system/timer.h"
+	"board_config.h"
+	"record/record.h"
+	"dev_manager.h"
+	"media/audio_base.h"
+	"audio_enc.h"
+	"tone_player.h"
+	"audio_dec.h"
+	"clock_cfg.h"
+	"effect_reg.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\user_api\dev_multiplex_api.c
+	"includes.h"
+	"app_config.h"
+	"dev_multiplex_api.h"
+	"usb/otg.h"
+	"dev_manager.h"
+	"music/music_player.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\version.c
+	"system/includes.h"
+	"generic/log.h"
+	"app_config.h"
+
+1602510314 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\adc_api.c
+	"typedef.h"
+	"asm/clock.h"
+	"asm/adc_api.h"
+	"timer.h"
+	"init.h"
+	"asm/efuse.h"
+	"irq.h"
+	"asm/power/p33.h"
+	"asm/power_interface.h"
+	"jiffies.h"
+
+1604037425 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_common\app_audio.c
+	"system/includes.h"
+	"media/includes.h"
+	"app_config.h"
+	"app_action.h"
+	"app_main.h"
+	"audio_config.h"
+	"audio_digital_vol.h"
+	"audio_dec.h"
+	"user_fun_cfg.h"
+	"application/audio_output_dac.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"debug.h"
+	"application/audio_dig_vol.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_common\audio_link.c
+	"asm/iis.h"
+	"gpio.h"
+	"media/includes.h"
+	"app_config.h"
+	"audio_link.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\iis.h
+	"generic/typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_common\audio_link.h
+	"audio_config.h"
+	"asm/iis.h"
+	"system/includes.h"
+	"media/includes.h"
+
+1604029073 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec.c
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"classic/tws_api.h"
+	"classic/hci_lmp.h"
+	"effectrs_sync.h"
+	"application/audio_eq_drc_apply.h"
+	"app_config.h"
+	"audio_config.h"
+	"aec_user.h"
+	"audio_enc.h"
+	"audio_dec.h"
+	"app_main.h"
+	"encode/encode_write.h"
+	"audio_digital_vol.h"
+	"common/Resample_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"asm/audio_spdif.h"
+	"clock_cfg.h"
+	"audio_link.h"
+	"btstack/avctp_user.h"
+	"application/audio_output_dac.h"
+	"application/audio_energy_detect.h"
+	"application/audio_vocal_remove.h"
+	"audio_dongle_codec.h"
+	"user_fun_cfg.h"
+	"bt_tws.h"
+	"timer.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\include\common\resample_api.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_energy_detect.h
+	"typedef.h"
+	"application/audio_energy_detect.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_vocal_remove.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_enc\audio_dongle_codec.h
+	"generic/typedef.h"
+	"generic/list.h"
+	"media/audio_base.h"
+	"media/audio_stream.h"
+	"media/mixer.h"
+
+1604649711 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_bt.c
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"media/a2dp_decoder.h"
+	"media/esco_decoder.h"
+	"classic/tws_api.h"
+	"app_config.h"
+	"audio_config.h"
+	"audio_dec.h"
+	"audio_digital_vol.h"
+	"clock_cfg.h"
+	"btstack/a2dp_media_codec.h"
+	"application/audio_eq_drc_apply.h"
+	"application/audio_equalloudness.h"
+	"application/audio_surround.h"
+	"application/audio_vbass.h"
+	"aec_user.h"
+	"audio_enc.h"
+	"bt_tws.h"
+	"user_fun_cfg.h"
+	"PLC.h"
+	"limiter_noiseGate_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\a2dp_decoder.h
+	"media/includes.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\esco_decoder.h
+	"media/includes.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\btstack\a2dp_media_codec.h
+	"generic/typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_equalloudness.h
+	"equalloudness/loudness_api.h"
+	"math.h"
+	"stdlib.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\equalloudness\loudness_api.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_surround.h
+	"surround/effect_sur_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\surround\effect_sur_api.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_vbass.h
+	"vbass/vbass_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\vbass\vbass_api.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\plc.h
+	"generic/typedef.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\limiter_noisegate_api.h
+
+1604649715 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_file.c
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"effectrs_sync.h"
+	"app_config.h"
+	"audio_config.h"
+	"audio_dec.h"
+	"app_config.h"
+	"app_main.h"
+	"classic/tws_api.h"
+	"music/music_decrypt.h"
+	"music/music_id3.h"
+	"pitchshifter/pitchshifter_api.h"
+	"mono2stereo/reverb_mono2stero_api.h"
+	"audio_enc.h"
+	"clock_cfg.h"
+	"application/audio_pitch.h"
+	"application/audio_eq_drc_apply.h"
+	"user_fun_cfg.h"
+
+1604649723 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_fm.c
+	"asm/includes.h"
+	"media/includes.h"
+	"media/pcm_decoder.h"
+	"system/includes.h"
+	"effectrs_sync.h"
+	"application/audio_eq_drc_apply.h"
+	"app_config.h"
+	"audio_config.h"
+	"audio_dec.h"
+	"app_config.h"
+	"app_main.h"
+	"audio_enc.h"
+	"audio_dec.h"
+	"clock_cfg.h"
+	"dev_manager.h"
+	"user_fun_cfg.h"
+
+1604649727 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_linein.c
+	"asm/includes.h"
+	"media/includes.h"
+	"media/pcm_decoder.h"
+	"system/includes.h"
+	"effectrs_sync.h"
+	"application/audio_eq_drc_apply.h"
+	"app_config.h"
+	"audio_config.h"
+	"audio_dec.h"
+	"app_config.h"
+	"app_main.h"
+	"audio_enc.h"
+	"clock_cfg.h"
+	"dev_manager.h"
+	"user_fun_cfg.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_midi_file.c
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"effectrs_sync.h"
+	"app_config.h"
+	"audio_config.h"
+	"audio_dec.h"
+	"app_config.h"
+	"app_main.h"
+	"MIDI_DEC_API.h"
+	"audio_dec_file.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\midi_dec_api.h
+
+1604029073 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_pc.c
+	"uac_stream.h"
+	"app_config.h"
+	"audio_decoder.h"
+	"media/includes.h"
+	"audio_config.h"
+	"system/includes.h"
+	"audio_enc.h"
+	"application/audio_eq_drc_apply.h"
+	"app_config.h"
+	"audio_config.h"
+	"audio_dec.h"
+	"app_main.h"
+	"clock_cfg.h"
+	"media/pcm_decoder.h"
+	"bt_tws.h"
+	"ui/ui_api.h"
+
+1602509962 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_record.c
+	"system/includes.h"
+	"media/includes.h"
+	"tone_player.h"
+	"audio_config.h"
+	"app_main.h"
+	"clock_cfg.h"
+	"audio_dec.h"
+	"key_event_deal.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_spdif.c
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"effectrs_sync.h"
+	"application/audio_eq_drc_apply.h"
+	"app_config.h"
+	"audio_config.h"
+	"audio_dec.h"
+	"app_config.h"
+	"app_main.h"
+	"audio_enc.h"
+	"clock_cfg.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_dec_tone.c
+	"system/includes.h"
+	"media/includes.h"
+	"tone_player.h"
+	"audio_config.h"
+	"app_main.h"
+	"clock_cfg.h"
+	"audio_dec.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_sync.c
+	"board_config.h"
+	"asm/dac.h"
+	"media/includes.h"
+	"effectrs_sync.h"
+	"asm/gpio.h"
+	"classic/tws_api.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\audio_usb_mic.c
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"device/uac_stream.h"
+	"audio_enc.h"
+	"app_main.h"
+	"user_cfg_id.h"
+	"aec_user.h"
+
+1602507970 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_dec\tone_player.c
+	"system/includes.h"
+	"media/includes.h"
+	"application/audio_dec_app.h"
+	"tone_player.h"
+	"audio_config.h"
+	"app_main.h"
+	"audio_dec.h"
+	"bt_tws.h"
+
+1604050841 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_effect\eq_config.c
+	"system/includes.h"
+	"media/includes.h"
+	"app_config.h"
+	"app_online_cfg.h"
+	"online_db/online_db_deal.h"
+	"application/audio_eq_drc_apply.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\common\third_party_profile\jieli\online_db\online_db_deal.h
+	"typedef.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_enc\audio_dongle_codec.c
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"asm/audio_src.h"
+	"audio_enc.h"
+	"audio_dec.h"
+	"audio_dongle_codec.h"
+	"app_main.h"
+	"clock_cfg.h"
+	"media/pcm_decoder.h"
+	"virtual_mp3_file.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_enc\audio_enc.c
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"aec_user.h"
+	"asm/audio_src.h"
+	"audio_enc.h"
+	"app_main.h"
+	"app_action.h"
+	"clock_cfg.h"
+	"classic/hci_lmp.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_enc\audio_enc_file.c
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"encode/encode_write.h"
+	"asm/audio_src.h"
+	"audio_enc.h"
+	"app_main.h"
+	"app_action.h"
+	"clock_cfg.h"
+	"dev_manager.h"
+	"btstack/btstack_task.h"
+	"btstack/avctp_user.h"
+
+1602509939 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_enc\audio_enc_recoder.c
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"asm/audio_src.h"
+	"audio_enc.h"
+	"app_main.h"
+	"app_action.h"
+	"encode/encode_write.h"
+	"clock_cfg.h"
+	"audio_config.h"
+	"key_event_deal.h"
+	"user_fun_cfg.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_enc\audio_mic_codec.c
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"aec_user.h"
+	"asm/audio_src.h"
+	"audio_enc.h"
+	"app_main.h"
+	"btstack/avctp_user.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_enc\audio_recorder_mix.c
+	"audio_recorder_mix.h"
+	"audio_enc.h"
+	"audio_dec.h"
+	"media/pcm_decoder.h"
+	"btstack/btstack_task.h"
+	"btstack/avctp_user.h"
+	"audio_splicing.h"
+	"app_main.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\audio_splicing.h
+	"generic/typedef.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_enc\audio_sbc_codec.c
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"aec_user.h"
+	"asm/audio_src.h"
+	"audio_enc.h"
+	"app_main.h"
+	"btstack/avctp_user.h"
+	"clock_cfg.h"
+	"sbc_enc.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\sbc_enc.h
+	<stddef.h>
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\effect_cfg.c
+	"effect_cfg.h"
+	"effect_tool.h"
+	"mic_effect.h"
+	"system/includes.h"
+	"media/includes.h"
+	"app_config.h"
+	"app_online_cfg.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\effect_tool.h
+	"generic/typedef.h"
+	"effect_cfg.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\effect_debug.c
+	"effect_debug.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\effect_debug.h
+	"system/includes.h"
+	"effect_cfg.h"
+
+1604050149 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\effect_reg.c
+	"effect_reg.h"
+	"app_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\effect_reg_echo.c
+	"effect_reg.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\effect_reg_reverb.c
+	"effect_reg_reverb.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\effect_tool.c
+	"effect_tool.h"
+	"system/includes.h"
+	"media/includes.h"
+	"config/config_interface.h"
+	"app_config.h"
+	"app_online_cfg.h"
+	"application/audio_eq.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\loud_speaker.c
+	"system/includes.h"
+	"media/includes.h"
+	"app_config.h"
+	"app_online_cfg.h"
+	"clock_cfg.h"
+	"audio_config.h"
+	"storage_dev/storage_dev.h"
+	"loud_speaker.h"
+	"audio_dec.h"
+	"audio_enc.h"
+	"media/pcm_decoder.h"
+	"application/audio_howling.h"
+	"application/audio_pitch.h"
+	"application/audio_echo_reverb.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\mic_effect.c
+	"effect_tool.h"
+	"effect_debug.h"
+	"audio_splicing.h"
+	"application/filtparm_api.h"
+	"application/audio_eq_drc_apply.h"
+	"application/audio_output_dac.h"
+	"application/audio_echo_src.h"
+	"clock_cfg.h"
+	"media/audio_stream.h"
+	"media/includes.h"
+	"mic_effect.h"
+	"asm/dac.h"
+	"audio_enc.h"
+	"audio_dec.h"
+	"debug.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\filtparm_api.h
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\application\audio_echo_src.h
+	"asm/Resample_api.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\media\media_develop\media\cpu\br25\asm\resample_api.h
+
+1602509311 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\audio_mic\mic_stream.c
+	"mic_stream.h"
+	"app_config.h"
+	"system/includes.h"
+	"audio_splicing.h"
+	"audio_config.h"
+	"asm/dac.h"
+	"audio_enc.h"
+	"audio_dec.h"
+	"media/includes.h"
+	"media/pcm_decoder.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\charge.c
+	"asm/clock.h"
+	"timer.h"
+	"asm/power/p33.h"
+	"asm/charge.h"
+	"uart.h"
+	"device/device.h"
+	"asm/power_interface.h"
+	"system/event.h"
+	"asm/efuse.h"
+	"gpio.h"
+	"debug.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\chargestore.c
+	"generic/typedef.h"
+	"generic/gpio.h"
+	"asm/power/p33.h"
+	"asm/hwi.h"
+	"asm/gpio.h"
+	"asm/clock.h"
+	"asm/chargestore.h"
+	"update.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\clock_manager.c
+	"system/includes.h"
+	"app_config.h"
+	"clock_cfg.h"
+	"asm/dac.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\iic_eeprom_test.c
+	"system/includes.h"
+	"media/includes.h"
+	"asm/iic_hw.h"
+	"asm/iic_soft.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\iic_hw.c
+	"asm/iic_hw.h"
+	"system/generic/gpio.h"
+	"system/generic/log.h"
+	"asm/clock.h"
+	"asm/cpu.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\iic_slave_test.c
+	"system/includes.h"
+	"media/includes.h"
+	"asm/iic_hw.h"
+	"asm/iic_soft.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\iic_soft.c
+	"asm/iic_soft.h"
+	"generic/gpio.h"
+
+1602509517 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\irflt.c
+	"asm/includes.h"
+	"asm/irflt.h"
+	"timer.h"
+	"generic/gpio.h"
+	"key_driver.h"
+	"user_fun_cfg.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\localtws\localtws.c
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"classic/tws_api.h"
+	"classic/tws_local_media_sync.h"
+	"localtws/localtws.h"
+	"clock_cfg.h"
+	"app_config.h"
+	"audio_config.h"
+	"audio_dec.h"
+	"app_task.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\localtws\localtws_dec.c
+	"asm/includes.h"
+	"media/includes.h"
+	"system/includes.h"
+	"classic/tws_api.h"
+	"classic/tws_local_media_sync.h"
+	"localtws/localtws.h"
+	"clock_cfg.h"
+	"app_config.h"
+	"audio_config.h"
+	"audio_dec.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\mcpwm.c
+	"asm/mcpwm.h"
+	"asm/clock.h"
+	"asm/gpio.h"
+
+1601359722 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\include_lib\driver\cpu\br25\asm\mcpwm.h
+	"typedef.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\overlay_code.c
+	"asm/includes.h"
+	"media/includes.h"
+	"overlay_code.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\plcnt.c
+	"system/includes.h"
+	"asm/plcnt.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\port_wkup.c
+	"typedef.h"
+	"irq.h"
+	"asm/gpio.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\pwm_led.c
+	"generic/gpio.h"
+	"asm/includes.h"
+	"asm/pwm_led.h"
+	"system/timer.h"
+	"board_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\setup.c
+	"asm/includes.h"
+	"system/task.h"
+	"timer.h"
+	"system/init.h"
+	"app_config.h"
+	"gpio.h"
+	"debug.h"
+
+1602507936 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\spi.c
+	"system/debug.h"
+	"generic/gpio.h"
+	"asm/clock.h"
+	"asm/spi.h"
+	"board_config.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\spi_test.c
+	"system/includes.h"
+	"media/includes.h"
+	"asm/spi.h"
+	"generic/log.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\uart_bt_product.c
+	"system/includes.h"
+	"asm/uart_dev.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\uart_dev.c
+	"asm/clock.h"
+	"asm/uart_dev.h"
+	"asm/cpu.h"
+	"generic/gpio.h"
+	"spinlock.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\uart_test.c
+	"system/includes.h"
+	"asm/uart_dev.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\ui_driver\lcd_seg\lcd_seg3x9_driver.c
+	"includes.h"
+	"app_config.h"
+	"ui/ui_api.h"
+	"lcd_seg3x9_driver_cfg.h"
+
+1604641878 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\ui_driver\led7\led7_driver.c
+	"includes.h"
+	"app_config.h"
+	"system/device/vm.h"
+	"ui/ui_api.h"
+	"led7_driver_cfg.h"
+	"user_fun_cfg.h"
+
+1602507883 d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\ui_driver\led7\led7_driver_cfg.h
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\ui_driver\led_1888\led1888.c
+	"includes.h"
+	"app_config.h"
+	"ui/ui_api.h"
+	"LED1888.h"
+
+1601359722 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\cpu\br25\ui_driver\ui_common.c
+	"includes.h"
+
+1604910827 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\board_ac6966b\board_ac6966b.c
+	"gpio.h"
+	"app_config.h"
+	"system/includes.h"
+	"media/includes.h"
+	"asm/sdmmc.h"
+	"asm/chargestore.h"
+	"asm/charge.h"
+	"asm/pwm_led.h"
+	"asm/rtc.h"
+	"tone_player.h"
+	"audio_config.h"
+	"asm/iic_hw.h"
+	"asm/iic_soft.h"
+	"gSensor/gSensor_manage.h"
+	"key_event_deal.h"
+	"user_cfg.h"
+	"linein/linein_dev.h"
+	"usb/otg.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"dev_manager.h"
+	"fm/fm_manage.h"
+	"asm/power/p33.h"
+	"norflash.h"
+	"asm/spi.h"
+	"ui_manage.h"
+	"spi/nor_fs.h"
+	"user_fun_cfg.h"
+	"debug.h"
+	"asm/ctmu.h"
+
+1604906253 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\board\br25\user_fun\user_pa.c
+	"user_fun_cfg.h"
+
+1604906253 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\common\user_cfg.c
+	"app_config.h"
+	"user_cfg.h"
+	"fs.h"
+	"string.h"
+	"system/includes.h"
+	"vm.h"
+	"btcontroller_config.h"
+	"app_main.h"
+	"media/includes.h"
+	"audio_config.h"
+	"asm/pwm_led.h"
+	"aec_user.h"
+	"app_power_manage.h"
+	"debug.h"
+	"fm_emitter/fm_emitter_manage.h"
+
+1604906253 source:d:\sq\jbd\2020\1109\sdk-66b-jiben\sdk\apps\soundbox\task_manager\app_common.c
+	"common/app_common.h"
+	"app_task.h"
+	"app_main.h"
+	"key_event_deal.h"
+	"music/music.h"
+	"pc/pc.h"
+	"record/record.h"
+	"linein/linein.h"
+	"fm/fm.h"
+	"btstack/avctp_user.h"
+	"app_power_manage.h"
+	"app_chargestore.h"
+	"usb/otg.h"
+	"usb/host/usb_host.h"
+	<stdlib.h>
+	"bt/bt_tws.h"
+	"audio_config.h"
+	"common/power_off.h"
+	"common/user_msg.h"
+	"audio_config.h"
+	"audio_enc.h"
+	"ui/ui_api.h"
+	"fm_emitter/fm_emitter_manage.h"
+	"common/fm_emitter_led7_ui.h"
+	"app_charge.h"
+	"dev_multiplex_api.h"
+	"chgbox_ctrl.h"
+	"device/chargebox.h"
+	"app_online_cfg.h"
+	"soundcard/soundcard.h"
+	"smartbox_bt_manage.h"
+	"bt.h"
+	"common/dev_status.h"
+	"tone_player.h"
+	"ui_manage.h"
+	"soundbox.h"
+	"audio_recorder_mix.h"
+	"user_fun_cfg.h"
+	"debug.h"
 
