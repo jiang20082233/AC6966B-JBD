@@ -434,7 +434,8 @@ int app_common_key_msg_deal(struct sys_event *event)
     case KEY_IR_PPOWER:
         puts("KEY_IR_PPOWER\n");
         #if USER_IR_POWER
-        if(APP_IDLE_TASK != app_get_curr_task()){            
+        if(APP_IDLE_TASK != app_get_curr_task()){
+            user_power_off_class(2);          
             user_power_off();
 
             sys_hi_timeout_add((void *)(timer_get_ms()),user_ir_power_off,200);

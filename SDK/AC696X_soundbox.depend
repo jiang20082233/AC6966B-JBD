@@ -6181,7 +6181,7 @@
 	"generic/typedef.h"
 	"generic/list.h"
 
-1605172328 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\include\app_config.h
+1605177544 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\include\app_config.h
 	"board_config.h"
 	"usb_common_def.h"
 	"btcontroller_mode.h"
@@ -8716,7 +8716,7 @@
 1601359722 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\include\task_manager\bt\bt_ble.h
 	"typedef.h"
 
-1604643183 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\power_manage\app_power_manage.c
+1605176847 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\power_manage\app_power_manage.c
 	"system/includes.h"
 	"app_power_manage.h"
 	"app_main.h"
@@ -9062,7 +9062,7 @@
 	"typedef.h"
 	"system/includes.h"
 
-1601359722 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\smartbox\function.c
+1605174454 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\smartbox\function.c
 	"smartbox/config.h"
 	"smartbox/function.h"
 	"smartbox/smartbox.h"
@@ -9519,7 +9519,7 @@
 	"btstack/avctp_user.h"
 	"pitchshifter/pitchshifter_api.h"
 
-1605168746 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\task_manager\app_common.c
+1605177203 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\task_manager\app_common.c
 	"common/app_common.h"
 	"app_task.h"
 	"app_main.h"
@@ -9954,7 +9954,7 @@
 	"fm/fm_manage.h"
 	"fm/fm_rw.h"
 
-1605172196 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\task_manager\idle\idle.c
+1605177100 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\task_manager\idle\idle.c
 	"system/includes.h"
 	"media/includes.h"
 	"app_config.h"
@@ -11258,7 +11258,7 @@
 	"debug.h"
 	"asm/ctmu.h"
 
-1605168399 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_fun_cfg.h
+1605176794 f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_fun_cfg.h
 	"typedef.h"
 	"timer.h"
 	"string.h"
@@ -11363,7 +11363,7 @@
 1604136455 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_rgb_dev.c
 	"user_fun_cfg.h"
 
-1605169017 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_fun.c
+1605177146 source:f:\2020\jbd\jbd[ac696x]\source_code\sdk\apps\soundbox\board\br25\user_fun\user_fun.c
 	"user_fun_cfg.h"
 
 1602509951 source:f:\2020\jbd\jbd[ac696x]\source_code - error - ¸±±¾\sdk\apps\common\audio\audio_digital_vol.c

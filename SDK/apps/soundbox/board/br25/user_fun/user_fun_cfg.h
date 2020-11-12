@@ -129,4 +129,5 @@ void user_tws_sync_info(void);
 void user_del_time(void);
 u8 user_ex_mic_get_vol(void);
 int user_ex_mic_get_reverb(void);
+u8 user_power_off_class(u8 cmd);
 #endif

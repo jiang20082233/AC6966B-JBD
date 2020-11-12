@@ -641,6 +641,19 @@ void user_sd_power(u8 cmd){
     #endif
 }
 
+//获取、设置 关机类型
+//cmd 1:低电关机 2:遥控器关机
+u8 user_power_off_class(u8 cmd){
+    static u8 power_class = 0;
+
+    if(1 == cmd){//低电关机
+        power_class = cmd;
+    }else if((1 != power_class) && (2 == cmd)){//遥控器关机
+        power_class = cmd;        
+    }
+
+    return power_class;
+}
 //关机
 void user_power_off(void){
     user_low_power_show(0x55);

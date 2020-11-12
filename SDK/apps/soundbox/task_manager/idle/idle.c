@@ -466,9 +466,16 @@ static void idle_app_start()
 
     UI_SHOW_WINDOW(ID_WINDOW_IDLE);
 
-    //关机不关sdgp电源
+    //遥控器关机不关sdgp电源
     extern void user_sd_power(u8 cmd);
-    user_sd_power(1);
+    u8 power_class = user_power_off_class(0xff);
+    if(1 == power_class){//低电关机
+        user_sd_power(0);
+        power_set_soft_poweroff();
+        return;
+    }else if(2 == power_class){//遥控器关机
+        user_sd_power(1);
+    }
 
 #if (TCFG_CHARGE_ENABLE && !TCFG_CHARGE_POWERON_ENABLE)
 
