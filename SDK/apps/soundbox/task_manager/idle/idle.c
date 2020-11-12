@@ -441,7 +441,7 @@ static void idle_app_close_module()
     linein_detect_timer_del();
 #endif
 
-#if ((TCFG_LOWPOWER_LOWPOWER_SEL == 0) || (TCFG_BT_SNIFF_ENABLE == 0))
+#if ((TCFG_LOWPOWER_LOWPOWER_SEL == 0) || (TCFG_BT_SNIFF_ENABLE))
     suspend_some_peripheral();
 #endif
 #endif

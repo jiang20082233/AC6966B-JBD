@@ -9,7 +9,7 @@
 #ifdef CONFIG_RELEASE_ENABLE
 #define LIB_DEBUG    0
 #else
-#define LIB_DEBUG    1
+#define LIB_DEBUG    1 
 #endif
 
 #define CONFIG_DEBUG_LIB(x)         (x & LIB_DEBUG)
@@ -302,7 +302,7 @@
 //*********************************************************************************//
 #if TCFG_IRKEY_ENABLE
 #undef  TCFG_LOWPOWER_LOWPOWER_SEL
-#define TCFG_LOWPOWER_LOWPOWER_SEL			0                     //开红外不进入低功耗
+#define TCFG_LOWPOWER_LOWPOWER_SEL			1                     //开红外不进入低功耗
 #endif  /* #if TCFG_IRKEY_ENABLE */
 
 //*********************************************************************************//

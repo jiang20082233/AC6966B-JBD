@@ -73,19 +73,26 @@ static void user_led7_show_err(void *hd)
     dis->show_string((u8 *)" err");
     dis->lock(0);
 }
+extern void local_irq_disable();
+extern void local_irq_enable();
 static void led7_show_pause(void *hd)
 {
+    local_irq_disable();
     LCD_API *dis = (LCD_API *)hd;
-    dis->lock(1);
-    dis->clear();
-    dis->setXY(0, 0);
+    if(dis){
+    
+        dis->lock(1);
+        dis->clear();
+        dis->setXY(0, 0);
 
-    int sencond = file_dec_get_cur_time();
-    u8 tp_show_string[4]={0};
-    sprintf(tp_show_string,"%02d:%02d",sencond / 60 % 60,sencond % 60);
-    dis->show_string(tp_show_string);
-    dis->show_icon(LED7_PAUSE);
-    dis->lock(0);
+        int sencond = file_dec_get_cur_time();
+        u8 tp_show_string[5]={0};
+        sprintf(tp_show_string,"%02d:%02d",sencond / 60 % 60,sencond % 60);
+        dis->show_string(tp_show_string);
+        dis->show_icon(LED7_PAUSE);
+        dis->lock(0);
+    }
+    local_irq_enable();
 }
 
 static void led7_show_repeat_mode(void *hd, u32 val)
@@ -178,7 +185,7 @@ static void led7_show_music_dev(void *hd)
     /* char *music_play_get_cur_dev(void); */
     /* char *dev = music_play_get_cur_dev(); */
     dev = music_player_get_dev_cur();
-    if (dev) {
+    if (dev && dis) {
         if (!memcmp(dev, "udisk", 5)) {
             dis->show_icon(LED7_USB);
         } else {
@@ -209,7 +216,7 @@ static void ui_music_main(void *hd, void *private) //主界面显示
         ui_led7_show_music_time(hd, sencond);
         led7_show_music_dev(hd);
         printf("sec = %d \n", sencond);
-    } else if (file_dec_is_pause()) {
+    } else if (file_dec_is_pause() && hd) {
         led7_show_pause(hd);
         led7_show_music_dev(hd);
     } else {

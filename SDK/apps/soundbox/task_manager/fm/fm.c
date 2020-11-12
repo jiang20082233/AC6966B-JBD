@@ -168,12 +168,13 @@ static void fm_app_init(void)
     fm_api_init();//设置频率信息
 }
 
-
+bool user_fm_task_init_flag = 0;
 static void fm_app_start(void)
 {
     fm_manage_start();//收音出声
 
     user_fm_vol_set(1);
+    user_fm_task_init_flag = 1;
 }
 
 static void fm_app_uninit(void)
@@ -213,6 +214,7 @@ static void  fm_tone_play_end_callback(void *priv, int flag)
    @note
 */
 /*----------------------------------------------------------------------------*/
+
 void app_fm_task()
 {
     user_pa_ex_strl(PA_CLASS_AB);
