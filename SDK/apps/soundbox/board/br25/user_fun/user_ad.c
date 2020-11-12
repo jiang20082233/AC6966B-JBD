@@ -168,10 +168,12 @@ void user_sys_vol_ad_init(IO3_AD4 * io){
 }
 
 void user_sys_vol_ad_check_init(void (* callback)(u32 *vol)){
+    #if (defined(USER_SYS_VOL_CHECK_EN) && USER_SYS_VOL_CHECK_EN)
     if(callback){
         user_sys_vol_info.callback = callback;
         user_sys_vol_ad_init(&user_sys_vol_info);
     }
+    #endif
 }
 
 void user_ad_check_del(IO3_AD4 *io_info){

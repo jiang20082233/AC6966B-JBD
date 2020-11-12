@@ -283,11 +283,6 @@ static int idle_key_event_opr(struct sys_event *event)
         idle_key_poweron_deal(key_event - KEY_POWER_ON);
         break;
     case KEY_IR_PPOWER:
-    {
-        // power_set_soft_poweroff();
-        // extern void sys_enter_soft_poweroff(void *priv);
-        // sys_enter_soft_poweroff(NULL);
-    }
         cpu_reset();
         break;
     }
