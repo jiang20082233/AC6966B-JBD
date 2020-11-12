@@ -657,7 +657,6 @@ u8 user_power_off_class(u8 cmd){
 void user_power_off(void){
     user_low_power_show(0x55);
     UI_SHOW_MENU(MENU_POWER_OFF, 0, 0, NULL);
-    
     user_led_io_fun(USER_IO_LED,LED_POWER_OFF);
     // user_pa_ex_strl(PA_POWER_OFF);
     // user_sd_power(0);
