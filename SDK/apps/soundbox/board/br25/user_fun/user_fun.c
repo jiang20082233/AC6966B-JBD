@@ -657,7 +657,7 @@ void user_power_off(void){
 //注销 定时器
 void user_del_time(void){
     user_mic_check_del();
-    user_4ad_check_del();
+    user_ad_total_check_del();
     user_rgb_fun_del();
     user_pa_ex_strl(PA_POWER_OFF);
     user_pa_ex_del();

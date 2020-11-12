@@ -284,11 +284,11 @@ static int idle_key_event_opr(struct sys_event *event)
         break;
     case KEY_IR_PPOWER:
     {
-        power_set_soft_poweroff();
+        // power_set_soft_poweroff();
         // extern void sys_enter_soft_poweroff(void *priv);
         // sys_enter_soft_poweroff(NULL);
     }
-        // cpu_reset();
+        cpu_reset();
         break;
     }
     return ret;
@@ -465,6 +465,10 @@ static void idle_app_start()
 #endif
 
     UI_SHOW_WINDOW(ID_WINDOW_IDLE);
+
+    //关机不关sdgp电源
+    extern void user_sd_power(u8 cmd);
+    user_sd_power(1);
 
 #if (TCFG_CHARGE_ENABLE && !TCFG_CHARGE_POWERON_ENABLE)
 
