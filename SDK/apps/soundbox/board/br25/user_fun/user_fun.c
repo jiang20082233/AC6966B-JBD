@@ -312,26 +312,29 @@ void user_mic_vol_update(u8 vol){
     static bool mic_status_old = 0;
     static u8 mic_old = 0;
     
+    bool mic_in_status = user_get_mic_status();
+    // printf(">>>>>> mic in status %d\n",mic_in_status);
     if(!user_record_status(0xff) && \
-    ((user_get_mic_status() && !mic_status_old)||
+    ((mic_in_status && !mic_status_old)||
      mic_old != vol)){
 
         mic_old = vol;
-        mic_status_old = user_get_mic_status();
+        mic_status_old = mic_in_status;
 
         // printf(">>>>> mic_old %d vol %d\n",mic_old,vol);
         #if USER_MIC_MUSIC_VOL_SEPARATE
         mic_effect_set_dvol(mic_old);
         #else
         if(mic_old <= 0){
-            mic_effect_dvol = mic_effect_get_dvol();
-            mic_effect_set_dvol(0);
+            mic_effect_dvol = 1;
+            // mic_effect_dvol = mic_effect_get_dvol();
+            // mic_effect_set_dvol(0);
             user_mic_en(0);
 
         }else{
             if(mic_effect_dvol >= 0){
                 mic_effect_dvol = -1;
-                mic_effect_set_dvol(mic_effect_dvol);
+                // mic_effect_set_dvol(mic_effect_dvol);
                 
                 user_mic_en(1);
             }
@@ -353,7 +356,8 @@ u8 user_mic_ad_2_vol(u8 cmd,u32 vol_ad){
     }
 
     //ad 512 无效
-    if((USER_EQ_MIC_AD_MIN > vol_ad) || ((USER_EQ_MIC_AD_MAX+20)) > vol_ad){
+    if((USER_EQ_MIC_AD_MIN > vol_ad) || ((USER_EQ_MIC_AD_MAX+20)) < vol_ad){
+
         return mic_old;
     }
 
@@ -445,16 +449,9 @@ int user_ex_mic_get_reverb(void){
 }
 
 void user_4ad_fun_features(u32 *vol){
-    // return;
-    // printf(">>>> [%03d  %03d %03d  %03d][%03dV  %03dV %03dV  %03dV]\n",vol[0],vol[1],vol[2],vol[3],
-    // (320*vol[0])/1024,
-    // (320*vol[1])/1024,
-    // (320*vol[2])/1024,
-    // (320*vol[3])/1024);
     user_bass_terble_updata(vol[USER_EQ_BASS_BIT],vol[USER_EQ_TERBLE_BIT]);
     user_mic_ad_2_vol(0,vol[USER_MIC_VOL_BIT]);
     user_mic_ad_2_reverb(0,vol[USER_REVER_BOL_BIT]);
-
 }
 
 static u16 auto_time_id = 0;
@@ -630,7 +627,8 @@ void user_fun_init(void){
     // #if (USER_IC_MODE == USER_IC_6966B)
     // ex_dev_detect_init(& user_mic_check);
     // #endif
-    user_mic_check_init();
+    //第一次上电开机 mic上线的消息会丢失 延时检测
+    sys_timeout_add(NULL,user_mic_check_init,3000);
 
     user_rgb_fun_init();
     user_low_power_show(0);

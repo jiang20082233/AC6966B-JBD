@@ -382,7 +382,7 @@ bool mic_effect_start(void)
         mic_effect_destroy(&effect);
         return false;
     }
-    u8 ch_num = 1; //??
+    u8 ch_num = 1; //
     ///reverb 初始化
     if (effect->parm.effect_config & BIT(MIC_EFFECT_CONFIG_REVERB)) {
         ch_num = 2;

@@ -1094,8 +1094,6 @@ obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_mic_en,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_mic_vol_update,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_get_mic_status,l
--r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,mic_effect_get_dvol,l
--r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,mic_effect_set_dvol,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,audio_mic_set_gain,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_mic_ad_2_vol,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_ex_mic_get_vol,pl
@@ -2068,6 +2066,7 @@ obj\Release\apps\soundbox\task_manager\app_common.o
 -r=obj\Release\apps\soundbox\task_manager\app_common.o,dev_status_event_filter,l
 -r=obj\Release\apps\soundbox\task_manager\app_common.o,linein_device_event_handler,l
 -r=obj\Release\apps\soundbox\task_manager\app_common.o,user_get_bt_init_ok,l
+-r=obj\Release\apps\soundbox\task_manager\app_common.o,user_delay_echo_cm_id,pl
 -r=obj\Release\apps\soundbox\task_manager\app_common.o,user_max_tone_paly_id,pl
 -r=obj\Release\apps\soundbox\task_manager\app_common.o,log_tag_const_i_APP_ACTION,l
 -r=obj\Release\apps\soundbox\task_manager\app_common.o,goto_poweroff_first_flag,l
@@ -2084,6 +2083,7 @@ obj\Release\apps\soundbox\task_manager\app_task_switch.o
 -r=obj\Release\apps\soundbox\task_manager\app_task_switch.o,printf,l
 -r=obj\Release\apps\soundbox\task_manager\app_task_switch.o,app_task_switch_to,pl
 -r=obj\Release\apps\soundbox\task_manager\app_task_switch.o,app_task_switch_next,pl
+-r=obj\Release\apps\soundbox\task_manager\app_task_switch.o,ui_set_tmp_menu,l
 -r=obj\Release\apps\soundbox\task_manager\app_task_switch.o,app_task_put_usr_msg,l
 -r=obj\Release\apps\soundbox\task_manager\app_task_switch.o,app_task_switch_back,pl
 -r=obj\Release\apps\soundbox\task_manager\app_task_switch.o,app_task_exitting,pl
