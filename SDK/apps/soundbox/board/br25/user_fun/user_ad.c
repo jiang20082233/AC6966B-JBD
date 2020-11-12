@@ -168,10 +168,68 @@ void user_sys_vol_ad_init(IO3_AD4 * io){
 }
 
 void user_sys_vol_ad_check_init(void (* callback)(u32 *vol)){
+    #if (defined(USER_SYS_VOL_CHECK_EN) && USER_SYS_VOL_CHECK_EN)
     if(callback){
         user_sys_vol_info.callback = callback;
         user_sys_vol_ad_init(&user_sys_vol_info);
     }
+
+    io_p->check_id = 0;
+    io_p->vol[0] = adc_get_value(io_p->ch);
+
+    if(io_p->callback){
+        io_p->callback(io_p->vol);
+    }
+
+    io_p->check_id = sys_hi_timeout_add(io_p,user_sys_vol_ad_check,io_p->check_time);
+    return;
+}
+
+void user_sys_vol_ad_init(IO3_AD4 * io){
+    if(!io || NO_CONFIG_PORT == io->ch || NO_CONFIG_PORT == io->por){
+        puts("ad init error\n");
+        io->init_ok = 0;
+        return ;
+    }
+
+    gpio_set_die(io->por, 0);
+    gpio_set_direction(io->por, 1);
+    gpio_set_pull_down(io->por, 0);
+    gpio_set_pull_up(io->por, io->up?1:0);
+
+    // extern u32 adc_add_sample_ch(u32 ch);
+    adc_add_sample_ch(io->ch);          //注意：初始化AD_KEY之前，先初始化ADC
+
+    io->init_ok = 1;
+
+    io->check_id =  sys_hi_timeout_add(io,user_sys_vol_ad_check,io->check_time);
+}
+
+void user_sys_vol_ad_check_init(void (* callback)(u32 *vol)){
+    if(callback){
+        user_sys_vol_info.callback = callback;
+        user_sys_vol_ad_init(&user_sys_vol_info);
+    }
+}
+
+void user_ad_check_del(IO3_AD4 *io_info){
+    io_info->callback = NULL;
+    io_info->init_ok = 0;
+    if(io_info->check_id){
+        sys_hi_timeout_del(io_info->check_id);
+        io_info->check_id = 0;
+    }
+    return;
+}
+
+void user_ad_total_check_del(void){
+    #if (defined(USER_SYS_VOL_CHECK_EN) && USER_SYS_VOL_CHECK_EN)
+    user_ad_check_del(&user_sys_vol_info);
+    #endif
+
+    #if (defined(USER_3IO_CHECK_4AD_EN) && USER_3IO_CHECK_4AD_EN)
+    user_ad_check_del(&user_4ad_io);
+    #endif
 }
 
 void user_ad_check_del(IO3_AD4 *io_info){

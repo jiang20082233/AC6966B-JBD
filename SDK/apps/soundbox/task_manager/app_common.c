@@ -64,7 +64,7 @@ static void user_to_idle_stask(void){
 static void user_ir_power_off(void *priv){
     u32 user_power_timer_ = (u32)priv;
     
-    if(tone_get_status() || ((timer_get_ms()-user_power_timer_)<2000)){
+    if(tone_get_status() && (timer_get_ms()-user_power_timer_<1000)){
         sys_hi_timeout_add(priv,user_ir_power_off,100);        
         return;
     }

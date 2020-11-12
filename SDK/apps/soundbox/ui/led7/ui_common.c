@@ -57,6 +57,16 @@ static void led7_clear_win(void *hd)
     dis->show_string((u8 *)"    ");
     dis->lock(0);
 }
+static void led7_power_off(void *hd)
+{
+
+    LCD_API *dis = (LCD_API *)hd;
+    dis->lock(1);
+    dis->clear();
+    dis->setXY(0, 0);
+    dis->show_string((u8 *)"OFF ");
+    dis->lock(0);
+}
 
 #if TCFG_APP_FM_EMITTER_EN
 static void led7_fm_ir_set_freq(void *hd, u16 freq)
@@ -160,6 +170,9 @@ void ui_common(void *hd, void *private, u8 menu, u32 arg)//公共显示
         break;
     case MENU_CLEAR_WIN:
         led7_clear_win(hd);        
+        break;
+    case MENU_POWER_OFF:
+        led7_power_off(hd);
         break;
     default:
         break;

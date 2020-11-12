@@ -452,7 +452,6 @@ void user_4ad_fun_features(u32 *vol){
     user_bass_terble_updata(vol[USER_EQ_BASS_BIT],vol[USER_EQ_TERBLE_BIT]);
     user_mic_ad_2_vol(0,vol[USER_MIC_VOL_BIT]);
     user_mic_ad_2_reverb(0,vol[USER_REVER_BOL_BIT]);
-
 }
   
 
@@ -657,8 +656,8 @@ u8 user_power_off_class(u8 cmd){
 //关机
 void user_power_off(void){
     user_low_power_show(0x55);
-    UI_SHOW_MENU(MENU_CLEAR_WIN, 0, 0, NULL);
-
+    UI_SHOW_MENU(MENU_POWER_OFF, 0, 0, NULL);
+    
     user_led_io_fun(USER_IO_LED,LED_POWER_OFF);
     // user_pa_ex_strl(PA_POWER_OFF);
     // user_sd_power(0);

@@ -251,7 +251,9 @@ int app_task_switch_to(u8 app_task)
     printf("new +++ %x \n", app_task);
 
     //切换模式显示load
-    UI_SHOW_MENU(MENU_WAIT, 0, 0, NULL);
+    if(APP_IDLE_TASK != app_task){
+        UI_SHOW_MENU(MENU_WAIT, 0, 0, NULL);
+    }
 
     /* if(app_next_task) */
     /* printf("app_task_switch_to busy \n"); */
