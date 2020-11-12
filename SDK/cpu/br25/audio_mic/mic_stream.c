@@ -395,6 +395,7 @@ bool mic_stream_start(struct __mic_stream  *stream)
         if(0xff!= tp_mic_vol){
             tp_mic_vol = USER_MIC_DEFAULT_GAIN;
         }
+        printf(">>>>>>>>>>>>> open mic  vol %d\n",tp_mic_vol);
         
         if (audio_mic_open(&stream->mic_ch, stream->parm->sample_rate, tp_mic_vol) == 0) {
         // if (audio_mic_open(&stream->mic_ch, stream->parm->sample_rate, 2) == 0) {

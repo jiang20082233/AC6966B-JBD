@@ -5,6 +5,8 @@
 #include "key_event_deal.h"
 #include "audio_recorder_mix.h"
 
+#include "ui/ui_api.h"
+
 ///模式配置表，这里可以配置切换模式的顺序，方案根据需求定义
 static const u8 app_task_list[] = {
 #if TCFG_APP_BT_EN
@@ -247,6 +249,9 @@ int app_task_switch_to(u8 app_task)
 
     printf("cur --- %x \n", app_curr_task);
     printf("new +++ %x \n", app_task);
+
+    //切换模式显示load
+    UI_SHOW_MENU(MENU_WAIT, 0, 0, NULL);
 
     /* if(app_next_task) */
     /* printf("app_task_switch_to busy \n"); */

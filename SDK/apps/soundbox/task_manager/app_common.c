@@ -72,7 +72,24 @@ static void user_ir_power_off(void *priv){
     user_del_time();
     sys_hi_timeout_add(priv,user_to_idle_stask,200);    
 }
-
+u16 user_delay_echo_cm_id = 0;
+static void user_delay_echo_cmd(void *priv){
+    u32 cmd = (u32)priv;
+    bool ret;
+    if(!cmd){
+        mic_effect_stop();
+    } else {
+        ret = mic_effect_start();
+        printf(">>>>>>>>>>>>> echo start ret %d\n",ret);
+        if(false == ret){
+            printf(">>>>>>>>>>>>> echo start error\n");
+            user_delay_echo_cm_id = sys_hi_timeout_add(priv,user_delay_echo_cmd,100);
+            return;
+        }
+    }
+    user_delay_echo_cm_id = 0;
+    user_pa_ex_mic(cmd);
+}
 static void  common_power_on_tone_play_end_callback(void *priv, int flag)
 {
     u32 index = (u32)priv;
@@ -442,12 +459,19 @@ int app_common_key_msg_deal(struct sys_event *event)
         printf("USER_MSG_SYS_SPK_STATUS get user msg_val_count = %d\n",key_value);
 
         #if TCFG_MIC_EFFECT_ENABLE
+
         if(!key_value){
             mic_effect_stop();
         } else {
             mic_effect_start();
         }
         user_pa_ex_mic(key_value);
+
+        //fm模式下不能延时关混响 不然会死机
+        // if(user_delay_echo_cm_id){
+        //     sys_hi_timeout_del(user_delay_echo_cm_id);
+        // }
+        // user_delay_echo_cm_id = sys_hi_timeout_add((void *)(key_value),user_delay_echo_cmd,200);
         #endif
         break;
     case USER_KEY_RGB_MODE:

@@ -86,7 +86,7 @@ static void led7_show_pause(void *hd)
         dis->setXY(0, 0);
 
         int sencond = file_dec_get_cur_time();
-        u8 tp_show_string[5]={0};
+        u8 tp_show_string[6]={0};
         sprintf(tp_show_string,"%02d:%02d",sencond / 60 % 60,sencond % 60);
         dis->show_string(tp_show_string);
         dis->show_icon(LED7_PAUSE);
@@ -102,7 +102,7 @@ static void led7_show_repeat_mode(void *hd, u32 val)
     }
     u8 mode = (u8)val - 1;
 
-    const u8 playmodestr[][5] = {
+    const u8 playmodestr[][6] = {
         " ALL",
         " ONE",
         "Fold",
@@ -127,7 +127,7 @@ static void led7_music_show_folder(void *hd, u32 arg){
     dis->clear();
     dis->setXY(0, 0);
 
-    u8 tp_show_string[4]={0};
+    u8 tp_show_string[6]={0};
     sprintf(tp_show_string,"F%03d",arg);
     dis->show_string(tp_show_string);
 
