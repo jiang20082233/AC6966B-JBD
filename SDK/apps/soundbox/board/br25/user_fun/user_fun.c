@@ -456,6 +456,59 @@ void user_4ad_fun_features(u32 *vol){
     user_mic_ad_2_reverb(0,vol[USER_REVER_BOL_BIT]);
 
 }
+  
+
+void user_sys_vol_callback_fun(u32 *vol){
+    #define USER_SYS_VOL_AD_MAX 1000
+    #define USER_SYS_VOL_AD_MIN 20
+
+    //Rate of change
+    static u32 dif_ad_old = 0;
+    u32 cur_vol_ad = 0;//当前系统音量转换成ad值
+    u32 cur_ad_vol = 0;//当前ad值转换成系统音量
+    u32 level_ad = (USER_SYS_VOL_AD_MAX-USER_SYS_VOL_AD_MIN)/app_audio_get_max_volume();
+    u32 cur_ad = vol[0];
+    u32 cur_vol = 0;
+    bool sys_vol_update_flag = 0;
+
+    if(timer_get_sec<4 || tone_get_status()){
+        return;
+    }
+
+    //滤除两端ad值
+    cur_ad = cur_ad>USER_SYS_VOL_AD_MAX?USER_SYS_VOL_AD_MAX:cur_ad;
+    cur_ad = cur_ad<USER_SYS_VOL_AD_MIN?0:cur_ad;
+
+    //当前系统音量转换成ad值
+    cur_vol_ad = 10*(USER_SYS_VOL_AD_MAX-USER_SYS_VOL_AD_MIN)*app_audio_get_volume(APP_AUDIO_STATE_MUSIC)/app_audio_get_max_volume();
+    cur_vol_ad = cur_vol_ad/10+(cur_vol_ad%10>5?1:0);
+
+    //当前ad值转换成系统音量
+    cur_ad_vol = (cur_ad * app_audio_get_max_volume()*10 / (USER_SYS_VOL_AD_MAX-USER_SYS_VOL_AD_MIN));
+    cur_ad_vol = cur_ad_vol/10+(cur_ad_vol%10>5?1:0);
+    cur_ad_vol = cur_ad_vol>app_audio_get_max_volume()?app_audio_get_max_volume():cur_ad_vol;
+
+    if(DIFFERENCE(cur_ad,cur_vol_ad)>=level_ad/*2*level_ad/3*/){
+        sys_vol_update_flag = 1;
+    }else if((cur_vol_ad!=app_audio_get_max_volume() && cur_ad_vol == app_audio_get_max_volume())){
+        sys_vol_update_flag = 1;
+    }else if(!cur_ad_vol && app_audio_get_max_volume()){
+        sys_vol_update_flag = 1;
+    }else if(DIFFERENCE(cur_ad,dif_ad_old)>60){
+        sys_vol_update_flag = 1;
+    }
+
+    if(sys_vol_update_flag){
+        if(app_audio_get_volume(APP_AUDIO_STATE_MUSIC) != cur_ad_vol){
+            u8 volume = cur_ad_vol;
+            app_audio_set_volume(APP_AUDIO_STATE_MUSIC, volume, 1);
+            UI_SHOW_MENU(MENU_MAIN_VOL, 1000, app_audio_get_volume(APP_AUDIO_STATE_MUSIC), NULL);
+        }
+    }
+
+    dif_ad_old = vol[0];
+    printf(">>>> sys vol ad %d %d %d %d %d %d\n",vol[0],cur_ad,sys_vol_update_flag,cur_ad_vol,cur_vol_ad,app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
+}
 
 static u16 auto_time_id = 0;
 void user_music_play_finle_number(void *priv){

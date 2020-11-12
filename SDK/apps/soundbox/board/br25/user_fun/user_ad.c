@@ -24,7 +24,7 @@ IO3_AD4 user_sys_vol_info={
     .up  = 0,
 
     .callback = NULL,//user_4ad_fun_features,
-    .check_time = 50,
+    .check_time = 150,
 };
 #endif
 
@@ -48,6 +48,7 @@ static void user_io_high_impedance(u32 gpio){
 }
 
 void user_4ad_io_init(IO3_AD4 * io){
+    #if (defined(USER_3IO_CHECK_4AD_EN) && USER_3IO_CHECK_4AD_EN)
     if(io->ch_bumber >= 4){
         io->ch_bumber = 0;
     }
@@ -65,10 +66,11 @@ void user_4ad_io_init(IO3_AD4 * io){
         user_io_output(io->select_por[1],0);
         user_io_high_impedance(io->select_por[0]);
     }
-
+    #endif
 }
 
 void user_4ad_check(void *io){
+    #if (defined(USER_3IO_CHECK_4AD_EN) && USER_3IO_CHECK_4AD_EN)
     IO3_AD4 *io_p = (IO3_AD4 *)io;
 
     io_p->check_id = 0;
@@ -86,10 +88,12 @@ void user_4ad_check(void *io){
     }
 
     io_p->check_id = sys_hi_timeout_add(io_p,user_4ad_check,io_p->check_time);
+    #endif
     return;
 }
 
 void user_4ad_init(IO3_AD4 * io){
+    #if (defined(USER_3IO_CHECK_4AD_EN) && USER_3IO_CHECK_4AD_EN)
     if(!io || NO_CONFIG_PORT == io->ch || NO_CONFIG_PORT == io->por || NO_CONFIG_PORT == io->select_por[0] || NO_CONFIG_PORT == io->select_por[1]){
         puts("ad init error\n");
         io->init_ok = 0;
@@ -110,6 +114,7 @@ void user_4ad_init(IO3_AD4 * io){
     io->init_ok = 1;
 
     io->check_id =  sys_hi_timeout_add(io,user_4ad_check,io->check_time);
+    #endif
 }
 
 void user_4ad_check_init(void (* callback)(u32 *vol)){
