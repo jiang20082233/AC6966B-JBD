@@ -3700,8 +3700,8 @@ OUTPUT(cpu\br25\tools\sdk.elf elf32-pi32v2)
  .debug_str     0x00000000    0x5303c cpu\br25\tools\sdk.elf.o
                               0x5891b (size before relaxing)
 
-.debug_loc      0x00000000    0x425ad
- .debug_loc     0x00000000    0x425ad cpu\br25\tools\sdk.elf.o
+.debug_loc      0x00000000    0x42597
+ .debug_loc     0x00000000    0x42597 cpu\br25\tools\sdk.elf.o
 
 .debug_abbrev   0x00000000     0x109f
  .debug_abbrev  0x00000000     0x1029 cpu\br25\tools\sdk.elf.o
@@ -3736,11 +3736,11 @@ OUTPUT(cpu\br25\tools\sdk.elf elf32-pi32v2)
 .debug_frame    0x00000000    0x12374
  .debug_frame   0x00000000    0x12374 cpu\br25\tools\sdk.elf.o
 
-.debug_line     0x00000000    0x778a1
- .debug_line    0x00000000    0x77511 cpu\br25\tools\sdk.elf.o
- .debug_line    0x00077511      0x104 include_lib/liba/br25/cpu.a(startup.o)
- .debug_line    0x00077615      0x1da include_lib/liba/br25/cpu.a(fm_dem.o)
- .debug_line    0x000777ef       0xb2 include_lib/liba/br25/system.a(port_asm_mmu.o)
+.debug_line     0x00000000    0x77977
+ .debug_line    0x00000000    0x775e7 cpu\br25\tools\sdk.elf.o
+ .debug_line    0x000775e7      0x104 include_lib/liba/br25/cpu.a(startup.o)
+ .debug_line    0x000776eb      0x1da include_lib/liba/br25/cpu.a(fm_dem.o)
+ .debug_line    0x000778c5       0xb2 include_lib/liba/br25/system.a(port_asm_mmu.o)
 
 .debug_aranges  0x00000000       0x68
  .debug_aranges

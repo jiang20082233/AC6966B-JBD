@@ -1121,13 +1121,13 @@ obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_fm_vol_set,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_sd_power,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_power_off,pl
--r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_pa_ex_strl,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_mic_check_en,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_del_time,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_mic_check_del,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_4ad_check_del,l
--r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_pa_ex_del,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_rgb_fun_del,l
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_pa_ex_strl,l
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_pa_ex_del,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_fun_io_init,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_pa_ex_io_init,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_fun_init,pl

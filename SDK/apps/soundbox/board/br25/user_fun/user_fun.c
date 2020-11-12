@@ -593,7 +593,7 @@ void user_power_off(void){
     UI_SHOW_MENU(MENU_CLEAR_WIN, 0, 0, NULL);
 
     user_led_io_fun(USER_IO_LED,LED_POWER_OFF);
-    user_pa_ex_strl(PA_POWER_OFF);
+    // user_pa_ex_strl(PA_POWER_OFF);
     // user_sd_power(0);
     user_rgb_mode_set(USER_RGB_POWER_OFF,NULL);
 
@@ -604,8 +604,9 @@ void user_power_off(void){
 void user_del_time(void){
     user_mic_check_del();
     user_4ad_check_del();
-    user_pa_ex_del();
     user_rgb_fun_del();
+    user_pa_ex_strl(PA_POWER_OFF);
+    user_pa_ex_del();
 }
 
 //开机 io口初始化
