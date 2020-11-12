@@ -70,11 +70,11 @@
 
 #define USER_EQ_MIC_AD_MAX    (950)//962
 #define USER_EQ_MIC_AD_MIN    (590)//599
-#define USER_EQ_MIC_GAIN_MIN  (0)//最小增益
+#define USER_EQ_MIC_GAIN_MIN  (3)//最小增益
 #define USER_EQ_MIC_GAIN_MAX  (10)//最大增益
 
-#define USER_EQ_REV_AD_MAX    (420)//430
-#define USER_EQ_REV_AD_MIN    (50)//62
+#define USER_EQ_REV_AD_MAX    (430)//430
+#define USER_EQ_REV_AD_MIN    (55)//62
 #define USER_EQ_REV_GAIN_MIN  (100)//最小增益
 #define USER_EQ_REV_GAIN_MAX  (200)//最大增益
 
@@ -127,4 +127,6 @@ u8 user_eq_init_ok(u8 cmd);
 void user_bt_tws_sync_msg_send(u8 sync_type,u8 value);
 void user_tws_sync_info(void);
 void user_del_time(void);
+u8 user_ex_mic_get_vol(void);
+int user_ex_mic_get_reverb(void);
 #endif

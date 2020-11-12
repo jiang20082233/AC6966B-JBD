@@ -21,6 +21,7 @@
 #define LOG_INFO_ENABLE
 #define LOG_DUMP_ENABLE
 #include "debug.h"
+#include "user_fun_cfg.h"
 
 #if (TCFG_MIC_EFFECT_ENABLE)
 
@@ -390,8 +391,10 @@ bool mic_effect_start(void)
     }
     ///echo 初始化
     if (effect->parm.effect_config & BIT(MIC_EFFECT_CONFIG_ECHO)) {
+        // extern int user_ex_mic_get_reverb(void);
+        int get_mic_delay_ret = user_ex_mic_get_reverb();
         effect->fade.decayval = effect_echo_parm_default.decayval;
-        effect->fade.delay = effect_echo_parm_default.delay;
+        effect->fade.delay = get_mic_delay_ret>=0?get_mic_delay_ret:effect_echo_parm_default.delay;
         log_i("open_echo\n\n\n");
         effect->p_echo_hdl = open_echo(&effect_echo_parm_default, effect->parm.sample_rate);
     }

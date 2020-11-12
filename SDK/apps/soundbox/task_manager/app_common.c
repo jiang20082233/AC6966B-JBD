@@ -58,15 +58,19 @@ extern void bt_tws_sync_volume();
 extern void reverb_eq_cal_coef(u8 filtN, int gainN, u8 sw);
 extern u8 app_common_key_event_get(struct key_event *key);
 
+static void user_to_idle_stask(void){
+    app_task_switch_to(APP_IDLE_TASK);
+}
 static void user_ir_power_off(void *priv){
     u32 user_power_timer_ = (u32)priv;
-
-    if(tone_get_status() && (timer_get_ms-user_power_timer_<10000)){
-        sys_hi_timeout_add(priv,user_ir_power_off,100);
+    
+    if(tone_get_status() && (timer_get_ms()-user_power_timer_<1000)){
+        sys_hi_timeout_add(priv,user_ir_power_off,100);        
         return;
     }
+
     user_del_time();
-    app_task_switch_to(APP_IDLE_TASK);        
+    sys_hi_timeout_add(priv,user_to_idle_stask,200);    
 }
 
 static void  common_power_on_tone_play_end_callback(void *priv, int flag)
@@ -259,6 +263,16 @@ int app_common_key_msg_deal(struct sys_event *event)
         break;
 
     case KEY_CHANGE_MODE:
+
+    //上电之后fm没有初始化完  切模式会死机
+    {
+        extern bool user_fm_task_init_flag ;
+        if(APP_FM_TASK == app_get_curr_task() && !user_fm_task_init_flag){
+            puts("xxxxxxxx.........\n");
+            break;
+        }
+
+    }
 #if (TCFG_DEC2TWS_ENABLE)
         if (!key->init) {
             break;

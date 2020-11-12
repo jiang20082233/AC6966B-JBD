@@ -10,7 +10,7 @@
 
 #include "media/pcm_decoder.h"
 
-
+#include "user_fun_cfg.h"
 #if (TCFG_MIC_EFFECT_ENABLE)
 
 #define MIC_STREAM_TASK_NAME				"mic_stream"
@@ -391,7 +391,12 @@ static void adc_output_to_buf(void *priv, s16 *data, int len)
 bool mic_stream_start(struct __mic_stream  *stream)
 {
     if (stream) {
-        if (audio_mic_open(&stream->mic_ch, stream->parm->sample_rate, USER_MIC_DEFAULT_GAIN) == 0) {
+        u8 tp_mic_vol = user_ex_mic_get_vol();
+        if(0xff!= tp_mic_vol){
+            tp_mic_vol = USER_MIC_DEFAULT_GAIN;
+        }
+        
+        if (audio_mic_open(&stream->mic_ch, stream->parm->sample_rate, tp_mic_vol) == 0) {
         // if (audio_mic_open(&stream->mic_ch, stream->parm->sample_rate, 2) == 0) {
             stream->adc_output.handler = adc_output_to_buf;
             stream->adc_output.priv = stream;

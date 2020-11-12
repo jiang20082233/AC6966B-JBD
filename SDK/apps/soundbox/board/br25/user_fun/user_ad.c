@@ -11,7 +11,7 @@ IO3_AD4 user_4ad_io={
     .up  = 0,
 
     .callback = NULL,//user_4ad_fun_features,
-    .check_time = 50,
+    .check_time = 150,
 };
 #endif
 #if (defined(USER_SYS_VOL_CHECK_EN) && USER_SYS_VOL_CHECK_EN)

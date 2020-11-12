@@ -514,10 +514,14 @@ static int music_key_event_opr(struct sys_event *event)
         break;
     #ifdef USER_USB_OR_SD    
     case KEY_CHANGE_MODE:
+        puts("music USER_USB_OR_SD\n");
         if(dev_manager_get_total(1)>1){
+            puts("music dev total\n");
             if (music_player_get_dev_cur() && USER_USB_OR_SD) {
                 ///播放的设备与优先级高设备是同一个设备
+                puts("music USER_USB_OR_SD\n");
                 if (0 == strcmp(USER_USB_OR_SD, music_player_get_dev_cur())) {
+                    puts("music USER_USB_OR_SD 0\n");
                     app_task_put_key_msg(KEY_MUSIC_CHANGE_DEV, 0);
                     break;
                 }

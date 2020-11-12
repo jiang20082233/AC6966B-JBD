@@ -271,7 +271,8 @@ void user_bass_terble_updata(u32 bass_ad,u32 terble_ad){
 
     //无效值
     if((512-20) < bass_ad || (512+20) > terble_ad  || user_record_status(0xff) || \
-    !user_eq_init_ok(0xff) || timer_get_sec()<6 || APP_RECORD_TASK == app_get_curr_task()){
+    !user_eq_init_ok(0xff) || timer_get_sec()<6 || APP_RECORD_TASK == app_get_curr_task() || \
+    app_get_curr_task() == APP_FM_TASK){
         return;
     }
 
@@ -297,71 +298,150 @@ void user_bass_terble_updata(u32 bass_ad,u32 terble_ad){
             terble_old = terble;
         }
 
-        printf(">>>>> eq bass %d terble %d\n",bass_old,terble_old);
+        // printf(">>>>> eq bass %d terble %d\n",bass_old,terble_old);
         user_eq_bass_terble_set(bass_old,terble_old);
     }
 }
+void user_mic_en(u8 en){
+    SFR(JL_ANA->ADA_CON0,29,1,en);
+}
 
-void user_mic_vol_updata(u32 vol){
-#if (defined(TCFG_MIC_EFFECT_ENABLE) && TCFG_MIC_EFFECT_ENABLE)
-    static int mic_old =0;
+void user_mic_vol_update(u8 vol){
+    
     static int mic_effect_dvol = -1;
-    //ad 512 无效
-    if((512+20) > vol || !user_get_mic_status() || user_record_status(0xff)){
-        return;
-    }
+    static bool mic_status_old = 0;
+    static u8 mic_old = 0;
+    
+    if(!user_record_status(0xff) && \
+    ((user_get_mic_status() && !mic_status_old)||
+     mic_old != vol)){
 
-    s32 mic_vol = ((vol-USER_EQ_MIC_AD_MIN)*(USER_EQ_MIC_GAIN_MAX-USER_EQ_MIC_GAIN_MIN))/(USER_EQ_MIC_AD_MAX-USER_EQ_MIC_AD_MIN);
-    mic_vol += USER_EQ_MIC_GAIN_MIN;
+        mic_old = vol;
+        mic_status_old = user_get_mic_status();
 
-    if(vol < USER_EQ_MIC_AD_MIN){
-        mic_vol = 0;
-    }
-
-    if(mic_old!=mic_vol ){
-        mic_old = mic_vol;
-        printf(">>>>> mic_old %d vol %d\n",mic_old,vol);
+        // printf(">>>>> mic_old %d vol %d\n",mic_old,vol);
         #if USER_MIC_MUSIC_VOL_SEPARATE
         mic_effect_set_dvol(mic_old);
         #else
         if(mic_old <= 0){
             mic_effect_dvol = mic_effect_get_dvol();
             mic_effect_set_dvol(0);
+            user_mic_en(0);
+
         }else{
             if(mic_effect_dvol >= 0){
                 mic_effect_dvol = -1;
                 mic_effect_set_dvol(mic_effect_dvol);
+                
+                user_mic_en(1);
             }
         }
         audio_mic_set_gain(mic_old);
         #endif
     }
-#endif
 }
+u8 user_mic_ad_2_vol(u8 cmd,u32 vol_ad){
+    static int mic_old =-1;
+
+#if (defined(TCFG_MIC_EFFECT_ENABLE) && TCFG_MIC_EFFECT_ENABLE)
+
+    s32 mic_vol = 0;
+
+    //获取mic 旋钮音量
+    if(1 == cmd){
+        return mic_old;
+    }
+
+    //ad 512 无效
+    if((USER_EQ_MIC_AD_MIN > vol_ad) || ((USER_EQ_MIC_AD_MAX+20)) > vol_ad){
+        return mic_old;
+    }
+
+    u32 tp_ad=vol_ad;
+    tp_ad = tp_ad>USER_EQ_MIC_AD_MAX?USER_EQ_MIC_AD_MAX:tp_ad;
+    tp_ad = tp_ad<USER_EQ_MIC_AD_MIN?USER_EQ_MIC_AD_MIN:tp_ad;
+
+    // 0 600 615 650 670 700 740 820 900
+    u32 level[]={0,600,620,640,670,700,800,890,1024,1024};
+    for(int i = 0;(i+1)<sizeof(level);i++){
+        if((tp_ad>level[i]) && (tp_ad<=level[i+1])){
+            mic_vol = i;
+            break;
+        }
+    }
+    mic_vol = mic_vol?mic_vol+USER_EQ_MIC_GAIN_MIN:mic_vol;
+    // printf(">>>>> mic_old %d mic_vol %d ad %d\n",mic_old,mic_vol,vol_ad);
+
+    mic_old = mic_vol;
+
+    user_mic_vol_update(mic_old);
+
+#endif
+    return mic_old;
+}
+
+u8 user_ex_mic_get_vol(void){
+    int tp_vol = user_mic_ad_2_vol(1,0);
+    if(tp_vol<0){
+        return 0xff;
+    }
+    return tp_vol;
+}
+
 
 void user_mic_reverb_updata(u32 vol){
     #if (defined(TCFG_MIC_EFFECT_ENABLE) && TCFG_MIC_EFFECT_ENABLE)
     static int rev_old =0;
-    //ad 512 无效
-    if((512-20) < vol || !user_get_mic_status() || user_record_status(0xff)){
-        return;
-    }
-
-    s32 rev_vol = ((vol-USER_EQ_REV_AD_MIN)*(USER_EQ_REV_GAIN_MAX-USER_EQ_REV_GAIN_MIN))/(USER_EQ_REV_AD_MAX-USER_EQ_REV_AD_MIN);
-    rev_vol += USER_EQ_REV_GAIN_MIN;
-
-    if((USER_EQ_REV_GAIN_MAX-USER_EQ_REV_GAIN_MIN)>=50){
-        rev_vol /=10;
-        rev_vol *=10;
-    }
-
-    if(rev_old!=rev_vol ){
-        rev_old = rev_vol;
-        printf(">>>>> rev_old %d vol %d\n",rev_old,vol);
-        // mic_effect_set_echo_decay(rev_old);
+    
+    static int mic_effect_dvol = -1;
+    static bool mic_status_old = 0;
+    
+    if(!user_record_status(0xff) && \
+    ((user_get_mic_status() && !mic_status_old)||
+     rev_old != vol)){
+        rev_old = vol;
+        mic_status_old = user_get_mic_status();
         mic_effect_set_echo_delay(rev_old);
-    }
+     }
+
     #endif
+}
+
+int user_mic_ad_2_reverb(u8 cmd, u32 reverb_ad){
+    static int reverb_value =-1;
+    s32 tp_value = 0;
+
+    //获取reverb 旋钮值
+    if(1 == cmd){
+        return reverb_value;
+    }
+
+    //ad 512 无效    
+    if((USER_EQ_REV_AD_MAX < reverb_ad) || ((USER_EQ_REV_AD_MIN) > reverb_ad)){
+        return reverb_value;
+    }
+
+    u32 tp_ad=reverb_ad;
+    tp_ad = tp_ad>USER_EQ_REV_AD_MAX?USER_EQ_REV_AD_MAX:tp_ad;
+    tp_ad = tp_ad<USER_EQ_REV_AD_MIN?USER_EQ_REV_AD_MIN:tp_ad;
+
+    tp_value = ((tp_ad-USER_EQ_REV_AD_MIN)*(USER_EQ_REV_GAIN_MAX-USER_EQ_REV_GAIN_MIN)*10)/(USER_EQ_REV_AD_MAX-USER_EQ_REV_AD_MIN);    
+    tp_value = (tp_value/10)+(tp_value%10>5?1:0);
+    tp_value += USER_EQ_REV_GAIN_MIN;
+
+    // printf(">>>>> reverb %d mic_vol %d ad %d\n",reverb_value,tp_value,reverb_ad);
+
+    reverb_value = tp_value;
+    user_mic_reverb_updata(reverb_value);
+    return reverb_value;
+}
+
+int user_ex_mic_get_reverb(void){
+    int tp_vol = user_mic_ad_2_reverb(1,0);
+    if(tp_vol<0){
+        return 0xff;
+    }
+    return tp_vol;
 }
 
 void user_4ad_fun_features(u32 *vol){
@@ -372,65 +452,8 @@ void user_4ad_fun_features(u32 *vol){
     // (320*vol[2])/1024,
     // (320*vol[3])/1024);
     user_bass_terble_updata(vol[USER_EQ_BASS_BIT],vol[USER_EQ_TERBLE_BIT]);
-    user_mic_vol_updata(vol[USER_MIC_VOL_BIT]);
-    user_mic_reverb_updata(vol[USER_REVER_BOL_BIT]);
-
-}
-
-void user_sys_vol_callback_fun(u32 *vol){
-    #define USER_SYS_VOL_AD_MAX 1000
-    #define USER_SYS_VOL_AD_MIN 20
-
-    //Rate of change
-    static u32 dif_ad_old = 0;
-    u32 cur_vol_ad = 0;//当前系统音量转换成ad值
-    u32 cur_ad_vol = 0;//当前ad值转换成系统音量
-    u32 level_ad = (USER_SYS_VOL_AD_MAX-USER_SYS_VOL_AD_MIN)/app_audio_get_max_volume();
-    u32 cur_ad = vol[0];
-    u32 cur_vol = 0;
-    bool sys_vol_update_flag = 0;
-
-    if(timer_get_sec<4 || tone_get_status()){
-        return;
-    }
-
-    //滤除两端ad值
-    cur_ad = cur_ad>USER_SYS_VOL_AD_MAX?USER_SYS_VOL_AD_MAX:cur_ad;
-    cur_ad = cur_ad<USER_SYS_VOL_AD_MIN?0:cur_ad;
-
-    //当前系统音量转换成ad值
-    cur_vol_ad = 10*(USER_SYS_VOL_AD_MAX-USER_SYS_VOL_AD_MIN)*app_audio_get_volume(APP_AUDIO_STATE_MUSIC)/app_audio_get_max_volume();
-    cur_vol_ad = cur_vol_ad/10+(cur_vol_ad%10>5?1:0);
-
-    //当前ad值转换成系统音量
-    cur_ad_vol = (cur_ad * app_audio_get_max_volume()*10 / (USER_SYS_VOL_AD_MAX-USER_SYS_VOL_AD_MIN));
-    cur_ad_vol = cur_ad_vol/10+(cur_ad_vol%10>5?1:0);
-    cur_ad_vol = cur_ad_vol>app_audio_get_max_volume()?app_audio_get_max_volume():cur_ad_vol;
-
-
-
-    if(DIFFERENCE(cur_ad,cur_vol_ad)>=level_ad/*2*level_ad/3*/){
-        sys_vol_update_flag = 1;
-    }else if((cur_vol_ad!=app_audio_get_max_volume() && cur_ad_vol == app_audio_get_max_volume())){
-        sys_vol_update_flag = 1;
-    }else if(!cur_ad_vol && app_audio_get_max_volume()){
-        sys_vol_update_flag = 1;
-    }else if(DIFFERENCE(cur_ad,dif_ad_old)>60){
-        sys_vol_update_flag = 1;
-    }
-
-    if(sys_vol_update_flag){
-        if(app_audio_get_volume(APP_AUDIO_STATE_MUSIC) != cur_ad_vol){
-            u8 volume = cur_ad_vol;
-            app_audio_set_volume(APP_AUDIO_STATE_MUSIC, volume, 1);
-            UI_SHOW_MENU(MENU_MAIN_VOL, 1000, app_audio_get_volume(APP_AUDIO_STATE_MUSIC), NULL);
-        }
-    }
-
-
-    dif_ad_old = vol[0];
-    printf(">>>> sys vol ad %d %d %d %d %d %d\n",vol[0],cur_ad,sys_vol_update_flag,cur_ad_vol,cur_vol_ad,app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
-    
+    user_mic_ad_2_vol(0,vol[USER_MIC_VOL_BIT]);
+    user_mic_ad_2_reverb(0,vol[USER_REVER_BOL_BIT]);
 
 }
 
@@ -570,7 +593,7 @@ void user_sd_power(u8 cmd){
 //关机
 void user_power_off(void){
     user_low_power_show(0x55);
-    UI_SHOW_MENU(MENU_CLEAR_WIN, 5000, 0, NULL);
+    UI_SHOW_MENU(MENU_CLEAR_WIN, 0, 0, NULL);
 
     user_led_io_fun(USER_IO_LED,LED_POWER_OFF);
     user_pa_ex_strl(PA_POWER_OFF);
