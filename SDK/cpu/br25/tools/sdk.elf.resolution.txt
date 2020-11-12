@@ -2051,6 +2051,7 @@ obj\Release\apps\soundbox\task_manager\app_common.o
 -r=obj\Release\apps\soundbox\task_manager\app_common.o,mic_effect_stop,l
 -r=obj\Release\apps\soundbox\task_manager\app_common.o,mic_effect_start,l
 -r=obj\Release\apps\soundbox\task_manager\app_common.o,user_led_io_fun,l
+-r=obj\Release\apps\soundbox\task_manager\app_common.o,user_power_off_class,l
 -r=obj\Release\apps\soundbox\task_manager\app_common.o,user_power_off,l
 -r=obj\Release\apps\soundbox\task_manager\app_common.o,usr_timeout_add,l
 -r=obj\Release\apps\soundbox\task_manager\app_common.o,linein_stop,l

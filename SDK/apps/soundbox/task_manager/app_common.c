@@ -64,7 +64,7 @@ static void user_to_idle_stask(void){
 static void user_ir_power_off(void *priv){
     u32 user_power_timer_ = (u32)priv;
     
-    if(tone_get_status() && (timer_get_ms()-user_power_timer_<1000)){
+    if(tone_get_status() || ((timer_get_ms()-user_power_timer_)<2000)){
         sys_hi_timeout_add(priv,user_ir_power_off,100);        
         return;
     }
@@ -435,6 +435,7 @@ int app_common_key_msg_deal(struct sys_event *event)
         puts("KEY_IR_PPOWER\n");
         #if USER_IR_POWER
         if(APP_IDLE_TASK != app_get_curr_task()){            
+            user_power_off_class(2);          
             user_power_off();
 
             sys_hi_timeout_add((void *)(timer_get_ms()),user_ir_power_off,200);
