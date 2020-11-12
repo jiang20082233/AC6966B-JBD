@@ -453,6 +453,59 @@ void user_4ad_fun_features(u32 *vol){
     user_mic_ad_2_vol(0,vol[USER_MIC_VOL_BIT]);
     user_mic_ad_2_reverb(0,vol[USER_REVER_BOL_BIT]);
 }
+  
+
+void user_sys_vol_callback_fun(u32 *vol){
+    #define USER_SYS_VOL_AD_MAX 1000
+    #define USER_SYS_VOL_AD_MIN 20
+
+    //Rate of change
+    static u32 dif_ad_old = 0;
+    u32 cur_vol_ad = 0;//当前系统音量转换成ad值
+    u32 cur_ad_vol = 0;//当前ad值转换成系统音量
+    u32 level_ad = (USER_SYS_VOL_AD_MAX-USER_SYS_VOL_AD_MIN)/app_audio_get_max_volume();
+    u32 cur_ad = vol[0];
+    u32 cur_vol = 0;
+    bool sys_vol_update_flag = 0;
+
+    if(timer_get_sec<4 || tone_get_status()){
+        return;
+    }
+
+    //滤除两端ad值
+    cur_ad = cur_ad>USER_SYS_VOL_AD_MAX?USER_SYS_VOL_AD_MAX:cur_ad;
+    cur_ad = cur_ad<USER_SYS_VOL_AD_MIN?0:cur_ad;
+
+    //当前系统音量转换成ad值
+    cur_vol_ad = 10*(USER_SYS_VOL_AD_MAX-USER_SYS_VOL_AD_MIN)*app_audio_get_volume(APP_AUDIO_STATE_MUSIC)/app_audio_get_max_volume();
+    cur_vol_ad = cur_vol_ad/10+(cur_vol_ad%10>5?1:0);
+
+    //当前ad值转换成系统音量
+    cur_ad_vol = (cur_ad * app_audio_get_max_volume()*10 / (USER_SYS_VOL_AD_MAX-USER_SYS_VOL_AD_MIN));
+    cur_ad_vol = cur_ad_vol/10+(cur_ad_vol%10>5?1:0);
+    cur_ad_vol = cur_ad_vol>app_audio_get_max_volume()?app_audio_get_max_volume():cur_ad_vol;
+
+    if(DIFFERENCE(cur_ad,cur_vol_ad)>=level_ad/*2*level_ad/3*/){
+        sys_vol_update_flag = 1;
+    }else if((cur_vol_ad!=app_audio_get_max_volume() && cur_ad_vol == app_audio_get_max_volume())){
+        sys_vol_update_flag = 1;
+    }else if(!cur_ad_vol && app_audio_get_max_volume()){
+        sys_vol_update_flag = 1;
+    }else if(DIFFERENCE(cur_ad,dif_ad_old)>60){
+        sys_vol_update_flag = 1;
+    }
+
+    if(sys_vol_update_flag){
+        if(app_audio_get_volume(APP_AUDIO_STATE_MUSIC) != cur_ad_vol){
+            u8 volume = cur_ad_vol;
+            app_audio_set_volume(APP_AUDIO_STATE_MUSIC, volume, 1);
+            UI_SHOW_MENU(MENU_MAIN_VOL, 1000, app_audio_get_volume(APP_AUDIO_STATE_MUSIC), NULL);
+        }
+    }
+
+    dif_ad_old = vol[0];
+    printf(">>>> sys vol ad %d %d %d %d %d %d\n",vol[0],cur_ad,sys_vol_update_flag,cur_ad_vol,cur_vol_ad,app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
+}
 
 static u16 auto_time_id = 0;
 void user_music_play_finle_number(void *priv){
@@ -587,10 +640,23 @@ void user_sd_power(u8 cmd){
     #endif
 }
 
+//获取、设置 关机类型
+//cmd 1:低电关机 2:遥控器关机
+u8 user_power_off_class(u8 cmd){
+    static u8 power_class = 0;
+
+    if(1 == cmd){//低电关机
+        power_class = cmd;
+    }else if((1 != power_class) && (2 == cmd)){//遥控器关机
+        power_class = cmd;        
+    }
+
+    return power_class;
+}
 //关机
 void user_power_off(void){
     user_low_power_show(0x55);
-    UI_SHOW_MENU(MENU_CLEAR_WIN, 0, 0, NULL);
+    UI_SHOW_MENU(MENU_POWER_OFF, 0, 0, NULL);
 
     user_led_io_fun(USER_IO_LED,LED_POWER_OFF);
     // user_pa_ex_strl(PA_POWER_OFF);
@@ -603,7 +669,7 @@ void user_power_off(void){
 //注销 定时器
 void user_del_time(void){
     user_mic_check_del();
-    user_4ad_check_del();
+    user_ad_total_check_del();
     user_rgb_fun_del();
     user_pa_ex_strl(PA_POWER_OFF);
     user_pa_ex_del();
@@ -621,6 +687,7 @@ void user_fun_init(void){
     user_pa_ex_init();
 
     user_4ad_check_init(user_4ad_fun_features);
+    user_sys_vol_ad_check_init(user_sys_vol_callback_fun);
 
     user_led_io_fun(USER_IO_LED,LED_IO_INIT);
     user_led_io_fun(USER_IO_LED,LED_POWER_ON);

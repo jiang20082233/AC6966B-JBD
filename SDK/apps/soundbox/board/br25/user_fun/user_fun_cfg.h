@@ -93,6 +93,8 @@ enum {
     USER_TWS_SYNC_MAX,
 };
 
+#define DIFFERENCE(a,b) ((a > b) ? (a-b) : (b-a))//差值
+
 extern void mic_effect_set_echo_delay(u32 delay);
 extern u32 mic_effect_get_echo_delay(void);
 extern void audio_mic_set_gain(u8 gain);
@@ -127,4 +129,5 @@ void user_tws_sync_info(void);
 void user_del_time(void);
 u8 user_ex_mic_get_vol(void);
 int user_ex_mic_get_reverb(void);
+u8 user_power_off_class(u8 cmd);
 #endif

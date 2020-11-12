@@ -156,6 +156,9 @@ int app_power_event_handler(struct device_event *dev)
         extern u8 adv_tws_both_in_charge_box(u8 type);
         adv_tws_both_in_charge_box(1);
 #endif
+        //低电关机需要关闭sdgp引脚供电设备
+        user_power_off_class(1);
+        
         soft_poweroff_mode(1);  ///强制关机
         sys_enter_soft_poweroff(NULL);
 #else

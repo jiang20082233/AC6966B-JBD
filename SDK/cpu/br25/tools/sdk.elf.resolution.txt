@@ -1025,8 +1025,12 @@ obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,gpio_set_pull_down,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,gpio_set_pull_up,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,user_4ad_check_init,pl
--r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,user_4ad_check_del,pl
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,user_sys_vol_ad_check,pl
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,user_sys_vol_ad_init,pl
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,user_sys_vol_ad_check_init,pl
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,user_ad_check_del,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,usr_timeout_del,l
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,user_ad_total_check_del,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,gpio_set_output_value,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_ad.o,user_4ad_io,pl
 obj\Release\apps\soundbox\board\br25\user_fun\user_dev_check.o
@@ -1102,6 +1106,8 @@ obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_mic_ad_2_reverb,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_ex_mic_get_reverb,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_4ad_fun_features,pl
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_sys_vol_callback_fun,pl
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,app_audio_get_max_volume,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_music_play_finle_number,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,music_player_play_by_number,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,music_player_get_dev_cur,l
@@ -1120,11 +1126,12 @@ obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,adc_get_value,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_fm_vol_set,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_sd_power,pl
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_power_off_class,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_power_off,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_mic_check_en,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_del_time,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_mic_check_del,l
--r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_4ad_check_del,l
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_ad_total_check_del,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_rgb_fun_del,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_pa_ex_strl,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_pa_ex_del,l
@@ -1133,6 +1140,7 @@ obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_fun_init,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_pa_ex_init,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_4ad_check_init,l
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_sys_vol_ad_check_init,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_mic_check_init,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_rgb_fun_init,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_power_io,pl
@@ -1881,6 +1889,7 @@ obj\Release\apps\soundbox\power_manage\app_power_manage.o
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,get_tone_config,l
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,tone_play_index,l
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,printf,l
+-r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,user_power_off_class,l
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,soft_poweroff_mode,l
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,sys_enter_soft_poweroff,l
 -r=obj\Release\apps\soundbox\power_manage\app_power_manage.o,tws_api_get_role,l
@@ -2757,6 +2766,9 @@ obj\Release\apps\soundbox\task_manager\idle\idle.o
 -r=obj\Release\apps\soundbox\task_manager\idle\idle.o,app_default_event_deal,l
 -r=obj\Release\apps\soundbox\task_manager\idle\idle.o,app_task_exitting,l
 -r=obj\Release\apps\soundbox\task_manager\idle\idle.o,ui_set_main_menu,l
+-r=obj\Release\apps\soundbox\task_manager\idle\idle.o,user_power_off_class,l
+-r=obj\Release\apps\soundbox\task_manager\idle\idle.o,user_sd_power,l
+-r=obj\Release\apps\soundbox\task_manager\idle\idle.o,power_set_soft_poweroff,l
 -r=obj\Release\apps\soundbox\task_manager\idle\idle.o,sys_key_event_enable,l
 -r=obj\Release\apps\soundbox\task_manager\idle\idle.o,sdx_dev_detect_timer_del,l
 -r=obj\Release\apps\soundbox\task_manager\idle\idle.o,usb_detect_timer_del,l

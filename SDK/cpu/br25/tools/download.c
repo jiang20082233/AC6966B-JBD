@@ -173,7 +173,14 @@ soundbox\ai_single_bank\download.bat
 copy app.bin soundbox\standard\app.bin
 copy br25loader.bin soundbox\standard\br25loader.bin
 
+del soundbox\standard\isd_config.ini
+#ifdef CONFIG_DEBUG_ENABLE
+copy soundbox\standard\isd_config_pf.ini soundbox\standard\isd_config.ini
+soundbox\standard\download_printf.bat
+#else
+copy soundbox\standard\isd_config_sdk.ini soundbox\standard\isd_config.ini
 soundbox\standard\download.bat
+#endif
 #endif
 
 #endif      //endif CONFIG_SOUNDBOX_CASE_ENABLE

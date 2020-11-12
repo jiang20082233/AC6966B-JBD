@@ -21,8 +21,10 @@
 #define USER_PA_MUTE_MODE   USER_PA_MUTE_H//mute 为 高、低
 
 #define USER_SD_POWER_SWITCH_EN 0//SD 电源开关
+#define USER_SD_POWER_IO IO_PORTA_00//与sd pg引脚绑定的引脚 没有选NO_CONFIG_PORT
 #define USER_3IO_CHECK_4AD_EN 1//3IO检测4路ad
+#define USER_SYS_VOL_CHECK_EN 0//旋钮控制系统音量 ad检测
 
-
+#define USER_CHARGE_WAKE_UP 0//充电唤醒
 #endif
 #endif

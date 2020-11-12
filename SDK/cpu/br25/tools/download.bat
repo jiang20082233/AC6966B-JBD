@@ -51,4 +51,10 @@ copy /b text.bin+data.bin+data_code.bin+aec.bin+wav.bin+ape.bin+flac.bin+m4a.bin
 copy app.bin soundbox\standard\app.bin
 copy br25loader.bin soundbox\standard\br25loader.bin
 
+del soundbox\standard\isd_config.ini
+
+
+
+
+copy soundbox\standard\isd_config_sdk.ini soundbox\standard\isd_config.ini
 soundbox\standard\download.bat
