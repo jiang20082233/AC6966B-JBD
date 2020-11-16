@@ -90,6 +90,8 @@ enum {
     USER_TWS_SYNC_DOW_VOL,
     USER_TWS_SYNC_DOW_VOL_10,
     USER_TWS_SYNC_DOW_VOL_20,
+
+    USER_TWS_SYNC_EQ_MODE,
     USER_TWS_SYNC_MAX,
 };
 
@@ -114,7 +116,7 @@ void user_power_off(void);
 void user_fm_vol_set(bool cmd);
 u16 user_fun_get_vbat(void);
 void user_music_set_file_number(int number);
-void user_eq_mode_sw(void);
+int user_eq_mode_sw(u8 cmd);
 u8 user_record_status(u8 cmd);
 void user_vbat_check_init(void);
 bool user_adkey_mult_irkey(u8 key_type);
@@ -130,4 +132,5 @@ void user_del_time(void);
 u8 user_ex_mic_get_vol(void);
 int user_ex_mic_get_reverb(void);
 u8 user_power_off_class(u8 cmd);
+void user_ir_mute_interrupt(int key_event);
 #endif

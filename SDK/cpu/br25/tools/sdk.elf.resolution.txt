@@ -1062,12 +1062,15 @@ obj\Release\apps\soundbox\board\br25\user_fun\user_dev_check.o
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_dev_check.o,adc_get_value,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_dev_check.o,puts,l
 obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_ir_mute_interrupt,pl
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_pa_ex_manual,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_low_power_show,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,timer_get_sec,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,led7_clear_all_icon,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,printf,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_led7_flash_lowpower,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,led7_flash_icon,l
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,led7_show_icon,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,led7_clear_icon,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_power_low_dow_sys_vol,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,puts,l
@@ -1098,6 +1101,8 @@ obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_mic_en,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_mic_vol_update,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_get_mic_status,l
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,mic_effect_get_dvol,l
+-r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,mic_effect_set_dvol,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,audio_mic_set_gain,l
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_mic_ad_2_vol,pl
 -r=obj\Release\apps\soundbox\board\br25\user_fun\user_fun.o,user_ex_mic_get_vol,pl
@@ -2138,6 +2143,7 @@ obj\Release\apps\soundbox\task_manager\bt\bt.o
 -r=obj\Release\apps\soundbox\task_manager\bt\bt.o,printf,l
 -r=obj\Release\apps\soundbox\task_manager\bt\bt.o,log_print,l
 -r=obj\Release\apps\soundbox\task_manager\bt\bt.o,bt_key_event_filter_after,l
+-r=obj\Release\apps\soundbox\task_manager\bt\bt.o,user_ir_mute_interrupt,l
 -r=obj\Release\apps\soundbox\task_manager\bt\bt.o,bt_key_music_pp,l
 -r=obj\Release\apps\soundbox\task_manager\bt\bt.o,bt_key_music_prev,l
 -r=obj\Release\apps\soundbox\task_manager\bt\bt.o,bt_key_music_next,l
@@ -2152,6 +2158,10 @@ obj\Release\apps\soundbox\task_manager\bt\bt.o
 -r=obj\Release\apps\soundbox\task_manager\bt\bt.o,bt_key_low_lantecy,l
 -r=obj\Release\apps\soundbox\task_manager\bt\bt.o,user_change_profile_mode,l
 -r=obj\Release\apps\soundbox\task_manager\bt\bt.o,user_send_cmd_prepare,l
+-r=obj\Release\apps\soundbox\task_manager\bt\bt.o,tws_api_get_tws_state,l
+-r=obj\Release\apps\soundbox\task_manager\bt\bt.o,tws_api_get_role,l
+-r=obj\Release\apps\soundbox\task_manager\bt\bt.o,user_eq_mode_sw,l
+-r=obj\Release\apps\soundbox\task_manager\bt\bt.o,user_bt_tws_sync_msg_send,l
 -r=obj\Release\apps\soundbox\task_manager\bt\bt.o,bt_sys_event_office,pl
 -r=obj\Release\apps\soundbox\task_manager\bt\bt.o,bt_reverb_status_change,l
 -r=obj\Release\apps\soundbox\task_manager\bt\bt.o,bt_tws_connction_status_event_handler,l
@@ -2664,6 +2674,7 @@ obj\Release\apps\soundbox\task_manager\fm\fm.o
 -r=obj\Release\apps\soundbox\task_manager\fm\fm.o,user_fm_vol_set,l
 -r=obj\Release\apps\soundbox\task_manager\fm\fm.o,app_task_switch_next,l
 -r=obj\Release\apps\soundbox\task_manager\fm\fm.o,printf,l
+-r=obj\Release\apps\soundbox\task_manager\fm\fm.o,user_ir_mute_interrupt,l
 -r=obj\Release\apps\soundbox\task_manager\fm\fm.o,app_task_put_key_msg,l
 -r=obj\Release\apps\soundbox\task_manager\fm\fm.o,fm_volume_pp,l
 -r=obj\Release\apps\soundbox\task_manager\fm\fm.o,fm_scan_all,l
@@ -2818,6 +2829,7 @@ obj\Release\apps\soundbox\task_manager\linein\linein.o
 -r=obj\Release\apps\soundbox\task_manager\linein\linein.o,app_get_curr_task,l
 -r=obj\Release\apps\soundbox\task_manager\linein\linein.o,linein_vol_set,l
 -r=obj\Release\apps\soundbox\task_manager\linein\linein.o,app_task_switch_next,l
+-r=obj\Release\apps\soundbox\task_manager\linein\linein.o,user_ir_mute_interrupt,l
 -r=obj\Release\apps\soundbox\task_manager\linein\linein.o,linein_start,l
 -r=obj\Release\apps\soundbox\task_manager\linein\linein.o,ui_menu_reflash,l
 -r=obj\Release\apps\soundbox\task_manager\linein\linein.o,linein_volume_pp,l
@@ -2925,6 +2937,7 @@ obj\Release\apps\soundbox\task_manager\music\music.o
 -r=obj\Release\apps\soundbox\task_manager\music\music.o,sys_event_notify,l
 -r=obj\Release\apps\soundbox\task_manager\music\music.o,log_print,l
 -r=obj\Release\apps\soundbox\task_manager\music\music.o,music_player_stop,l
+-r=obj\Release\apps\soundbox\task_manager\music\music.o,user_ir_mute_interrupt,l
 -r=obj\Release\apps\soundbox\task_manager\music\music.o,dev_manager_get_logo,l
 -r=obj\Release\apps\soundbox\task_manager\music\music.o,dev_manager_find_active,l
 -r=obj\Release\apps\soundbox\task_manager\music\music.o,music_player_get_play_status,l

@@ -36,13 +36,16 @@
 #define USER_MUSIC_TO_BT        1//music 下只有一个设备时 拔出设备 跳到bt模式
 #define USER_USB_OR_SD	        USER_DEV_USB//进music模式优先设备
 #define USER_POWER_ON_INIT      1//等开机提示音播放完之后再切到上线设备
+
 #define USER_IR_PLAY_FILE_NUMBER      1//遙控器播放文件
 #define USER_IR_TWS_KEY_FILTER_EN    1//TWS 过滤重复iryey消息
 #define USER_IR_TWS_SYNC_DEL_INFO_EN    1//TWS 同时删除对箱信息并断开对箱
+#define USER_IR_POWER           1//遥控器假关机
+#define USER_IR_MUTE_INTERRUPT_EN    1//interrupt PA MUTE 遥控器mute功放 能被 PP、加减音量、上下曲 打断 
+
 #define USER_EQ_FILE_ADD_EQ_TABLE     1//使用外部配置eq的同时还使用软件中的eq效果  注意：可能影响到外部配置通话eq 未与珠海确认
 #define USER_EQ_BASS_INDEX      1//BASS 调节第几个索引 USER_EQ_BASS_INDEX不要超出eq 段
 #define USER_EQ_TERBLE_INDEX    8//TERBLE 调节第几个索引 
-#define USER_IR_POWER           1//遥控器假关机 
 #define USER_BT_TONE_PLAY_GO_INIT  1//BT 播放完提示音再初始化蓝牙模式 避免bt提示音未播放完 被回连提示音打断
 #define USER_MIC_DEFAULT_GAIN       10//default mic 默认音量
 #define USER_RECORD_EN          1//录音使能

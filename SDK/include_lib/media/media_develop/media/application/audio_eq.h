@@ -23,6 +23,7 @@ typedef enum {
     EQ_MODE_COUNTRY,
     EQ_MODE_CUSTOM,//自定义
     EQ_MODE_MAX,
+    EQ_MODE_NEXT,
 } EQ_MODE;
 
 /*eq type*/

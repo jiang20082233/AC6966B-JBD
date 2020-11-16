@@ -130,6 +130,8 @@ static int linein_key_msg_deal(struct sys_event *event)
         return true;
     }
 #endif
+    
+    user_ir_mute_interrupt(key_event);
 
     switch (key_event) {
     case KEY_LINEIN_START:

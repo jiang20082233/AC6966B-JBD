@@ -66,12 +66,15 @@ void user_pa_ex_linein(u8 cmd){
     }
 }
 
-void user_pa_ex_manual(u8 cmd){
+bool user_pa_ex_manual(u8 cmd){
     if(0xff == cmd){
+    }else if(0xaa == cmd){
         pa_in_fun.pa_io->pa_manual_mute = !pa_in_fun.pa_io->pa_manual_mute;
     }else{
         pa_in_fun.pa_io->pa_manual_mute = cmd?1:0;
     }
+
+    return pa_in_fun.pa_io->pa_manual_mute;
 }
 
 //一个io口控制功放 ab d mute
@@ -321,13 +324,18 @@ void user_pa_in_service(void *pa){
 
 
     /*******************************umute*******************************/
-    //提示音
-    if(tone_get_status()){
+    //mic 插入
+    if(pa_ctrl->pa_mic_online){
         pa_sys_auto_mute = 0;
     }
 
-    //mic 插入
-    if(pa_ctrl->pa_mic_online){
+    //ir/ad key mute
+    if(pa_ctrl->pa_manual_mute){
+        pa_sys_auto_mute = 1;
+    }
+
+    //提示音
+    if(tone_get_status()){
         pa_sys_auto_mute = 0;
     }
 

@@ -7,6 +7,21 @@ USER_POWER_INFO user_power_io={
 };
 #endif
 
+void user_ir_mute_interrupt(int key_event){
+#if (defined(USER_IR_MUTE_INTERRUPT_EN) && USER_IR_MUTE_INTERRUPT_EN)    
+    switch(key_event){
+        case KEY_ENC_START:
+        case KEY_VOL_UP:
+        case KEY_MUSIC_PP:
+        case KEY_VOL_DOWN:
+        case KEY_MUSIC_PREV:
+        case KEY_MUSIC_NEXT:
+            user_pa_ex_manual(0);
+    default:
+        break;
+    }
+#endif
+}
 
 
 //设置低电图标 显示、取消；获取低电图标显示状态
@@ -27,7 +42,7 @@ bool user_low_power_show(u8 cmd){
     }
 
 
-    if(0 == cmd || 1 == cmd){
+    if(0 == cmd || 1 == cmd || 2 == cmd){
         low_power_icon = cmd;
         printf(">>>>>     low power icon %d\n",low_power_icon);
     }
@@ -36,8 +51,10 @@ bool user_low_power_show(u8 cmd){
 }
 void user_led7_flash_lowpower(void){
     bool ret = user_low_power_show(0xff);
-    if(1 == ret){
+    if(2 == ret){
         led7_flash_icon(LED7_CHARGE);
+    }else if(1 == ret){
+        led7_show_icon(LED7_CHARGE);
     }else if(0 == ret){
         led7_clear_icon(LED7_CHARGE);
     }else if(0x55 == ret){
@@ -100,31 +117,32 @@ static void bt_tws_user_info_sync(void *_data, u16 len, bool rx)
 {
     if (rx/*&& len==2*/) {
         u8 *data = (u8 *)_data;
+
+        switch(data[0]){
         //SYNC LED
-        if(USER_TWS_SYNC_LED == data[0]){
+        case USER_TWS_SYNC_LED:
             user_led_io_fun(USER_IO_LED,data[1]);
-        }
-
+            break;
         //SYNC RGB
-        if(USER_TWS_SYNC_RGB == data[0]){
+        case USER_TWS_SYNC_RGB:
             user_led_io_fun(USER_IO_LED,data[1]);
+            break;
+        //SYNC EQ MODE
+        case USER_TWS_SYNC_EQ_MODE:
+            user_eq_mode_sw(data[1]);
+            break;
+        //DOW VOL 10
+        case USER_TWS_SYNC_DOW_VOL_10:
+            user_dow_sys_vol_10();
+            break;
+        //DOW VOL 20
+        case USER_TWS_SYNC_DOW_VOL_20:
+            user_dow_sys_vol_20();
+            break;
+        default:
+            printf("unknow tws user sync\n");
+            break;
         }
-
-
-        // //DOW VOL
-        // if(USER_TWS_SYNC_DOW_VOL==data[0]){
-        //     // user_dow_sys_vol();
-        // }
-
-        // //DOW VOL 10
-        // if(USER_TWS_SYNC_DOW_VOL_10==data[0]){
-        //     user_dow_sys_vol_10();
-        // }
-
-        // //DOW VOL 20
-        // if(USER_TWS_SYNC_DOW_VOL_20==data[0]){
-        //     user_dow_sys_vol_20();
-        // }
 
         printf(">>>> tws sync DATA0:%d DATA1:%d\n",data[0],data[1]);
     }
@@ -213,15 +231,22 @@ u8 user_eq_init_ok(u8 cmd){
 
     return sys_init_ok_flag;
 }
-void user_eq_mode_sw(void){
-    #if USER_EQ_FILE_ADD_EQ_TABLE
-        static int user_eq_mode = 0;
 
-        if(!user_eq_init_ok(0xff)){
-            return;
+//cmd 0xff:获取 其他：设置
+int user_eq_mode_sw(u8 cmd){
+        static int user_eq_mode = 0;
+    #if USER_EQ_FILE_ADD_EQ_TABLE
+
+        if(!user_eq_init_ok(0xff) || (cmd>EQ_MODE_COUNTRY && EQ_MODE_NEXT!=cmd) || 0xff == cmd){
+            return user_eq_mode;
         }
 
-        user_eq_mode++;
+        if(EQ_MODE_NEXT == cmd){
+            user_eq_mode++;
+        }else{
+            user_eq_mode = cmd;
+        }
+
         if(user_eq_mode>EQ_MODE_COUNTRY){
             user_eq_mode = EQ_MODE_NORMAL;
         }
@@ -247,11 +272,12 @@ void user_eq_mode_sw(void){
 
         eq_mode_set(EQ_MODE_CUSTOM);
 #if TCFG_UI_ENABLE
-    ui_set_tmp_menu(MENU_SET_EQ, 1000, user_eq_mode, NULL);
+        ui_set_tmp_menu(MENU_SET_EQ, 1000, user_eq_mode, NULL);
 #endif
     #else
     eq_mode_sw();
     #endif
+    return user_eq_mode;
 }
 
 void user_eq_bass_terble_set(int bass,int terble){
@@ -326,19 +352,20 @@ void user_mic_vol_update(u8 vol){
         mic_effect_set_dvol(mic_old);
         #else
         if(mic_old <= 0){
-            mic_effect_dvol = 1;
-            // mic_effect_dvol = mic_effect_get_dvol();
-            // mic_effect_set_dvol(0);
+            // mic_effect_dvol = 1;
+            mic_effect_dvol = mic_effect_get_dvol();
+            mic_effect_set_dvol(0);
             user_mic_en(0);
 
         }else{
             if(mic_effect_dvol >= 0){
                 mic_effect_dvol = -1;
-                // mic_effect_set_dvol(mic_effect_dvol);
+                mic_effect_set_dvol(mic_effect_dvol);
                 
                 user_mic_en(1);
             }
         }
+        printf(">>>>>>>>>>>>>>>> set mic vol %d\n",mic_old);
         audio_mic_set_gain(mic_old);
         #endif
     }
@@ -347,6 +374,12 @@ u8 user_mic_ad_2_vol(u8 cmd,u32 vol_ad){
     static int mic_old =-1;
 
 #if (defined(TCFG_MIC_EFFECT_ENABLE) && TCFG_MIC_EFFECT_ENABLE)
+    static int vol_table[20] ={0};
+    static u8 table_cnt = 0;
+    static bool for_flag = 0;
+    u32 average = 0;
+    static u32 old_average = 0;
+    u32 tp_ad;
 
     s32 mic_vol = 0;
 
@@ -355,18 +388,47 @@ u8 user_mic_ad_2_vol(u8 cmd,u32 vol_ad){
         return mic_old;
     }
 
-    //ad 512 无效
-    if((USER_EQ_MIC_AD_MIN > vol_ad) || ((USER_EQ_MIC_AD_MAX+20)) < vol_ad){
 
+    //ir key mute
+    if(user_pa_ex_manual(0xff)){
+        tp_ad = USER_EQ_MIC_AD_MIN;
+    }else{
+        tp_ad = vol_ad;
+    }
+
+    // printf(">>>>>>>> mic vol ad %d\n",vol_ad);
+    //ad 512 无效
+    if((USER_EQ_MIC_AD_MIN > tp_ad) || ((USER_EQ_MIC_AD_MAX+20)) < tp_ad){
         return mic_old;
     }
 
-    u32 tp_ad=vol_ad;
+    //平均值
+    if(DIFFERENCE(vol_table[table_cnt?table_cnt-1:table_cnt],tp_ad)>50){
+        memset(vol_table,0,sizeof(vol_table));
+        table_cnt= 0;
+        for_flag = 0;
+    }
+    vol_table[table_cnt] = tp_ad;
+    table_cnt++;
+    if(table_cnt>=20){
+        table_cnt = 0;
+        for_flag = 1;
+    }
+    for(int i = 0;i<20/*sizeof(vol_table)*/;i++){
+        average+=vol_table[i];
+    }
+    if(for_flag||!table_cnt){
+        average/=20;
+    }else{
+        average/=table_cnt;
+    }
+
+    tp_ad=average;
     tp_ad = tp_ad>USER_EQ_MIC_AD_MAX?USER_EQ_MIC_AD_MAX:tp_ad;
     tp_ad = tp_ad<USER_EQ_MIC_AD_MIN?USER_EQ_MIC_AD_MIN:tp_ad;
 
     // 0 600 615 650 670 700 740 820 900
-    u32 level[]={0,600,620,640,670,700,800,890,1024,1024};
+    u32 level[]={0,610,620,640,670,700,800,890,1024,1024};
     for(int i = 0;(i+1)<sizeof(level);i++){
         if((tp_ad>level[i]) && (tp_ad<=level[i+1])){
             mic_vol = i;
@@ -374,7 +436,31 @@ u8 user_mic_ad_2_vol(u8 cmd,u32 vol_ad){
         }
     }
     mic_vol = mic_vol?mic_vol+USER_EQ_MIC_GAIN_MIN:mic_vol;
-    // printf(">>>>> mic_old %d mic_vol %d ad %d\n",mic_old,mic_vol,vol_ad);
+
+    if(tp_ad<level[3]){
+        if(!mic_old || 1==mic_vol){
+            if(DIFFERENCE(old_average,average)<30){
+                old_average = average;
+                return mic_old;
+            }
+        }
+    }
+    old_average = average;
+
+    // if(DIFFERENCE(old_average,average)<30){
+    //     old_average = average;
+    //     if(!mic_old){
+    //         if(DIFFERENCE(mic_vol,mic_old)<6){
+    //             return mic_old;
+    //         }
+    //     }else if(DIFFERENCE(mic_vol,mic_old)<2){
+    //         return mic_old;
+    //     }
+    // }
+    // old_average = average;
+
+    // mic_vol = mic_vol?mic_vol+USER_EQ_MIC_GAIN_MIN:mic_vol;
+    printf(">>>>> mic_old %d mic_vol %d ad %d average %d tp_ad %d\n",mic_old,mic_vol,vol_ad,average,tp_ad);
 
     mic_old = mic_vol;
 
@@ -391,7 +477,6 @@ u8 user_ex_mic_get_vol(void){
     }
     return tp_vol;
 }
-
 
 void user_mic_reverb_updata(u32 vol){
     #if (defined(TCFG_MIC_EFFECT_ENABLE) && TCFG_MIC_EFFECT_ENABLE)
@@ -453,7 +538,6 @@ void user_4ad_fun_features(u32 *vol){
     user_mic_ad_2_vol(0,vol[USER_MIC_VOL_BIT]);
     user_mic_ad_2_reverb(0,vol[USER_REVER_BOL_BIT]);
 }
-  
 
 void user_sys_vol_callback_fun(u32 *vol){
     #define USER_SYS_VOL_AD_MAX 1000

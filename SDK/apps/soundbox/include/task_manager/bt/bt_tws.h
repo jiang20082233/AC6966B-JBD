@@ -20,6 +20,7 @@
 #define TWS_FUNC_ID_REVERB_SYNC     TWS_FUNC_ID('R', 'E', 'V', 'E')
 // #define USER_TWS_FUNC_ID_LED_MODE_SYNC   TWS_FUNC_ID('L', 'E', 'D', 'M')
 #define USER_TWS_FUNC_ID_USER_INFO_SYNC   TWS_FUNC_ID('U', 'S', 'E', 'R')
+#define TWS_FUNC_USER_FUN_SYNC        TWS_FUNC_ID('U', 'S', 'Y', 'N')
 
 enum {
     DEBUG_LINK_PAGE_STATE = 0,

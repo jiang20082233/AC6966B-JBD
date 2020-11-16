@@ -74,6 +74,6 @@ void user_pa_ex_strl(u8 cmd);//功放控制api
 void user_pa_ex_automute(u8 cmd);
 void user_pa_ex_mic(u8 cmd);
 void user_pa_ex_linein(u8 cmd);
-void user_pa_ex_manual(u8 cmd);
+bool user_pa_ex_manual(u8 cmd);
 void user_pa_ex_del(void);
 #endif

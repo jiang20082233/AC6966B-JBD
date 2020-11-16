@@ -433,6 +433,7 @@ void vbat_check(void *priv)
         tp_low_war_cnt = 0;
         low_warn_cnt = 0;
         low_off_cnt = 0;
+        user_low_power_show(0);
     }
 
     /* if (bat_val < LOW_POWER_OFF_VAL) { */
@@ -447,8 +448,7 @@ void vbat_check(void *priv)
         tp_low_war_cnt = 0;
         low_warn_cnt = 0;
         low_off_cnt = 0;
-
-        user_low_power_show(0);      
+  
     }
 #if TCFG_CHARGE_ENABLE
     if (bat_val >= CHARGE_CCVOL_V) {
@@ -521,6 +521,7 @@ void vbat_check(void *priv)
                         }
                         
                     }else{
+                        user_low_power_show(2);//低电闪烁
                         power_event_to_user(POWER_EVENT_POWER_WARNING);
                     }
                 }
