@@ -171,6 +171,9 @@ static int record_key_event_opr(struct sys_event *event)
     int key_value = event->u.key.value;//
 
     log_i("key_event:%d \n", key_event);
+    
+    user_ir_mute_interrupt(key_event);
+
     switch (key_event) {
     case USER_MSG_TO_BT_MODE:
 {

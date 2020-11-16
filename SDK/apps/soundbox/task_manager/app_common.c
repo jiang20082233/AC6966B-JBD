@@ -368,7 +368,9 @@ int app_common_key_msg_deal(struct sys_event *event)
 
     case  KEY_EQ_MODE:
 #if(TCFG_EQ_ENABLE == 1)
-        user_eq_mode_sw();//eq_mode_sw();
+        {
+            int ret = user_eq_mode_sw(EQ_MODE_NEXT);//eq_mode_sw();
+        }
 #endif
         break;
 #if (AUDIO_OUTPUT_WAY == AUDIO_OUTPUT_WAY_BT)
@@ -433,6 +435,16 @@ int app_common_key_msg_deal(struct sys_event *event)
 
     case KEY_IR_PPOWER:
         puts("KEY_IR_PPOWER\n");
+        // {
+        //     static u8 kkkk = 0;
+        //     kkkk++;
+        //     if(kkkk>2){
+        //         kkkk = 0;
+        //     }
+        //     user_low_power_show(kkkk);
+        //     break;
+        // }
+        
         #if USER_IR_POWER
         if(APP_IDLE_TASK != app_get_curr_task()){            
             user_power_off_class(2);          
@@ -453,7 +465,7 @@ int app_common_key_msg_deal(struct sys_event *event)
 
     case KEY_IR_MUTE:
         puts("KEY_IR_MUTE\n");
-        user_pa_ex_manual(0xff);
+        user_pa_ex_manual(0xaa);
         break;
 
     case USER_MSG_SYS_SPK_STATUS:

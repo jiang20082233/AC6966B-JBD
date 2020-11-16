@@ -708,6 +708,8 @@ int bt_key_event_handler(struct sys_event *event)
         return true;
     }
 
+    user_ir_mute_interrupt(key_event);
+    
     switch (key_event) {
 
     case  KEY_MUSIC_PP:
@@ -781,6 +783,19 @@ int bt_key_event_handler(struct sys_event *event)
         break;
 
 #if TCFG_USER_TWS_ENABLE
+    case  KEY_EQ_MODE:
+#if(TCFG_EQ_ENABLE == 1)
+    if (tws_api_get_tws_state() & TWS_STA_SIBLING_CONNECTED) {
+        if (tws_api_get_role() == TWS_ROLE_MASTER) {
+            u8 ret = user_eq_mode_sw(EQ_MODE_NEXT);//eq_mode_sw();
+            user_bt_tws_sync_msg_send(USER_TWS_SYNC_EQ_MODE,ret);
+        }
+        ret = true;
+    }
+    
+#endif
+    break;
+
     case KEY_CHANGE_MODE:
     if((u32)event->arg == KEY_EVENT_FROM_TWS){
         ret = true;

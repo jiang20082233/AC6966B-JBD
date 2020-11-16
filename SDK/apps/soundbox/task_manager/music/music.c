@@ -359,6 +359,8 @@ static int music_key_event_opr(struct sys_event *event)
     static int msg_demo = 0;
 
     log_i("music task msg = %d\n", msg[0]);
+    
+    user_ir_mute_interrupt(msg[0]);
 
     switch (msg[0]) {
     case USER_KEY_MUSIC_PLAYER_START:

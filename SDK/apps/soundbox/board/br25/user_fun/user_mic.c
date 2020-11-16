@@ -12,7 +12,7 @@ USER_DEV_CHECK user_mic_check ={
     .ad_channel = NO_CONFIG_PORT,   // 检测IO是否使用AD检测
     .ad_vol = 950,                    // AD检测时的阀值
 
-    .scan_time = 50,
+    .scan_time = 150,
     .msg = USER_MSG_SYS_SPK_STATUS, // 发送的消息
 
     //状态
@@ -35,7 +35,7 @@ USER_DEV_CHECK user_mic_check ={
     .ad_channel = AD_CH_PC4,   // 检测IO是否使用AD检测
     .ad_vol = 950,                    // AD检测时的阀值
 
-    .scan_time = 50,
+    .scan_time = 150,
     .msg =USER_MSG_SYS_SPK_STATUS, // 发送的消息
 
     //状态
@@ -59,7 +59,7 @@ USER_DEV_CHECK user_mic_check = {
     .ad_channel = NO_CONFIG_PORT,   // 检测IO是否使用AD检测
     .ad_vol = 950,                    // AD检测时的阀值
 
-    .scan_time = 50,
+    .scan_time = 150,
     .msg = USER_MSG_SYS_SPK_STATUS, // 发送的消息
 
     //状态
