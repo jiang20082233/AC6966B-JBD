@@ -471,7 +471,7 @@ LED7_PLATFORM_DATA_BEGIN(led7_data)
     .pin_cfg.pin7.pin[3] = IO_PORTB_03,
     .pin_cfg.pin7.pin[2] = IO_PORTB_05,
     .pin_cfg.pin7.pin[1] = IO_PORTB_04,
-    .pin_cfg.pin7.pin[0] = IO_PORTA_00,
+    .pin_cfg.pin7.pin[0] = IO_PORTA_05,
 LED7_PLATFORM_DATA_END()
 
 const struct ui_devices_cfg ui_cfg_data = {
@@ -731,14 +731,12 @@ const struct low_power_param power_param = {
 #endif
 };
 
-
-
 /************************** PWR config ****************************/
 struct port_wakeup port0 = {
     .pullup_down_enable = ENABLE,                            //配置I/O 内部上下拉是否使能
-    .edge       = FALLING_EDGE,                            //唤醒方式选择,可选：上升沿\下降沿
+    .edge       = LEADING_EDGE,                            //唤醒方式选择,可选：上升沿\下降沿
     .attribute  = BLUETOOTH_RESUME,                        //保留参数
-    .iomap      = IO_PORTB_01,                             //唤醒口选择
+    .iomap      = IO_PORTA_06,                             //唤醒口选择
 };
 
 const struct sub_wakeup sub_wkup = {
@@ -1066,6 +1064,7 @@ void board_power_init(void)
 static void board_power_wakeup_init(void)
 {
     power_wakeup_init(&wk_param);
+
     key_wakeup_disable();
 #if TCFG_POWER_ON_NEED_KEY
     extern u8 power_reset_src;
