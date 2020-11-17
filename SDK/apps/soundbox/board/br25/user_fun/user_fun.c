@@ -7,20 +7,21 @@ USER_POWER_INFO user_power_io={
 };
 #endif
 
-void user_ir_mute_interrupt(int key_event){
-#if (defined(USER_IR_MUTE_INTERRUPT_EN) && USER_IR_MUTE_INTERRUPT_EN)    
+void user_message_filtering(int key_event){   
     switch(key_event){
-        case KEY_ENC_START:
-        case KEY_VOL_UP:
-        case KEY_MUSIC_PP:
         case KEY_VOL_DOWN:
+        case KEY_VOL_UP:
+            user_key_set_sys_vol_flag(1);
+        case KEY_ENC_START:
+        case KEY_MUSIC_PP:
         case KEY_MUSIC_PREV:
         case KEY_MUSIC_NEXT:
+        #if (defined(USER_IR_MUTE_INTERRUPT_EN) && USER_IR_MUTE_INTERRUPT_EN) 
             user_pa_ex_manual(0);
+        #endif
     default:
         break;
     }
-#endif
 }
 
 
@@ -63,7 +64,18 @@ void user_led7_flash_lowpower(void){
     }
 }
 
-
+//设置本地music音量 并同步到对箱
+void user_set_and_sync_sys_vol(u8 vol){
+    app_audio_set_volume(APP_AUDIO_STATE_MUSIC, vol, 1);
+    user_key_set_sys_vol_flag(2);
+    if(tws_api_get_tws_state() & TWS_STA_SIBLING_CONNECTED){
+        extern int user_get_tws_state(void);
+        if(1 == user_get_tws_state()){
+            bt_tws_sync_volume();
+        }
+    }
+    
+}
 //低电降音量
 void user_power_low_dow_sys_vol(u8 vol){
     // return;
@@ -72,12 +84,9 @@ void user_power_low_dow_sys_vol(u8 vol){
     if(tone_get_status()){
         return;
     }
+
     if(vol < app_audio_get_volume(APP_AUDIO_STATE_MUSIC)){
-        app_audio_set_volume(APP_AUDIO_STATE_MUSIC, vol, 1);
-        extern int user_get_tws_state(void);
-        if(1 == user_get_tws_state()){
-            bt_tws_sync_volume();
-        }
+        user_set_and_sync_sys_vol(vol);
     }
     printf(">>>>>>>>>>>>> low sys vol %d\n",app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
     #endif
@@ -91,7 +100,6 @@ void user_dow_sys_vol_20(void){
     }
 
     user_power_low_dow_sys_vol(20);
-    user_bt_tws_sync_msg_send(USER_TWS_SYNC_DOW_VOL_20,0);
 }
 
 void user_dow_sys_vol_10(void){
@@ -102,7 +110,6 @@ void user_dow_sys_vol_10(void){
     }
 
     user_power_low_dow_sys_vol(10);
-    user_bt_tws_sync_msg_send(USER_TWS_SYNC_DOW_VOL_10,0);
 }
 
 /*----------------------------------------------------------------------------*/
@@ -478,6 +485,7 @@ u8 user_ex_mic_get_vol(void){
     return tp_vol;
 }
 
+
 void user_mic_reverb_updata(u32 vol){
     #if (defined(TCFG_MIC_EFFECT_ENABLE) && TCFG_MIC_EFFECT_ENABLE)
     static int rev_old =0;
@@ -538,8 +546,20 @@ void user_4ad_fun_features(u32 *vol){
     user_mic_ad_2_vol(0,vol[USER_MIC_VOL_BIT]);
     user_mic_ad_2_reverb(0,vol[USER_REVER_BOL_BIT]);
 }
+// cmd 1:ad、ir key 2：低电 3:对箱同步
+u8 user_key_set_sys_vol_flag(u8 cmd){
+    static bool user_ir_key_set_sys_bol_flag = 0;
+#if (defined(USER_SYS_VOL_CHECK_EN) && USER_SYS_VOL_CHECK_EN)  
+    //
+    if(1 == cmd || 0 == cmd){
+        user_ir_key_set_sys_bol_flag = cmd;
+    }
+#endif
+    return user_ir_key_set_sys_bol_flag;
+}
 
 void user_sys_vol_callback_fun(u32 *vol){
+#if (defined(USER_SYS_VOL_CHECK_EN) && USER_SYS_VOL_CHECK_EN)    
     #define USER_SYS_VOL_AD_MAX 1000
     #define USER_SYS_VOL_AD_MIN 20
 
@@ -559,6 +579,14 @@ void user_sys_vol_callback_fun(u32 *vol){
     //滤除两端ad值
     cur_ad = cur_ad>USER_SYS_VOL_AD_MAX?USER_SYS_VOL_AD_MAX:cur_ad;
     cur_ad = cur_ad<USER_SYS_VOL_AD_MIN?0:cur_ad;
+
+    //按键调音量之后 如果ad比上一次ad变化不大不设置 系统音量
+    if(user_key_set_sys_vol_flag(0xff) && DIFFERENCE(cur_ad,dif_ad_old)<level_ad*2){
+        dif_ad_old = cur_ad;
+        return;
+    }else{
+        user_key_set_sys_vol_flag(0);
+    }
 
     //当前系统音量转换成ad值
     cur_vol_ad = 10*(USER_SYS_VOL_AD_MAX-USER_SYS_VOL_AD_MIN)*app_audio_get_volume(APP_AUDIO_STATE_MUSIC)/app_audio_get_max_volume();
@@ -582,13 +610,15 @@ void user_sys_vol_callback_fun(u32 *vol){
     if(sys_vol_update_flag){
         if(app_audio_get_volume(APP_AUDIO_STATE_MUSIC) != cur_ad_vol){
             u8 volume = cur_ad_vol;
-            app_audio_set_volume(APP_AUDIO_STATE_MUSIC, volume, 1);
+            // app_audio_set_volume(APP_AUDIO_STATE_MUSIC, volume, 1);
             UI_SHOW_MENU(MENU_MAIN_VOL, 1000, app_audio_get_volume(APP_AUDIO_STATE_MUSIC), NULL);
+            user_set_and_sync_sys_vol(volume);
         }
     }
 
-    dif_ad_old = vol[0];
+    dif_ad_old = cur_ad;//vol[0];
     printf(">>>> sys vol ad %d %d %d %d %d %d\n",vol[0],cur_ad,sys_vol_update_flag,cur_ad_vol,cur_vol_ad,app_audio_get_volume(APP_AUDIO_STATE_MUSIC));
+#endif    
 }
 
 static u16 auto_time_id = 0;
@@ -741,7 +771,6 @@ u8 user_power_off_class(u8 cmd){
 void user_power_off(void){
     user_low_power_show(0x55);
     UI_SHOW_MENU(MENU_POWER_OFF, 0, 0, NULL);
-
     user_led_io_fun(USER_IO_LED,LED_POWER_OFF);
     // user_pa_ex_strl(PA_POWER_OFF);
     // user_sd_power(0);

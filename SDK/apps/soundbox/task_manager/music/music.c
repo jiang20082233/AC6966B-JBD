@@ -360,7 +360,7 @@ static int music_key_event_opr(struct sys_event *event)
 
     log_i("music task msg = %d\n", msg[0]);
     
-    user_ir_mute_interrupt(msg[0]);
+    user_message_filtering(msg[0]);
 
     switch (msg[0]) {
     case USER_KEY_MUSIC_PLAYER_START:

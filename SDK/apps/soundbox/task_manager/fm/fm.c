@@ -68,7 +68,7 @@ static int fm_key_event_opr(struct sys_event *event)
         return false;
     }
 #endif
-    user_ir_mute_interrupt(key_event);
+    user_message_filtering(key_event);
     
     switch (key_event) {
     case KEY_TEST_DEMO_0:

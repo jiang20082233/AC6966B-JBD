@@ -132,5 +132,6 @@ void user_del_time(void);
 u8 user_ex_mic_get_vol(void);
 int user_ex_mic_get_reverb(void);
 u8 user_power_off_class(u8 cmd);
-void user_ir_mute_interrupt(int key_event);
+void user_message_filtering(int key_event);
+u8 user_key_set_sys_vol_flag(u8 cmd);
 #endif

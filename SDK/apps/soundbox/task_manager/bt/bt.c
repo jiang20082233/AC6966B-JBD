@@ -708,7 +708,7 @@ int bt_key_event_handler(struct sys_event *event)
         return true;
     }
 
-    user_ir_mute_interrupt(key_event);
+    user_message_filtering(key_event);
     
     switch (key_event) {
 
