@@ -1680,6 +1680,7 @@ static void bt_tws_vol_sync(void *_data, u16 len, bool rx)
 {
     if (rx) {
         u8 *data = (u8 *)_data;
+        user_key_set_sys_vol_flag(3);
         app_audio_set_volume(APP_AUDIO_STATE_MUSIC, data[0], 1);
         app_audio_set_volume(APP_AUDIO_STATE_CALL, data[1], 1);
         log_debug("----   bt_tws_sync_volume %d %d \n", data[0], data[1]);
